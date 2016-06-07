@@ -29,7 +29,7 @@ There are a few important things to know, after which recipes boil down to updat
 
 - A recipe signature `f(args...; kw...)` is converted into a definition of `apply_recipe(d::KW, args...)` where:
 	- `d` is an attribute dictionary of type `typealias KW Dict{Symbol,Any}`
-	- Your `args` must be distinct enough that dispatch will call your definition (without masking an existing definition).  New types will ensure this.
+	- Your `args` must be distinct enough that dispatch will call your definition (and without masking an existing definition).  Using a custom data type will ensure proper dispatch.
 	- The function `f` is unused/meaningless... call it whatever you want.
 	- Keyword arguments `kw` have special treatment.  They are added to the attribute dictionary `d` **and** assigned to a local variable of the same name.
 		- Note that you will need to `pop!(d, k)` or `delete!(d, k)` to clean up the attributes when you're done.  (this requirement will probably be removed eventually)
@@ -38,7 +38,46 @@ There are a few important things to know, after which recipes boil down to updat
 - The return value of the recipe is the `args` of a `RecipeData` object, which also has a reference to the attribute dictionary.
 - A recipe returns a Vector{RecipeData}.  We'll see how to add to this list later with the `@series` macro.
 
-In the example above, we use `MyType` for dispatch, with optional positional argument `n::Integer`.  With a call to `plot(MyType())` or similar, this recipe will be invoked.  If `linecolor` has not been set, it is set to `:blue`.  The `seriestype` is forced to be `:path`.  The `markershape` is a little more complex; it checks the `add_marker` custom keyword, but only if `markershape` was not already set.  (Note: the `add_marker` key is redundant, as the user can just set the marker shape... I add it only to show functionality.) We remove the `add_marker` key from our attribute dictionary, then return the data to be plotted.
+Breaking down the example:
+
+In the example above, we use `MyType` for dispatch, with optional positional argument `n::Integer`:
+
+```julia
+@recipe function f(::MyType, n::Integer = 10; add_marker = false)
+```
+
+With a call to `plot(MyType())` or similar, this recipe will be invoked.  If `linecolor` has not been set, it is set to `:blue`:
+
+```julia
+	linecolor   --> :blue
+```
+
+The `seriestype` is forced to be `:path`:
+
+```julia
+	seriestype  :=  :path
+```
+
+The `markershape` is a little more complex; it checks the `add_marker` custom keyword, but only if `markershape` was not already set.  (Note: the `add_marker` key is redundant, as the user can just set the marker shape directly... I use it only for demonstration):
+
+```julia
+	markershape --> (add_marker ? :ellipse : :none)
+```
+
+We remove the `add_marker` key from our attribute dictionary:
+
+```julia
+	delete!(d, :add_marker)
+```
+
+then return the data to be plotted:
+
+```julia
+	rand(n)
+end
+```
+
+Some example usages of our (mostly useless) recipe:
 
 ```julia
 mt = MyType()
