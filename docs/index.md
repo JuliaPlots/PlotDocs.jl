@@ -17,7 +17,7 @@ My goals with the package are:
 - **Lightweight**.  Very few dependencies, since backends are loaded and initialized dynamically.
 - **Smart**.  It's not quite AGI, but Plots should figure out what you **want** it to do... not just what you **tell** it.
 
-Use the [preprocessing pipeline](http://plots.readthedocs.io/en/latest/pipeline/) in Plots to fully describe your visualization before it calls the backend code.  This maintains modularity and allows for efficient separation of front end code, algorithms, and backend graphics.  New graphical backends can be added with minimal effort.
+Use the [preprocessing pipeline](/pipeline) in Plots to fully describe your visualization before it calls the backend code.  This maintains modularity and allows for efficient separation of front end code, algorithms, and backend graphics.  New graphical backends can be added with minimal effort.
 
 Please add wishlist items, bugs, or any other comments/questions to the [issues list](https://github.com/tbreloff/Plots.jl/issues).
 
