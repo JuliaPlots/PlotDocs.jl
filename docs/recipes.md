@@ -157,7 +157,7 @@ while a 2D histogram is really a heatmap:
 end
 ```
 
-See below where I go through a series recipe for creating boxplots.
+See below where I go through a series recipe for creating boxplots.  Many of these "standard" recipes are defined in Plots, though they can be defined anywhere **without requiring the package to be dependent on Plots**.
 
 
 ---
@@ -167,7 +167,7 @@ See below where I go through a series recipe for creating boxplots.
 
 ### Marginal Histograms
 
-In this case study, I'll explain how I built the `marginalhist` recipe for [PlotRecipes](https://github.com/JuliaPlots/PlotRecipes.jl).  This is a nice example because, although easy to understand, utilizes some great Plots features.
+In this case study, I'll explain how I built the `marginalhist` recipe for [PlotRecipes](https://github.com/JuliaPlots/PlotRecipes.jl).  This is a nice example because, although easy to understand, it utilizes some great Plots features.
 
 Marginal histograms are a visualization comparing two variables.  The main plot is a 2D histogram, where each rectangle is a (possibly normalized and weighted) count of data points in that bucket.  Above the main plot is a smaller histogram of the first variable, and to the right of the main plot is a histogram of the second variable.  The full recipe:
 
@@ -247,7 +247,7 @@ We dispatch only on the generated type, as the real inputs are wrapped inside it
 @recipe function f(h::MarginalHist)
 ```
 
-Some error checking.  Note that we're extracting the real inputs (like in a call to `marginalhist(randn(100), randn(100))` into `x` and `y`:
+Some error checking.  Note that we're extracting the real inputs (like in a call to `marginalhist(randn(100), randn(100))`) into `x` and `y`:
 
 ```julia
     if length(h.args) != 2 || !(typeof(h.args[1]) <: AbstractVector) || !(typeof(h.args[2]) <: AbstractVector)
@@ -260,7 +260,9 @@ Next we build the subplot layout and define some attributes.  A few things to no
 
 	- The layout creates three subplots (`_` is left blank)
 	- Attributes are mapped to each subplot when passed in as a matrix (row-vector)
-	- The attribute `link := :both` means that the y-axes of each row (and x-axes of each column) will share data extrema.  Other values include `:x`, `:y`, `:all`, and `:none`.
+	- The attribute `link := :both` means that the y-axes of each row (and x-axes of
+		each column) will share data extrema.  Other values include `:x`, `:y`,
+		`:all`, and `:none`.
 
 ```julia
     # set up the subplots

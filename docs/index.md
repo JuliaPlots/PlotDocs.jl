@@ -197,33 +197,6 @@ Tip: A common error is to pass a Vector when you intend for each item to apply t
 
 ---
 
-### Subplots
-
-With `subplot`, create multiple plots at once, with flexible layout options:
-
-```julia
-y = rand(100,3)
-subplot(y)                    # create an automatic grid, and let it figure out the shape
-subplot(y, n = 2)             # create two plots, the third series is added to the first plot
-subplot(y; nr = 1)            # create an automatic grid, but fix the number of rows
-subplot(y; nc = 1)            # create an automatic grid, but fix the number of columns
-subplot(y; layout = [1, 2])   # explicit layout.  Lists the number of plots in each row
-```
-
-<div style="background-color: lightblue; padding: 10px; border-style: solid; border-width: medium; margin: 10px;">
-Tip: You can call `subplot!(args...; kw...)` to add to an existing subplot.*
-</div>
-
-To create a grid of existing plots `p1` and `p2`, use:
-```julia
-subplot(p1, p2)
-```
-
-<div style="background-color: lightblue; padding: 10px; border-style: solid; border-width: medium; margin: 10px;">
-Tip: Calling `subplot!` on a `Plot` object, or `plot!` on a `Subplot` object will throw an error.
-</div>
-
----
 
 ### Animations
 
