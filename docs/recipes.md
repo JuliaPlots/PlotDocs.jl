@@ -126,7 +126,7 @@ This signature is called on each input when dispatch did not find a suitable rec
 
 ---
 
-# Series Recipes
+### Series Recipes
 
 This is where the magic happens.  You can create your own custom visualizations for arbitrary data.  Quickly define violin plots, error bars, and even standard types like histograms and step plots.  A histogram is a bar plot:
 
@@ -158,6 +158,10 @@ end
 ```
 
 See below where I go through a series recipe for creating boxplots.
+
+
+---
+
 
 # Case studies
 
@@ -225,7 +229,7 @@ y = -0.5x + randn(n)
 marginalhist(x, y, fc=:plasma, bins=40)
 ```
 
-![](https://github.com/JuliaPlots/PlotReferenceImages.jl/blob/master/PlotRecipes/marginalhist.png)
+![](/examples/img/marginalhist.png)
 
 ---
 
