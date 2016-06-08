@@ -9,41 +9,22 @@ introduction to making that choice.
 
 # For the impatient
 
-My favorites: GR for speed, PlotlyJS otherwise, PyPlot as a backup.
+My favorites: GR for speed, PlotlyJS for interactivity, PyPlot otherwise.
 
 If your plot requires... | ... then use...
 ----------- | -----------------
-Lots of features    | Gadfly, PyPlot, Plotly, GR
-Speed               | GR, PyPlot
-Interactivity       | Plotly, PyPlot, PlotlyJS
-Beauty              | Plotly, Gadfly
-REPL Plotting       | UnicodePlots
-Standalone GUI      | GR, Immerse, PyPlot, PlotlyJS
-Minimal Dependencies | Plotly, UnicodePlots
+Featureful       | PyPlot, Plotly, GR
+Speed            | GR
+Interactivity    | Plotly
+Beauty           | Plotly, PGFPlots
+REPL Plotting    | UnicodePlots
+3D 				 | PyPlot, GR, Plotly
+Standalone GUI   | GR, PyPlot, PlotlyJS
+Lightweight 	 | UnicodePlots, Plotly
 
-Of course nothing in life is that simple.  Likely there are subtle tradeoffs between backends, long hidden bugs, and more excitement.
-Don't be shy to try out something new!
+Of course nothing in life is that simple.  Likely there are subtle tradeoffs between backends, long hidden bugs, and more excitement.  Don't be shy to try out something new!
 
 ---
-
-### [Gadfly](https://github.com/dcjones/Gadfly.jl)
-
-A Julia implementation inspired by the "Grammar of Graphics".
-
-Pros:
-
-- Clean look
-- Lots of features
-- Flexible when combined with Compose.jl (inset plots, etc)
-
-Cons:
-
-- Do not support 3D
-- Slow time-to-first-plot
-- Lots of dependencies
-- No interactivity
-
-Primary author: Daniel C Jones
 
 ### [PyPlot](https://github.com/stevengj/PyPlot.jl)
 
@@ -55,6 +36,7 @@ Pros:
 - 2D and 3D
 - Mature library
 - Standalone or inline
+- Well supported in Plots
 
 Cons:
 
@@ -62,7 +44,7 @@ Cons:
 - Dependencies frequently cause setup issues
 - Inconsistent output depending on Matplotlib version
 
-Primary author: Steven G Johnson
+Primary author: Steven G Johnson (@stevengj)
 
 ### [Plotly / PlotlyJS](https://github.com/spencerlyon2/PlotlyJS.jl)
 
@@ -85,7 +67,7 @@ Cons:
 - No custom shapes
 - JSON may limit performance
 
-Primary author: Spencer Lyon
+Primary PlotlyJS.jl author: Spencer Lyon (@spencerlyon2)
 
 ### [GR](https://github.com/jheinen/GR.jl)
 
@@ -102,24 +84,7 @@ Cons:
 - Limited interactivity
 - Plots integration is still a work in progress
 
-Primary author: Josef Heinen
-
-### [Immerse](https://github.com/JuliaGraphics/Immerse.jl)
-
-Built on top of Gadfly, Immerse adds some interactivity and a standalone GUI window, including zoom/pan and a cool "point lasso" tool to save Julia vectors with the selected data points.
-
-Pros:
-
-- Same as Gadfly
-- Interactivity
-- Standalone or inline
-- Lasso functionality
-
-Cons:
-
-- Same as Gadfly
-
-Primary author: Tim Holy
+Primary author: Josef Heinen (@jheinen)
 
 ### [UnicodePlots](https://github.com/Evizero/UnicodePlots.jl)
 
@@ -138,6 +103,26 @@ Cons:
 
 Primary author: Christof Stocker
 
+
+### [PGFPlots](https://github.com/sisl/PGFPlots.jl)
+
+LaTeX plotting.  (Link code was developed by Patrick Kofod Mogensen - @pkofod).
+
+Pros:
+
+- Nice looking plots
+- Lots of functionality (though the code is still WIP)
+
+Cons:
+
+- Tricky to install
+- Heavy-weight dependencies
+
+Authors:
+
+- PGFPlots: Christian Feuersanger
+- PGFPlots.jl: Mykel Kochenderfer (@mykelk),  Louis Dressel (@dressel), and others
+
 ---
 
 # The future: works in progress
@@ -146,17 +131,52 @@ Primary author: Christof Stocker
 
 A really awesome 2D/3D visualization library written in Julia and OpenGL.  It is feature-packed and fast, and author Simon Danisch has put a ton of energy into its development.  I'm very excited for the day that this is cleanly wrapped.
 
-### [PGFPlots](https://github.com/sisl/PGFPlots.jl)
-
-LaTeX plotting.  Seems really cool, though I have yet to try it out myself.
-
 ---
 
 # Deprecated backends
 
+
+### [Gadfly](https://github.com/dcjones/Gadfly.jl)
+
+A Julia implementation inspired by the "Grammar of Graphics".
+
+Pros:
+
+- Clean look
+- Lots of features
+- Flexible when combined with Compose.jl (inset plots, etc)
+
+Cons:
+
+- Do not support 3D
+- Slow time-to-first-plot
+- Lots of dependencies
+- No interactivity
+
+Primary author: Daniel C Jones
+
+### [Immerse](https://github.com/JuliaGraphics/Immerse.jl)
+
+Built on top of Gadfly, Immerse adds some interactivity and a standalone GUI window, including zoom/pan and a cool "point lasso" tool to save Julia vectors with the selected data points.
+
+Pros:
+
+- Same as Gadfly
+- Interactivity
+- Standalone or inline
+- Lasso functionality
+
+Cons:
+
+- Same as Gadfly
+
+Primary author: Tim Holy
+
 ### [Qwt](https://github.com/tbreloff/Qwt.jl)
 
 My package which wraps PyQwt.  Similar to PyPlot, it uses PyCall to convert calls to python.  Though Qwt.jl was the "first draft" of Plots, the functionality is superceded by other backends, and it's not worth my time to maintain.
+
+Primary author: Thomas Breloff
 
 ### [Bokeh](https://github.com/bokeh/Bokeh.jl)
 
