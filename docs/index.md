@@ -85,5 +85,3 @@ png("iris")
 ![iris_plt](examples/img/iris.png)
 
 ---
-
-[TOC]

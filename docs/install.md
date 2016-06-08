@@ -18,8 +18,6 @@ then get any plotting packages you need (obviously, you should get at least one 
 ```julia
 Pkg.add("PyPlot")
 Pkg.add("GR")
-Pkg.add("Gadfly")
-Pkg.add("Immerse")
 Pkg.add("UnicodePlots")
 Pkg.add("PlotlyJS")
 ```
