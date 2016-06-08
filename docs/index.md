@@ -234,4 +234,3 @@ Tip: See the <a href="examples/pyplot">examples</a> for plotting ideas and featu
 
 ---
 
-[TOC]
