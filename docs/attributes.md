@@ -1,4 +1,4 @@
 
 Here's some attributes:
 
-{% include series_attr.html %}
+<object type="text/html" data="series_attr.html"></object>
