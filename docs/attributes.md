@@ -18,6 +18,8 @@ function autoResize(id){
 //-->
 </script>
 
+<link href="../tables.css"  rel="stylesheet" type="text/css"  />
+
 <iframe src="../series_attr.html" name="series attributes" height="700" width="700", id="seriesframe" marginheight="0" frameborder="0" onLoad="autoResize('seriesframe');">You need a Frames Capable browser to view this content.</iframe>
 
 and some more:
