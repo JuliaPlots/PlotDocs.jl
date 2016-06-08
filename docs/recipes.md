@@ -319,3 +319,8 @@ end
 It's important to note: normally we would return arguments from a recipe, and those arguments would be added to a `RecipeData` object and pushed onto our `Vector{RecipeData}`.  However, when creating series using the `@series` macro, you have the option of returning `nothing`, which will bypass that last step.
 
 
+---
+
+### Series Recipe - Notched Box Plots
+
+
