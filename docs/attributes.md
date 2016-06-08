@@ -1,6 +1,4 @@
 
 Here's some attributes:
 
-<!-- <object type="text/html" data="series_attr.html"></object> -->
-
-<!--#include file="series_attr.html" -->
+<iframe src="series_attr.html" name="series attributes" width="600">You need a Frames Capable browser to view this content.</iframe>
