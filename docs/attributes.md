@@ -1,6 +1,4 @@
 
-Here's some attributes:
-
 <script language="JavaScript">
 <!--
 function autoResize(id){
@@ -18,9 +16,36 @@ function autoResize(id){
 //-->
 </script>
 
+---
+
+# Attributes
+
+TODO
+
+---
+
+## Series
+
 <iframe src="../series_attr.html" name="series attributes" height="700" width="700", id="seriesframe" marginheight="0" frameborder="0" onLoad="autoResize('seriesframe');">You need a Frames Capable browser to view this content.</iframe>
 
-and some more:
+---
+
+## Subplots
+
+<iframe src="../plot_attr.html" name="plot attributes" height="700" width="700", id="plotframe" marginheight="0" frameborder="0" onLoad="autoResize('plotframe');">You need a Frames Capable browser to view this content.</iframe>
+
+
+---
+
+## Subplots
 
 <iframe src="../subplot_attr.html" name="subplot attributes" height="700" width="700", id="subplotframe" marginheight="0" frameborder="0" onLoad="autoResize('subplotframe');">You need a Frames Capable browser to view this content.</iframe>
+
+
+---
+
+## Axes
+
+<iframe src="../axis_attr.html" name="axis attributes" height="700" width="700", id="axisframe" marginheight="0" frameborder="0" onLoad="autoResize('axisframe');">You need a Frames Capable browser to view this content.</iframe>
+
 
