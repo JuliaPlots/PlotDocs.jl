@@ -11,16 +11,16 @@ introduction to making that choice.
 
 My favorites: GR for speed, PlotlyJS for interactivity, PyPlot otherwise.
 
-If your plot requires... | ... then use...
+If you require... | ... then use...
 ----------- | -----------------
-Featureful       | PyPlot, Plotly, GR
-Speed            | GR
-Interactivity    | Plotly
-Beauty           | Plotly, PGFPlots
+features         | PyPlot, Plotly, GR
+speed            | GR
+interactivity    | Plotly
+beauty           | Plotly, PGFPlots
 REPL Plotting    | UnicodePlots
-3D 				 | PyPlot, GR, Plotly
-Standalone GUI   | GR, PyPlot, PlotlyJS
-Lightweight 	 | UnicodePlots, Plotly
+3D plots  		 | PyPlot, GR, Plotly
+a GUI Window     | GR, PyPlot, PlotlyJS
+a small footprint | UnicodePlots, Plotly
 
 Of course nothing in life is that simple.  Likely there are subtle tradeoffs between backends, long hidden bugs, and more excitement.  Don't be shy to try out something new!
 
@@ -29,6 +29,8 @@ Of course nothing in life is that simple.  Likely there are subtle tradeoffs bet
 ### [PyPlot](https://github.com/stevengj/PyPlot.jl)
 
 A Julia wrapper around the popular python package PyPlot (Matplotlib).  It uses PyCall.jl to pass data with minimal overhead.
+
+![](examples/img/pyplot/pyplot_example_22.png)
 
 Pros:
 
@@ -73,6 +75,8 @@ Primary PlotlyJS.jl author: Spencer Lyon (@spencerlyon2)
 
 Super fast with lots of plot types.  Still actively developed and improving daily.
 
+![](examples/img/gr/gr_example_24.png)
+
 Pros:
 
 - Speed
@@ -89,6 +93,8 @@ Primary author: Josef Heinen (@jheinen)
 ### [UnicodePlots](https://github.com/Evizero/UnicodePlots.jl)
 
 Simple and lightweight.  Plot directly in your terminal.  You won't produce anything publication quality, but for a quick look at your data it is awesome.
+
+![](examples/img/unicodeplots/unicodeplots_example_3.png)
 
 Pros:
 
