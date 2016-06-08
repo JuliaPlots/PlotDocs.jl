@@ -107,12 +107,12 @@ Cons:
 
 - Limited functionality
 
-Primary author: Christof Stocker
+Primary author: Christof Stocker (@Evizero)
 
 
 ### [PGFPlots](https://github.com/sisl/PGFPlots.jl)
 
-LaTeX plotting.  (Link code was developed by Patrick Kofod Mogensen - @pkofod).
+LaTeX plotting, based on PGF/TikZ.
 
 Pros:
 
@@ -128,6 +128,7 @@ Authors:
 
 - PGFPlots: Christian Feuersanger
 - PGFPlots.jl: Mykel Kochenderfer (@mykelk),  Louis Dressel (@dressel), and others
+- Plots <--> PGFPlots link code: Patrick Kofod Mogensen (@pkofod)
 
 ---
 
