@@ -1,23 +1,23 @@
 ## Keyword arguments
 
-![args](examples/img/supported/Plots.supportGraphArgs.png)
+![args](examples/img/supported/PlotDocs.make_support_graph_args.png)
 
 ## Plot types
 
-![types](examples/img/supported/Plots.supportGraphTypes.png)
+![types](examples/img/supported/PlotDocs.make_support_graph_types.png)
 
 ## Markers
 
-![markers](examples/img/supported/Plots.supportGraphMarkers.png)
+![markers](examples/img/supported/PlotDocs.make_support_graph_markers.png)
 
 ## Line styles
 
-![styles](examples/img/supported/Plots.supportGraphStyles.png)
+![styles](examples/img/supported/PlotDocs.make_support_graph_styles.png)
 
 ## Scales
 
-![scales](examples/img/supported/Plots.supportGraphScales.png)
+![scales](examples/img/supported/PlotDocs.make_support_graph_scales.png)
 
 ## Axes
 
-![axes](examples/img/supported/Plots.supportGraphAxes.png)
+![axes](examples/img/supported/PlotDocs.make_support_graph_axes.png)

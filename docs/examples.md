@@ -1,4 +1,5 @@
 
-- [PyPlot](examples/pyplot.md)
-- [GR](examples/gr.md)
-- [UnicodePlots](examples/unicodeplots.md)
+- [PyPlot](pyplot.md)
+- [GR](gr.md)
+- [PlotlyJS](plotlyjs.md)
+- [UnicodePlots](unicodeplots.md)
