@@ -56,4 +56,10 @@ The point to be had is that a graphics package need only be able to draw lines a
 
 # Layouts
 
-TODO
+See the [tutorial on layouts](/layouts).
+
+---
+
+# Everything else
+
+See the [NEWS](https://github.com/tbreloff/Plots.jl/blob/dev/NEWS.md).
