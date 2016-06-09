@@ -56,6 +56,8 @@ as the required javascript is bundled with Plots.  It can create inline plots in
 `plotlyjs()` is the preferred option, and taps into the great functionality of Spencer Lyon's PlotlyJS.jl.  Inline IJulia plots can be updated from any cell... something that
 makes this backend stand out.  From the Julia REPL, it taps into Blink.jl and Electron to plot within a standalone GUI window... also very cool.
 
+![](examples/img/plotlyjs/plotlyjs_example_28.png)
+
 Pros:
 
 - [Tons of functionality](https://plot.ly/javascript/)
@@ -113,6 +115,8 @@ Primary author: Christof Stocker (@Evizero)
 ### [PGFPlots](https://github.com/sisl/PGFPlots.jl)
 
 LaTeX plotting, based on PGF/TikZ.
+
+![](examples/img/pgf_contour.svg)
 
 Pros:
 
