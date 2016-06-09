@@ -18,11 +18,11 @@ can have unique behavior, when desired.
 
 ## Columns are series
 
-In most cases, passing a (n x m) matrix of values (numbers, etc) will create `m` series, each with `n` data points.  This follows a consistent rule... vectors apply to a series, matrices apply to many series.  This rule carries into keyword arguments.  `plot(rand(10,4), color = [:red, :blue])` will create 4 series, each assigned the color vector [:red,:blue].  However, `plot(rand(10,4), color = [:red :blue])` will create 3 series, with series 1 and 3 taking the color `:red` and series 2 and 4 taking the color `:blue`.  The difference is that in the first example, it is a (2 x 1) column vector, and in the second example it is a (1 x 2) row vector (a Matrix).
+In most cases, passing a (n x m) matrix of values (numbers, etc) will create `m` series, each with `n` data points.  This follows a consistent rule... vectors apply to a series, matrices apply to many series.  This rule carries into keyword arguments.  `plot(rand(10,4), color = [:red, :blue])` will create 4 series, each assigned the color vector [:red,:blue].  However, `plot(rand(10,4), color = [:red :blue])` will create 4 series, with series 1 and 3 taking the color `:red` and series 2 and 4 taking the color `:blue`.  The difference is that in the first example, it is a length-2 column vector, and in the second example it is a (1 x 2) row vector (a Matrix).
 
 ## DataFrames support
 
-As of this writing, the methods to support DataFrames are loaded after a call to `using DataFrames`.  The first argument should the `DataFrame`, and subsequent `Symbol` arguments will be mapped to the corresponding column in that `DataFrame`.  Example:
+If you have DataFrames installed, some convenience functionality is turned on.  (Those coming from R will appreciate it.)  The first argument should be the `DataFrame`, and subsequent `Symbol` arguments will be mapped to the corresponding column in that `DataFrame`.  Example:
 
 ```julia
 using DataFrames, Plots; gadfly()
