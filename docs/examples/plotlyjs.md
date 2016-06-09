@@ -156,13 +156,12 @@ histogram(randn(1000),nbins=20)
 
 ### Subplots
 
-subplot and subplot! are distinct commands which create many plots and add series to them in a circular fashion.
-You can define the layout with keyword params... either set the number of plots `n` (and optionally number of rows `nr` or
-number of columns `nc`), or you can set the layout directly with `layout`.
+Use the `layout` keyword, and optionally the convenient `@layout` macro to generate arbitrarily complex subplot layouts.
 
 
 ```julia
-plot(randn(100,5),layout=@layout([a,b,grid(1,3)]),t=[:line :histogram :scatter :steppre :bar],nbins=10,leg=false)
+l = @layout([a{0.1h},b [c,d e]])
+plot(randn(100,5),layout=l,t=[:line :histogram :scatter :steppre :bar],leg=false,ticks=nothing,border=false)
 ```
 
 ![](img/plotlyjs/plotlyjs_example_16.png)
@@ -345,4 +344,4 @@ plot(rand(100,6),layout=@layout([a b;c]),title=["A" "B" "C"],title_location=:lef
 - Supported values for marker: `:auto`, `:cross`, `:diamond`, `:dtriangle`, `:ellipse`, `:hexagon`, `:hline`, `:none`, `:octagon`, `:pentagon`, `:rect`, `:utriangle`, `:vline`, `:xcross`
 - Is `subplot`/`subplot!` supported? Yes
 
-(Automatically generated: 2016-06-08T21:40:59)
+(Automatically generated: 2016-06-08T23:34:08)
