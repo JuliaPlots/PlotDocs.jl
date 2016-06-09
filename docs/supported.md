@@ -18,6 +18,3 @@
 
 ![scales](examples/img/supported/PlotDocs.make_support_graph_scales.png)
 
-## Axes
-
-![axes](examples/img/supported/PlotDocs.make_support_graph_axes.png)
