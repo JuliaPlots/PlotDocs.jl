@@ -20,31 +20,114 @@ function autoResize(id){
 
 # Attributes
 
-TODO
+In Plots, input data is passed positionally (for example, the `y` in `plot(y)`), and attributes are passed as keywords (for example, `plot(y, color = :blue)).
 
 ---
 
-## Series
+### Aliases
+
+Keywords can take a range of values through the **alias mechanic**.  For example, `plot(y, color = :blue)` is really interpreted as `plot(y, seriescolor = :blue)`.  Each attribute has a number of aliases (see the charts below), which are available to avoid the pain of constantly looking up plotting API documentation because you forgot the argument name.  `c`, `color`, and `seriescolor` all mean the same thing, and in fact those are eventually converted into the more precise attributes `linecolor`, `markercolor`, `markerstrokecolor`, and `fillcolor` (which you can then override if desired).
+
+
+
+<div style="background-color: lightblue; padding: 10px; border-style: solid; border-width: medium; margin: 10px;">
+Tip: Use aliases for one-off analysis and visualization, but use the true keyword name for long-lived library code to avoid confusion.
+</div>
+
+<div style="background-color: lightblue; padding: 10px; border-style: solid; border-width: medium; margin: 10px;">
+Tip: As of this writing, aliases do not work inside recipes!!
+</div>
+
+---
+
+### Magic Arguments
+
+
+Some arguments encompass smart shorthands for setting many related arguments at the same time.  For example, passing a tuple of settings to the `xaxis` argument will allow the quick definition
+of `xlabel`, `xlim`, `xticks`, `xscale`, `xflip`, and `tickfont`.  Plots uses type checking and multiple dispatch to smartly "figure out" which values apply to which argument.  These are equivalent:
+
+```julia
+plot(y, xaxis = ("my label", (0,10), 0:0.5:10, :log, :flip, font(20, "Courier")))
+
+plot(y, xlabel = "my label", xlim = (0,10), xticks = 0:0.5:10,
+        xscale = :log, xflip = true, tickfont = font(20, "Courier"))
+```
+
+Note that `yaxis` and `zaxis` work similarly, and `axis` will apply to all.
+
+#### line
+
+Set attributes corresponding to a series line.  Aliases: `l`.  The following are equivalent:
+
+```julia
+plot(y, line = (:steppre, :dot, :arrow, 0.5, 4, :red))
+plot(y, seriestype = :steppre,
+		linestyle = :dot,
+		arrow = :arrow,
+		linealpha = 0.5,
+		linewidth = 4,
+		linecolor = :red)
+
+```
+
+#### fill
+
+Set attributes corresponding to a series fill area.  Aliases: `f`, `area`.  The following are equivalent:
+
+```julia
+plot(y, fill = (0, 0.5, :red))
+plot(y, fillrange = 0,
+		fillalpha = 0.5,
+		fillcolor = :red)
+```
+
+#### marker
+
+Set attributes corresponding to a series marker.  Aliases: `m`, `mark`.  The following are equivalent:
+
+```julia
+scatter(y, marker = (:hexagon, 20, 0.6, :green, Stroke(3, 0.2, :black, :dot)))
+scatter(y, markershape = :hexagon,
+		   markersize = 20,
+		   markeralpha = 0.6,
+		   markercolor = :green,
+		   markerstrokewidth = 3,
+		   markerstrokealpha = 0.2,
+		   markerstrokecolor = :black,
+		   markerstrokestyle = :dot)
+```
+
+---
+
+### Series
+
+These attributes apply to individual series (lines, scatters, heatmaps, etc)
 
 <iframe src="../series_attr.html" name="series attributes" height="700" width="700", id="seriesframe" marginheight="0" frameborder="0" onLoad="autoResize('seriesframe');">You need a Frames Capable browser to view this content.</iframe>
 
 ---
 
-## Subplots
+### Plot
+
+These attributes apply to the full Plot.  (A Plot contains a tree-like layout of Subplots)
 
 <iframe src="../plot_attr.html" name="plot attributes" height="700" width="700", id="plotframe" marginheight="0" frameborder="0" onLoad="autoResize('plotframe');">You need a Frames Capable browser to view this content.</iframe>
 
 
 ---
 
-## Subplots
+### Subplot
+
+These attributes apply to settings for individual Subplots.
 
 <iframe src="../subplot_attr.html" name="subplot attributes" height="700" width="700", id="subplotframe" marginheight="0" frameborder="0" onLoad="autoResize('subplotframe');">You need a Frames Capable browser to view this content.</iframe>
 
 
 ---
 
-## Axes
+### Axis
+
+These attributes apply to an individual Axis in a Subplot (for example the `subplot[:xaxis]`)
 
 <iframe src="../axis_attr.html" name="axis attributes" height="700" width="700", id="axisframe" marginheight="0" frameborder="0" onLoad="autoResize('axisframe');">You need a Frames Capable browser to view this content.</iframe>
 
