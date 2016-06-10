@@ -15,6 +15,25 @@ plot(Plots.fakedata(50,5),w=3)
 
 ![](img/pyplot/pyplot_example_1.png)
 
+### Functions, adding data, and animations
+
+Plot multiple functions.  You can also put the function first, or use the form `plot(f, xmin, xmax)` where f is a Function or AbstractVector{Function}.
+
+Get series data: `x, y = plt[i]`.  Set series data: `plt[i] = (x,y)`. Add to the series with `push!`/`append!`.
+
+Easily build animations.  (`convert` or `ffmpeg` must be available to generate the animation.)  Use command `gif(anim, filename, fps=15)` to save the animation.
+
+```julia
+p = plot([sin,cos],zeros(0),leg=false)
+anim = Animation()
+for x = linspace(0,10π,100)
+    push!(p,x,Float64[sin(x),cos(x)])
+    frame(anim)
+end
+```
+
+![](img/pyplot/pyplot_example_2.gif)
+
 ### Parametric plots
 
 Plot function pair (x(u), y(u)).
@@ -362,11 +381,8 @@ boxplot!(singers,:VoicePart,:Height,marker=(0.3,:orange,stroke(2)))
 
 ![](img/pyplot/pyplot_example_30.png)
 
-- Supported arguments: `annotations`, `arrow`, `aspect_ratio`, `background_color`, `background_color_inside`, `background_color_legend`, `background_color_outside`, `bar_edges`, `bar_width`, `bins`, `color_palette`, `colorbar`, `contours`, `fillalpha`, `fillcolor`, `fillrange`, `foreground_color`, `foreground_color_axis`, `foreground_color_border`, `foreground_color_grid`, `foreground_color_legend`, `foreground_color_text`, `grid`, `group`, `guidefont`, `label`, `layout`, `legend`, `legendfont`, `levels`, `linealpha`, `linecolor`, `linestyle`, `linewidth`, `marker_z`, `markeralpha`, `markercolor`, `markershape`, `markersize`, `markerstrokealpha`, `markerstrokecolor`, `markerstrokewidth`, `match_dimensions`, `n`, `nc`, `normalize`, `nr`, `orientation`, `overwrite_figure`, `polar`, `quiver`, `ribbon`, `seriesalpha`, `seriescolor`, `seriestype`, `show`, `size`, `smooth`, `subplot`, `tickfont`, `title`, `weights`, `window_title`, `x`, `xerror`, `xflip`, `xguide`, `xlims`, `xrotation`, `xscale`, `xticks`, `y`, `yerror`, `yflip`, `yguide`, `ylims`, `yrotation`, `yscale`, `yticks`, `z`, `z`, `zflip`, `zguide`, `zlims`, `zrotation`, `zscale`, `zticks`
-- Supported values for axis: `:auto`, `:left`, `:right`
+- Supported arguments: `annotations`, `arrow`, `aspect_ratio`, `background_color`, `background_color_inside`, `background_color_legend`, `background_color_outside`, `bar_edges`, `bar_width`, `bins`, `clims`, `color_palette`, `colorbar`, `contours`, `fillalpha`, `fillcolor`, `fillrange`, `foreground_color`, `foreground_color_axis`, `foreground_color_border`, `foreground_color_grid`, `foreground_color_legend`, `foreground_color_text`, `grid`, `group`, `guidefont`, `label`, `layout`, `legend`, `legendfont`, `levels`, `linealpha`, `linecolor`, `linestyle`, `linewidth`, `marker_z`, `markeralpha`, `markercolor`, `markershape`, `markersize`, `markerstrokealpha`, `markerstrokecolor`, `markerstrokewidth`, `match_dimensions`, `n`, `nc`, `normalize`, `nr`, `orientation`, `overwrite_figure`, `polar`, `quiver`, `ribbon`, `seriesalpha`, `seriescolor`, `seriestype`, `show`, `size`, `smooth`, `subplot`, `tickfont`, `title`, `weights`, `window_title`, `x`, `xerror`, `xflip`, `xguide`, `xlims`, `xrotation`, `xscale`, `xticks`, `y`, `yerror`, `yflip`, `yguide`, `ylims`, `yrotation`, `yscale`, `yticks`, `z`, `z`, `zflip`, `zguide`, `zlims`, `zrotation`, `zscale`, `zticks`
 - Supported values for linetype: `:bar`, `:contour`, `:contour3d`, `:heatmap`, `:hexbin`, `:histogram`, `:histogram2d`, `:hline`, `:image`, `:line`, `:none`, `:path`, `:path3d`, `:pie`, `:scatter`, `:scatter3d`, `:shape`, `:steppost`, `:steppre`, `:sticks`, `:surface`, `:vline`, `:wireframe`
 - Supported values for linestyle: `:auto`, `:dash`, `:dashdot`, `:dot`, `:solid`
 - Supported values for marker: `:Plots.Shape`, `:auto`, `:cross`, `:diamond`, `:dtriangle`, `:ellipse`, `:heptagon`, `:hexagon`, `:hline`, `:none`, `:octagon`, `:pentagon`, `:rect`, `:star4`, `:star5`, `:star6`, `:star7`, `:star8`, `:utriangle`, `:vline`, `:xcross`
-- Is `subplot`/`subplot!` supported? Yes
-
-(Automatically generated: 2016-06-08T23:10:45)
+(Automatically generated: 2016-06-10T13:38:20)
