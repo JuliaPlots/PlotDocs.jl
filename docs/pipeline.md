@@ -96,7 +96,7 @@ plot(
 
 Note that if dispatch does not find a recipe for the full combination of inputs, it will then try to apply [type recipes](recipes/#type-recipes) to each individual argument.
 
-This hook gave us a nice way to swap out the input data and add custom visualization attributes for a user type.  Things like error bars, regression liines, ribbons, group filtering, and more are also handled during this recursive pass.
+This hook gave us a nice way to swap out the input data and add custom visualization attributes for a user type.  Things like error bars, regression lines, ribbons, and group filtering are also handled during this recursive pass.
 
 Groups: When you'd like to split a data series into multiple plot series, you can use the `group` keyword.  Attributes can be applied to the resulting series as if your data had been already separated into distinct input data.  The `group` variable determines how to split the data and also assigns the legend label.
 
@@ -142,11 +142,11 @@ Much of the heavy processing is offloaded until it's needed.  Plots will try to 
 
 ### Step 6: Display it
 
-Open/refresh a GUI window, write to a file, or display inline in IJulia.  Remember that, in IJulia or the REPL, a Plot is only displayed when returned, or if explicitly displayed with `display()`, `gui()`, or by adding `show = true` to your plot command.
+Open/refresh a GUI window, write to a file, or display inline in IJulia.  Remember that, in IJulia or the REPL, **a Plot is only displayed when returned** (a semicolon will suppress the return), or if explicitly displayed with `display()`, `gui()`, or by adding `show = true` to your plot command.
 
 
 <div style="background-color: lightblue; padding: 10px; border-style: solid; border-width: medium; margin: 10px;">
-Tip: You can have MATLAB-like interactive behavior by setting the default value: default(show = true).
+Tip: You can have MATLAB-like interactive behavior by setting the default value: default(show = true)
 </div>
 
 ---
