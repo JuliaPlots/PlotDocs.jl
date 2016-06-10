@@ -1,13 +1,8 @@
 # Processing Pipeline
 
-Plotting commands will send inputs through a series of preprocessing steps, in order to convert, simplify, and generalize.
-The idea is that end-users need incredible flexibility in what (and how) they are able to make calls.  They may want total control over
-plot attributes, or none at all.  There may be 8 attributes that are constant, but one that varies by data series.  We need to be able to
-easily layer complex plots on top of each other, and easily define what they should look like.  Input data might come in any form.
+Plotting commands will send inputs through a series of preprocessing steps, in order to convert, simplify, and generalize. The idea is that end-users need incredible flexibility in what (and how) they are able to make calls.  They may want total control over plot attributes, or none at all.  There may be 8 attributes that are constant, but one that varies by data series.  We need to be able to easily layer complex plots on top of each other, and easily define what they should look like.  Input data might come in any form.
 
-I'll go through the steps that occur after a call to `plot()`, and show the power and flexibility that arises.
-
-The examples can be found in [this notebook](https://github.com/tbreloff/ExamplePlots.jl/blob/master/notebooks/pipeline.ipynb).
+I'll go through the steps that occur after a call to `plot()` or `plot!()`, and hint at the power and flexibility that arises.
 
 ### An example command
 
@@ -56,43 +51,33 @@ PyPlot.legend(["y1","y2"])
 PyPlot.show()
 ```
 
-### Step 1: Replace aliases
+---
 
-In Plots, there are many aliased names for keyword arguments.  The reason is primarily to avoid the necessity of constantly looking up the API during plot building.
-Generally speaking, many of the common names that you might expect to see are all supported.  I find that, personally, I've spent tons of time through my career referencing the documentation of
-matplotlib and others, only because I couldn't remember the argument names.  Thanks to aliases, we can replace `line`, `marker`, and `fill` with aliases `l`, `m`, and `f` for compact commands.
 
-The following commands are equivalent:
 
-```julia
-plot(y, lab = "my label", l = (2,0.5), m = (:hex,20,0.2,stroke(0)), key = false)
+### Step 1: Preprocess Attributes
 
-plot(y, label = "my label", line = (2,0.5), marker = (:hexagon,20,0.2,stroke(0)), legend = false)
-```
+See [replacing aliases](attributes/#aliases) and [magic arguments](attributes/#magic-arguments) for details.
 
-![pipeline_img](examples/img/pipeline1.png)
 
-### Step 2: Handle "Magic Arguments"
-
-Some arguments encompass smart shorthands for setting many related arguments at the same time.  For example, passing a tuple of settings to the `xaxis` argument will allow the quick definition
-of `xlabel`, `xlim`, `xticks`, `xscale`, `xflip`, and `tickfont`.  Plots uses type checking and multiple dispatch to smartly "figure out" which values apply to which argument.  These are equivalent:
-
-```julia
-plot(y, xaxis = ("my label", (0,10), 0:0.5:10, :log, :flip, font(20, "Courier")))
-
-plot(y, xlabel = "my label", xlim = (0,10), xticks = 0:0.5:10,
-        xscale = :log, xflip = true, tickfont = font(20, "Courier"))
 ```
 
 ![pipeline_img](examples/img/pipeline2.png)
 
-Afterwards, there are some arguments which are simplified and compressed, such as converting the boolean setting `colorbar = false` to the internal description `colorbar = :none` as to allow
-complex behavior without complex interface.
+Afterwards, there are some arguments which are simplified and compressed, such as converting the boolean setting `colorbar = false` to the internal description `colorbar = :none` as to allow complex behavior without complex interface.
+
+---
 
 
-### Step 3: `_apply_recipe` callbacks
 
-Users can add custom definitions of `_apply_recipe(d::KW, ...; ...)`, which is expected to return a tuple of the arguments for the converted plotting command.  Examples are best:
+### Step 2: Process input data: User Recipes, Grouping, and more
+
+Plots will rarely ask you to pre-process your own inputs.  You have a Julia array? Great.  DataFrame? No problem.  Surface function? You got it.
+
+During this step, Plots will translate your input data (within the context of the plot type and other inputs) into a list of sliced and/or expanded representations,
+where each item represents the data for one plot series.  Under the hood, it makes heavy use of [multiple dispatch](http://docs.julialang.org/en/release-0.4/manual/methods/) and [recipes](recipes).
+
+Inputs are recursively processed until a matching recipe is found.  This means you can make modular and hierarchical recipes which are processed just like anything built into Plots.
 
 ```julia
 type MyVecWrapper
@@ -100,13 +85,13 @@ type MyVecWrapper
 end
 mv = MyVecWrapper(rand(100))
 
-@recipe mv::MyVecWrapper begin
-    :shape => :circle
-    :ms => 30
-    (mv.v, )
+@recipe function f(mv::MyVecWrapper)
+    markershape --> :ellipse
+    markersize  --> 30
+    mv.v
 end
 
-subplot(
+plot(
     plot(mv.v),
     plot(mv)
 )
@@ -114,15 +99,13 @@ subplot(
 
 ![pipeline_img](examples/img/pipeline3.png)
 
-This hook gave us a nice way to swap out the input data and add custom visualization attributes for a user type.
+Note that if dispatch does not find a recipe for the full combination of inputs, it will then try to apply [type recipes](recipes/#type-recipes) to each individual argument.
 
-### Step 4:  Apply groupings
+This hook gave us a nice way to swap out the input data and add custom visualization attributes for a user type.  Things like error bars, regression liines, ribbons, group filtering, and more are also handled during this recursive pass.
 
-When you'd like to split a data series into multiple plot series, you can use the `group` keyword.  Attributes can be applied to the resulting
-series as if your data had been already separated into distinct input data.  The `group` variable determines how to split the data and also assigns the legend label.
+Groups: When you'd like to split a data series into multiple plot series, you can use the `group` keyword.  Attributes can be applied to the resulting series as if your data had been already separated into distinct input data.  The `group` variable determines how to split the data and also assigns the legend label.
 
-In this example, we split the data points into 3 groups randomly, and give them different marker shapes (`[:s :o :x]` are aliases for `:star5`, `:octagon`, and `:xcross`).
-The other attibutes (`:markersize` and `:markeralpha`) are shared.
+In this example, we split the data points into 3 groups randomly, and give them different marker shapes (`[:s :o :x]` are aliases for `:star5`, `:octagon`, and `:xcross`). The other attibutes (`:markersize` and `:markeralpha`) are shared.
 
 ```julia
 scatter(rand(100), group = rand(1:3, 100), marker = (10,0.3,[:s :o :x]))
@@ -130,80 +113,46 @@ scatter(rand(100), group = rand(1:3, 100), marker = (10,0.3,[:s :o :x]))
 
 ![pipeline_img](examples/img/pipeline4.png)
 
-### Step 5:  Process Input Data
+---
 
-Plots will rarely ask you to pre-process your own inputs.  You have a Julia array? Great.  DataFrame? No problem.  Surface function? You got it.
 
-During this step, Plots will translate your input data (within the context of the plot type and other inputs) into a list of sliced and/or expanded representations,
-where each item represents the data for one plot series.  Under the hood, it makes heavy use of [multiple dispatch](http://docs.julialang.org/en/release-0.4/manual/methods/)
-in the internal methods `process_inputs`, `convertToAnyVector`,  and `compute_xyz`.
 
-```julia
-# Any AbstractMatrix will create 4 series... 1 for each column.
-# As there is only one input, it is assigned to the y-axis,
-#  and x values are imputed as the range 1:size(y,1).
-plot(rand(100,4))
+### Step 3:  Initialize and update Plot and Subplots
 
-# If the first argument is a DataFrame, subsequent symbols are mapped to columns of that DataFrame.
-plot(dataframe, :column_name_x, :column_name_y)
+Attributes which apply to Plot, Subplot, or Axis objects are pulled out and processed.  Backend methods for initializing the figure/window are triggered, and the [layout](layouts) is built.
 
-# Functions are mapped to vectors, or between endpoints, or even to the current axis ranges.
 
-# y = map(f, x)
-plot(x, sin)
+---
 
-# can reverse
-plot(sin, x)
 
-# plot between values (range is imputed)
-plot(sin, xmin, xmax)
 
-# plot using the current x-limits
-plot!(sin)
+### Step 4: Series Recipes
 
-# plot lists of functions
-plot([sin, cos], xmin, xmax)
-```
+This part is somewhat magical.  Following the first three steps, we have a list of keyword dictionaries (type `KW`) which contain both data and attributes.  Now we will recursively apply [series recipes](recipes/#series-recipes), first checking to see if a backend supports a series type natively, and if not, applying a series recipe and re-processing.
 
-There is also support for strings, dates, surfaces, and more.  And you can always `wrap(input_object)` if
-you want to pass something through directly to the backend.  (Perhaps the backend supports something that Plots does not)
+The result is that one can create generic recipes (converting a histogram to a bar plot, for example), which will reduce the series to the highest-level type(s) that a backend supports.  Since recipes are so simple to create, we can do complex visualizations in backends which support very little natively.
 
-### Step 6: Build the series arguments
+---
 
-At this point, it's time to process the multitude of positional and keyword arguments which will define the visualization for each data series.
-We track the index number of this series relative to the command, the plot, and any wrapping subplot.  This allows us to fine-tune which sub-arguments
-apply to this series, and possibly pick an intelligent default value.  For example, line colors are chosen to be distinguishable from both the background and other lines, default labels are assigned, shapes are chosen, and aliases applied where valid.  Finally, warnings will be issued if a plotting feature is not supported by the backend.
 
-### Step 7:  Series recipes
 
-Certain visualizations are composed of existing building blocks, contrary to many other plotting libraries.  Rather than start from scratch for a new
-visualization, you can incorporate plot components in a modular way.  Box-plots, violin plots, errorbars, ribbons, and quiver plots are all examples
-of visualizations that are built as series recipes as opposed to standalone visualizations.  The generalized approach allows us to do complex recipes
-in backends that wouldn't otherwise support the functionality.
+### Step 5: Preparing for output
 
-Some examples:
+Much of the heavy processing is offloaded until it's needed.  Plots will try to avoid expensive graphical updates until you actually choose to [display](output) the plot.  Just before display, we will compute the layout specifics and bounding boxes of the subplots and other plot components, then trigger the callback to the backend code to draw/update the plot.
 
-- [boxplot/violin](https://github.com/tbreloff/ExamplePlots.jl/blob/master/notebooks/boxplot.ipynb)
-- [errorbar/ribbon](https://github.com/tbreloff/ExamplePlots.jl/blob/master/notebooks/errorbars.ipynb)
-- [quiver](https://github.com/tbreloff/ExamplePlots.jl/blob/master/notebooks/quiver.ipynb)
+---
 
-### Step 8: Add annotations
 
-Annotations are written over the plot using plot-coordinates.
 
-```julia
-y = rand(10)
-plot(y,ann=(3,y[3],text("this is #3",:left)))
-annotate!([(5,y[5],text("this is #5",16,:red,:center)),(10,y[10],text("this is #10",:right,20,"courier"))])
-```
 
-![pipeline_img](examples/img/pyplot/pyplot_example_20.png)
+### Step 6: Display it
 
-### Step 9: Update global Plot attributes
+Open/refresh a GUI window, write to a file, or display inline in IJulia.  Remember that, in IJulia or the REPL, a Plot is only displayed when returned, or if explicitly displayed with `display()`, `gui()`, or by adding `show = true` to your plot command.
 
-Set the title, axis labels/limits/ticks/scale/flip, background and foreground colors, legends, colorbars, window size, and more.
 
-### Step 10: Display it
+<div style="background-color: lightblue; padding: 10px; border-style: solid; border-width: medium; margin: 10px;">
+Tip: You can have MATLAB-like interactive behavior by setting the default value: default(show = true).
+</div>
 
-Finally we make this plot "current", and optionally display it.  Pass `show=true` to override the default display behavior (to bring up a gui window while
-in IJulia, for example).  A semicolon in the REPL or IJulia will suppress display.
+---
+
