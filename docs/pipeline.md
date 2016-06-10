@@ -59,12 +59,7 @@ PyPlot.show()
 
 See [replacing aliases](attributes/#aliases) and [magic arguments](attributes/#magic-arguments) for details.
 
-
-```
-
-![pipeline_img](examples/img/pipeline2.png)
-
-Afterwards, there are some arguments which are simplified and compressed, such as converting the boolean setting `colorbar = false` to the internal description `colorbar = :none` as to allow complex behavior without complex interface.
+Afterwards, there are some arguments which are simplified and compressed, such as converting the boolean setting `colorbar = false` to the internal description `colorbar = :none` as to allow complex behavior without complex interface, replacing `nothing` with the invisible `RGBA(0,0,0,0)`, and similar.
 
 ---
 
