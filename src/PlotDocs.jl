@@ -15,7 +15,7 @@ export
     make_support_graph_scales,
     create_support_graphs
 
-const DOCDIR = joinpath(Pkg.dir("PlotDocs"), "docs", "examples")
+const DOCDIR = Pkg.dir("PlotDocs", "docs", "examples")
 const IMGDIR = joinpath(DOCDIR, "img")
 
 # ----------------------------------------------------------------------
@@ -95,11 +95,11 @@ function generate_markdown(pkgname::Symbol; skip = [])
     end
 
     write(md, "- Supported arguments: $(createStringOfMarkDownCodeValues(supportedArgs(pkg)))\n")
-    write(md, "- Supported values for axis: $(createStringOfMarkDownSymbols(supportedAxes(pkg)))\n")
+    # write(md, "- Supported values for axis: $(createStringOfMarkDownSymbols(supportedAxes(pkg)))\n")
     write(md, "- Supported values for linetype: $(createStringOfMarkDownSymbols(supportedTypes(pkg)))\n")
     write(md, "- Supported values for linestyle: $(createStringOfMarkDownSymbols(supportedStyles(pkg)))\n")
     write(md, "- Supported values for marker: $(createStringOfMarkDownSymbols(supportedMarkers(pkg)))\n")
-    write(md, "- Is `subplot`/`subplot!` supported? $(subplotSupported(pkg) ? "Yes" : "No")\n\n")
+    # write(md, "- Is `subplot`/`subplot!` supported? $(subplotSupported(pkg) ? "Yes" : "No")\n\n")
 
     write(md, "(Automatically generated: $(now()))")
     close(md)
