@@ -20,7 +20,7 @@ function autoResize(id){
 
 # Attributes
 
-In Plots, input data is passed positionally (for example, the `y` in `plot(y)`), and attributes are passed as keywords (for example, `plot(y, color = :blue)).
+In Plots, input data is passed positionally (for example, the `y` in `plot(y)`), and attributes are passed as keywords (for example, `plot(y, color = :blue)`).
 
 ---
 
@@ -43,24 +43,33 @@ Tip: As of this writing, aliases do not work inside recipes!!
 ### Magic Arguments
 
 
-Some arguments encompass smart shorthands for setting many related arguments at the same time.  For example, passing a tuple of settings to the `xaxis` argument will allow the quick definition
-of `xlabel`, `xlim`, `xticks`, `xscale`, `xflip`, and `tickfont`.  Plots uses type checking and multiple dispatch to smartly "figure out" which values apply to which argument.  These are equivalent:
+Some arguments encompass smart shorthands for setting many related arguments at the same time.  Plots uses type checking and multiple dispatch to smartly "figure out" which values apply to which argument.  Pass in a tuple of values.  Single values will be first wrapped in a tuple before processing.
+
+##### axis (and xaxis/yaxis/zaxis)
+
+Passing a tuple of settings to the `xaxis` argument will allow the quick definition
+of `xlabel`, `xlim`, `xticks`, `xscale`, `xflip`, and `xtickfont`.  The following are equivalent:
 
 ```julia
 plot(y, xaxis = ("my label", (0,10), 0:0.5:10, :log, :flip, font(20, "Courier")))
 
-plot(y, xlabel = "my label", xlim = (0,10), xticks = 0:0.5:10,
-        xscale = :log, xflip = true, tickfont = font(20, "Courier"))
+plot(y, xlabel = "my label",
+		xlims = (0,10),
+		xticks = 0:0.5:10,
+        xscale = :log,
+        xflip = true,
+        xtickfont = font(20, "Courier"))
 ```
 
 Note that `yaxis` and `zaxis` work similarly, and `axis` will apply to all.
 
-#### line
+##### line
 
 Set attributes corresponding to a series line.  Aliases: `l`.  The following are equivalent:
 
 ```julia
 plot(y, line = (:steppre, :dot, :arrow, 0.5, 4, :red))
+
 plot(y, seriestype = :steppre,
 		linestyle = :dot,
 		arrow = :arrow,
@@ -70,23 +79,25 @@ plot(y, seriestype = :steppre,
 
 ```
 
-#### fill
+##### fill
 
 Set attributes corresponding to a series fill area.  Aliases: `f`, `area`.  The following are equivalent:
 
 ```julia
 plot(y, fill = (0, 0.5, :red))
+
 plot(y, fillrange = 0,
 		fillalpha = 0.5,
 		fillcolor = :red)
 ```
 
-#### marker
+##### marker
 
 Set attributes corresponding to a series marker.  Aliases: `m`, `mark`.  The following are equivalent:
 
 ```julia
 scatter(y, marker = (:hexagon, 20, 0.6, :green, Stroke(3, 0.2, :black, :dot)))
+
 scatter(y, markershape = :hexagon,
 		   markersize = 20,
 		   markeralpha = 0.6,
