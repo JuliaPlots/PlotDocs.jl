@@ -35,10 +35,10 @@ function pretty_print_expr(io::IO, expr::Expr)
     end
 end
 
-function createStringOfMarkDownCodeValues(arr, prefix = "")
+function markdown_code_to_string(arr, prefix = "")
     string("`", prefix, join(sort(map(string, arr)), "`, `$prefix"), "`")
 end
-createStringOfMarkDownSymbols(arr) = isempty(arr) ? "" : createStringOfMarkDownCodeValues(arr, ":")
+markdown_symbols_to_string(arr) = isempty(arr) ? "" : markdown_code_to_string(arr, ":")
 
 # ----------------------------------------------------------------------
 
@@ -94,12 +94,10 @@ function generate_markdown(pkgname::Symbol; skip = [])
         end
     end
 
-    write(md, "- Supported arguments: $(createStringOfMarkDownCodeValues(supportedArgs(pkg)))\n")
-    # write(md, "- Supported values for axis: $(createStringOfMarkDownSymbols(supportedAxes(pkg)))\n")
-    write(md, "- Supported values for linetype: $(createStringOfMarkDownSymbols(supportedTypes(pkg)))\n")
-    write(md, "- Supported values for linestyle: $(createStringOfMarkDownSymbols(supportedStyles(pkg)))\n")
-    write(md, "- Supported values for marker: $(createStringOfMarkDownSymbols(supportedMarkers(pkg)))\n")
-    # write(md, "- Is `subplot`/`subplot!` supported? $(subplotSupported(pkg) ? "Yes" : "No")\n\n")
+    write(md, "- Supported arguments: $(markdown_code_to_string(supported_args(pkg)))\n")
+    write(md, "- Supported values for linetype: $(markdown_symbols_to_string(supported_types(pkg)))\n")
+    write(md, "- Supported values for linestyle: $(markdown_symbols_to_string(supported_styles(pkg)))\n")
+    write(md, "- Supported values for marker: $(markdown_symbols_to_string(supported_markers(pkg)))\n")
 
     write(md, "(Automatically generated: $(now()))")
     close(md)
@@ -134,11 +132,11 @@ function make_support_graph(allvals, func)
             aspect_ratio = :equal)
 end
 
-make_support_graph_args()    = make_support_graph(Plots._all_args,   Plots.supportedArgs)
-make_support_graph_types()   = make_support_graph(Plots._allTypes,   Plots.supportedTypes)
-make_support_graph_styles()  = make_support_graph(Plots._allStyles,  Plots.supportedStyles)
-make_support_graph_markers() = make_support_graph(Plots._allMarkers, Plots.supportedMarkers)
-make_support_graph_scales()  = make_support_graph(Plots._allScales,  Plots.supportedScales)
+make_support_graph_args()    = make_support_graph(Plots._all_args,   Plots.supported_args)
+make_support_graph_types()   = make_support_graph(Plots._allTypes,   Plots.supported_types)
+make_support_graph_styles()  = make_support_graph(Plots._allStyles,  Plots.supported_styles)
+make_support_graph_markers() = make_support_graph(Plots._allMarkers, Plots.supported_markers)
+make_support_graph_scales()  = make_support_graph(Plots._allScales,  Plots.supported_scales)
 
 function create_support_graphs()
     for func in (make_support_graph_args, make_support_graph_types, make_support_graph_styles,

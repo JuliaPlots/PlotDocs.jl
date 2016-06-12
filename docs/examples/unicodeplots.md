@@ -100,7 +100,7 @@ scatter!(rand(100),markersize=6,c=:orange)
 
 
 ```julia
-types = intersect(supportedTypes(),[:line,:path,:steppre,:steppost,:sticks,:scatter])'
+types = intersect(supported_types(),[:line,:path,:steppre,:steppost,:sticks,:scatter])'
 n = length(types)
 x = Vector[sort(rand(20)) for i = 1:n]
 y = rand(20,n)
@@ -114,7 +114,7 @@ plot(x,y,line=(types,3),lab=map(string,types),ms=15)
 
 
 ```julia
-styles = setdiff(supportedStyles(),[:auto])'
+styles = setdiff(supported_styles(),[:auto])'
 plot(cumsum(randn(20,length(styles)),1),style=:auto,label=map(string,styles),w=5)
 ```
 
@@ -125,7 +125,7 @@ plot(cumsum(randn(20,length(styles)),1),style=:auto,label=map(string,styles),w=5
 
 
 ```julia
-markers = setdiff(supportedMarkers(),[:none,:auto,Shape])'
+markers = setdiff(supported_markers(),[:none,:auto,Shape])'
 n = length(markers)
 x = (linspace(0,10,n + 2))[2:end - 1]
 y = repmat(reverse(x)',n,1)
