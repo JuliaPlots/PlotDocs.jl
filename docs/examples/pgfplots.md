@@ -261,7 +261,7 @@ plot(rand(100,6),layout=@layout([a b;c]),title=["A" "B" "C"],title_location=:lef
 - Supported values for axis: `:auto`, `:left`
 - Supported values for linetype: `:contour`, `:histogram2d`, `:path`, `:path3d`, `:scatter`, `:stepmid`, `:steppost`, `:steppre`, `:xsticks`, `:ysticks`
 - Supported values for linestyle: `:auto`, `:dash`, `:dashdot`, `:dashdotdot`, `:dot`, `:solid`
-- Supported values for marker: `:auto`, `:cross`, `:diamond`, `:dtriangle`, `:ellipse`, `:none`, `:pentagon`, `:rect`, `:star5`, `:utriangle`, `:xcross`
+- Supported values for marker: `:auto`, `:cross`, `:diamond`, `:dtriangle`, `:circle`, `:none`, `:pentagon`, `:rect`, `:star5`, `:utriangle`, `:xcross`
 - Is `subplot`/`subplot!` supported? No
 
 (Automatically generated: 2016-06-09T17:39:13)

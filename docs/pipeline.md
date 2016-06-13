@@ -81,7 +81,7 @@ end
 mv = MyVecWrapper(rand(100))
 
 @recipe function f(mv::MyVecWrapper)
-    markershape --> :ellipse
+    markershape --> :circle
     markersize  --> 30
     mv.v
 end

@@ -70,7 +70,7 @@ plot(Vector[randn(100),randn(100) * 100],axis=[:l :r],ylabel="LEFT",yrightlabel=
 Plot multiple series with different numbers of points.  Mix arguments that apply to all series (marker/markersize) with arguments unique to each series (colors).  Special arguments `line`, `marker`, and `fill` will automatically figure out what arguments to set (for example, we are setting the `linestyle`, `linewidth`, and `color` arguments with `line`.)  Note that we pass a matrix of colors, and this applies the colors to each series.
 
 ```julia
-plot(Vector[rand(10),rand(20)],marker=(:ellipse,8),line=(:dot,3,[:black :orange]))
+plot(Vector[rand(10),rand(20)],marker=(:circle,8),line=(:dot,3,[:black :orange]))
 ```
 
 ![](img/unicodeplots/unicodeplots_example_7.png)
@@ -202,7 +202,7 @@ plot(0.1:0.2:0.9,0.7 * rand(5) + 0.15,l=(3,:dash,:lightblue),m=(Shape(verts),30,
 - Supported values for axis: `:auto`, `:left`
 - Supported values for linetype: `:bar`, `:heatmap`, `:hexbin`, `:hist`, `:hline`, `:line`, `:none`, `:path`, `:scatter`, `:steppost`, `:sticks`, `:vline`
 - Supported values for linestyle: `:auto`, `:solid`
-- Supported values for marker: `:auto`, `:ellipse`, `:none`
+- Supported values for marker: `:auto`, `:circle`, `:none`
 - Is `subplot`/`subplot!` supported? Yes
 
 (Automatically generated: 2015-10-18T00:07:46)

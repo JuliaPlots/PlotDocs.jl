@@ -17,7 +17,7 @@ type MyType end
 @recipe function f(::MyType, n::Integer = 10; add_marker = false)
 	linecolor   --> :blue
 	seriestype  :=  :path
-	markershape --> (add_marker ? :ellipse : :none)
+	markershape --> (add_marker ? :circle : :none)
 	delete!(d, :add_marker)
 	rand(n)
 end
@@ -61,7 +61,7 @@ The `seriestype` is forced to be `:path`:
 The `markershape` is a little more complex; it checks the `add_marker` custom keyword, but only if `markershape` was not already set.  (Note: the `add_marker` key is redundant, as the user can just set the marker shape directly... I use it only for demonstration):
 
 ```julia
-	markershape --> (add_marker ? :ellipse : :none)
+	markershape --> (add_marker ? :circle : :none)
 ```
 
 We remove the `add_marker` key from our attribute dictionary:
