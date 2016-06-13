@@ -62,3 +62,16 @@ plot(
 ![](examples/img/layouts4.png)
 
 ---
+
+Create inset (floating) subplots using the `inset_subplots` attribute. `inset_subplots` takes a list of (parent_layout, BoundingBox) tuples, where the bounding box is relative to the parent.
+
+Use `px`/`mm`/`inch` for absolute coords, `w`/`h` for percentage relative to the parent. Origin is top-left. `h_anchor`/`v_anchor` define what the `x`/`y` inputs of the bounding box refer to.
+
+```julia
+using Plots
+plot(heatmap(randn(10,20)), boxplot(rand(1:4,1000),randn(1000)), leg=false)
+histogram!(randn(1000), inset_subplots = [(1, bbox(0.05w,0.95h,0.5w,0.5h, v_anchor=:bottom))], subplot=3, ticks=nothing)
+sticks!(randn(100), inset_subplots=[bbox(0.35w,0.5h,200px,200px,h_anchor=:center,v_anchor=:center)], subplot=4)
+```
+
+![](https://cloud.githubusercontent.com/assets/933338/16015147/6732e03c-3162-11e6-8a9f-ca87317a97b4.png)
