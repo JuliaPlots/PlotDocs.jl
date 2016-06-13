@@ -116,15 +116,22 @@ function make_support_graph(allvals, func)
     nx, ny = map(length, (x,y))
     z = zeros(ny, nx)
     for i=1:nx, j=1:ny
-        supported = func(Plots._backend_instance(bs[i]))
-        # z[j,i] = float(vals[j] in supported) * (0.4i/nx+0.6)
+        if func == Plots.supported_types
+            stype = Plots.seriestype_supported(Plots._backend_instance(bs[i]), vals[j])
+            z[j,i] = stype == :native ? 1.0 : (stype == :no ? 0.0 : 0.5)
+        else
+            supported = func(Plots._backend_instance(bs[i]))
+            # z[j,i] = float(vals[j] in supported) * (0.4i/nx+0.6)
 
-        # if it's supported, alternate between 0.5 and 1, otherwise 0
-        z[j,i] = (vals[j] in supported ? (1 - 0.5*(i%2)) : 0.0)
+            # if it's supported, alternate between 0.5 and 1, otherwise 0
+            z[j,i] = (vals[j] in supported ? (1 - 0.5*(i%2)) : 0.0)
+        end
     end
+    lastcolor = func == Plots.supported_types ? RGB(0.98,0.55,0.23) : :steelblue
+    # @show func x,y,z
     heatmap(x, y, z,
             # color = ColorGradient([:white, :darkblue]),
-            color = [:white,:steelblue,RGB(0.98,0.55,0.23)],
+            color = [:white, :steelblue,lastcolor],
             line = (1, :black),
             leg = false,
             size = (50nx+50, 35ny+100),
@@ -133,7 +140,8 @@ function make_support_graph(allvals, func)
 end
 
 make_support_graph_args()    = make_support_graph(Plots._all_args,   Plots.supported_args)
-make_support_graph_types()   = make_support_graph(Plots._allTypes,   Plots.supported_types)
+# make_support_graph_types()   = make_support_graph(Plots._allTypes,   Plots.supported_types)
+make_support_graph_types()   = make_support_graph(Plots.all_seriestypes(),   Plots.supported_types)
 make_support_graph_styles()  = make_support_graph(Plots._allStyles,  Plots.supported_styles)
 make_support_graph_markers() = make_support_graph(Plots._allMarkers, Plots.supported_markers)
 make_support_graph_scales()  = make_support_graph(Plots._allScales,  Plots.supported_scales)
