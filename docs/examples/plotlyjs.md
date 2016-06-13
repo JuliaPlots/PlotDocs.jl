@@ -5,6 +5,16 @@ using Plots
 plotlyjs()
 ```
 
+### Lines
+
+A simple line plot of the columns.
+
+```julia
+plot(Plots.fakedata(50,5),w=3)
+```
+
+![](img/plotlyjs/plotlyjs_example_1.png)
+
 ### Functions, adding data, and animations
 
 Plot multiple functions.  You can also put the function first, or use the form `plot(f, xmin, xmax)` where f is a Function or AbstractVector{Function}.
@@ -363,4 +373,4 @@ boxplot!(singers,:VoicePart,:Height,marker=(0.3,:orange,stroke(2)))
 - Supported values for linetype: `:bar`, `:contour`, `:heatmap`, `:path`, `:path3d`, `:pie`, `:scatter`, `:scatter3d`, `:scattergl`, `:shape`, `:surface`
 - Supported values for linestyle: `:auto`, `:dash`, `:dashdot`, `:dot`, `:solid`
 - Supported values for marker: `:auto`, `:cross`, `:diamond`, `:dtriangle`, `:ellipse`, `:hexagon`, `:hline`, `:none`, `:octagon`, `:pentagon`, `:rect`, `:utriangle`, `:vline`, `:xcross`
-(Automatically generated: 2016-06-13T12:43:12)
+(Automatically generated: 2016-06-13T12:46:48)
