@@ -218,10 +218,10 @@ end
 # for each default dict, save an html file with the attributes table
 function save_attr_html_files()
     basedir = Pkg.dir("PlotDocs","docs")
-    for (ktype, defs) in [(:Series, _series_defaults),
-                          (:Subplot, _subplot_defaults),
-                          (:Plot, _plot_defaults),
-                          (:Axis, _axis_defaults)]
+    for (ktype, defs) in [(:Series, Plots._series_defaults),
+                          (:Subplot, Plots._subplot_defaults),
+                          (:Plot, Plots._plot_defaults),
+                          (:Axis, Plots._axis_defaults)]
         fn = joinpath(basedir, "$(lowercase(string(ktype)))_attr.html")
         df = attr_dataframe_from_defaults(ktype, defs)
         save_html(df, fn)
