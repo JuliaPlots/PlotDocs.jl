@@ -35,9 +35,11 @@ This color... | matches this color...
 linecolor | seriescolor
 fillcolor | seriescolor
 markercolor | seriescolor
-markerstrokecolor | seriescolor
+markerstrokecolor | foreground_color_subplot
 
 Note: each of these attributes have a corresponding alpha override: `seriesalpha`, `linealpha`, `fillalpha`, `markeralpha`, and `markerstrokealpha`.  They are optional, and you can still give alpha information as part of an `Colors.RGBA`.
+
+Note: in some contexts, and when the user hasn't set a value, the `linecolor` or `markerstrokecolor` may be overridden.
 
 ---
 
