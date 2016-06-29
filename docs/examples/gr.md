@@ -15,6 +15,25 @@ plot(Plots.fakedata(50,5),w=3)
 
 ![](img/gr/gr_example_1.png)
 
+### Functions, adding data, and animations
+
+Plot multiple functions.  You can also put the function first, or use the form `plot(f, xmin, xmax)` where f is a Function or AbstractVector{Function}.
+
+Get series data: `x, y = plt[i]`.  Set series data: `plt[i] = (x,y)`. Add to the series with `push!`/`append!`.
+
+Easily build animations.  (`convert` or `ffmpeg` must be available to generate the animation.)  Use command `gif(anim, filename, fps=15)` to save the animation.
+
+```julia
+p = plot([sin,cos],zeros(0),leg=false)
+anim = Animation()
+for x = linspace(0,10π,100)
+    push!(p,x,Float64[sin(x),cos(x)])
+    frame(anim)
+end
+```
+
+![](img/gr/gr_example_2.gif)
+
 ### Parametric plots
 
 Plot function pair (x(u), y(u)).
@@ -126,8 +145,12 @@ plot(x,y,line=(linetypes,3),lab=map(string,linetypes),ms=15)
 
 
 ```julia
-styles = setdiff(supported_styles(),[:auto])'
-plot(cumsum(randn(20,length(styles)),1),style=:auto,label=map(string,styles),w=5)
+styles = filter((s->begin 
+            $(Expr(:in, :s, :(supported_styles())))
+        end),[:solid,:dash,:dot,:dashdot,:dashdotdot])'
+n = length(styles)
+y = cumsum(randn(20,n),1)
+plot(y,line=(5,styles),label=map(string,styles))
 ```
 
 ![](img/gr/gr_example_12.png)
@@ -137,7 +160,9 @@ plot(cumsum(randn(20,length(styles)),1),style=:auto,label=map(string,styles),w=5
 
 
 ```julia
-markers = setdiff(supported_markers(),[:none,:auto,Shape])'
+markers = filter((m->begin 
+            $(Expr(:in, :m, :(supported_markers())))
+        end),Plots._shape_keys)'
 n = length(markers)
 x = (linspace(0,10,n + 2))[2:end - 1]
 y = repmat(reverse(x)',n,1)
@@ -309,7 +334,7 @@ scatter(iris,:SepalLength,:SepalWidth,group=:Species,title="My awesome plot",xla
 group = rand(map((i->begin 
                     "group $(i)"
                 end),1:4),100)
-plot(rand(100),layout=@layout([a b;c]),group=group,n=3,linetype=[:bar :scatter :steppre])
+plot(rand(100),layout=@layout([a b;c]),group=group,linetype=[:bar :scatter :steppre])
 ```
 
 ![](img/gr/gr_example_26.png)
@@ -356,17 +381,14 @@ plot(rand(100,6),layout=@layout([a b;c]),title=["A" "B" "C"],title_location=:lef
 ```julia
 import RDatasets
 singers = RDatasets.dataset("lattice","singer")
-violin(singers,:VoicePart,:Height,marker=(0.2,:blue,stroke(0)))
-boxplot!(singers,:VoicePart,:Height,marker=(0.3,:orange,stroke(2)))
+violin(singers,:VoicePart,:Height,line=0,fill=(0.2,:blue))
+boxplot!(singers,:VoicePart,:Height,line=(2,:black),fill=(0.3,:orange))
 ```
 
 ![](img/gr/gr_example_30.png)
 
-- Supported arguments: `annotations`, `aspect_ratio`, `background_color`, `background_color_inside`, `background_color_legend`, `background_color_outside`, `bins`, `color_palette`, `colorbar`, `fillalpha`, `fillcolor`, `fillrange`, `foreground_color`, `foreground_color_axis`, `foreground_color_border`, `foreground_color_grid`, `foreground_color_legend`, `foreground_color_text`, `grid`, `group`, `guidefont`, `label`, `layout`, `legend`, `legendfont`, `levels`, `linealpha`, `linecolor`, `linestyle`, `linewidth`, `marker_z`, `markeralpha`, `markercolor`, `markershape`, `markersize`, `markerstrokealpha`, `markerstrokecolor`, `markerstrokewidth`, `n`, `nc`, `normalize`, `nr`, `orientation`, `overwrite_figure`, `polar`, `quiver`, `ribbon`, `seriesalpha`, `seriescolor`, `seriestype`, `show`, `size`, `smooth`, `tickfont`, `title`, `weights`, `window_title`, `x`, `xerror`, `xflip`, `xguide`, `xlims`, `xscale`, `xticks`, `y`, `yerror`, `yflip`, `yguide`, `ylims`, `yscale`, `yticks`, `z`, `z`, `zflip`, `zguide`, `zlims`, `zscale`, `zticks`
-- Supported values for axis: `:auto`, `:left`, `:right`
+- Supported arguments: `annotations`, `aspect_ratio`, `background_color`, `background_color_inside`, `background_color_legend`, `background_color_outside`, `background_color_subplot`, `bins`, `bottom_margin`, `color_palette`, `colorbar`, `discrete_values`, `fillalpha`, `fillcolor`, `fillrange`, `flip`, `foreground_color`, `foreground_color_axis`, `foreground_color_border`, `foreground_color_grid`, `foreground_color_legend`, `foreground_color_subplot`, `foreground_color_text`, `grid`, `group`, `guide`, `guidefont`, `html_output_format`, `inset_subplots`, `label`, `layout`, `layout`, `left_margin`, `legend`, `legendfont`, `levels`, `lims`, `linealpha`, `linecolor`, `linestyle`, `linewidth`, `link`, `margin`, `marker_z`, `markeralpha`, `markercolor`, `markershape`, `markersize`, `markerstrokealpha`, `markerstrokecolor`, `markerstrokewidth`, `normalize`, `orientation`, `overwrite_figure`, `polar`, `primary`, `projection`, `quiver`, `ribbon`, `right_margin`, `scale`, `series_annotations`, `seriesalpha`, `seriesalpha`, `seriescolor`, `seriescolor`, `seriestype`, `show`, `size`, `smooth`, `subplot`, `subplot_index`, `tickfont`, `ticks`, `title`, `top_margin`, `weights`, `window_title`, `x`, `xdiscrete_values`, `xerror`, `xflip`, `xforeground_color_axis`, `xforeground_color_border`, `xforeground_color_text`, `xguide`, `xguidefont`, `xlims`, `xlink`, `xscale`, `xtickfont`, `xticks`, `y`, `ydiscrete_values`, `yerror`, `yflip`, `yforeground_color_axis`, `yforeground_color_border`, `yforeground_color_text`, `yguide`, `yguidefont`, `ylims`, `ylink`, `yscale`, `ytickfont`, `yticks`, `z`, `zdiscrete_values`, `zflip`, `zforeground_color_axis`, `zforeground_color_border`, `zforeground_color_text`, `zguide`, `zguidefont`, `zlims`, `zlink`, `zscale`, `ztickfont`, `zticks`
 - Supported values for linetype: `:contour`, `:heatmap`, `:image`, `:path`, `:path3d`, `:pie`, `:scatter`, `:scatter3d`, `:shape`, `:surface`, `:wireframe`
 - Supported values for linestyle: `:auto`, `:dash`, `:dashdot`, `:dashdotdot`, `:dot`, `:solid`
-- Supported values for marker: `:Plots.Shape`, `:auto`, `:cross`, `:diamond`, `:dtriangle`, `:circle`, `:heptagon`, `:hexagon`, `:hline`, `:none`, `:octagon`, `:pentagon`, `:rect`, `:star4`, `:star5`, `:star6`, `:star7`, `:star8`, `:utriangle`, `:vline`, `:xcross`
-- Is `subplot`/`subplot!` supported? Yes
-
-(Automatically generated: 2016-06-08T23:03:26)
+- Supported values for marker: `:Plots.Shape`, `:auto`, `:circle`, `:cross`, `:diamond`, `:dtriangle`, `:heptagon`, `:hexagon`, `:hline`, `:none`, `:octagon`, `:pentagon`, `:rect`, `:star4`, `:star5`, `:star6`, `:star7`, `:star8`, `:utriangle`, `:vline`, `:xcross`
+(Automatically generated: 2016-06-29T16:16:28)
