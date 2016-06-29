@@ -1,0 +1,608 @@
+<!DOCTYPE html>
+<!--[if lt IE 7 ]><html class="no-js ie6"><![endif]-->
+<!--[if IE 7 ]><html class="no-js ie7"><![endif]-->
+<!--[if IE 8 ]><html class="no-js ie8"><![endif]-->
+<!--[if IE 9 ]><html class="no-js ie9"><![endif]-->
+<!--[if (gt IE 9)|!(IE)]><!--> <html class="no-js"> <!--<![endif]-->
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,user-scalable=no,initial-scale=1,maximum-scale=1">
+    
+      
+        <title>Internals - Plots</title>
+      
+      
+      
+      
+        <meta name="author" content="Thomas Breloff">
+      
+    
+    <meta property="og:url" content="None">
+    <meta property="og:title" content="Plots">
+    <meta property="og:image" content="None/../">
+    <meta name="apple-mobile-web-app-title" content="Plots">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    
+    
+    <link rel="shortcut icon" type="image/x-icon" href="../assets/images/favicon-e565ddfa3b.ico">
+    <link rel="icon" type="image/x-icon" href="../assets/images/favicon-e565ddfa3b.ico">
+    <style>
+      @font-face {
+      	font-family: 'Icon';
+      	src: url('../assets/fonts/icon.eot?52m981');
+      	src: url('../assets/fonts/icon.eot?#iefix52m981')
+               format('embedded-opentype'),
+      		   url('../assets/fonts/icon.woff?52m981')
+               format('woff'),
+      		   url('../assets/fonts/icon.ttf?52m981')
+               format('truetype'),
+      		   url('../assets/fonts/icon.svg?52m981#icon')
+               format('svg');
+      	font-weight: normal;
+      	font-style: normal;
+      }
+    </style>
+    <link rel="stylesheet" href="../assets/stylesheets/application-a422ff04cc.css">
+    
+      <link rel="stylesheet" href="../assets/stylesheets/palettes-05ab2406df.css">
+    
+    
+      
+      
+      
+      <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Ubuntu:400,700|Ubuntu+Mono">
+      <style>
+        body, input {
+          font-family: 'Ubuntu', Helvetica, Arial, sans-serif;
+        }
+        pre, code {
+          font-family: 'Ubuntu Mono', 'Courier New', 'Courier', monospace;
+        }
+      </style>
+    
+    
+      <link rel="stylesheet" href="../tables.css">
+    
+    <script src="../assets/javascripts/modernizr-4ab42b99fd.js"></script>
+    
+  </head>
+  
+  
+  
+  <body class="palette-primary-deep-orange palette-accent-indigo">
+    
+      
+      
+    
+    <div class="backdrop">
+      <div class="backdrop-paper"></div>
+    </div>
+    <input class="toggle" type="checkbox" id="toggle-drawer">
+    <input class="toggle" type="checkbox" id="toggle-search">
+    <label class="toggle-button overlay" for="toggle-drawer"></label>
+    <header class="header">
+      <nav aria-label="Header">
+  <div class="bar default">
+    <div class="button button-menu" role="button" aria-label="Menu">
+      <label class="toggle-button icon icon-menu" for="toggle-drawer">
+        <span></span>
+      </label>
+    </div>
+    <div class="stretch">
+      <div class="title">
+        
+          <span class="path">
+            
+          </span>
+        
+        Internals
+      </div>
+    </div>
+    
+    
+      
+      <div class="button button-github" role="button" aria-label="GitHub">
+        <a href="https://github.com/tbreloff" title="@tbreloff on GitHub" target="_blank" class="toggle-button icon icon-github"></a>
+      </div>
+    
+    <div class="button button-search" role="button" aria-label="Search">
+      <label class="toggle-button icon icon-search" title="Search" for="toggle-search"></label>
+    </div>
+  </div>
+  <div class="bar search">
+    <div class="button button-close" role="button" aria-label="Close">
+      <label class="toggle-button icon icon-back" for="toggle-search"></label>
+    </div>
+    <div class="stretch">
+      <div class="field">
+        <input class="query" type="text" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck>
+      </div>
+    </div>
+    <div class="button button-reset" role="button" aria-label="Search">
+      <button class="toggle-button icon icon-close" id="reset-search"></button>
+    </div>
+  </div>
+</nav>
+    </header>
+    <main class="main">
+      
+      <div class="drawer">
+        <nav aria-label="Navigation">
+  
+  <a href="https://github.com/tbreloff/Plots.jl" class="project">
+    <div class="banner">
+      
+      <div class="name">
+        <strong>
+          Plots
+          <span class="version">
+            0.7.4
+          </span>
+        </strong>
+        
+          <br>
+          tbreloff/Plots.jl
+        
+      </div>
+    </div>
+  </a>
+  <div class="scrollable">
+    <div class="wrapper">
+      
+        <ul class="repo">
+          <li class="repo-download">
+            
+            <a href="https://github.com/tbreloff/Plots.jl/archive/0.7.4.zip" target="_blank" title="Download" data-action="download">
+              <i class="icon icon-download"></i> Download
+            </a>
+          </li>
+          <li class="repo-stars">
+            <a href="https://github.com/tbreloff/Plots.jl/stargazers" target="_blank" title="Stargazers" data-action="star">
+              <i class="icon icon-star"></i> Stars
+              <span class="count">&ndash;</span>
+            </a>
+          </li>
+        </ul>
+        <hr>
+      
+      <div class="toc">
+        <ul>
+          
+            
+  <li>
+    <a class="" title="Home" href="..">
+      Home
+    </a>
+    
+  </li>
+
+          
+            
+  <li>
+    <a class="" title="Installation" href="../install/">
+      Installation
+    </a>
+    
+  </li>
+
+          
+            
+  <li>
+    <a class="" title="Backends" href="../backends/">
+      Backends
+    </a>
+    
+  </li>
+
+          
+            
+  <li>
+    <a class="" title="Basics" href="../basics/">
+      Basics
+    </a>
+    
+  </li>
+
+          
+            
+  <li>
+    <a class="" title="Input Data" href="../input_data/">
+      Input Data
+    </a>
+    
+  </li>
+
+          
+            
+  <li>
+    <a class="" title="Attributes" href="../attributes/">
+      Attributes
+    </a>
+    
+  </li>
+
+          
+            
+  <li>
+    <a class="" title="Colors" href="../colors/">
+      Colors
+    </a>
+    
+  </li>
+
+          
+            
+  <li>
+    <a class="" title="Output" href="../output/">
+      Output
+    </a>
+    
+  </li>
+
+          
+            
+  <li>
+    <a class="" title="Animations" href="../animations/">
+      Animations
+    </a>
+    
+  </li>
+
+          
+            
+  <li>
+    <a class="current" title="Internals" href="./">
+      Internals
+    </a>
+    
+      
+        
+      
+      
+        <ul>
+          
+            <li class="anchor">
+              <a title="An example command" href="#an-example-command">
+                An example command
+              </a>
+            </li>
+          
+            <li class="anchor">
+              <a title="Step 1: Preprocess Attributes" href="#step-1-preprocess-attributes">
+                Step 1: Preprocess Attributes
+              </a>
+            </li>
+          
+            <li class="anchor">
+              <a title="Step 2: Process input data: User Recipes, Grouping, and more" href="#step-2-process-input-data-user-recipes-grouping-and-more">
+                Step 2: Process input data: User Recipes, Grouping, and more
+              </a>
+            </li>
+          
+            <li class="anchor">
+              <a title="Step 3:  Initialize and update Plot and Subplots" href="#step-3-initialize-and-update-plot-and-subplots">
+                Step 3:  Initialize and update Plot and Subplots
+              </a>
+            </li>
+          
+            <li class="anchor">
+              <a title="Step 4: Series Recipes" href="#step-4-series-recipes">
+                Step 4: Series Recipes
+              </a>
+            </li>
+          
+            <li class="anchor">
+              <a title="Step 5: Preparing for output" href="#step-5-preparing-for-output">
+                Step 5: Preparing for output
+              </a>
+            </li>
+          
+            <li class="anchor">
+              <a title="Step 6: Display it" href="#step-6-display-it">
+                Step 6: Display it
+              </a>
+            </li>
+          
+        </ul>
+      
+    
+  </li>
+
+          
+            
+  <li>
+    <a class="" title="Layouts" href="../layouts/">
+      Layouts
+    </a>
+    
+  </li>
+
+          
+            
+  <li>
+    <a class="" title="Recipes" href="../recipes/">
+      Recipes
+    </a>
+    
+  </li>
+
+          
+            
+  <li>
+    <a class="" title="Plots v0.7" href="../plots_v0.7/">
+      Plots v0.7
+    </a>
+    
+  </li>
+
+          
+            
+  <li>
+    <a class="" title="Supported Attributes" href="../supported/">
+      Supported Attributes
+    </a>
+    
+  </li>
+
+          
+            
+  <li>
+    <span class="section">Examples</span>
+    <ul>
+      
+        
+  <li>
+    <a class="" title="PyPlot" href="../examples/pyplot/">
+      PyPlot
+    </a>
+    
+  </li>
+
+      
+        
+  <li>
+    <a class="" title="GR" href="../examples/gr/">
+      GR
+    </a>
+    
+  </li>
+
+      
+        
+  <li>
+    <a class="" title="PlotlyJS" href="../examples/plotlyjs/">
+      PlotlyJS
+    </a>
+    
+  </li>
+
+      
+        
+  <li>
+    <a class="" title="PGFPlots" href="../examples/pgfplots/">
+      PGFPlots
+    </a>
+    
+  </li>
+
+      
+        
+  <li>
+    <a class="" title="UnicodePlots" href="../examples/unicodeplots/">
+      UnicodePlots
+    </a>
+    
+  </li>
+
+      
+    </ul>
+  </li>
+
+          
+        </ul>
+        
+          <hr>
+          <span class="section">The author</span>
+          <ul>
+            
+            
+              
+              <li>
+                <a href="https://github.com/tbreloff" target="_blank" title="@tbreloff on GitHub">
+                  @tbreloff on GitHub
+                </a>
+              </li>
+            
+          </ul>
+        
+      </div>
+    </div>
+  </div>
+</nav>
+      </div>
+      <article class="article">
+        <div class="wrapper">
+          
+          <h1 id="processing-pipeline">Processing Pipeline</h1>
+<p>Plotting commands will send inputs through a series of preprocessing steps, in order to convert, simplify, and generalize. The idea is that end-users need incredible flexibility in what (and how) they are able to make calls.  They may want total control over plot attributes, or none at all.  There may be 8 attributes that are constant, but one that varies by data series.  We need to be able to easily layer complex plots on top of each other, and easily define what they should look like.  Input data might come in any form.</p>
+<p>I'll go through the steps that occur after a call to <code>plot()</code> or <code>plot!()</code>, and hint at the power and flexibility that arises.</p>
+<h3 id="an-example-command">An example command</h3>
+<p>Suppose we have data:</p>
+<div class="code"><pre><span></span><span class="n">n</span> <span class="o">=</span> <span class="mi">100</span>
+<span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="n">n</span><span class="p">),</span> <span class="n">randn</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
+</pre></div>
+
+
+<p>and we'd like to visualize <code>x</code> against each column of <code>y</code>.  Here's a sample command in Plots:</p>
+<div class="code"><pre><span></span><span class="k">using</span> <span class="n">Plots</span><span class="p">;</span> <span class="n">pyplot</span><span class="p">()</span>
+<span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">line</span> <span class="o">=</span> <span class="p">(</span><span class="mf">0.5</span><span class="p">,</span> <span class="p">[</span><span class="mi">4</span> <span class="mi">1</span> <span class="mi">0</span><span class="p">],</span> <span class="p">[:</span><span class="n">path</span> <span class="p">:</span><span class="n">scatter</span> <span class="p">:</span><span class="n">density</span><span class="p">]),</span>
+    <span class="n">marker</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="p">[:</span><span class="n">none</span> <span class="p">:</span><span class="o">+</span> <span class="p">:</span><span class="n">none</span><span class="p">]),</span> <span class="n">fill</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span>
+    <span class="n">orientation</span> <span class="o">=</span> <span class="p">:</span><span class="n">h</span><span class="p">,</span> <span class="n">title</span> <span class="o">=</span> <span class="s">&quot;My title&quot;</span><span class="p">)</span>
+</pre></div>
+
+
+<p><img alt="pipeline_img" src="../examples/img/pipeline0.png" /></p>
+<p>In this example, we have an input matrix, and we'd like to plot three series on top of each other, one for each column of data.
+We create a row vector (1x3 matrix) of symbols to assign different visualization types for each series, set the orientation of the histogram, and set
+alpha values.</p>
+<p>For comparison's sake, this is somewhat similar to the following calls in PyPlot:</p>
+<div class="code"><pre><span></span><span class="k">import</span> <span class="n">PyPlot</span>
+<span class="n">fig</span> <span class="o">=</span> <span class="n">PyPlot</span><span class="o">.</span><span class="n">gcf</span><span class="p">()</span>
+<span class="n">fig</span><span class="p">[:</span><span class="n">set_size_inches</span><span class="p">](</span><span class="mi">4</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="n">forward</span><span class="o">=</span><span class="n">true</span><span class="p">)</span>
+<span class="n">fig</span><span class="p">[:</span><span class="n">set_dpi</span><span class="p">](</span><span class="mi">100</span><span class="p">)</span>
+<span class="n">PyPlot</span><span class="o">.</span><span class="n">clf</span><span class="p">()</span>
+
+<span class="n">PyPlot</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">[:,</span><span class="mi">1</span><span class="p">],</span> <span class="n">alpha</span> <span class="o">=</span> <span class="mf">0.5</span><span class="p">,</span> <span class="s">&quot;steelblue&quot;</span><span class="p">,</span> <span class="n">linewidth</span> <span class="o">=</span> <span class="mi">4</span><span class="p">)</span>
+<span class="n">PyPlot</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">[:,</span><span class="mi">2</span><span class="p">],</span> <span class="n">alpha</span> <span class="o">=</span> <span class="mf">0.5</span><span class="p">,</span> <span class="n">marker</span> <span class="o">=</span> <span class="s">&quot;+&quot;</span><span class="p">,</span> <span class="n">s</span> <span class="o">=</span> <span class="mi">100</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="s">&quot;orangered&quot;</span><span class="p">)</span>
+<span class="n">PyPlot</span><span class="o">.</span><span class="n">plt</span><span class="p">[:</span><span class="n">hist</span><span class="p">](</span><span class="n">y</span><span class="p">[:,</span><span class="mi">3</span><span class="p">],</span> <span class="n">orientation</span> <span class="o">=</span> <span class="s">&quot;horizontal&quot;</span><span class="p">,</span> <span class="n">alpha</span> <span class="o">=</span> <span class="mf">0.5</span><span class="p">,</span>
+                          <span class="n">normed</span> <span class="o">=</span> <span class="n">true</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="mi">30</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s">&quot;green&quot;</span><span class="p">,</span>
+                          <span class="n">linewidth</span> <span class="o">=</span> <span class="mi">0</span><span class="p">)</span>
+
+<span class="n">ax</span> <span class="o">=</span> <span class="n">PyPlot</span><span class="o">.</span><span class="n">gca</span><span class="p">()</span>
+<span class="n">ax</span><span class="p">[:</span><span class="n">xaxis</span><span class="p">][:</span><span class="n">grid</span><span class="p">](</span><span class="n">true</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">[:</span><span class="n">yaxis</span><span class="p">][:</span><span class="n">grid</span><span class="p">](</span><span class="n">true</span><span class="p">)</span>
+<span class="n">PyPlot</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s">&quot;My title&quot;</span><span class="p">)</span>
+<span class="n">PyPlot</span><span class="o">.</span><span class="n">legend</span><span class="p">([</span><span class="s">&quot;y1&quot;</span><span class="p">,</span><span class="s">&quot;y2&quot;</span><span class="p">])</span>
+<span class="n">PyPlot</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+
+
+<hr />
+<h3 id="step-1-preprocess-attributes">Step 1: Preprocess Attributes</h3>
+<p>See <a href="../attributes/#aliases">replacing aliases</a> and <a href="../attributes/#magic-arguments">magic arguments</a> for details.</p>
+<p>Afterwards, there are some arguments which are simplified and compressed, such as converting the boolean setting <code>colorbar = false</code> to the internal description <code>colorbar = :none</code> as to allow complex behavior without complex interface, replacing <code>nothing</code> with the invisible <code>RGBA(0,0,0,0)</code>, and similar.</p>
+<hr />
+<h3 id="step-2-process-input-data-user-recipes-grouping-and-more">Step 2: Process input data: User Recipes, Grouping, and more</h3>
+<p>Plots will rarely ask you to pre-process your own inputs.  You have a Julia array? Great.  DataFrame? No problem.  Surface function? You got it.</p>
+<p>During this step, Plots will translate your input data (within the context of the plot type and other inputs) into a list of sliced and/or expanded representations,
+where each item represents the data for one plot series.  Under the hood, it makes heavy use of <a href="http://docs.julialang.org/en/release-0.4/manual/methods/">multiple dispatch</a> and <a href="../recipes">recipes</a>.</p>
+<p>Inputs are recursively processed until a matching recipe is found.  This means you can make modular and hierarchical recipes which are processed just like anything built into Plots.</p>
+<div class="code"><pre><span></span><span class="k">type</span><span class="nc"> MyVecWrapper</span>
+  <span class="n">v</span><span class="p">::</span><span class="n">Vector</span><span class="p">{</span><span class="kt">Float64</span><span class="p">}</span>
+<span class="k">end</span>
+<span class="n">mv</span> <span class="o">=</span> <span class="n">MyVecWrapper</span><span class="p">(</span><span class="n">rand</span><span class="p">(</span><span class="mi">100</span><span class="p">))</span>
+
+<span class="p">@</span><span class="n">recipe</span> <span class="k">function</span><span class="nf"> f</span><span class="p">(</span><span class="n">mv</span><span class="p">::</span><span class="n">MyVecWrapper</span><span class="p">)</span>
+    <span class="n">markershape</span> <span class="o">--&gt;</span> <span class="p">:</span><span class="n">circle</span>
+    <span class="n">markersize</span>  <span class="o">--&gt;</span> <span class="mi">30</span>
+    <span class="n">mv</span><span class="o">.</span><span class="n">v</span>
+<span class="k">end</span>
+
+<span class="n">plot</span><span class="p">(</span>
+    <span class="n">plot</span><span class="p">(</span><span class="n">mv</span><span class="o">.</span><span class="n">v</span><span class="p">),</span>
+    <span class="n">plot</span><span class="p">(</span><span class="n">mv</span><span class="p">)</span>
+<span class="p">)</span>
+</pre></div>
+
+
+<p><img alt="pipeline_img" src="../examples/img/pipeline3.png" /></p>
+<p>Note that if dispatch does not find a recipe for the full combination of inputs, it will then try to apply <a href="../recipes/#type-recipes">type recipes</a> to each individual argument.</p>
+<p>This hook gave us a nice way to swap out the input data and add custom visualization attributes for a user type.  Things like error bars, regression lines, ribbons, and group filtering are also handled during this recursive pass.</p>
+<p>Groups: When you'd like to split a data series into multiple plot series, you can use the <code>group</code> keyword.  Attributes can be applied to the resulting series as if your data had been already separated into distinct input data.  The <code>group</code> variable determines how to split the data and also assigns the legend label.</p>
+<p>In this example, we split the data points into 3 groups randomly, and give them different marker shapes (<code>[:s :o :x]</code> are aliases for <code>:star5</code>, <code>:octagon</code>, and <code>:xcross</code>). The other attibutes (<code>:markersize</code> and <code>:markeralpha</code>) are shared.</p>
+<div class="code"><pre><span></span><span class="n">scatter</span><span class="p">(</span><span class="n">rand</span><span class="p">(</span><span class="mi">100</span><span class="p">),</span> <span class="n">group</span> <span class="o">=</span> <span class="n">rand</span><span class="p">(</span><span class="mi">1</span><span class="p">:</span><span class="mi">3</span><span class="p">,</span> <span class="mi">100</span><span class="p">),</span> <span class="n">marker</span> <span class="o">=</span> <span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="mf">0.3</span><span class="p">,[:</span><span class="n">s</span> <span class="p">:</span><span class="n">o</span> <span class="p">:</span><span class="n">x</span><span class="p">]))</span>
+</pre></div>
+
+
+<p><img alt="pipeline_img" src="../examples/img/pipeline4.png" /></p>
+<hr />
+<h3 id="step-3-initialize-and-update-plot-and-subplots">Step 3:  Initialize and update Plot and Subplots</h3>
+<p>Attributes which apply to Plot, Subplot, or Axis objects are pulled out and processed.  Backend methods for initializing the figure/window are triggered, and the <a href="../layouts">layout</a> is built.</p>
+<hr />
+<h3 id="step-4-series-recipes">Step 4: Series Recipes</h3>
+<p>This part is somewhat magical.  Following the first three steps, we have a list of keyword dictionaries (type <code>KW</code>) which contain both data and attributes.  Now we will recursively apply <a href="../recipes/#series-recipes">series recipes</a>, first checking to see if a backend supports a series type natively, and if not, applying a series recipe and re-processing.</p>
+<p>The result is that one can create generic recipes (converting a histogram to a bar plot, for example), which will reduce the series to the highest-level type(s) that a backend supports.  Since recipes are so simple to create, we can do complex visualizations in backends which support very little natively.</p>
+<hr />
+<h3 id="step-5-preparing-for-output">Step 5: Preparing for output</h3>
+<p>Much of the heavy processing is offloaded until it's needed.  Plots will try to avoid expensive graphical updates until you actually choose to <a href="../output">display</a> the plot.  Just before display, we will compute the layout specifics and bounding boxes of the subplots and other plot components, then trigger the callback to the backend code to draw/update the plot.</p>
+<hr />
+<h3 id="step-6-display-it">Step 6: Display it</h3>
+<p>Open/refresh a GUI window, write to a file, or display inline in IJulia.  Remember that, in IJulia or the REPL, <strong>a Plot is only displayed when returned</strong> (a semicolon will suppress the return), or if explicitly displayed with <code>display()</code>, <code>gui()</code>, or by adding <code>show = true</code> to your plot command.</p>
+<div style="background-color: lightblue; padding: 10px; border-style: solid; border-width: medium; margin: 10px;">
+Tip: You can have MATLAB-like interactive behavior by setting the default value: default(show = true)
+</div>
+
+<hr />
+          <aside class="copyright" role="note">
+            
+              Copyright &copy; 2015-2016 Thomas Breloff &ndash;
+            
+            Documentation built with
+            <a href="http://www.mkdocs.org" target="_blank">MkDocs</a>
+            using the
+            <a href="http://squidfunk.github.io/mkdocs-material/" target="_blank">
+              Material
+            </a>
+            theme.
+          </aside>
+          
+            <footer class="footer">
+              
+  <nav class="pagination" aria-label="Footer">
+    <div class="previous">
+      
+        <a href="../animations/" title="Animations">
+          <span class="direction">
+            Previous
+          </span>
+          <div class="page">
+            <div class="button button-previous" role="button" aria-label="Previous">
+              <i class="icon icon-back"></i>
+            </div>
+            <div class="stretch">
+              <div class="title">
+                Animations
+              </div>
+            </div>
+          </div>
+        </a>
+      
+    </div>
+    <div class="next">
+      
+        <a href="../layouts/" title="Layouts">
+          <span class="direction">
+            Next
+          </span>
+          <div class="page">
+            <div class="stretch">
+              <div class="title">
+                Layouts
+              </div>
+            </div>
+            <div class="button button-next" role="button" aria-label="Next">
+              <i class="icon icon-forward"></i>
+            </div>
+          </div>
+        </a>
+      
+    </div>
+  </nav>
+
+            </footer>
+          
+        </div>
+      </article>
+      <div class="results" role="status" aria-live="polite">
+        <div class="scrollable">
+          <div class="wrapper">
+            <div class="meta"></div>
+            <div class="list"></div>
+          </div>
+        </div>
+      </div>
+    </main>
+    <script>
+      var base_url = '..';
+      var repo_id  = 'tbreloff/Plots.jl';
+    </script>
+    <script src="../assets/javascripts/application-997097ee0c.js"></script>
+    
+      <script src="../mathjax-config.js"></script>
+    
+      <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML"></script>
+    
+    
+  </body>
+</html>
