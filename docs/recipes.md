@@ -55,8 +55,6 @@ There are a few important things to know, after which recipes boil down to updat
 	- `d` is an attribute dictionary of type `typealias KW Dict{Symbol,Any}`
 	- Your `args` must be distinct enough that dispatch will call your definition (and without masking an existing definition).  Using a custom data type will ensure proper dispatch.
 	- The function `f` is unused/meaningless... call it whatever you want.
-	- Keyword arguments `kw` have special treatment.  They are added to the attribute dictionary `d` **and** assigned to a local variable of the same name.
-		- Note that you will need to `pop!(d, k)` or `delete!(d, k)` to clean up the attributes when you're done.  (this requirement will probably be removed eventually)
 - The special operator `-->` turns `linecolor --> :blue` into `get!(d, :linecolor, :blue)`, setting the attribute only when it doesn't already exist.  (Tip: Wrap the right hand side in parentheses for complex expressions.)
 - The special operator `:=` turns `seriestype := :path` into `d[:seriestype] = :path`, forcing that attribute value.  (Tip: Wrap the right hand side in parentheses for complex expressions.)
 - The return value of the recipe is the `args` of a `RecipeData` object, which also has a reference to the attribute dictionary.
@@ -86,12 +84,6 @@ The `markershape` is a little more complex; it checks the `add_marker` custom ke
 
 ```julia
 	markershape --> (add_marker ? :circle : :none)
-```
-
-We remove the `add_marker` key from our attribute dictionary:
-
-```julia
-	delete!(d, :add_marker)
 ```
 
 then return the data to be plotted:

@@ -446,10 +446,6 @@
 <li><code>d</code> is an attribute dictionary of type <code>typealias KW Dict{Symbol,Any}</code></li>
 <li>Your <code>args</code> must be distinct enough that dispatch will call your definition (and without masking an existing definition).  Using a custom data type will ensure proper dispatch.</li>
 <li>The function <code>f</code> is unused/meaningless... call it whatever you want.</li>
-<li>Keyword arguments <code>kw</code> have special treatment.  They are added to the attribute dictionary <code>d</code> <strong>and</strong> assigned to a local variable of the same name.<ul>
-<li>Note that you will need to <code>pop!(d, k)</code> or <code>delete!(d, k)</code> to clean up the attributes when you're done.  (this requirement will probably be removed eventually)</li>
-</ul>
-</li>
 </ul>
 </li>
 <li>The special operator <code>--&gt;</code> turns <code>linecolor --&gt; :blue</code> into <code>get!(d, :linecolor, :blue)</code>, setting the attribute only when it doesn't already exist.  (Tip: Wrap the right hand side in parentheses for complex expressions.)</li>
@@ -475,11 +471,6 @@
 
 <p>The <code>markershape</code> is a little more complex; it checks the <code>add_marker</code> custom keyword, but only if <code>markershape</code> was not already set.  (Note: the <code>add_marker</code> key is redundant, as the user can just set the marker shape directly... I use it only for demonstration):</p>
 <div class="code"><pre><span></span>    <span class="n">markershape</span> <span class="o">--&gt;</span> <span class="p">(</span><span class="n">add_marker</span> <span class="o">?</span> <span class="p">:</span><span class="n">circle</span> <span class="p">:</span> <span class="p">:</span><span class="n">none</span><span class="p">)</span>
-</pre></div>
-
-
-<p>We remove the <code>add_marker</code> key from our attribute dictionary:</p>
-<div class="code"><pre><span></span>    <span class="n">delete!</span><span class="p">(</span><span class="n">d</span><span class="p">,</span> <span class="p">:</span><span class="n">add_marker</span><span class="p">)</span>
 </pre></div>
 
 
