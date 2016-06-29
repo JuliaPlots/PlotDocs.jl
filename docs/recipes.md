@@ -10,7 +10,7 @@ There are four main types of recipes in Plots (listed in the order they are proc
 - Plot Recipes
 - Series Recipes
 
-**The recipe type is determined completely by the dispatch signature.**  Each recipe type is called from a different part of the [plotting pipeline](http://plots.readthedocs.io/en/latest/pipeline/), so you will choose a type of recipe to match how much processing you want completed before your recipe is applied.
+**The recipe type is determined completely by the dispatch signature.**  Each recipe type is called from a different part of the [plotting pipeline](http://juliaplots.github.io/pipeline/), so you will choose a type of recipe to match how much processing you want completed before your recipe is applied.
 
 These are the dispatch signatures for each type (note that most of these can accept positional or keyword args, denoted by `...`):
 
