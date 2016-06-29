@@ -3,13 +3,37 @@
 
 Like other tools in Plots, recipes are relatively simple, but extremely powerful.  A recipe is created by invoking the `@recipe` macro, which is defined in the lightweight package [RecipesBase](https://github.com/JuliaPlots/RecipesBase.jl).  There are many examples of recipes both within Plots and in many external packages, including [PlotRecipes](https://github.com/JuliaPlots/PlotRecipes.jl).
 
-There are three main types of recipes in Plots:
+There are four main types of recipes in Plots (listed in the order they are processed):
 
 - User Recipes
 - Type Recipes
+- Plot Recipes
 - Series Recipes
 
-I'll discuss all three in detail later.  First, lets decompose what's happening inside the recipe macro.  Lets start with a simple recipe:
+**The recipe type is determined completely by the dispatch signature.**  Each recipe type is called from a different part of the [plotting pipeline](http://plots.readthedocs.io/en/latest/pipeline/), so you will choose a type of recipe to match how much processing you want completed before your recipe is applied.
+
+These are the dispatch signatures for each type (note that most of these can accept positional or keyword args, denoted by `...`):
+
+- User Recipes: `@recipe function f(custom_arg_1::T, custom_arg_2::S, ...; ...) end`
+    - Process a unique set of types early in the pipeline.  Good for user-defined types or special combinations of Base types.
+    - The `@userplot` macro is a nice convenience which both defines a new type (to ensure correct dispatch) and exports shorthands.
+    - See `graphplot` for an example.
+- Type Recipes: `@recipe function f{T<:MyType}(::Type{T}, val::T) end`
+    - For user-defined types which wrap or have a one-to-one mapping to something supported by Plots, simply define a conversion method.
+    - Note: this is effectively saying "when you see type T, replace it with ..."
+    - See `SymPy` for an example.
+- Plot Recipes: `@recipe function f(::Type{Val{:myplotrecipename}}, plt::Plot; ...) end`
+    - These are called after input data has been processed, but **before the plot is created**.
+    - Build layouts, add subplots, and other plot-wide attributes
+    - See `marginalhist` for an example.
+- Series Recipes: `@recipe function f(::Type{Val{:myseriesrecipename}}, x, y, z; ...) end`
+    - These are the last calls to happen.  Each backend will support a short list of series types (`path`, `shape`, `histogram`, etc).  If a series type is natively supported, processing is passed (delegated) to the backend.  If a series type is **not** natively supported by the backend, we attempt to call a "series recipe".
+    - Note: If there's no series recipe defined, and the backend doesn't support it, you'll see an error like: `ERROR: The backend must not support the series type Val{:hi}, and there isn't a series recipe defined.`
+    - Note: You must have the `x, y, z` included in the signature, or it won't be processed as a series type!!
+
+## Recipe Syntax/Rules
+
+Lets decompose what's happening inside the recipe macro, starting with a simple recipe:
 
 ```julia
 type MyType end
@@ -327,6 +351,10 @@ It's important to note: normally we would return arguments from a recipe, and th
 
 ### Series Recipe - Notched Box Plots
 
+TODO
+
+---
+
 ### Documenting plot functions
 
 A documentation string added above the recipe definition will have no effect, just like the function name is meaningless. Since everything in Julia can be associated with a doc-string, the documentation can be added to the name of the plot function like this
@@ -338,57 +366,45 @@ my_plotfunc
 ```
 This can be put anywhere in the code and will appear on the call `?my_plotfunc`.
 
-### Short reference
-
-#### Create plot for custom data type
-Use the template
-```julia
-@recipe arbitrary_funname(T::CustomType, other_args; kwargs)
-    # recipe code
-end
-```
-The plot is invoked with `plot(T::CustomType,...)`
-
-#### Create custom plot for arbitrary data
-Use a series recipe
-```julia
-@userplot PlotFunName # This is optional, creates shorthand functions plotfunname and plotfunname! and a wrapper type PlotFunName
-@recipe arbitrary_funname(::Type{Val{:plotfunname}}, x,y,z)
-    # recipe code
-end
-```
-The plot is invoked with either `plot(x,y,..., seriestype = :plotfunname)` or, if `@userplots` was invoked, with `plotfunname(x,y,...)`
-
-#### Plot custom type just like other type
-Create a wrapper recipe
-```julia
-@recipe f(::Type{CustomType}, ct::CustomType) = ct.v
-```
-The type `CustomType` is now plotted just like the field `v` in `CustomType` would be plotted.
-
+---
 
 ### Troubleshooting
 
+It can sometimes be helpful when debugging recipes to see the order of dispatch inside the `apply_recipe` calls.  Turn on debugging info with:
+
+```julia
+RecipesBase.debug()
+```
+
+You can also pass a `Bool` to the `debug` method to turn it on/off.
+
+Here are some common errors, and what to look out for:
+
 #### convertToAnyVector
+
 ```
 ERROR: In convertToAnyVector, could not handle the argument types: <<some type>>
- [inlined code] from ~/.julia/v0.4/Plots/src/series_new.jl:87
- in apply_recipe at ~/.julia/v0.4/RecipesBase/src/RecipesBase.jl:237
- in _plot! at ~/.julia/v0.4/Plots/src/plot.jl:312
- in plot at ~/.julia/v0.4/Plots/src/plot.jl:52
- ```
+    [inlined code] from ~/.julia/v0.4/Plots/src/series_new.jl:87
+    in apply_recipe at ~/.julia/v0.4/RecipesBase/src/RecipesBase.jl:237
+    in _plot! at ~/.julia/v0.4/Plots/src/plot.jl:312
+    in plot at ~/.julia/v0.4/Plots/src/plot.jl:52
+```
 
- This error occurs whenever there is an error thrown from within the recipe code. The type `<<some type>>` is the type the failing recipe is called with. This can give some hint as to where the error occured. Remember, there may be a large series of call to different recipes for a complicated plot, and `<<some type>>` is the type the innermost failing recipe was called with.
+This error occurs when dispatch cannot recursively map input data to
+
+This error occurs whenever there is an error thrown from within the recipe code. The type `<<some type>>` is the type the failing recipe is called with. This can give some hint as to where the error occured. Remember, there may be a large series of call to different recipes for a complicated plot, and `<<some type>>` is the type the innermost failing recipe was called with.
 
 
-#### MethodError: `start`
- ```
- ERROR: MethodError: `start` has no method matching start(::Void)
- in collect at ./array.jl:260
- in collect at ./array.jl:272
- in plotly_series at ~/.julia/v0.4/Plots/src/backends/plotly.jl:345
- in _series_added at ~/.julia/v0.4/Plots/src/backends/plotlyjs.jl:36
- in _apply_series_recipe at ~/.julia/v0.4/Plots/src/plot.jl:224
- in _plot! at ~/.julia/v0.4/Plots/src/plot.jl:537
- ```
- The output from a recipe is `Void`, this is only supported if the `@series` macro is used to create series inside the recipe. If not, return the arguments to plot.
+#### MethodError: `start` has no method matching start(::Void)
+
+```
+ERROR: MethodError: `start` has no method matching start(::Void)
+    in collect at ./array.jl:260
+    in collect at ./array.jl:272
+    in plotly_series at ~/.julia/v0.4/Plots/src/backends/plotly.jl:345
+    in _series_added at ~/.julia/v0.4/Plots/src/backends/plotlyjs.jl:36
+    in _apply_series_recipe at ~/.julia/v0.4/Plots/src/plot.jl:224
+    in _plot! at ~/.julia/v0.4/Plots/src/plot.jl:537
+```
+
+This error is commonly encountered when a series type expects data for `x`, `y`, or `z`, but instead was passed `nothing` (which is of type `Void`).  Check that you have a `z` value defined for 3D plots, and likewise that you have valid values for `x` and `y`.  This could also apply to attributes like `fillrange`, `marker_z`, or `line_z` if they are expected to have non-void values.
