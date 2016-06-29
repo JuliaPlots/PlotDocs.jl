@@ -157,6 +157,8 @@ while a 2D histogram is really a heatmap:
 end
 ```
 
+The argument `y` is always populated, the argument `x` is populated with a call like `plot(x,y, seriestype =: histogram2d)` and correspondingly for `z`, `plot(x,y,z, seriestype =: histogram2d)`
+
 See below where I go through a series recipe for creating boxplots.  Many of these "standard" recipes are defined in Plots, though they can be defined anywhere **without requiring the package to be dependent on Plots**.
 
 
@@ -179,7 +181,7 @@ Marginal histograms are a visualization comparing two variables.  The main plot 
         error("Marginal Histograms should be given two vectors.  Got: $(typeof(h.args))")
     end
     x, y = h.args
-    
+
     # set up the subplots
     legend := false
     link := :both
@@ -188,26 +190,26 @@ Marginal histograms are a visualization comparing two variables.  The main plot 
     foreground_color_subplot := [RGBA(0,0,0,0) :match RGBA(0,0,0,0)]
     layout := @layout [tophist           _
                  	   hist2d{0.9w,0.9h} righthist]
-    
+
     # main histogram2d
     @series begin
         seriestype := :histogram2d
         subplot := 2
         x, y
     end
-    
+
     # these are common to both marginal histograms... borrow the first color from the fill gradient
     fillcolor := getColor(colorscheme(get(d, :fillcolor, Plots.default_gradient())))
     fillalpha := 0.3
     linealpha := 0.3
     seriestype := :histogram
-    
+
     # upper histogram
     @series begin
         subplot := 1
         x
     end
-    
+
     # right histogram
     @series begin
         orientation := :h
@@ -240,6 +242,8 @@ The `@userplot` macro is a nice convenience for creating a new wrapper for input
 ```julia
 @userplot MarginalHist
 ```
+
+thus create a type `MarginalHist` for dispatch. An object of type `MarginalHist` has the field `args` which is the tuple of arguments the plot function is invoked with, which can be either `marginalhist(x,y,...)` or `plot(x,y, seriestype = :marginalhist)`. The first syntax is a shorthand created by the `@userplot` macro.
 
 We dispatch only on the generated type, as the real inputs are wrapped inside it:
 
@@ -306,7 +310,7 @@ Now we create two more series, one for each histogram.
         subplot := 1
         x
     end
-    
+
     # right histogram
     @series begin
         orientation := :h
@@ -323,4 +327,68 @@ It's important to note: normally we would return arguments from a recipe, and th
 
 ### Series Recipe - Notched Box Plots
 
+### Documenting plot functions
 
+A documentation string added above the recipe definition will have no effect, just like the function name is meaningless. Since everything in Julia can be associated with a doc-string, the documentation can be added to the name of the plot function like this
+```julia
+"""
+My docstring
+"""
+my_plotfunc
+```
+This can be put anywhere in the code and will appear on the call `?my_plotfunc`.
+
+### Short reference
+
+#### Create plot for custom data type
+Use the template
+```julia
+@recipe arbitrary_funname(T::CustomType, other_args; kwargs)
+    # recipe code
+end
+```
+The plot is invoked with `plot(T::CustomType,...)`
+
+#### Create custom plot for arbitrary data
+Use a series recipe
+```julia
+@userplot PlotFunName # This is optional, creates shorthand functions plotfunname and plotfunname! and a wrapper type PlotFunName
+@recipe arbitrary_funname(::Type{Val{:plotfunname}}, x,y,z)
+    # recipe code
+end
+```
+The plot is invoked with either `plot(x,y,..., seriestype = :plotfunname)` or, if `@userplots` was invoked, with `plotfunname(x,y,...)`
+
+#### Plot custom type just like other type
+Create a wrapper recipe
+```julia
+@recipe f(::Type{CustomType}, ct::CustomType) = ct.v
+```
+The type `CustomType` is now plotted just like the field `v` in `CustomType` would be plotted.
+
+
+### Troubleshooting
+
+#### convertToAnyVector
+```
+ERROR: In convertToAnyVector, could not handle the argument types: <<some type>>
+ [inlined code] from ~/.julia/v0.4/Plots/src/series_new.jl:87
+ in apply_recipe at ~/.julia/v0.4/RecipesBase/src/RecipesBase.jl:237
+ in _plot! at ~/.julia/v0.4/Plots/src/plot.jl:312
+ in plot at ~/.julia/v0.4/Plots/src/plot.jl:52
+ ```
+
+ This error occurs whenever there is an error thrown from within the recipe code. The type `<<some type>>` is the type the failing recipe is called with. This can give some hint as to where the error occured. Remember, there may be a large series of call to different recipes for a complicated plot, and `<<some type>>` is the type the innermost failing recipe was called with.
+
+
+#### MethodError: `start`
+ ```
+ ERROR: MethodError: `start` has no method matching start(::Void)
+ in collect at ./array.jl:260
+ in collect at ./array.jl:272
+ in plotly_series at ~/.julia/v0.4/Plots/src/backends/plotly.jl:345
+ in _series_added at ~/.julia/v0.4/Plots/src/backends/plotlyjs.jl:36
+ in _apply_series_recipe at ~/.julia/v0.4/Plots/src/plot.jl:224
+ in _plot! at ~/.julia/v0.4/Plots/src/plot.jl:537
+ ```
+ The output from a recipe is `Void`, this is only supported if the `@series` macro is used to create series inside the recipe. If not, return the arguments to plot.
