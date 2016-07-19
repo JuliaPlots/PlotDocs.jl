@@ -214,8 +214,8 @@ Marginal histograms are a visualization comparing two variables.  The main plot 
         x, y
     end
 
-    # these are common to both marginal histograms... borrow the first color from the fill gradient
-    fillcolor := getColor(colorscheme(get(d, :fillcolor, Plots.default_gradient())))
+    # these are common to both marginal histograms
+    fillcolor := :black
     fillalpha := 0.3
     linealpha := 0.3
     seriestype := :histogram
@@ -311,8 +311,8 @@ Note: this `@series` block gets a "snapshot" of the attributes, so it contains a
 Next we move on to the marginal plots.  We first set attributes which are shared by both:
 
 ```julia
-    # these are common to both marginal histograms... borrow the first color from the fill gradient
-    fillcolor := getColor(colorscheme(get(d, :fillcolor, Plots.default_gradient())))
+    # these are common to both marginal histograms
+    fillcolor := :black
     fillalpha := 0.3
     linealpha := 0.3
     seriestype := :histogram
