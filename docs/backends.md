@@ -9,16 +9,16 @@ introduction to making that choice.
 
 # For the impatient
 
-My favorites: GR for speed, PlotlyJS for interactivity, PyPlot otherwise.
+My favorites: GR for speed, Plotly(JS) for interactivity, PyPlot otherwise.
 
 If you require... | ... then use...
 ----------- | -----------------
-features         | PyPlot, Plotly, GR
+features         | PyPlot, Plotly(JS), GR
 speed            | GR
-interactivity    | Plotly
-beauty           | Plotly, PGFPlots
+interactivity    | Plotly(JS)
+beauty           | Plotly(JS), PGFPlots
 REPL Plotting    | UnicodePlots
-3D plots  		 | PyPlot, GR, Plotly
+3D plots  		 | PyPlot, GR, Plotly(JS)
 a GUI Window     | GR, PyPlot, PlotlyJS
 a small footprint | UnicodePlots, Plotly
 
