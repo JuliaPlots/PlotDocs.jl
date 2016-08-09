@@ -62,7 +62,7 @@ A catch-all for functionality and recipes which don't have a home elsewhere.  Gr
 ![map](https://cloud.githubusercontent.com/assets/933338/16770876/83dea362-481c-11e6-9943-bb77148be5b8.png)
 
 
-![portcomp](https://raw.githubusercontent.com/JuliaPlots/PlotReferenceImages.jl/master/PlotRecipes/portfoliocomposition.png)
+![portcomp](https://cloud.githubusercontent.com/assets/933338/17529235/96a48040-5e40-11e6-8698-7d371f36fd22.png)
 
 
 ---
