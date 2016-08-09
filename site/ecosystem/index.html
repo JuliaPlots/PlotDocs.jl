@@ -9,7 +9,7 @@
     <meta name="viewport" content="width=device-width,user-scalable=no,initial-scale=1,maximum-scale=1">
     
       
-        <title>Layouts - Plots</title>
+        <title>Ecosystem - Plots</title>
       
       
       
@@ -96,7 +96,7 @@
             
           </span>
         
-        Layouts
+        Ecosystem
       </div>
     </div>
     
@@ -261,30 +261,9 @@
           
             
   <li>
-    <a class="current" title="Layouts" href="./">
+    <a class="" title="Layouts" href="../layouts/">
       Layouts
     </a>
-    
-      
-        
-      
-      
-        <ul>
-          
-            <li class="anchor">
-              <a title="Simple Layouts" href="#simple-layouts">
-                Simple Layouts
-              </a>
-            </li>
-          
-            <li class="anchor">
-              <a title="Advanced Layouts" href="#advanced-layouts">
-                Advanced Layouts
-              </a>
-            </li>
-          
-        </ul>
-      
     
   </li>
 
@@ -300,9 +279,30 @@
           
             
   <li>
-    <a class="" title="Ecosystem" href="../ecosystem/">
+    <a class="current" title="Ecosystem" href="./">
       Ecosystem
     </a>
+    
+      
+        
+      
+      
+        <ul>
+          
+            <li class="anchor">
+              <a title="StatPlots" href="#statplots">
+                StatPlots
+              </a>
+            </li>
+          
+            <li class="anchor">
+              <a title="PlotRecipes" href="#plotrecipes">
+                PlotRecipes
+              </a>
+            </li>
+          
+        </ul>
+      
     
   </li>
 
@@ -403,63 +403,63 @@
       <article class="article">
         <div class="wrapper">
           
-          <h1 id="layouts">Layouts</h1>
-<p>As of v0.7.0, Plots has taken control of subplot positioning, allowing complex, nested grids of subplots and components.  Care has been taken to keep the framework flexible and generic, so that backends need only support the ability to precisely define the absolute position of a subplot, and they get the full power of nesting, plot area alignment, and more.  Just set the <code>layout</code> keyword in a call to <code>plot(...)</code></p>
-<p>It's helpful at this point to review terminology:</p>
+          <p>Plots is great on its own, but the real power comes from the ecosystem surrounding it.  The design of Plots (and more specifically <a href="https://github.com/JuliaPlots/RecipesBase.jl">RecipesBase</a>) is to bind together disparate functionality into a cohesive and consistent user experience.  Some packages may choose to implement recipes to visualize their custom types.  Others may extend the functionality of Plots for Base types.  On this page I'll attempt to collect and display some of the many things you can do using the ecosystem which has developed around the Plots core.</p>
+<h1 id="juliaplots"><a href="https://github.com/JuliaPlots">JuliaPlots</a></h1>
+<p>The <a href="https://github.com/JuliaPlots">JuliaPlots</a> organization builds and maintains much of the most commonly used functionality external to core Plots, as well as RecipesBase, PlotUtils, the documentation, and more.</p>
+<hr />
+<h2 id="statplots"><a href="https://github.com/JuliaPlots/StatPlots.jl">StatPlots</a></h2>
+<p>Much of this functionality once existed in core Plots, but has been moved out to facilitate a clean separation between those features that are truly "core" and those which are specific to certain types of workflows and disciplines.  </p>
 <ul>
-<li><strong>Plot</strong>: The whole figure/window</li>
-<li><strong>Subplot</strong>: One subplot, containing a title, axes, colorbar, legend, and plot area.</li>
-<li><strong>Axis</strong>: One axis of a subplot, containing axis guide (label), tick labels, and tick marks.</li>
-<li><strong>Plot Area</strong>: The part of a subplot where the data is shown... contains the series, grid lines, etc.</li>
-<li><strong>Series</strong>: One distinct visualization of data. (For example: a line or a set of markers)</li>
+<li>Types:<ul>
+<li>DataFrames</li>
+<li>Distributions</li>
 </ul>
+</li>
+<li>Recipes:<ul>
+<li>histogram/histogram2d</li>
+<li>boxplot</li>
+<li>violin</li>
+<li>marginalhist</li>
+<li>corrplot/cornerplot</li>
+</ul>
+</li>
+</ul>
+<p><img alt="" src="https://cloud.githubusercontent.com/assets/933338/16709018/81c4da34-45d2-11e6-9e08-bb557541e144.png" /></p>
+<p><img alt="" src="https://cloud.githubusercontent.com/assets/933338/16030833/3c84e6bc-31c3-11e6-9a04-4cee531440a4.png" /></p>
+<p><img alt="" src="https://cloud.githubusercontent.com/assets/4098145/16762241/f924c8ac-4823-11e6-8720-83025606b5e1.png" /></p>
+<p><img alt="" src="https://juliaplots.github.io/examples/img/pyplot/pyplot_example_30.png" /></p>
+<p><img alt="" src="https://cloud.githubusercontent.com/assets/933338/16718702/561510f6-46f0-11e6-834a-3cf17a5b77d6.png" /></p>
+<p><img alt="" src="https://cloud.githubusercontent.com/assets/933338/16718720/729b6fea-46f0-11e6-9bff-fdf2541ce305.png" /></p>
 <hr />
-<h4 id="simple-layouts">Simple Layouts</h4>
-<p>Pass an integer to <code>layout</code> to allow it to automatically compute a grid size for that many subplots:</p>
-<div class="code"><pre><span></span><span class="c"># create a 2x2 grid, and map each of the 4 series to one of the subplots</span>
-<span class="n">plot</span><span class="p">(</span><span class="n">rand</span><span class="p">(</span><span class="mi">100</span><span class="p">,</span><span class="mi">4</span><span class="p">),</span> <span class="n">layout</span> <span class="o">=</span> <span class="mi">4</span><span class="p">)</span>
-</pre></div>
-
-
-<p><img alt="" src="../examples/img/layouts1.png" /></p>
-<p>Pass a tuple to <code>layout</code> to create a grid of that size:</p>
-<div class="code"><pre><span></span><span class="c"># create a 4x1 grid, and map each of the 4 series to one of the subplots</span>
-<span class="n">plot</span><span class="p">(</span><span class="n">rand</span><span class="p">(</span><span class="mi">100</span><span class="p">,</span><span class="mi">4</span><span class="p">),</span> <span class="n">layout</span> <span class="o">=</span> <span class="p">(</span><span class="mi">4</span><span class="p">,</span><span class="mi">1</span><span class="p">))</span>
-</pre></div>
-
-
-<p><img alt="" src="../examples/img/layouts2.png" /></p>
-<p>More complex grid layouts can be created with the <code>grid(...)</code> constructor:</p>
-<div class="code"><pre><span></span><span class="n">plot</span><span class="p">(</span><span class="n">rand</span><span class="p">(</span><span class="mi">100</span><span class="p">,</span><span class="mi">4</span><span class="p">),</span> <span class="n">layout</span> <span class="o">=</span> <span class="n">grid</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="n">heights</span><span class="o">=</span><span class="p">[</span><span class="mf">0.1</span><span class="p">,</span><span class="mf">0.4</span><span class="p">,</span><span class="mf">0.4</span><span class="p">,</span><span class="mf">0.1</span><span class="p">]))</span>
-</pre></div>
-
-
-<p><img alt="" src="../examples/img/layouts3.png" /></p>
+<h2 id="plotrecipes"><a href="https://github.com/JuliaPlots/PlotRecipes.jl">PlotRecipes</a></h2>
+<p>A catch-all for functionality and recipes which don't have a home elsewhere.  Graphs (networks of nodes and edges), maps/shapes, finance, and more.</p>
+<p><img alt="graph3d" src="https://cloud.githubusercontent.com/assets/933338/16094180/0dd2edf0-330d-11e6-8596-d12b0b8d5393.png" /></p>
+<p><img alt="graph_layout" src="https://cloud.githubusercontent.com/assets/933338/16698919/ee1f9e76-451e-11e6-8936-881551f120dd.gif" /></p>
+<p><img alt="arcs" src="https://cloud.githubusercontent.com/assets/2822757/16072526/aba39c2e-32b7-11e6-947c-6faab1d13cc7.png" /></p>
+<p><img alt="map" src="https://cloud.githubusercontent.com/assets/933338/16770876/83dea362-481c-11e6-9943-bb77148be5b8.png" /></p>
+<p><img alt="portcomp" src="https://github.com/JuliaPlots/PlotReferenceImages.jl/blob/master/PlotRecipes/portfoliocomposition.png" /></p>
 <hr />
-<h4 id="advanced-layouts">Advanced Layouts</h4>
-<p>The <code>@layout</code> macro is the easiest way to define complex layouts, using Julia's <a href="http://docs.julialang.org/en/release-0.4/manual/arrays/#concatenation">multidimensional Array construction</a> as the basis for a custom layout syntax.  Precise sizing can be acheived with curly brackets, otherwise the free space is equally split between the <strong>plot areas</strong> of subplots.</p>
-<div class="code"><pre><span></span><span class="n">l</span> <span class="o">=</span> <span class="p">@</span><span class="n">layout</span> <span class="p">[</span>  <span class="n">a</span><span class="p">{</span><span class="mf">0.3</span><span class="n">w</span><span class="p">}</span> <span class="p">[</span><span class="n">grid</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="mi">3</span><span class="p">)</span>
-                         <span class="n">b</span><span class="p">{</span><span class="mf">0.2</span><span class="n">h</span><span class="p">}</span> <span class="p">]]</span>
-<span class="n">plot</span><span class="p">(</span>
-    <span class="n">rand</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="mi">11</span><span class="p">),</span>
-    <span class="n">layout</span> <span class="o">=</span> <span class="n">l</span><span class="p">,</span> <span class="n">legend</span> <span class="o">=</span> <span class="n">false</span><span class="p">,</span> <span class="n">seriestype</span> <span class="o">=</span> <span class="p">[:</span><span class="n">bar</span> <span class="p">:</span><span class="n">scatter</span> <span class="p">:</span><span class="n">path</span><span class="p">],</span>
-    <span class="n">title</span> <span class="o">=</span> <span class="p">[</span><span class="s">&quot;(</span><span class="si">$i</span><span class="s">)&quot;</span> <span class="k">for</span> <span class="n">i</span><span class="o">=</span><span class="mi">1</span><span class="p">:</span><span class="mi">11</span><span class="p">]</span><span class="o">&#39;</span><span class="p">,</span> <span class="n">titleloc</span> <span class="o">=</span> <span class="p">:</span><span class="n">right</span><span class="p">,</span> <span class="n">titlefont</span> <span class="o">=</span> <span class="n">font</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span>
-<span class="p">)</span>
-</pre></div>
-
-
-<p><img alt="" src="../examples/img/layouts4.png" /></p>
+<h1 id="other-packages">Other packages</h1>
+<h2 id="differentialequations"><a href="https://github.com/ChrisRackauckas/DifferentialEquations.jl">DifferentialEquations</a></h2>
+<p>DifferentialEquations.jl is a package for solving numerically solving differential equations in Julia by Chris Rackauckas. The purpose of this package is to supply efficient Julia implementations of solvers for various differential equations. Equations within the realm of this package include ordinary differential equations (ODEs), stochastic ordinary differential equations (SODEs or SDEs), stochastic partial differential equations (SPDEs), partial differential equations (with both finite difference and finite element methods), differential algebraic equations, and differential delay equations. It includes well-optimized implementations classic algorithms and ones from recent research, including algorithms optimized for high-precision and HPC applications.</p>
+<p>All of the solvers return solution objects which are set up with plot recipes to give informative default plots.</p>
+<p><img alt="diffeq" src="https://cloud.githubusercontent.com/assets/1814174/17526562/9daa2d1e-5e1c-11e6-9f21-fda6f49f6833.png" /></p>
 <hr />
-<p>Create inset (floating) subplots using the <code>inset_subplots</code> attribute. <code>inset_subplots</code> takes a list of (parent_layout, BoundingBox) tuples, where the bounding box is relative to the parent.</p>
-<p>Use <code>px</code>/<code>mm</code>/<code>inch</code> for absolute coords, <code>w</code>/<code>h</code> for percentage relative to the parent. Origin is top-left. <code>h_anchor</code>/<code>v_anchor</code> define what the <code>x</code>/<code>y</code> inputs of the bounding box refer to.</p>
-<div class="code"><pre><span></span><span class="k">using</span> <span class="n">Plots</span>
-<span class="n">plot</span><span class="p">(</span><span class="n">heatmap</span><span class="p">(</span><span class="n">randn</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="mi">20</span><span class="p">)),</span> <span class="n">boxplot</span><span class="p">(</span><span class="n">rand</span><span class="p">(</span><span class="mi">1</span><span class="p">:</span><span class="mi">4</span><span class="p">,</span><span class="mi">1000</span><span class="p">),</span><span class="n">randn</span><span class="p">(</span><span class="mi">1000</span><span class="p">)),</span> <span class="n">leg</span><span class="o">=</span><span class="n">false</span><span class="p">)</span>
-<span class="n">histogram!</span><span class="p">(</span><span class="n">randn</span><span class="p">(</span><span class="mi">1000</span><span class="p">),</span> <span class="n">inset_subplots</span> <span class="o">=</span> <span class="p">[(</span><span class="mi">1</span><span class="p">,</span> <span class="n">bbox</span><span class="p">(</span><span class="mf">0.05</span><span class="n">w</span><span class="p">,</span><span class="mf">0.95</span><span class="n">h</span><span class="p">,</span><span class="mf">0.5</span><span class="n">w</span><span class="p">,</span><span class="mf">0.5</span><span class="n">h</span><span class="p">,</span> <span class="n">v_anchor</span><span class="o">=</span><span class="p">:</span><span class="n">bottom</span><span class="p">))],</span> <span class="n">subplot</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">ticks</span><span class="o">=</span><span class="n">nothing</span><span class="p">)</span>
-<span class="n">sticks!</span><span class="p">(</span><span class="n">randn</span><span class="p">(</span><span class="mi">100</span><span class="p">),</span> <span class="n">inset_subplots</span><span class="o">=</span><span class="p">[</span><span class="n">bbox</span><span class="p">(</span><span class="mf">0.35</span><span class="n">w</span><span class="p">,</span><span class="mf">0.5</span><span class="n">h</span><span class="p">,</span><span class="mi">200</span><span class="n">px</span><span class="p">,</span><span class="mi">200</span><span class="n">px</span><span class="p">,</span><span class="n">h_anchor</span><span class="o">=</span><span class="p">:</span><span class="n">center</span><span class="p">,</span><span class="n">v_anchor</span><span class="o">=</span><span class="p">:</span><span class="n">center</span><span class="p">)],</span> <span class="n">subplot</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
-</pre></div>
-
-
-<p><img alt="" src="https://cloud.githubusercontent.com/assets/933338/16015147/6732e03c-3162-11e6-8a9f-ca87317a97b4.png" /></p>
+<p>TODO:</p>
+<h2 id="mlplots">MLPlots</h2>
+<h2 id="valuehistories">ValueHistories</h2>
+<h2 id="losses">Losses</h2>
+<h2 id="iterativesolvers">IterativeSolvers</h2>
+<h2 id="sympy">SymPy</h2>
+<h2 id="implicitequations">ImplicitEquations</h2>
+<h2 id="onlinestats">OnlineStats</h2>
+<h2 id="averageshiftedhistograms">AverageShiftedHistograms</h2>
+<h2 id="phylotrees">PhyloTrees</h2>
+<h2 id="robotlib">Robotlib</h2>
+<h2 id="eeg">EEG</h2>
+<h2 id="controlsystems">ControlSystems</h2>
+<h2 id="approxfun">ApproxFun</h2>
+<h2 id="jwas">JWAS</h2>
           <aside class="copyright" role="note">
             
               Copyright &copy; 2015-2016 Thomas Breloff &ndash;
@@ -478,7 +478,7 @@
   <nav class="pagination" aria-label="Footer">
     <div class="previous">
       
-        <a href="../pipeline/" title="Internals">
+        <a href="../recipes/" title="Recipes">
           <span class="direction">
             Previous
           </span>
@@ -488,7 +488,7 @@
             </div>
             <div class="stretch">
               <div class="title">
-                Internals
+                Recipes
               </div>
             </div>
           </div>
@@ -497,14 +497,14 @@
     </div>
     <div class="next">
       
-        <a href="../recipes/" title="Recipes">
+        <a href="../plots_v0.7/" title="Plots v0.7">
           <span class="direction">
             Next
           </span>
           <div class="page">
             <div class="stretch">
               <div class="title">
-                Recipes
+                Plots v0.7
               </div>
             </div>
             <div class="button button-next" role="button" aria-label="Next">

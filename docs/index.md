@@ -86,8 +86,8 @@ Iris Dataset
 using RDatasets
 iris = dataset("datasets", "iris");
 
-# load the StatPlots recipes available via 
-# Pkg.clone("https://github.com/JuliaPlots/StatPlots.jl.git")
+# load the StatPlots recipes (for DataFrames) available via:
+# Pkg.add("StatPlots")
 using StatPlots
 
 # Scatter plot with some custom settings
