@@ -86,6 +86,10 @@ Iris Dataset
 using RDatasets
 iris = dataset("datasets", "iris");
 
+# load the StatPlots recipes available via 
+# Pkg.clone("https://github.com/JuliaPlots/StatPlots.jl.git")
+using StatPlots
+
 # Scatter plot with some custom settings
 scatter(iris, :SepalLength, :SepalWidth, group=:Species,
         title = "My awesome plot",
