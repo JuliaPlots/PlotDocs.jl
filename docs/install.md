@@ -22,12 +22,19 @@ Pkg.add("UnicodePlots")
 Pkg.add("PlotlyJS")
 ```
 
+Finally, you may wish to add some extensions from the [Plots ecosystem](/ecosystem):
+
+```julia
+Pkg.add("StatPlots")
+Pkg.add("PlotRecipes")
+```
+
 ---
 
 ### Initialize
 
 ```julia
-using Plots
+using Plots # or StatPlots, or PlotRecipes
 ```
 
 [Choose a backend](/backends), and optionally override default settings at the same time:

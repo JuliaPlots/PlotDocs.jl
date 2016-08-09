@@ -1,30 +1,33 @@
 
+
 ### Basic Concepts
 
 Use `plot` to create a new plot object, and `plot!` to add to an existing one:
 
 ```julia
-plot(args...; kw...)                  # creates a new plot window, and sets it to be the `current`
-plot!(args...; kw...)                 # changes plot `current()`
-plot!(plt, args...; kw...)            # changes plot `plt`
+plot(args...; kw...)                  # creates a new Plot, and set it to be the `current`
+plot!(args...; kw...)                 # modifies Plot `current()`
+plot!(plt, args...; kw...)            # modifies Plot `plt`
 ```
+
+The graphic is not shown implicitly, only when "displayed".  This will happen automatically when returned to a REPL prompt or to an IJulia cell.  There are [many other options](/output) as well.
 
 
 Input arguments can take [many forms](/input_data).  Some valid examples:
 
 ```julia
-plot()                                    # empty plot object
+plot()                                    # empty Plot object
 plot(4)                                   # initialize with 4 empty series
-plot(rand(10))                            # plot 1 series... x = 1:10
-plot(rand(10,5))                          # plot 5 series... x = 1:10
-plot(rand(10), rand(10))                  # plot 1 series
-plot(rand(10,5), rand(10))                # plot 5 series... y is the same for all
+plot(rand(10))                            # 1 series... x = 1:10
+plot(rand(10,5))                          # 5 series... x = 1:10
+plot(rand(10), rand(10))                  # 1 series
+plot(rand(10,5), rand(10))                # 5 series... y is the same for all
 plot(sin, rand(10))                       # y = sin(x)
 plot(rand(10), sin)                       # same... y = sin(x)
-plot([sin,cos], 0:0.1:π)                  # plot 2 series, sin(x) and cos(x)
-plot([sin,cos], 0, π)                     # plot sin and cos on the range [0, π]
-plot(1:10, Any[rand(10), sin])            # plot 2 series: rand(10) and map(sin,x)
-plot(dataset("Ecdat", "Airline"), :Cost)  # plot the :Cost column from a DataFrame
+plot([sin,cos], 0:0.1:π)                  # 2 series, sin(x) and cos(x)
+plot([sin,cos], 0, π)                     # sin and cos on the range [0, π]
+plot(1:10, Any[rand(10), sin])            # 2 series: rand(10) and map(sin,x)
+plot(dataset("Ecdat", "Airline"), :Cost)  # the :Cost column from a DataFrame... must import StatPlots
 ```
 
 [Keyword arguments](/attributes) allow for customization of the plot, subplots, axes, and series.  They follow consistent rules as much as possible, and you'll avoid common pitfalls if you read this section carefully:
