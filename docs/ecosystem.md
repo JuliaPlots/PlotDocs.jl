@@ -81,6 +81,12 @@ Reinforce.jl is an interface for Reinforcement Learning. It is intended to conne
 
 ![](https://cloud.githubusercontent.com/assets/933338/17703784/f3e18414-63a0-11e6-9f9e-f531278216f9.gif)
 
+## [Augmentor](https://github.com/Evizero/Augmentor.jl)
+
+Augmentor is an image-augmentation library designed to render the process of artificial dataset enlargement more convenient, less error prone, and easier to reproduce. This is achieved using probabilistic transformation pipelines.
+
+![](https://cloud.githubusercontent.com/assets/10854026/17645973/3894d2b0-61b6-11e6-8b10-1cb5139bfb6d.gif)
+
 ## [DifferentialEquations](https://github.com/ChrisRackauckas/DifferentialEquations.jl)
 
 DifferentialEquations.jl is a package for solving numerically solving differential equations in Julia by Chris Rackauckas. The purpose of this package is to supply efficient Julia implementations of solvers for various differential equations. Equations within the realm of this package include ordinary differential equations (ODEs), stochastic ordinary differential equations (SODEs or SDEs), stochastic partial differential equations (SPDEs), partial differential equations (with both finite difference and finite element methods), differential algebraic equations, and differential delay equations. It includes well-optimized implementations classic algorithms and ones from recent research, including algorithms optimized for high-precision and HPC applications.
