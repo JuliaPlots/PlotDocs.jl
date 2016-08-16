@@ -67,7 +67,7 @@ A catch-all for functionality and recipes which don't have a home elsewhere.  Gr
 
 # Community packages
 
-## AtariAlgos
+## [AtariAlgos](https://github.com/tbreloff/AtariAlgos.jl)
 
 AtariAlgos wraps the ArcadeLearningEnvironment as an implementation of an AbstractEnvironment from the Reinforce interface. This allows it to be used as a plug-and-play module with general reinforcement learning agents.
 
@@ -89,13 +89,59 @@ The PhyloTrees.jl package provides a type representation of phylogenetic trees. 
 
 ![](https://cloud.githubusercontent.com/assets/5422422/17630286/a25374fc-608c-11e6-9160-32466b094f0b.png)
 
+## [EEG](https://github.com/codles/EEG.jl)
+
+Process EEG files and visualize brain activity.
+
+![](https://cloud.githubusercontent.com/assets/748691/17362167/210f9c28-5974-11e6-8a05-62fa399d32d1.png)
+
+![](https://cloud.githubusercontent.com/assets/748691/17363374/523373a0-597a-11e6-94d9-826381617756.png)
+
+## [ImplicitEquations](https://github.com/jverzani/ImplicitEquations.jl)
+
+In a paper, Tupper presents a method for graphing two-dimensional implicit equations and inequalities. This package gives an implementation of the paper's basic algorithms to allow the Julia user to naturally represent and easily render graphs of implicit functions and equations.
+
+![](https://camo.githubusercontent.com/950ef704a0601ed9429addb35e6b7246ca5da149/687474703a2f2f692e696d6775722e636f6d2f4c4368547a43312e706e67)
+
+
+
+## [ControlSystems](https://github.com/JuliaControl/ControlSystems.jl)
+
+A control systems design toolbox for Julia.  This toolbox works similar to that of other major computer-aided control systems design (CACSD) toolboxes. Systems can be created in either a transfer function or a state space representation. These systems can then be combined into larger architectures, simulated in both time and frequency domain, and analyzed for stability/performance properties.
+
+![](http://juliacontrol.github.io/ControlSystems.jl/latest/plots/pidgofplot2.svg)
+
+## [ValueHistories](https://github.com/JuliaML/ValueHistories.jl)
+
+Utility package for efficient tracking of optimization histories, training curves or other information of arbitrary types and at arbitrarily spaced sampling times
+
+![](https://cloud.githubusercontent.com/assets/10854026/17512899/58461c20-5e2a-11e6-94d4-b4699c63ab1a.png)
+
+
+## [ApproxFun](https://github.com/ApproxFun/ApproxFun.jl)
+
+ApproxFun is a package for approximating functions. It is heavily influenced by the Matlab package Chebfun and the Mathematica package RHPackage.
+
+![](https://raw.githubusercontent.com/ApproxFun/ApproxFun.jl/master/images/extrema.png)
+
+
+## [AverageShiftedHistograms](https://github.com/joshday/AverageShiftedHistograms.jl)
+
+Density estimation using Average Shifted Histograms.
+
+![](https://cloud.githubusercontent.com/assets/933338/17702262/3bfc9a96-639b-11e6-8976-aa8bb8fabfc8.gif)
+
+## [MLPlots](https://github.com/JuliaML/MLPlots.jl)
+
+Common plotting recipes for statistics and machine learning.
+
+![](https://cloud.githubusercontent.com/assets/933338/17702652/bca0158c-639c-11e6-8e36-4bfc7b36727e.png)
+
+![](https://cloud.githubusercontent.com/assets/933338/17702662/cdc08752-639c-11e6-8c3c-e186456630e2.png)
+
 
 
 TODO:
-
-## MLPlots
-
-## ValueHistories
 
 ## Losses
 
@@ -103,19 +149,9 @@ TODO:
 
 ## SymPy
 
-## ImplicitEquations
-
 ## OnlineStats
 
-## AverageShiftedHistograms
-
 ## Robotlib
-
-## EEG
-
-## ControlSystems
-
-## ApproxFun
 
 ## JWAS
 
