@@ -67,6 +67,14 @@ A catch-all for functionality and recipes which don't have a home elsewhere.  Gr
 
 # Community packages
 
+## AtariAlgos
+
+AtariAlgos wraps the ArcadeLearningEnvironment as an implementation of an AbstractEnvironment from the Reinforce interface. This allows it to be used as a plug-and-play module with general reinforcement learning agents.
+
+Games can also be "plotted" using Plots.jl, allowing it to be a component of more complex visualizations for tracking learning progress and more, as well as making it easy to create animations.
+
+![](https://cloud.githubusercontent.com/assets/933338/17670982/8923a2f6-62e2-11e6-943f-bd0a2a7b5c1f.gif)
+
 ## [DifferentialEquations](https://github.com/ChrisRackauckas/DifferentialEquations.jl)
 
 DifferentialEquations.jl is a package for solving numerically solving differential equations in Julia by Chris Rackauckas. The purpose of this package is to supply efficient Julia implementations of solvers for various differential equations. Equations within the realm of this package include ordinary differential equations (ODEs), stochastic ordinary differential equations (SODEs or SDEs), stochastic partial differential equations (SPDEs), partial differential equations (with both finite difference and finite element methods), differential algebraic equations, and differential delay equations. It includes well-optimized implementations classic algorithms and ones from recent research, including algorithms optimized for high-precision and HPC applications.
@@ -74,6 +82,13 @@ DifferentialEquations.jl is a package for solving numerically solving differenti
 All of the solvers return solution objects which are set up with plot recipes to give informative default plots.
 
 ![diffeq](https://cloud.githubusercontent.com/assets/1814174/17526562/9daa2d1e-5e1c-11e6-9f21-fda6f49f6833.png)
+
+## [PhyloTrees](https://github.com/jangevaare/PhyloTrees.jl)
+
+The PhyloTrees.jl package provides a type representation of phylogenetic trees. Simulation, inference, and visualization functionality is also provided for phylogenetic trees. A plot recipe allows the structure of phylogenetic trees to be drawn by whichever plotting backend is preferred by the user.
+
+![](https://cloud.githubusercontent.com/assets/5422422/17630286/a25374fc-608c-11e6-9160-32466b094f0b.png)
+
 
 
 TODO:
@@ -94,8 +109,6 @@ TODO:
 
 ## AverageShiftedHistograms
 
-## PhyloTrees
-
 ## Robotlib
 
 ## EEG
@@ -105,4 +118,11 @@ TODO:
 ## ApproxFun
 
 ## JWAS
+
+## QuantEcon
+
+## Reinforce
+
+## Optim
+
 
