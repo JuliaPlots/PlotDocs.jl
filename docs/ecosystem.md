@@ -75,6 +75,12 @@ Games can also be "plotted" using Plots.jl, allowing it to be a component of mor
 
 ![](https://cloud.githubusercontent.com/assets/933338/17670982/8923a2f6-62e2-11e6-943f-bd0a2a7b5c1f.gif)
 
+## [Reinforce](https://github.com/tbreloff/Reinforce.jl)
+
+Reinforce.jl is an interface for Reinforcement Learning. It is intended to connect modular environments, policies, and solvers with a simple interface.
+
+![](https://cloud.githubusercontent.com/assets/933338/17703784/f3e18414-63a0-11e6-9f9e-f531278216f9.gif)
+
 ## [DifferentialEquations](https://github.com/ChrisRackauckas/DifferentialEquations.jl)
 
 DifferentialEquations.jl is a package for solving numerically solving differential equations in Julia by Chris Rackauckas. The purpose of this package is to supply efficient Julia implementations of solvers for various differential equations. Equations within the realm of this package include ordinary differential equations (ODEs), stochastic ordinary differential equations (SODEs or SDEs), stochastic partial differential equations (SPDEs), partial differential equations (with both finite difference and finite element methods), differential algebraic equations, and differential delay equations. It includes well-optimized implementations classic algorithms and ones from recent research, including algorithms optimized for high-precision and HPC applications.
@@ -160,5 +166,7 @@ TODO:
 ## Reinforce
 
 ## Optim
+
+## Transformations / Flow
 
 
