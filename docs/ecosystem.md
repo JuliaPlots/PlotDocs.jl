@@ -28,7 +28,7 @@ Much of this functionality once existed in core Plots, but has been moved out to
 ![](https://cloud.githubusercontent.com/assets/933338/16030833/3c84e6bc-31c3-11e6-9a04-4cee531440a4.png)
 
 
-![](https://cloud.githubusercontent.com/assets/4098145/16762241/f924c8ac-4823-11e6-8720-83025606b5e1.png)
+![](https://cloud.githubusercontent.com/assets/933338/17787917/3af9b0e2-6559-11e6-8613-c177efb0b038.png)
 
 
 ![](https://juliaplots.github.io/examples/img/pyplot/pyplot_example_30.png)
