@@ -247,28 +247,33 @@
         }, 
         {
             "location": "/output/", 
-            "text": "Output\n\n\nIn IJulia or the REPL, \na Plot is only displayed when returned\n (a semicolon will suppress the return), or if explicitly displayed with \ndisplay()\n, \ngui()\n, or by adding \nshow = true\n to your plot command.\n\n\n\nTip: You can have MATLAB-like interactive behavior by setting the default value: default(show = true)\n\n\n\n\nGUI\n\n\ngui()\n displays the most recent plot, or \ndisplay(plt)\n works.  Returning the plot from the REPL is like calling \ngui()\n.\n\n\nsavefig\n\n\nSave the most recent plot, choosing file type automatically by the extension.\n\n\nsavefig(filename)\n\n\n\n\n\nThere are also shorthands \npng(fn)\n, etc.  You don't need the file extension for those.\n\n\n\n\nGR\n\n\nFor the GR backend there are some additional optional settings:  (Thanks @jheinen!)\n\n\nThe GKS_WSTYPE environment variable can be used to set the output device. The default workstation type is automatically selected depending on the platform:\n -  211 = X11 (Un*x)\n -  400 = Quartz (macOS only)\n -  42 = GDI (Windows only)\n\n\nAdd this to your \n~/.juliarc.jl\n file to switch the default output device:\n\n\nENV\n[\nGKS_WSTYPE\n]\n \n=\n \nx11\n\n\n\n\n\n\nChoose from:\n\n\n\n\n\n\n\n\nType\n\n\nDescription\n\n\n\n\n\n\n\n\n\n\nx11\n\n\nX11 (Un*x + macOS)\n\n\n\n\n\n\nquartz\n\n\nQuartz (macOS only)\n\n\n\n\n\n\nwin\n\n\nGDI (Windows only)\n\n\n\n\n\n\nps, eps\n\n\nPostScript\n\n\n\n\n\n\npdf\n\n\nPortable Document Format\n\n\n\n\n\n\nbmp\n\n\nWindows Bitmap (BMP)\n\n\n\n\n\n\npgf\n\n\nPGF / TikZ\n\n\n\n\n\n\nmov\n\n\nMPEG-4 video\n\n\n\n\n\n\njpeg, jpg\n\n\nJPEG image file\n\n\n\n\n\n\npng\n\n\nPortable Network Graphics file (PNG)\n\n\n\n\n\n\ntiff, tif\n\n\nTagged Image File Format (TIFF)\n\n\n\n\n\n\nfig\n\n\nXfig vector graphics file\n\n\n\n\n\n\nsvg\n\n\nScalable Vector Graphics\n\n\n\n\n\n\nwmf\n\n\nWindows Metafile", 
+            "text": "Output\n\n\nA Plot is only displayed when returned\n (a semicolon will suppress the return), or if explicitly displayed with \ndisplay(plt)\n, \ngui()\n, or by adding \nshow = true\n to your plot command.\n\n\n\nTip: You can have MATLAB-like interactive behavior by setting the default value: default(show = true)\n\n\n\n\nStandalone window\n\n\nCalling \ngui(plt)\n will open a standalone window.  \ngui()\n, like \nplot!(...)\n, applies to the \"current\" Plot.  Returning a Plot object to the REPL is like calling \ngui(plt)\n.\n\n\nJupyter / IJulia\n\n\nPlots are shown inline when returned to a cell.  The default output format can be changed by the \nhtml_output_format\n attribute, with alias \nfmt\n:\n\n\nplot\n(\nrand\n(\n10\n),\n \nfmt\n \n=\n \n:\npng\n)\n\n\n\n\n\n\nJuno / Atom\n\n\nPlots are shown in the Atom PlotPane when possible, either when returned to the console or to an inline code block.  The REPL behavior (i.e. opening a standalone window) can be acheived by setting \nENV[\"PLOTS_USE_ATOM_PLOTPANE\"] = \"false\"\n before loading Plots.\n\n\nNote that javascript-based libraries (for example: PlotlyJS) cannot be shown in the PlotPane due to issues within Atom's internals.\n\n\nsavefig / png\n\n\nSave the most recent plot, choosing file type automatically by the extension.\n\n\nsavefig\n(\nfilename\n)\n\n\n\n\n\n\nThere are also shorthands \npng(fn)\n, etc.  You don't need the file extension for those.", 
             "title": "Output"
         }, 
         {
             "location": "/output/#output", 
-            "text": "In IJulia or the REPL,  a Plot is only displayed when returned  (a semicolon will suppress the return), or if explicitly displayed with  display() ,  gui() , or by adding  show = true  to your plot command.  \nTip: You can have MATLAB-like interactive behavior by setting the default value: default(show = true)", 
+            "text": "A Plot is only displayed when returned  (a semicolon will suppress the return), or if explicitly displayed with  display(plt) ,  gui() , or by adding  show = true  to your plot command.  \nTip: You can have MATLAB-like interactive behavior by setting the default value: default(show = true)", 
             "title": "Output"
         }, 
         {
-            "location": "/output/#gui", 
-            "text": "gui()  displays the most recent plot, or  display(plt)  works.  Returning the plot from the REPL is like calling  gui() .", 
-            "title": "GUI"
+            "location": "/output/#standalone-window", 
+            "text": "Calling  gui(plt)  will open a standalone window.   gui() , like  plot!(...) , applies to the \"current\" Plot.  Returning a Plot object to the REPL is like calling  gui(plt) .", 
+            "title": "Standalone window"
         }, 
         {
-            "location": "/output/#savefig", 
-            "text": "Save the most recent plot, choosing file type automatically by the extension.  savefig(filename)  There are also shorthands  png(fn) , etc.  You don't need the file extension for those.", 
-            "title": "savefig"
+            "location": "/output/#jupyter-ijulia", 
+            "text": "Plots are shown inline when returned to a cell.  The default output format can be changed by the  html_output_format  attribute, with alias  fmt :  plot ( rand ( 10 ),   fmt   =   : png )", 
+            "title": "Jupyter / IJulia"
         }, 
         {
-            "location": "/output/#gr", 
-            "text": "For the GR backend there are some additional optional settings:  (Thanks @jheinen!)  The GKS_WSTYPE environment variable can be used to set the output device. The default workstation type is automatically selected depending on the platform:\n -  211 = X11 (Un*x)\n -  400 = Quartz (macOS only)\n -  42 = GDI (Windows only)  Add this to your  ~/.juliarc.jl  file to switch the default output device:  ENV [ GKS_WSTYPE ]   =   x11   Choose from:     Type  Description      x11  X11 (Un*x + macOS)    quartz  Quartz (macOS only)    win  GDI (Windows only)    ps, eps  PostScript    pdf  Portable Document Format    bmp  Windows Bitmap (BMP)    pgf  PGF / TikZ    mov  MPEG-4 video    jpeg, jpg  JPEG image file    png  Portable Network Graphics file (PNG)    tiff, tif  Tagged Image File Format (TIFF)    fig  Xfig vector graphics file    svg  Scalable Vector Graphics    wmf  Windows Metafile", 
-            "title": "GR"
+            "location": "/output/#juno-atom", 
+            "text": "Plots are shown in the Atom PlotPane when possible, either when returned to the console or to an inline code block.  The REPL behavior (i.e. opening a standalone window) can be acheived by setting  ENV[\"PLOTS_USE_ATOM_PLOTPANE\"] = \"false\"  before loading Plots.  Note that javascript-based libraries (for example: PlotlyJS) cannot be shown in the PlotPane due to issues within Atom's internals.", 
+            "title": "Juno / Atom"
+        }, 
+        {
+            "location": "/output/#savefig-png", 
+            "text": "Save the most recent plot, choosing file type automatically by the extension.  savefig ( filename )   There are also shorthands  png(fn) , etc.  You don't need the file extension for those.", 
+            "title": "savefig / png"
         }, 
         {
             "location": "/animations/", 
