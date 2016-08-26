@@ -245,20 +245,26 @@
         <ul>
           
             <li class="anchor">
-              <a title="GUI" href="#gui">
-                GUI
+              <a title="Standalone window" href="#standalone-window">
+                Standalone window
               </a>
             </li>
           
             <li class="anchor">
-              <a title="savefig" href="#savefig">
-                savefig
+              <a title="Jupyter / IJulia" href="#jupyter-ijulia">
+                Jupyter / IJulia
               </a>
             </li>
           
             <li class="anchor">
-              <a title="GR" href="#gr">
-                GR
+              <a title="Juno / Atom" href="#juno-atom">
+                Juno / Atom
+              </a>
+            </li>
+          
+            <li class="anchor">
+              <a title="savefig / png" href="#savefig-png">
+                savefig / png
               </a>
             </li>
           
@@ -410,100 +416,29 @@
         <div class="wrapper">
           
           <h1 id="output">Output</h1>
-<p>In IJulia or the REPL, <strong>a Plot is only displayed when returned</strong> (a semicolon will suppress the return), or if explicitly displayed with <code>display()</code>, <code>gui()</code>, or by adding <code>show = true</code> to your plot command.</p>
+<p><strong>A Plot is only displayed when returned</strong> (a semicolon will suppress the return), or if explicitly displayed with <code>display(plt)</code>, <code>gui()</code>, or by adding <code>show = true</code> to your plot command.</p>
 <div style="background-color: lightblue; padding: 10px; border-style: solid; border-width: medium; margin: 10px;">
 Tip: You can have MATLAB-like interactive behavior by setting the default value: default(show = true)
 </div>
 
-<h3 id="gui">GUI</h3>
-<p><code>gui()</code> displays the most recent plot, or <code>display(plt)</code> works.  Returning the plot from the REPL is like calling <code>gui()</code>.</p>
-<h3 id="savefig">savefig</h3>
+<h3 id="standalone-window">Standalone window</h3>
+<p>Calling <code>gui(plt)</code> will open a standalone window.  <code>gui()</code>, like <code>plot!(...)</code>, applies to the "current" Plot.  Returning a Plot object to the REPL is like calling <code>gui(plt)</code>.</p>
+<h3 id="jupyter-ijulia">Jupyter / IJulia</h3>
+<p>Plots are shown inline when returned to a cell.  The default output format can be changed by the <code>html_output_format</code> attribute, with alias <code>fmt</code>:</p>
+<div class="code"><pre><span></span><span class="n">plot</span><span class="p">(</span><span class="n">rand</span><span class="p">(</span><span class="mi">10</span><span class="p">),</span> <span class="n">fmt</span> <span class="o">=</span> <span class="p">:</span><span class="n">png</span><span class="p">)</span>
+</pre></div>
+
+
+<h3 id="juno-atom">Juno / Atom</h3>
+<p>Plots are shown in the Atom PlotPane when possible, either when returned to the console or to an inline code block.  The REPL behavior (i.e. opening a standalone window) can be acheived by setting <code>ENV["PLOTS_USE_ATOM_PLOTPANE"] = "false"</code> before loading Plots.</p>
+<p>Note that javascript-based libraries (for example: PlotlyJS) cannot be shown in the PlotPane due to issues within Atom's internals.</p>
+<h3 id="savefig-png">savefig / png</h3>
 <p>Save the most recent plot, choosing file type automatically by the extension.</p>
-<div class="code"><pre><span></span>savefig(filename)
+<div class="code"><pre><span></span><span class="n">savefig</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>
 </pre></div>
 
 
 <p>There are also shorthands <code>png(fn)</code>, etc.  You don't need the file extension for those.</p>
-<hr />
-<h3 id="gr">GR</h3>
-<p>For the GR backend there are some additional optional settings:  (Thanks @jheinen!)</p>
-<p>The GKS_WSTYPE environment variable can be used to set the output device. The default workstation type is automatically selected depending on the platform:
- -  211 = X11 (Un*x)
- -  400 = Quartz (macOS only)
- -  42 = GDI (Windows only)</p>
-<p>Add this to your <code>~/.juliarc.jl</code> file to switch the default output device:</p>
-<div class="code"><pre><span></span><span class="n">ENV</span><span class="p">[</span><span class="s">&quot;GKS_WSTYPE&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s">&quot;x11&quot;</span>
-</pre></div>
-
-
-<p>Choose from:</p>
-<table>
-<thead>
-<tr>
-<th>Type</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>x11</td>
-<td>X11 (Un*x + macOS)</td>
-</tr>
-<tr>
-<td>quartz</td>
-<td>Quartz (macOS only)</td>
-</tr>
-<tr>
-<td>win</td>
-<td>GDI (Windows only)</td>
-</tr>
-<tr>
-<td>ps, eps</td>
-<td>PostScript</td>
-</tr>
-<tr>
-<td>pdf</td>
-<td>Portable Document Format</td>
-</tr>
-<tr>
-<td>bmp</td>
-<td>Windows Bitmap (BMP)</td>
-</tr>
-<tr>
-<td>pgf</td>
-<td>PGF / TikZ</td>
-</tr>
-<tr>
-<td>mov</td>
-<td>MPEG-4 video</td>
-</tr>
-<tr>
-<td>jpeg, jpg</td>
-<td>JPEG image file</td>
-</tr>
-<tr>
-<td>png</td>
-<td>Portable Network Graphics file (PNG)</td>
-</tr>
-<tr>
-<td>tiff, tif</td>
-<td>Tagged Image File Format (TIFF)</td>
-</tr>
-<tr>
-<td>fig</td>
-<td>Xfig vector graphics file</td>
-</tr>
-<tr>
-<td>svg</td>
-<td>Scalable Vector Graphics</td>
-</tr>
-<tr>
-<td>wmf</td>
-<td>Windows Metafile</td>
-</tr>
-</tbody>
-</table>
-<hr />
           <aside class="copyright" role="note">
             
               Copyright &copy; 2015-2016 Thomas Breloff &ndash;
