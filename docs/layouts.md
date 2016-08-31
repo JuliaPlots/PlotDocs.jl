@@ -68,10 +68,20 @@ Create inset (floating) subplots using the `inset_subplots` attribute. `inset_su
 Use `px`/`mm`/`inch` for absolute coords, `w`/`h` for percentage relative to the parent. Origin is top-left. `h_anchor`/`v_anchor` define what the `x`/`y` inputs of the bounding box refer to.
 
 ```julia
-using Plots
-plot(heatmap(randn(10,20)), boxplot(rand(1:4,1000),randn(1000)), leg=false)
-histogram!(randn(1000), inset_subplots = [(1, bbox(0.05w,0.95h,0.5w,0.5h, v_anchor=:bottom))], subplot=3, ticks=nothing)
-sticks!(randn(100), inset_subplots=[bbox(0.35w,0.5h,200px,200px,h_anchor=:center,v_anchor=:center)], subplot=4)
+# boxplot is defined in StatPlots
+using StatPlots
+gr(leg=false, bg=:lightgrey)
+
+# Create a filled contour and boxplot side by side.
+plot(contourf(randn(10,20)), boxplot(rand(1:4,1000),randn(1000)))
+
+# Add a histogram inset on the heatmap.
+# We set the (optional) position relative to bottom-right of the 1st subplot.
+# The call is `bbox(x, y, width, height, origin...)`, where numbers are treated as "percent of parent"
+histogram!(randn(1000), inset = (1, bbox(0.05,0.05,0.5,0.25,:bottom,:right)), ticks=nothing, subplot=3, bg_inside=nothing)
+
+# Add sticks floating in the window (inset relative to the window, as opposed to being relative to a subplot)
+sticks!(randn(100), inset = bbox(0,-0.2,200px,100px,:center), ticks=nothing, subplot=4)
 ```
 
-![](https://cloud.githubusercontent.com/assets/933338/16015147/6732e03c-3162-11e6-8a9f-ca87317a97b4.png)
+![](https://cloud.githubusercontent.com/assets/933338/18135883/6ba2252c-6f71-11e6-89b3-e32337259795.png)
