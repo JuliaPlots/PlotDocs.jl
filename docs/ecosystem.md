@@ -81,6 +81,13 @@ Reinforce.jl is an interface for Reinforcement Learning. It is intended to conne
 
 ![](https://cloud.githubusercontent.com/assets/933338/17703784/f3e18414-63a0-11e6-9f9e-f531278216f9.gif)
 
+
+## [JuliaML](https://github.com/JuliaML)
+
+Tools, models, and math related to machine learning in Julia.
+
+![](https://cloud.githubusercontent.com/assets/933338/18800737/93b71b42-81ac-11e6-9c7a-0cddf6d083ab.png)
+
 ## [Augmentor](https://github.com/Evizero/Augmentor.jl)
 
 Augmentor is an image-augmentation library designed to render the process of artificial dataset enlargement more convenient, less error prone, and easier to reproduce. This is achieved using probabilistic transformation pipelines.
@@ -174,5 +181,3 @@ TODO:
 ## Optim
 
 ## Transformations / Flow
-
-
