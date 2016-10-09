@@ -22,18 +22,16 @@ In most cases, passing a (n x m) matrix of values (numbers, etc) will create `m`
 
 ## DataFrames support
 
-If you have DataFrames installed, some convenience functionality is turned on.  (Those coming from R will appreciate it.)  The first argument should be the `DataFrame`, and subsequent `Symbol` arguments will be mapped to the corresponding column in that `DataFrame`.  Example:
+Using the [StatPlots](https://github.com/JuliaPlots/StatPlots.jl) extension package, you can pass a `DataFrame` as the first argument (similar to Gadfly or R's ggplot2).  For data fields or certain attributes (such as `group`) a symbol will be replaced with the corresponding column(s) of the `DataFrame`.  Additionally, the column name might be used as the   An example:
 
 ```julia
-using DataFrames, Plots; gadfly()
-using RDatasets; iris = dataset("datasets", "iris")
-
+using StatPlots, RDatasets
+iris = dataset("datasets", "iris")
 scatter(iris, :SepalLength, :SepalWidth, group=:Species,
-        title = "My awesome plot", xlabel = "Length", ylabel = "Width",
         m=(0.5, [:+ :h :star7], 12), bg=RGB(.2,.2,.2))
 ```
 
-![iris_plt](examples/img/iris.png)
+![iris_plt](https://cloud.githubusercontent.com/assets/933338/19221014/9bb6ad18-8e08-11e6-9030-9037352e3119.png)
 
 ## Functions
 
