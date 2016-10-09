@@ -242,6 +242,12 @@
             </li>
           
             <li class="anchor">
+              <a title="Images" href="#images">
+                Images
+              </a>
+            </li>
+          
+            <li class="anchor">
               <a title="Shapes" href="#shapes">
                 Shapes
               </a>
@@ -436,17 +442,15 @@ can have unique behavior, when desired.</p>
 <h2 id="columns-are-series">Columns are series</h2>
 <p>In most cases, passing a (n x m) matrix of values (numbers, etc) will create <code>m</code> series, each with <code>n</code> data points.  This follows a consistent rule... vectors apply to a series, matrices apply to many series.  This rule carries into keyword arguments.  <code>plot(rand(10,4), color = [:red, :blue])</code> will create 4 series, each assigned the color vector [:red,:blue].  However, <code>plot(rand(10,4), color = [:red :blue])</code> will create 4 series, with series 1 and 3 taking the color <code>:red</code> and series 2 and 4 taking the color <code>:blue</code>.  The difference is that in the first example, it is a length-2 column vector, and in the second example it is a (1 x 2) row vector (a Matrix).</p>
 <h2 id="dataframes-support">DataFrames support</h2>
-<p>If you have DataFrames installed, some convenience functionality is turned on.  (Those coming from R will appreciate it.)  The first argument should be the <code>DataFrame</code>, and subsequent <code>Symbol</code> arguments will be mapped to the corresponding column in that <code>DataFrame</code>.  Example:</p>
-<div class="code"><pre><span></span><span class="k">using</span> <span class="n">DataFrames</span><span class="p">,</span> <span class="n">Plots</span><span class="p">;</span> <span class="n">gadfly</span><span class="p">()</span>
-<span class="k">using</span> <span class="n">RDatasets</span><span class="p">;</span> <span class="n">iris</span> <span class="o">=</span> <span class="n">dataset</span><span class="p">(</span><span class="s">&quot;datasets&quot;</span><span class="p">,</span> <span class="s">&quot;iris&quot;</span><span class="p">)</span>
-
+<p>Using the <a href="https://github.com/JuliaPlots/StatPlots.jl">StatPlots</a> extension package, you can pass a <code>DataFrame</code> as the first argument (similar to Gadfly or R's ggplot2).  For data fields or certain attributes (such as <code>group</code>) a symbol will be replaced with the corresponding column(s) of the <code>DataFrame</code>.  Additionally, the column name might be used as the   An example:</p>
+<div class="code"><pre><span></span><span class="k">using</span> <span class="n">StatPlots</span><span class="p">,</span> <span class="n">RDatasets</span>
+<span class="n">iris</span> <span class="o">=</span> <span class="n">dataset</span><span class="p">(</span><span class="s">&quot;datasets&quot;</span><span class="p">,</span> <span class="s">&quot;iris&quot;</span><span class="p">)</span>
 <span class="n">scatter</span><span class="p">(</span><span class="n">iris</span><span class="p">,</span> <span class="p">:</span><span class="n">SepalLength</span><span class="p">,</span> <span class="p">:</span><span class="n">SepalWidth</span><span class="p">,</span> <span class="n">group</span><span class="o">=</span><span class="p">:</span><span class="n">Species</span><span class="p">,</span>
-        <span class="n">title</span> <span class="o">=</span> <span class="s">&quot;My awesome plot&quot;</span><span class="p">,</span> <span class="n">xlabel</span> <span class="o">=</span> <span class="s">&quot;Length&quot;</span><span class="p">,</span> <span class="n">ylabel</span> <span class="o">=</span> <span class="s">&quot;Width&quot;</span><span class="p">,</span>
         <span class="n">m</span><span class="o">=</span><span class="p">(</span><span class="mf">0.5</span><span class="p">,</span> <span class="p">[:</span><span class="o">+</span> <span class="p">:</span><span class="n">h</span> <span class="p">:</span><span class="n">star7</span><span class="p">],</span> <span class="mi">12</span><span class="p">),</span> <span class="n">bg</span><span class="o">=</span><span class="n">RGB</span><span class="p">(</span><span class="o">.</span><span class="mi">2</span><span class="p">,</span><span class="o">.</span><span class="mi">2</span><span class="p">,</span><span class="o">.</span><span class="mi">2</span><span class="p">))</span>
 </pre></div>
 
 
-<p><img alt="iris_plt" src="../examples/img/iris.png" /></p>
+<p><img alt="iris_plt" src="https://cloud.githubusercontent.com/assets/933338/19221014/9bb6ad18-8e08-11e6-9030-9037352e3119.png" /></p>
 <h2 id="functions">Functions</h2>
 <p>Functions can typically be used in place of input data, and they will be mapped as needed. 2D and 3D parametric plots can also be created, and ranges can be given as vectors or min/max.  For example, here are alternative methods to create the same plot:</p>
 <div class="code"><pre><span></span><span class="k">using</span> <span class="n">Plots</span>
@@ -461,6 +465,15 @@ can have unique behavior, when desired.</p>
 
 
 <p>Vectors of functions are allowed as well (one series per function).</p>
+<h2 id="images">Images</h2>
+<p>Images can be directly added to plots by using the <a href="https://github.com/timholy/Images.jl">Images.jl</a> library. For example, one can import a raster image and plot it with Plots via the commands:</p>
+<div class="code"><pre><span></span><span class="k">using</span> <span class="n">Plots</span><span class="p">,</span><span class="n">Images</span>
+<span class="n">img</span> <span class="o">=</span> <span class="nb">load</span><span class="p">(</span><span class="s">&quot;image.png&quot;</span><span class="p">)</span>
+<span class="n">plot</span><span class="p">(</span><span class="n">img</span><span class="p">)</span>
+</pre></div>
+
+
+<p>PDF graphics can also be added to Plots.jl plots using <code>load("image.pdf")</code>. Note that Images.jl requires that the PDF color scheme is RGB.</p>
 <h2 id="shapes">Shapes</h2>
 <p>Check out <a href="https://github.com/tbreloff/ExamplePlots.jl/blob/master/notebooks/batman.ipynb">this tutorial</a> to save Gotham:</p>
 <p><img alt="batman" src="../examples/img/batman.png" /></p>
