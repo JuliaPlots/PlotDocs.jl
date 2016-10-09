@@ -52,6 +52,18 @@ plot(sin, cos, tmin, tmax)
 
 Vectors of functions are allowed as well (one series per function).
 
+## Images
+
+Images can be directly added to plots by using the [Images.jl](https://github.com/timholy/Images.jl) library. For example, one can import a raster image and plot it with Plots via the commands:
+
+```julia
+using Plots,Images
+img = load("image.png")
+plot(img)
+```
+
+PDF graphics can also be added to Plots.jl plots using `load("image.pdf")`. Note that Images.jl requires that the PDF color scheme is RGB.
+
 ## Shapes
 
 Check out [this tutorial](https://github.com/tbreloff/ExamplePlots.jl/blob/master/notebooks/batman.ipynb) to save Gotham:
