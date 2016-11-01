@@ -96,7 +96,7 @@ plot(y, fillrange = 0,
 Set attributes corresponding to a series marker.  Aliases: `m`, `mark`.  The following are equivalent:
 
 ```julia
-scatter(y, marker = (:hexagon, 20, 0.6, :green, Stroke(3, 0.2, :black, :dot)))
+scatter(y, marker = (:hexagon, 20, 0.6, :green, stroke(3, 0.2, :black, :dot)))
 
 scatter(y, markershape = :hexagon,
 		   markersize = 20,
