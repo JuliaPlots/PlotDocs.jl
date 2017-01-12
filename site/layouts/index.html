@@ -416,21 +416,21 @@
 <hr />
 <h4 id="simple-layouts">Simple Layouts</h4>
 <p>Pass an integer to <code>layout</code> to allow it to automatically compute a grid size for that many subplots:</p>
-<div class="code"><pre><span></span><span class="c"># create a 2x2 grid, and map each of the 4 series to one of the subplots</span>
+<div class="code"><pre><span class="c"># create a 2x2 grid, and map each of the 4 series to one of the subplots</span>
 <span class="n">plot</span><span class="p">(</span><span class="n">rand</span><span class="p">(</span><span class="mi">100</span><span class="p">,</span><span class="mi">4</span><span class="p">),</span> <span class="n">layout</span> <span class="o">=</span> <span class="mi">4</span><span class="p">)</span>
 </pre></div>
 
 
 <p><img alt="" src="../examples/img/layouts1.png" /></p>
 <p>Pass a tuple to <code>layout</code> to create a grid of that size:</p>
-<div class="code"><pre><span></span><span class="c"># create a 4x1 grid, and map each of the 4 series to one of the subplots</span>
+<div class="code"><pre><span class="c"># create a 4x1 grid, and map each of the 4 series to one of the subplots</span>
 <span class="n">plot</span><span class="p">(</span><span class="n">rand</span><span class="p">(</span><span class="mi">100</span><span class="p">,</span><span class="mi">4</span><span class="p">),</span> <span class="n">layout</span> <span class="o">=</span> <span class="p">(</span><span class="mi">4</span><span class="p">,</span><span class="mi">1</span><span class="p">))</span>
 </pre></div>
 
 
 <p><img alt="" src="../examples/img/layouts2.png" /></p>
 <p>More complex grid layouts can be created with the <code>grid(...)</code> constructor:</p>
-<div class="code"><pre><span></span><span class="n">plot</span><span class="p">(</span><span class="n">rand</span><span class="p">(</span><span class="mi">100</span><span class="p">,</span><span class="mi">4</span><span class="p">),</span> <span class="n">layout</span> <span class="o">=</span> <span class="n">grid</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="n">heights</span><span class="o">=</span><span class="p">[</span><span class="mf">0.1</span><span class="p">,</span><span class="mf">0.4</span><span class="p">,</span><span class="mf">0.4</span><span class="p">,</span><span class="mf">0.1</span><span class="p">]))</span>
+<div class="code"><pre><span class="n">plot</span><span class="p">(</span><span class="n">rand</span><span class="p">(</span><span class="mi">100</span><span class="p">,</span><span class="mi">4</span><span class="p">),</span> <span class="n">layout</span> <span class="o">=</span> <span class="n">grid</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="n">heights</span><span class="o">=</span><span class="p">[</span><span class="mf">0.1</span><span class="p">,</span><span class="mf">0.4</span><span class="p">,</span><span class="mf">0.4</span><span class="p">,</span><span class="mf">0.1</span><span class="p">]))</span>
 </pre></div>
 
 
@@ -438,12 +438,12 @@
 <hr />
 <h4 id="advanced-layouts">Advanced Layouts</h4>
 <p>The <code>@layout</code> macro is the easiest way to define complex layouts, using Julia's <a href="http://docs.julialang.org/en/release-0.4/manual/arrays/#concatenation">multidimensional Array construction</a> as the basis for a custom layout syntax.  Precise sizing can be acheived with curly brackets, otherwise the free space is equally split between the <strong>plot areas</strong> of subplots.</p>
-<div class="code"><pre><span></span><span class="n">l</span> <span class="o">=</span> <span class="p">@</span><span class="n">layout</span> <span class="p">[</span>  <span class="n">a</span><span class="p">{</span><span class="mf">0.3</span><span class="n">w</span><span class="p">}</span> <span class="p">[</span><span class="n">grid</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="mi">3</span><span class="p">)</span>
+<div class="code"><pre><span class="n">l</span> <span class="o">=</span> <span class="p">@</span><span class="n">layout</span> <span class="p">[</span>  <span class="n">a</span><span class="p">{</span><span class="mf">0.3</span><span class="n">w</span><span class="p">}</span> <span class="p">[</span><span class="n">grid</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="mi">3</span><span class="p">)</span>
                          <span class="n">b</span><span class="p">{</span><span class="mf">0.2</span><span class="n">h</span><span class="p">}</span> <span class="p">]]</span>
 <span class="n">plot</span><span class="p">(</span>
     <span class="n">rand</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="mi">11</span><span class="p">),</span>
     <span class="n">layout</span> <span class="o">=</span> <span class="n">l</span><span class="p">,</span> <span class="n">legend</span> <span class="o">=</span> <span class="n">false</span><span class="p">,</span> <span class="n">seriestype</span> <span class="o">=</span> <span class="p">[:</span><span class="n">bar</span> <span class="p">:</span><span class="n">scatter</span> <span class="p">:</span><span class="n">path</span><span class="p">],</span>
-    <span class="n">title</span> <span class="o">=</span> <span class="p">[</span><span class="s">&quot;(</span><span class="si">$i</span><span class="s">)&quot;</span> <span class="k">for</span> <span class="n">i</span><span class="o">=</span><span class="mi">1</span><span class="p">:</span><span class="mi">11</span><span class="p">]</span><span class="o">&#39;</span><span class="p">,</span> <span class="n">titleloc</span> <span class="o">=</span> <span class="p">:</span><span class="n">right</span><span class="p">,</span> <span class="n">titlefont</span> <span class="o">=</span> <span class="n">font</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span>
+    <span class="n">title</span> <span class="o">=</span> <span class="p">[</span><span class="s">&quot;(</span><span class="si">$</span><span class="s">i)&quot;</span> <span class="k">for</span> <span class="n">i</span><span class="o">=</span><span class="mi">1</span><span class="p">:</span><span class="mi">11</span><span class="p">]</span><span class="o">&#39;</span><span class="p">,</span> <span class="n">titleloc</span> <span class="o">=</span> <span class="p">:</span><span class="n">right</span><span class="p">,</span> <span class="n">titlefont</span> <span class="o">=</span> <span class="n">font</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span>
 <span class="p">)</span>
 </pre></div>
 
@@ -452,7 +452,7 @@
 <hr />
 <p>Create inset (floating) subplots using the <code>inset_subplots</code> attribute. <code>inset_subplots</code> takes a list of (parent_layout, BoundingBox) tuples, where the bounding box is relative to the parent.</p>
 <p>Use <code>px</code>/<code>mm</code>/<code>inch</code> for absolute coords, <code>w</code>/<code>h</code> for percentage relative to the parent. Origin is top-left. <code>h_anchor</code>/<code>v_anchor</code> define what the <code>x</code>/<code>y</code> inputs of the bounding box refer to.</p>
-<div class="code"><pre><span></span><span class="c"># boxplot is defined in StatPlots</span>
+<div class="code"><pre><span class="c"># boxplot is defined in StatPlots</span>
 <span class="k">using</span> <span class="n">StatPlots</span>
 <span class="n">gr</span><span class="p">(</span><span class="n">leg</span><span class="o">=</span><span class="n">false</span><span class="p">,</span> <span class="n">bg</span><span class="o">=</span><span class="p">:</span><span class="n">lightgrey</span><span class="p">)</span>
 

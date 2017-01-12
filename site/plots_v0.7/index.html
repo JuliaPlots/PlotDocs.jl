@@ -401,14 +401,14 @@
 <p>Want to do something special whenever the first input is a time series?  Maybe you want to preprocess your data depending on keyword flags?  This is all possible by making recipes with unique dispatch signatures.  You can offload and use the pre and post processing of Plots, and just add the bits that are specific to you.</p>
 <h3 id="type-recipes-easy-drop-in-replacement-of-data-types">Type Recipes: Easy drop-in replacement of data types</h3>
 <p>Many times a data type is a simple wrapper of a Function or Array.  For example:</p>
-<div class="code"><pre><span></span><span class="k">type</span><span class="nc"> MyVec</span>
+<div class="code"><pre><span class="k">type</span><span class="nc"> MyVec</span>
     <span class="n">v</span><span class="p">::</span><span class="n">Vector</span><span class="p">{</span><span class="kt">Int</span><span class="p">}</span>
 <span class="k">end</span>
 </pre></div>
 
 
 <p>If <code>MyVec</code> was a subtype of AbstractVector, there would not be anything to do... it should "just work".  However this isn't always desireable, and it would be nice if you could call <code>plot(10:20, myvec)</code> without having to personally define every possible combination of inputs.  It this case, you'll want to use a special type of recipe signature:</p>
-<div class="code"><pre><span></span><span class="p">@</span><span class="n">recipe</span> <span class="n">f</span><span class="p">(::</span><span class="n">Type</span><span class="p">{</span><span class="n">MyVec</span><span class="p">},</span> <span class="n">myvec</span><span class="p">::</span><span class="n">MyVec</span><span class="p">)</span> <span class="o">=</span> <span class="n">myvec</span><span class="o">.</span><span class="n">v</span>
+<div class="code"><pre><span class="p">@</span><span class="n">recipe</span> <span class="n">f</span><span class="p">(::</span><span class="n">Type</span><span class="p">{</span><span class="n">MyVec</span><span class="p">},</span> <span class="n">myvec</span><span class="p">::</span><span class="n">MyVec</span><span class="p">)</span> <span class="o">=</span> <span class="n">myvec</span><span class="o">.</span><span class="n">v</span>
 </pre></div>
 
 

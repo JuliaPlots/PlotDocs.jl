@@ -426,7 +426,7 @@ the <a href="../examples/pyplot/#functions-adding-data-and-animations">pyplot ex
 <p>There are two macros for varying levels of convenience in creating animations: <code>@animate</code> and <code>@gif</code>.  The main difference is that <code>@animate</code> will return an <code>Animation</code> object for later processing, and <code>@gif</code> will create an animated gif file (and display it when returned to an IJulia cell).</p>
 <p>Use <code>@gif</code> for simple, one-off animations that you want to view immediately.  Use <code>@animate</code> for anything more complex.  Constructing <code>Animation</code> objects can be done when you need full control of the life-cycle of the animation (usually unnecessary though).</p>
 <p>Examples:</p>
-<div class="code"><pre><span></span><span class="n">anim</span> <span class="o">=</span> <span class="p">@</span><span class="n">animate</span> <span class="k">for</span> <span class="n">i</span><span class="o">=</span><span class="mi">1</span><span class="p">:</span><span class="mi">100</span>
+<div class="code"><pre><span class="n">anim</span> <span class="o">=</span> <span class="p">@</span><span class="n">animate</span> <span class="k">for</span> <span class="n">i</span><span class="o">=</span><span class="mi">1</span><span class="p">:</span><span class="mi">100</span>
     <span class="n">plot</span><span class="p">(</span><span class="o">...</span><span class="p">)</span>
 <span class="k">end</span>
 <span class="n">gif</span><span class="p">(</span><span class="n">anim</span><span class="p">,</span> <span class="s">&quot;/tmp/anim_fps15.gif&quot;</span><span class="p">,</span> <span class="n">fps</span> <span class="o">=</span> <span class="mi">15</span><span class="p">)</span>
@@ -435,14 +435,14 @@ the <a href="../examples/pyplot/#functions-adding-data-and-animations">pyplot ex
 
 
 <p>The <code>every</code> flag will only save a frame "every N iterations":</p>
-<div class="code"><pre><span></span><span class="p">@</span><span class="n">gif</span> <span class="k">for</span> <span class="n">i</span><span class="o">=</span><span class="mi">1</span><span class="p">:</span><span class="mi">100</span>
+<div class="code"><pre><span class="p">@</span><span class="n">gif</span> <span class="k">for</span> <span class="n">i</span><span class="o">=</span><span class="mi">1</span><span class="p">:</span><span class="mi">100</span>
     <span class="n">plot</span><span class="p">(</span><span class="o">...</span><span class="p">)</span>
 <span class="k">end</span> <span class="n">every</span> <span class="mi">10</span>
 </pre></div>
 
 
 <p>The <code>when</code> flag will only save a frame "when the expression is true"</p>
-<div class="code"><pre><span></span><span class="p">@</span><span class="n">gif</span> <span class="k">for</span> <span class="n">i</span><span class="o">=</span><span class="mi">1</span><span class="p">:</span><span class="mi">100</span>
+<div class="code"><pre><span class="p">@</span><span class="n">gif</span> <span class="k">for</span> <span class="n">i</span><span class="o">=</span><span class="mi">1</span><span class="p">:</span><span class="mi">100</span>
     <span class="n">plot</span><span class="p">(</span><span class="o">...</span><span class="p">)</span>
 <span class="k">end</span> <span class="n">when</span> <span class="n">i</span> <span class="o">&gt;</span> <span class="mi">50</span> <span class="o">&amp;&amp;</span> <span class="n">mod1</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span> <span class="o">==</span> <span class="mi">5</span>
 </pre></div>
@@ -452,7 +452,7 @@ the <a href="../examples/pyplot/#functions-adding-data-and-animations">pyplot ex
 <p>The newly added <code>animate</code> method allows you to pass an arbitrary iterator which returns
 the "input data" for plotting each frame of an animation.  As an example, we'll use
 <code>Iterators.repeatedly</code> to give us an iterator which returns a random vector on each iteration:</p>
-<div class="code"><pre><span></span><span class="k">using</span> <span class="n">Plots</span><span class="p">,</span> <span class="n">Iterators</span>
+<div class="code"><pre><span class="k">using</span> <span class="n">Plots</span><span class="p">,</span> <span class="n">Iterators</span>
 <span class="n">itr</span> <span class="o">=</span> <span class="n">repeatedly</span><span class="p">(()</span><span class="o">-&gt;</span><span class="n">rand</span><span class="p">(</span><span class="mi">10</span><span class="p">),</span> <span class="mi">20</span><span class="p">)</span>
 <span class="n">animate</span><span class="p">(</span><span class="n">itr</span><span class="p">,</span> <span class="n">ylims</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">),</span> <span class="n">c</span><span class="o">=</span><span class="p">:</span><span class="n">red</span><span class="p">,</span> <span class="n">fps</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
 </pre></div>
