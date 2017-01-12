@@ -14,12 +14,12 @@ My favorites: GR for speed, Plotly(JS) for interactivity, PyPlot otherwise.
 If you require... | ... then use...
 ----------- | -----------------
 features         | PyPlot, Plotly(JS), GR
-speed            | GR
-interactivity    | Plotly(JS)
+speed            | GR, InspectDR
+interactivity    | Plotly(JS), InspectDR
 beauty           | Plotly(JS), PGFPlots
 REPL Plotting    | UnicodePlots
 3D plots  		 | PyPlot, GR, Plotly(JS)
-a GUI Window     | GR, PyPlot, PlotlyJS
+a GUI Window     | GR, PyPlot, PlotlyJS, InspectDR
 a small footprint | UnicodePlots, Plotly
 
 Of course nothing in life is that simple.  Likely there are subtle tradeoffs between backends, long hidden bugs, and more excitement.  Don't be shy to try out something new!
@@ -133,6 +133,26 @@ Authors:
 - PGFPlots: Christian Feuersanger
 - PGFPlots.jl: Mykel Kochenderfer (@mykelk),  Louis Dressel (@dressel), and others
 - Plots <--> PGFPlots link code: Patrick Kofod Mogensen (@pkofod)
+
+### [InspectDR](https://github.com/ma-laforge/InspectDR.jl)
+
+Fast plotting with a responsive GUI (optional).  Target: Quickly identify design/simulation issues & glitches in order to shorten design iterations.
+
+![](examples/img/inspectdr_bode_gui.png) ![](examples/img/inspectdr_bode_export.png)
+
+Pros:
+- Relatively short load times / time to first plot
+- Interactive mouse/keybindings
+ - Fast & simple way to pan/zoom into data
+- Designed with larger datasets in mind
+ - Responsive even with moderate (>200k points) datasets
+ - Confirmed to handle 2GB datsets with reasonable speed on older desktop running Windows 7 (Just don't try to drag+pan the data area).
+
+Cons:
+- Mostly limited to 2D line/scatter plots
+- No support for `@layout` or `grid` at the moment.
+
+Primary author: MA Laforge (@ma-laforge)
 
 ---
 
