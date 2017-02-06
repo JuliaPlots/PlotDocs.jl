@@ -75,7 +75,7 @@ Tip: Call `gui()` to display the plot in a window.  Interactivity depends on bac
 </div>
 
 <div style="background-color: lightblue; padding: 10px; border-style: solid; border-width: medium; margin: 10px;">
-Tip: See the <a href="examples/pyplot">examples</a> for plotting ideas and features.
+Tip: See the <a href="../examples/pyplot">examples</a> for plotting ideas and features.
 </div>
 
 ---
