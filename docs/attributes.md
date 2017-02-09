@@ -21,6 +21,9 @@ function autoResize(id){
 # Attributes
 
 In Plots, input data is passed positionally (for example, the `y` in `plot(y)`), and attributes are passed as keywords (for example, `plot(y, color = :blue)`).
+<div style="background-color: lightblue; padding: 10px; border-style: solid; border-width: medium; margin: 10px;">
+Tip: Most of the information on this page is available from your Julia session with the function `plotattr`, e.g. `plotattr(:Series)` to print a list of all series attributes, or `plotattr("ms")` to print the aliases and descriptions of `markersize`.
+</div>
 
 ---
 
@@ -141,5 +144,3 @@ These attributes apply to settings for individual Subplots.
 These attributes apply to an individual Axis in a Subplot (for example the `subplot[:xaxis]`)
 
 <iframe src="../axis_attr.html" name="axis attributes" height="700" width="700", id="axisframe" marginheight="0" frameborder="0" onLoad="autoResize('axisframe');">You need a Frames Capable browser to view this content.</iframe>
-
-
