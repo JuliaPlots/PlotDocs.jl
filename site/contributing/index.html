@@ -431,6 +431,13 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#styledesign-guidelines" title="Style/Design Guidelines" class="md-nav__link">
+    Style/Design Guidelines
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -825,6 +832,13 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#styledesign-guidelines" title="Style/Design Guidelines" class="md-nav__link">
+    Style/Design Guidelines
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -950,6 +964,8 @@
 <li><a href="#code-organization">Code Organization</a>: Where to look when implementing new features</li>
 <li><a href="#git-fu-or-the-mechanics-of-contributing">Git-fu (or... the mechanics of contributing)</a>: Git (how to commit/push), Github (how to submit a PR), Testing (VisualRegressionTests, Travis)</li>
 </ul>
+<p>When in doubt, use this handy dandy logic designed by a <a href="https://github.com/tbreloff">legendary open source guru</a>...</p>
+<p><img alt="" src="https://cloud.githubusercontent.com/assets/933338/23193321/4cd1d578-f876-11e6-92dc-222b52598054.png" /></p>
 <hr />
 <h2 id="the-juliaplots-organization">The JuliaPlots Organization</h2>
 <p><a href="https://github.com/JuliaPlots">JuliaPlots</a> is the home for all things Plots.  It was founded by <a href="http://www.breloff.com">Tom Breloff</a>, and extended through many contributions from <a href="https://github.com/orgs/JuliaPlots/people">members</a> and others.  The first step in contributing will be to understand which package(s) are appropriate destinations for your code.</p>
@@ -972,7 +988,7 @@
 <p>Note: As of 2/22/17, the <code>reorg</code> branch of Plots is needed for compatibility with the new backend repos.  This will be merged into the master branch sometime after the release of v0.6.</p>
 <p>This redesign will help with improved support for precompilation, and a cleaner separation of "generic plotting" development and "backend-specific" development.</p>
 <h3 id="plotdocs">PlotDocs</h3>
-<p>This is the home of this documentation.  The documentation is built using the "material" theme in "mkdocs".  For those contributing documentation (to the <code>docs</code> directory of PlotDocs), it must be subsequently built and deployed using the following instructions:</p>
+<p>PlotDocs is the home of this documentation.  The documentation is built using the "material" theme in "mkdocs".  For those contributing documentation (to the <code>docs</code> directory of PlotDocs), it must be subsequently built and deployed using the following instructions:</p>
 <div class="code"><pre># Note: the site is built inside the PlotDocs.jl repo, but then deployed to the JuliaPlots organization page
 
 # To build, run from inside the PlotDocs directory:
@@ -1068,6 +1084,13 @@
 <p>These files should probably be reorganized, but until then...</p>
 <h3 id="creating-new-backends">Creating new backends</h3>
 <p>Model new backends on <a href="https://github.com/JuliaPlots/PlotsGR.jl">PlotsGR</a>.  Implement the callbacks that are appropriate, especially <code>_display</code> and <code>_show</code> for GUI and image output respectively.</p>
+<h3 id="styledesign-guidelines">Style/Design Guidelines</h3>
+<ul>
+<li>Make every effort to minimize external dependencies and exports.  Requiring new dependencies is the most likely way to make your PR "unmergeable".</li>
+<li>Be careful adding method signatures on existing methods with Base types (Array, etc) as you may override key functionality.  This is especially true with recipes.  Consider wrapping inputs in a new type (like in "user recipes").</li>
+<li>Terse code is ok, as is verbose code.  What's important is understanding and context.  Will someone reading your code know what you mean?  If not, consider writing comments to describe your reason for the design, or describe the hack you just implemented in clear prose.  Sometimes <a href="https://github.com/JuliaPlots/Plots.jl/blob/master/src/pipeline.jl#L62-L67">it's ok that your comments are longer than your code</a>.</li>
+<li>Pick your project for yourself, but write code for others.  It should be generic and useful beyond your needs, and you should <strong>never break functionality</strong> because you can't figure out how to implement something well.  Spend more time on it... there's always a better way.</li>
+</ul>
 <hr />
 <h2 id="git-fu-or-the-mechanics-of-contributing">Git-fu (or... the mechanics of contributing)</h2>
 <p>Many people have trouble with Git.  More have trouble with Github.  I think much of the confusion happens when you run commands without understanding what they do.  We're all guilty of it, but recovering usually means "starting over".  In this section, I'll try to keep a simple, practical approach to making PRs.  It's worked well for me, though YMMV.</p>
