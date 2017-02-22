@@ -18,7 +18,45 @@ can have unique behavior, when desired.
 
 ## Columns are series
 
-In most cases, passing a (n x m) matrix of values (numbers, etc) will create `m` series, each with `n` data points.  This follows a consistent rule... vectors apply to a series, matrices apply to many series.  This rule carries into keyword arguments.  `scatter(rand(10,4), markershape = [:circle, :rect])` will create 4 series, each assigned the markershape vector [:circle,:rect].  However, `scatter(rand(10,4), markershape = [:circle :rect])` will create 4 series, with series 1 and 3 having markers shaped as `:circle` and series 2 and 4 having markers shaped as `:rect` (i.e. as squares).  The difference is that in the first example, it is a length-2 column vector, and in the second example it is a (1 x 2) row vector (a Matrix).
+In most cases, passing a (`n` × `m`) matrix of values (numbers, etc) will create `m` series, each with `n` data points.  This follows a consistent rule… vectors apply to a series, matrices apply to many series.  This rule carries into keyword arguments.  `scatter(rand(10,4), markershape = [:circle, :rect])` will create 4 series, each assigned the markershape vector [:circle,:rect].  However, `scatter(rand(10,4), markershape = [:circle :rect])` will create 4 series, with series 1 and 3 having markers shaped as `:circle` and series 2 and 4 having markers shaped as `:rect` (i.e. as squares).  The difference is that in the first example, it is a length-2 column vector, and in the second example it is a (1 × 2) row vector (a Matrix).
+
+## Unconnected Data within same groups
+
+As shown in the examples, you can plot a single polygon by using a single call to `plot` usingi the `:path` line type. You can use several calls to `plot` to draw several polygons
+
+Now, let's say you're plotting `n` polygons grouped into `g` groups, with `n` < `g`. While you can use `plot` to draw separate polygons with each call, you cannot group two separate plots back into a single group. You'll end up with `n` groups in the legend, rather than `g` groups. 
+
+To adress this, you can use `NaN` as a path separator. A call to `plot` would then draw one path with disjoints The following code draws `n=4` rectangles in `g=2` groups.
+
+```julia
+using Plots; plotly()
+
+function rectangle_from_coords(xb,yb,xt,yt)
+	[
+		xb yb
+		xt yb
+		xt yt
+		xb yt
+		xb yb
+		NaN NaN
+	]
+end
+
+some_rects=[
+	rectangle_from_coords(1 ,1 ,5 ,5 )
+	rectangle_from_coords(10,10,15,15)
+	]
+other_rects=[
+	rectangle_from_coords(1 ,10,5 ,15)
+	rectangle_from_coords(10,1 ,15,5 )
+	]
+
+plot(some_rects[:,1], some_rects[:,2],label="some group")
+plot!(other_rects[:,1], other_rects[:,2],label="other group")
+```
+This examples produces the following:
+![grouped_rectangles](examples/img/grouped_polygons.png)
+)
 
 ## DataFrames support
 
