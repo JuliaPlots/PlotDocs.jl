@@ -382,9 +382,7 @@ ERROR: In convertToAnyVector, could not handle the argument types: <<some type>>
     in plot at ~/.julia/v0.4/Plots/src/plot.jl:52
 ```
 
-This error occurs when dispatch cannot recursively map input data to
-
-This error occurs whenever there is an error thrown from within the recipe code. The type `<<some type>>` is the type the failing recipe is called with. This can give some hint as to where the error occured. Remember, there may be a large series of call to different recipes for a complicated plot, and `<<some type>>` is the type the innermost failing recipe was called with.
+This error occurs when the input types could not be handled by a recipe. The type `<<some type>>` cannot be processed.  Remember, there may be recursive calls to multiple recipes for a complicated plot.
 
 
 #### MethodError: `start` has no method matching start(::Void)
