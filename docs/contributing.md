@@ -2,6 +2,7 @@
 This is a guide to contributing to Plots and the surrounding ecosystem.  Plots is a complex and far-reaching suite of software components, and as such will be most effective when the community contributes their own expertise, knowledge, perspective, and effort.  The document is roughly broken up into the following categories, and after reading this introduction you should feel comfortable skipping to the section(s) that interest you the most:
 
 - [The JuliaPlots Organization](#the-juliaplots-organization): Packages and dependencies
+- [Choosing a Project](#choosing-a-project): Fix bugs, add features, create recipes
 - [Key Design Principles](#key-design-principles): Design goals and considerations
 - [Code Organization](#code-organization): Where to look when implementing new features
 - [Git-fu (or... the mechanics of contributing)](#git-fu-or-the-mechanics-of-contributing): Git (how to commit/push), Github (how to submit a PR), Testing (VisualRegressionTests, Travis)
@@ -90,6 +91,31 @@ An extension of PlotRecipes, geared toward Machine Learning applications: neural
 ### GGPlots
 
 A prototype API/interface for "Grammar of Graphics" style plotting.  This likely wouldn't add actual functionality, but would give users coming from R/ggplot2 a simple way to avoid Gadfly.  I (Tom) wrote the prototype to show how easy it is, but since I dislike GoG-style, I never finished it.  Completing this package would be a great self-contained project for interested parties.
+
+---
+
+## Choosing a Project
+
+For people new to Plots, the first step should be to read (and reread) the documentation.  Code up some examples, play with the attributes, and try out multiple backends.  It's really hard to contribute to a project that you don't know how to use.
+
+### Beginner Project Ideas
+
+- **Create a new recipe**: Preferably something you care about.  Maybe you want custom overlays of heatmaps and scatters?  Maybe you have an input format that isn't currently supported?  Make a recipe for it so you can just `plot(thing)`.
+- **Fix bugs**: There are many "bugs" which are specific to one backend, or incorrectly implement features that are infrequently used.  Some ideas can be found in the [issues marked easy](https://github.com/JuliaPlots/Plots.jl/issues?q=is%3Aissue+is%3Aopen+label%3A%22easy+-+up+for+grabs%22).
+- **Add recipes to external packages**: By depending on RecipesBase, a package can define a recipe for their custom types.  Submit a PR to a package you care about that adds a recipe for that package.  For example, see [this PR to add OHLC plots for TimeSeries.jl](https://github.com/JuliaStats/TimeSeries.jl/pull/303).
+
+### Intermediate Project Ideas
+
+- **Improve your favorite backend**: There are many missing features and other improvements that can be made to individual backends.  Most issues specific to a backend have a [special tag](https://github.com/JuliaPlots/Plots.jl/issues?q=is%3Aissue+is%3Aopen+label%3APlotly).
+- **Help with documentation**: This could come in the form of improved descriptions, additional examples, or full tutorials.  Please contribute improvements to [PlotDocs](https://github.com/JuliaPlots/PlotDocs.jl).
+- **Help with the v0.6 reorganization**: The [reorg](#backends) requires the annoying effort of creating new repos (PlotsPyPlot, PlotsPlotlyJS, etc) that hold the backend code.  I consider this intermediate because you need to know a little about Plots and git, but it's fairly straightforward to follow the model of PlotsGR.
+- **Expand StatPlots functionality**:  qqplot, DataStreams, or anything else you can think of.
+
+### Advanced Project Ideas
+
+- **ColorBar redesign**: Colorbars [need serious love](https://github.com/JuliaPlots/Plots.jl/issues?utf8=%E2%9C%93&q=is%3Aissue%20is%3Aopen%20colorbar)... this would likely require a new Colorbar type that links with the appropriate Series object(s) and is independent during subplot layout.  We want to allow many series (possibly from multiple subplots) to use the same clims and to share a colorbar, or have multiple colorbars that can be flexibly positioned.
+- **PlotSpec redesign**: This [long standing redesign proposal](https://github.com/JuliaPlots/Plots.jl/issues/390) could allow generic serialization/deserialization of Plot data and attributes, as well as some improvements/optimizations when mutating plots.  For example, we could lazily compute attribute values, and intelligently flag them as "dirty" when they change, allowing backends to skip much of the wasted processing and unnecessary rebuilding that currently occurs.
+- **Improve graph recipes**: Lots to do here: clean up visuals, improve edge drawing, implement [layout algorithms](https://github.com/JuliaGraphs/NetworkLayout.jl), and much more.
 
 ---
 
@@ -226,7 +252,7 @@ git checkout -b user123-myfeature
 git push -u forked user123-myfeature
 ```
 
-The first three lines are meant to ensure you start from the main repo's master branch.  The `--ff-only` flag ensures you will only "catch up" to newer commits, and avoids creating a new merge commit when you didn't mean to.  The `git checkout` line both creates a new branch (the `-b`) pointing to the current commit and makes that branch current.  The `git push` line adds this branch to your Github fork, and sets up the local branch to "track" (`-u`) the remote branch for subsequent `git push` and `git pull` calls.
+The first three lines are meant to ensure you start from the main repo's master branch.  The `--ff-only` flag ensures you will only "fast forward" to newer commits, and avoids creating a new merge commit when you didn't mean to.  The `git checkout` line both creates a new branch (the `-b`) pointing to the current commit and makes that branch current.  The `git push` line adds this branch to your Github fork, and sets up the local branch to "track" (`-u`) the remote branch for subsequent `git push` and `git pull` calls.
 
 #### or... Reuse an old branch
 
@@ -282,6 +308,27 @@ Only JuliaPlots members may create a new tag.  To create a new tag, we'll create
 
 The version number (vMAJOR.MINOR.PATCH) should be incremented using [semver](http://semver.org/), which generally means that breaking changes should increment the major number, backwards compatible changes should increment the minor number, and bug fixes should increment the patch number.  For "v0.x.y" versions, this requirement is relaxed.  The minor version can be incremented for breaking changes.
 
+---
+
 ### Testing
 
-TODO (See [VRT](https://github.com/JuliaPlots/VisualRegressionTests.jl))
+#### VisualRegressionTests
+
+Testing in Plots is done with the help of [VisualRegressionTests](https://github.com/JuliaPlots/VisualRegressionTests.jl).  Reference images are stored in [PlotReferenceImages](https://github.com/JuliaPlots/PlotReferenceImages.jl). Sometimes the reference images need to be updated (if features change, or if the underlying backend changes).  VisualRegressionTests makes it somewhat painless to update the reference images:
+
+From the Julia REPL, run `include(Pkg.dir("Plots","test","runtests.jl"))`.  This will try to plot the tests, and then compare the results to the stored reference images.  If the test output is sufficiently different than the reference output (using Tim Holy's excellent algorithm for the comparison), then a GTK window will pop up with a side-by-side comparison.  You can choose to replace the reference image, or not, depending on whether a real error was discovered.
+
+After the reference images have been updated, navigate to PlotReferenceImages and push the changes to Github:
+
+```
+cd ~/.julia/v0.5/PlotReferenceImages
+git add Plots/*
+git commit -am "a useful message"
+git push
+```
+
+If there are mis-matches due to bugs, **don't update the reference image**.
+
+#### Travis
+
+On a `git push`, Travis tests will be triggered.  This runs the same tests as above, downloading and comparing to the reference images, though with a larger tolerance for differences.  When Travis errors, it may be due to timeouts, stale reference images, or a host of other reasons.  Check the [Travis logs](https://travis-ci.org/JuliaPlots/Plots.jl) to determine the reason.  If the tests are broken because of a new commit, consider rolling back.
