@@ -6,6 +6,10 @@ This is a guide to contributing to Plots and the surrounding ecosystem.  Plots i
 - [Code Organization](#code-organization): Where to look when implementing new features
 - [Git-fu (or... the mechanics of contributing)](#git-fu-or-the-mechanics-of-contributing): Git (how to commit/push), Github (how to submit a PR), Testing (VisualRegressionTests, Travis)
 
+When in doubt, use this handy dandy logic designed by a [legendary open source guru](https://github.com/tbreloff)...
+
+![](https://cloud.githubusercontent.com/assets/933338/23193321/4cd1d578-f876-11e6-92dc-222b52598054.png)
+
 ---
 
 ## The JuliaPlots Organization
@@ -40,7 +44,7 @@ This redesign will help with improved support for precompilation, and a cleaner 
 
 ### PlotDocs
 
-This is the home of this documentation.  The documentation is built using the "material" theme in "mkdocs".  For those contributing documentation (to the `docs` directory of PlotDocs), it must be subsequently built and deployed using the following instructions:
+PlotDocs is the home of this documentation.  The documentation is built using the "material" theme in "mkdocs".  For those contributing documentation (to the `docs` directory of PlotDocs), it must be subsequently built and deployed using the following instructions:
 
 ```
 # Note: the site is built inside the PlotDocs.jl repo, but then deployed to the JuliaPlots organization page
@@ -167,6 +171,13 @@ These files should probably be reorganized, but until then...
 ### Creating new backends
 
 Model new backends on [PlotsGR](https://github.com/JuliaPlots/PlotsGR.jl).  Implement the callbacks that are appropriate, especially `_display` and `_show` for GUI and image output respectively.
+
+### Style/Design Guidelines
+
+- Make every effort to minimize external dependencies and exports.  Requiring new dependencies is the most likely way to make your PR "unmergeable".
+- Be careful adding method signatures on existing methods with Base types (Array, etc) as you may override key functionality.  This is especially true with recipes.  Consider wrapping inputs in a new type (like in "user recipes").
+- Terse code is ok, as is verbose code.  What's important is understanding and context.  Will someone reading your code know what you mean?  If not, consider writing comments to describe your reason for the design, or describe the hack you just implemented in clear prose.  Sometimes [it's ok that your comments are longer than your code](https://github.com/JuliaPlots/Plots.jl/blob/master/src/pipeline.jl#L62-L67).
+- Pick your project for yourself, but write code for others.  It should be generic and useful beyond your needs, and you should **never break functionality** because you can't figure out how to implement something well.  Spend more time on it... there's always a better way.
 
 ---
 
