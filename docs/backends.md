@@ -138,19 +138,20 @@ Authors:
 
 Fast plotting with a responsive GUI (optional).  Target: Quickly identify design/simulation issues & glitches in order to shorten design iterations.
 
-![](examples/img/inspectdr_bode_gui.png) ![](examples/img/inspectdr_bode_export.png)
+![](examples/img/inspectdr_deltamkr.png) ![](examples/img/inspectdr_bode_export.png)
 
 Pros:
+
 - Relatively short load times / time to first plot
 - Interactive mouse/keybindings
  - Fast & simple way to pan/zoom into data
 - Designed with larger datasets in mind
  - Responsive even with moderate (>200k points) datasets
- - Confirmed to handle 2GB datsets with reasonable speed on older desktop running Windows 7 (Just don't try to drag+pan the data area).
+ - Confirmed to handle 2GB datsets with reasonable speed on older desktop running Windows 7 (drag+pan of data area highly discouraged).
 
 Cons:
+
 - Mostly limited to 2D line/scatter plots
-- No support for `@layout` or `grid` at the moment.
 
 Primary author: MA Laforge (@ma-laforge)
 
