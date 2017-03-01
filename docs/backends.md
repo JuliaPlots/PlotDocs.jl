@@ -145,6 +145,7 @@ Pros:
 - Relatively short load times / time to first plot
 - Interactive mouse/keybindings
  - Fast & simple way to pan/zoom into data
+- Drag & drop &Delta;-markers (Measure/display &Delta;x, &Delta;y & slope).
 - Designed with larger datasets in mind
  - Responsive even with moderate (>200k points) datasets
  - Confirmed to handle 2GB datsets with reasonable speed on older desktop running Windows 7 (drag+pan of data area highly discouraged).
