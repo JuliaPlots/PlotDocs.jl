@@ -20,7 +20,7 @@ plot(Plots.fakedata(50,5),w=3)
 Plot function pair (x(u), y(u)).
 
 ```julia
-plot(sin,(x->begin 
+plot(sin,(x->begin
             sin(2x)
         end),0,2π,line=4,leg=false,fill=(0,:orange))
 ```
@@ -63,7 +63,7 @@ plot(rand(100) / 3,reg=true,fill=(0,:green))
 
 ![](img/pgfplots/pgfplots_example_8.png)
 
-### 
+###
 
 and add to it later.
 
@@ -92,7 +92,7 @@ plot(x,y,line=(linetypes,3),lab=map(string,linetypes),ms=15)
 
 
 ```julia
-styles = setdiff(supported_styles(),[:auto])'
+styles = setdiff(Plots.supported_styles(),[:auto])'
 plot(cumsum(randn(20,length(styles)),1),style=:auto,label=map(string,styles),w=5)
 ```
 
@@ -103,7 +103,7 @@ plot(cumsum(randn(20,length(styles)),1),style=:auto,label=map(string,styles),w=5
 
 
 ```julia
-markers = setdiff(supported_markers(),[:none,:auto,Shape])'
+markers = setdiff(Plots.supported_markers(),[:none,:auto,Shape])'
 n = length(markers)
 x = (linspace(0,10,n + 2))[2:end - 1]
 y = repmat(reverse(x)',n,1)
@@ -154,7 +154,7 @@ plot(Plots.fakedata(100,10),layout=4,palette=[:grays :blues :heat :lightrainbow]
 
 ![](img/pgfplots/pgfplots_example_17.png)
 
-### 
+###
 
 
 
