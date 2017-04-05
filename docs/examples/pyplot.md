@@ -39,7 +39,7 @@ end
 Plot function pair (x(u), y(u)).
 
 ```julia
-plot(sin,(x->begin 
+plot(sin,(x->begin
             sin(2x)
         end),0,2π,line=4,leg=false,fill=(0,:orange))
 ```
@@ -106,7 +106,7 @@ plot(rand(100) / 3,reg=true,fill=(0,:green))
 
 ![](img/pyplot/pyplot_example_8.png)
 
-### 
+###
 
 and add to it later.
 
@@ -191,7 +191,7 @@ Use the `layout` keyword, and optionally the convenient `@layout` macro to gener
 
 
 ```julia
-l = @layout([a{0.1h},b [c,d e]])
+l = @layout([a{0.1h}; b [c; d e]])
 plot(randn(100,5),layout=l,t=[:line :histogram :scatter :steppre :bar],leg=false,ticks=nothing,border=false)
 ```
 
@@ -207,7 +207,7 @@ plot(Plots.fakedata(100,10),layout=4,palette=[:grays :blues :heat :lightrainbow]
 
 ![](img/pyplot/pyplot_example_17.png)
 
-### 
+###
 
 
 
@@ -217,6 +217,25 @@ plot!(Plots.fakedata(100,10))
 ```
 
 ![](img/pyplot/pyplot_example_18.png)
+
+### Animation with subplots
+
+The `layout` macro can be used to create an animation with subplots
+
+```julia
+l = @layout([[a; b] c])
+p = plot(plot([sin,cos],1,leg=false),
+            scatter([atan,cos],1,leg=false),
+            plot(log,1,xlims=(1,10π),ylims=(0,5),leg=false),layout=l)
+
+anim = Animation()
+for x = linspace(1,10π,100)
+    plot(push!(p,x,Float64[sin(x),cos(x),atan(x),cos(x),log(x)]))
+    frame(anim)
+end
+```
+
+![](img/pyplot/pyplot_example_31.gif)
 
 ### Open/High/Low/Close
 
@@ -267,7 +286,7 @@ Any value for fill works here.  We first build a filled contour from a function,
 ```julia
 x = 1:0.5:20
 y = 1:0.5:10
-f(x,y) = begin 
+f(x,y) = begin
         (3x + y ^ 2) * abs(sin(x) + cos(y))
     end
 X = repmat(x',length(y),1)
@@ -325,7 +344,7 @@ scatter(iris,:SepalLength,:SepalWidth,group=:Species,title="My awesome plot",xla
 
 
 ```julia
-group = rand(map((i->begin 
+group = rand(map((i->begin
                     "group $(i)"
                 end),1:4),100)
 plot(rand(100),layout=@layout([a b;c]),group=group,n=3,linetype=[:bar :scatter :steppre])
