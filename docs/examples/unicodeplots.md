@@ -85,7 +85,7 @@ plot(rand(100) / 3,reg=true,fill=(0,:green))
 
 ![](img/unicodeplots/unicodeplots_example_8.png)
 
-### 
+###
 
 and add to it later.
 
@@ -114,7 +114,7 @@ plot(x,y,line=(types,3),lab=map(string,types),ms=15)
 
 
 ```julia
-styles = setdiff(supported_styles(),[:auto])'
+styles = setdiff(Plots.supported_styles(),[:auto])'
 plot(cumsum(randn(20,length(styles)),1),style=:auto,label=map(string,styles),w=5)
 ```
 
@@ -125,7 +125,7 @@ plot(cumsum(randn(20,length(styles)),1),style=:auto,label=map(string,styles),w=5
 
 
 ```julia
-markers = setdiff(supported_markers(),[:none,:auto,Shape])'
+markers = setdiff(Plots.supported_markers(),[:none,:auto,Shape])'
 n = length(markers)
 x = (linspace(0,10,n + 2))[2:end - 1]
 y = repmat(reverse(x)',n,1)
@@ -157,7 +157,7 @@ histogram(randn(1000),nbins=50)
 ### Subplots
 
   subplot and subplot! are distinct commands which create many plots and add series to them in a circular fashion.
-  You can define the layout with keyword params... either set the number of plots `n` (and optionally number of rows `nr` or 
+  You can define the layout with keyword params... either set the number of plots `n` (and optionally number of rows `nr` or
   number of columns `nc`), or you can set the layout directly with `layout`.
 
 
@@ -177,7 +177,7 @@ subplot(fakedata(100,10),n=4,palette=[:grays :blues :heat :lightrainbow],bg=[:or
 
 ![](img/unicodeplots/unicodeplots_example_17.png)
 
-### 
+###
 
 
 
