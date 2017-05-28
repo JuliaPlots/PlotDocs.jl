@@ -191,7 +191,7 @@ Use the `layout` keyword, and optionally the convenient `@layout` macro to gener
 
 
 ```julia
-l = @layout([a{0.1h},b [c,d e]])
+l = @layout([a{0.1h}; b [c; d e]])
 plot(randn(100,5),layout=l,t=[:line :histogram :scatter :steppre :bar],leg=false,ticks=nothing,border=false)
 ```
 
@@ -217,6 +217,25 @@ plot!(Plots.fakedata(100,10))
 ```
 
 ![](img/pyplot/pyplot_example_18.png)
+
+### Animation with subplots
+
+The `layout` macro can be used to create an animation with subplots
+
+```julia
+l = @layout([[a; b] c])
+p = plot(plot([sin,cos],1,leg=false),
+            scatter([atan,cos],1,leg=false),
+            plot(log,1,xlims=(1,10π),ylims=(0,5),leg=false),layout=l)
+
+anim = Animation()
+for x = linspace(1,10π,100)
+    plot(push!(p,x,Float64[sin(x),cos(x),atan(x),cos(x),log(x)]))
+    frame(anim)
+end
+```
+
+![](img/pyplot/pyplot_example_31.gif)
 
 ### Open/High/Low/Close
 
