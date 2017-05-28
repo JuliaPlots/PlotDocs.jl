@@ -39,7 +39,7 @@ end
 Plot function pair (x(u), y(u)).
 
 ```julia
-plot(sin,(x->begin 
+plot(sin,(x->begin
             sin(2x)
         end),0,2π,line=4,leg=false,fill=(0,:orange))
 ```
@@ -106,7 +106,7 @@ plot(rand(100) / 3,reg=true,fill=(0,:green))
 
 ![](img/pyplot/pyplot_example_8.png)
 
-### 
+###
 
 and add to it later.
 
@@ -145,7 +145,7 @@ plot(x,y,line=(linetypes,3),lab=map(string,linetypes),ms=15)
 
 
 ```julia
-styles = setdiff(supported_styles(),[:auto])'
+styles = setdiff(Plots.supported_styles(),[:auto])'
 plot(cumsum(randn(20,length(styles)),1),style=:auto,label=map(string,styles),w=5)
 ```
 
@@ -156,7 +156,7 @@ plot(cumsum(randn(20,length(styles)),1),style=:auto,label=map(string,styles),w=5
 
 
 ```julia
-markers = setdiff(supported_markers(),[:none,:auto,Shape])'
+markers = setdiff(Plots.supported_markers(),[:none,:auto,Shape])'
 n = length(markers)
 x = (linspace(0,10,n + 2))[2:end - 1]
 y = repmat(reverse(x)',n,1)
@@ -207,7 +207,7 @@ plot(Plots.fakedata(100,10),layout=4,palette=[:grays :blues :heat :lightrainbow]
 
 ![](img/pyplot/pyplot_example_17.png)
 
-### 
+###
 
 
 
@@ -267,7 +267,7 @@ Any value for fill works here.  We first build a filled contour from a function,
 ```julia
 x = 1:0.5:20
 y = 1:0.5:10
-f(x,y) = begin 
+f(x,y) = begin
         (3x + y ^ 2) * abs(sin(x) + cos(y))
     end
 X = repmat(x',length(y),1)
@@ -325,7 +325,7 @@ scatter(iris,:SepalLength,:SepalWidth,group=:Species,title="My awesome plot",xla
 
 
 ```julia
-group = rand(map((i->begin 
+group = rand(map((i->begin
                     "group $(i)"
                 end),1:4),100)
 plot(rand(100),layout=@layout([a b;c]),group=group,n=3,linetype=[:bar :scatter :steppre])
