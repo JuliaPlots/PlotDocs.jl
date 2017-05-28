@@ -42,6 +42,16 @@ yaxis!("YLABEL",:log10)
 
 ![](img/pgfplots/pgfplots_example_5.png)
 
+### Extra LaTeX packages
+
+You can add LaTeX formating with support for additional LaTeX packages with `LaTeXStrings.jl` and `PGFPlots.pushPGFPlotsPreamble`. For example, if we add the package `amssymb`, we can get Blackboard bold symbols with the `\mathbb` control sequence:
+
+```julia
+using LaTeXStrings
+PGFPlots.pushPGFPlotsPreamble("\\usepackage{amssymb}")
+ylabel!(L"$\mathbb E[f(x)]$")
+```
+
 ### Arguments
 
 Plot multiple series with different numbers of points.  Mix arguments that apply to all series (marker/markersize) with arguments unique to each series (colors).  Special arguments `line`, `marker`, and `fill` will automatically figure out what arguments to set (for example, we are setting the `linestyle`, `linewidth`, and `color` arguments with `line`.)  Note that we pass a matrix of colors, and this applies the colors to each series.
