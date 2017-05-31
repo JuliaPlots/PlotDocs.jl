@@ -20,8 +20,10 @@ const IMGDIR = joinpath(DOCDIR, "img")
 
 # ----------------------------------------------------------------------
 
+isnotlinenumber(e::Expr) = !(e.head == :line)
+isnotlinenumber(e) = true
 function filter_out_line_numbers!(expr::Expr)
-    expr.args = filter(e->!isa(e,LineNumberNode), expr.args)
+    expr.args = filter(isnotlinenumber, expr.args)
     map(filter_out_line_numbers!, expr.args)
 end
 filter_out_line_numbers!(v) = nothing
