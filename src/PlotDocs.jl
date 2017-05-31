@@ -94,10 +94,10 @@ function generate_markdown(pkgname::Symbol; skip = [])
         end
     end
 
-    write(md, "- Supported arguments: $(markdown_code_to_string(supported_args(pkg)))\n")
-    write(md, "- Supported values for linetype: $(markdown_symbols_to_string(supported_types(pkg)))\n")
-    write(md, "- Supported values for linestyle: $(markdown_symbols_to_string(supported_styles(pkg)))\n")
-    write(md, "- Supported values for marker: $(markdown_symbols_to_string(supported_markers(pkg)))\n")
+    write(md, "- Supported arguments: $(markdown_code_to_string(collect(Plots.supported_attrs(pkg))))\n")
+    write(md, "- Supported values for linetype: $(markdown_symbols_to_string(Plots.supported_seriestypes(pkg)))\n")
+    write(md, "- Supported values for linestyle: $(markdown_symbols_to_string(Plots.supported_styles(pkg)))\n")
+    write(md, "- Supported values for marker: $(markdown_symbols_to_string(Plots.supported_markers(pkg)))\n")
 
     write(md, "(Automatically generated: $(now()))")
     close(md)
@@ -116,7 +116,7 @@ function make_support_graph(allvals, func)
     nx, ny = map(length, (x,y))
     z = zeros(ny, nx)
     for i=1:nx, j=1:ny
-        if func == Plots.supported_types
+        if func == Plots.supported_seriestypes
             stype = Plots.seriestype_supported(Plots._backend_instance(bs[i]), vals[j])
             z[j,i] = stype == :native ? 1.0 : (stype == :no ? 0.0 : 0.5)
         else
@@ -127,7 +127,7 @@ function make_support_graph(allvals, func)
             z[j,i] = (vals[j] in supported ? (1 - 0.5*(i%2)) : 0.0)
         end
     end
-    lastcolor = func == Plots.supported_types ? RGB(0.98,0.55,0.23) : :steelblue
+    lastcolor = func == Plots.supported_seriestypes ? RGB(0.98,0.55,0.23) : :steelblue
     # @show func x,y,z
     heatmap(x, y, z,
             # color = ColorGradient([:white, :darkblue]),
@@ -139,9 +139,9 @@ function make_support_graph(allvals, func)
             aspect_ratio = :equal)
 end
 
-make_support_graph_args()    = make_support_graph(Plots._all_args,   Plots.supported_args)
+make_support_graph_args()    = make_support_graph(Plots._all_args,   Plots.supported_attrs)
 # make_support_graph_types()   = make_support_graph(Plots._allTypes,   Plots.supported_types)
-make_support_graph_types()   = make_support_graph(Plots.all_seriestypes(),   Plots.supported_types)
+make_support_graph_types()   = make_support_graph(Plots.all_seriestypes(),   Plots.supported_seriestypes)
 make_support_graph_styles()  = make_support_graph(Plots._allStyles,  Plots.supported_styles)
 make_support_graph_markers() = make_support_graph(Plots._allMarkers, Plots.supported_markers)
 make_support_graph_scales()  = make_support_graph(Plots._allScales,  Plots.supported_scales)
