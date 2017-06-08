@@ -20,11 +20,35 @@ can have unique behavior, when desired.
 
 In most cases, passing a (`n` × `m`) matrix of values (numbers, etc) will create `m` series, each with `n` data points.  This follows a consistent rule… vectors apply to a series, matrices apply to many series.  This rule carries into keyword arguments.  `scatter(rand(10,4), markershape = [:circle, :rect])` will create 4 series, each assigned the markershape vector [:circle,:rect].  However, `scatter(rand(10,4), markershape = [:circle :rect])` will create 4 series, with series 1 and 3 having markers shaped as `:circle` and series 2 and 4 having markers shaped as `:rect` (i.e. as squares).  The difference is that in the first example, it is a length-2 column vector, and in the second example it is a (1 × 2) row vector (a Matrix).
 
+The flexibility and power of this can be illustrated by the following piece of code:
+```julia
+using Plots; gr()
+
+# 10 data points in 4 series
+xs = 0 : 2π/10 : 2π
+data = [sin.(xs) cos.(xs) 2sin.(xs) 2cos.(xs)]
+
+# We put labels in a row vector: applies to each series
+labels = ["Apples" "Oranges" "Hats" "Shoes"]
+
+# Marker shapes in a column vector: applies to data points
+markershapes = [:circle, :star5]
+
+# Marker colors in a matrix: applies to series and data points
+markercolors = [:green :orange :black :purple
+                :red   :yellow :brown :white]
+
+plot(xs, data, label = labels, shape = markershapes, color = markercolors,
+     markersize = 10)
+```
+This example plots the four series with different labels, marker shapes, and marker colors by combining row and column vectors to decorate the data.  The result is:
+![applesoranges](examples/img/applesoranges.png)
+
 ## Unconnected Data within same groups
 
 As shown in the examples, you can plot a single polygon by using a single call to `plot` usingi the `:path` line type. You can use several calls to `plot` to draw several polygons
 
-Now, let's say you're plotting `n` polygons grouped into `g` groups, with `n` < `g`. While you can use `plot` to draw separate polygons with each call, you cannot group two separate plots back into a single group. You'll end up with `n` groups in the legend, rather than `g` groups. 
+Now, let's say you're plotting `n` polygons grouped into `g` groups, with `n` < `g`. While you can use `plot` to draw separate polygons with each call, you cannot group two separate plots back into a single group. You'll end up with `n` groups in the legend, rather than `g` groups.
 
 To adress this, you can use `NaN` as a path separator. A call to `plot` would then draw one path with disjoints The following code draws `n=4` rectangles in `g=2` groups.
 
@@ -56,7 +80,6 @@ plot!(other_rects[:,1], other_rects[:,2],label="other group")
 ```
 This examples produces the following:
 ![grouped_rectangles](examples/img/grouped_polygons.png)
-)
 
 ## DataFrames support
 
