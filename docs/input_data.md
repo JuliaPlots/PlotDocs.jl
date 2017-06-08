@@ -38,7 +38,8 @@ markershapes = [:circle, :star5]
 markercolors = [:green :orange :black :purple
                 :red   :yellow :brown :white]
 
-plot(xs, data, label = labels, shape = markershapes, color = markercolors)
+plot(xs, data, label = labels, shape = markershapes, color = markercolors,
+     markersize = 10)
 ```
 This example plots the four series with different labels, marker shapes, and marker colors by combining row and column vectors to decorate the data.  The result is:
 ![applesoranges](examples/img/applesoranges.png)
