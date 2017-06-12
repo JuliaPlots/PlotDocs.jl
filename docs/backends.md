@@ -21,6 +21,7 @@ REPL Plotting    | UnicodePlots
 3D plots  		 | PyPlot, GR, Plotly(JS)
 a GUI Window     | GR, PyPlot, PlotlyJS, InspectDR
 a small footprint | UnicodePlots, Plotly
+plot+data -> `.hdf5` file | HDF5
 
 Of course nothing in life is that simple.  Likely there are subtle tradeoffs between backends, long hidden bugs, and more excitement.  Don't be shy to try out something new!
 
@@ -142,17 +143,54 @@ Fast plotting with a responsive GUI (optional).  Target: Quickly identify design
 
 Pros:
 
-- Relatively short load times / time to first plot
-- Interactive mouse/keybindings
- - Fast & simple way to pan/zoom into data
+- Relatively short load times / time to first plot.
+- Interactive mouse/keybindings.
+  - Fast & simple way to pan/zoom into data.
 - Drag & drop &Delta;-markers (Measure/display &Delta;x, &Delta;y & slope).
-- Designed with larger datasets in mind
- - Responsive even with moderate (>200k points) datasets
- - Confirmed to handle 2GB datsets with reasonable speed on older desktop running Windows 7 (drag+pan of data area highly discouraged).
+- Designed with larger datasets in mind.
+  - Responsive even with moderate (>200k points) datasets.
+  - Confirmed to handle 2GB datsets with reasonable speed on older desktop running Windows 7 (drag+pan of data area highly discouraged).
 
 Cons:
 
 - Mostly limited to 2D line/scatter plots
+
+Primary author: MA Laforge (@ma-laforge)
+
+### [HDF5](https://github.com/JuliaIO/HDF5.jl) (HDF5-Plots)
+
+Write plot + data to a *single* `HDF5` file using a human-readable structure that can easily be reverse-engineered.
+
+![](examples/img/hdf5_samplestruct.png)
+
+**Write to .hdf5 file**
+```
+hdf5() #Select HDF5-Plots "backend"
+p = plot(...) #Construct plot as usual
+Plots.hdf5plot_write(p, "plotsave.hdf5")
+```
+
+**Read from .hdf5 file**
+```
+pyplot() #Must first select some backend
+pread = Plots.hdf5plot_read("plotsave.hdf5")
+display(pread)
+```
+
+Pros:
+
+- Open, standard file format for complex datasets.
+- Human readble (using [HDF5view](https://support.hdfgroup.org/products/java/hdfview/)).
+- Save plot + data to a single binary file.
+- (Re)-render plots at a later time using your favourite backend(s).
+
+Cons:
+
+- Currently missing support for `SeriesAnnotations` & `GridLayout`.
+  - (Please open an "issue" if you have a need).
+- Not yet designed for backwards compatibility (no proper versionning).
+  - Therefore not truly adequate for archival purposes at the moment.
+- Currently implemented as a "backend" to avoid adding dependencies to `Plots.jl`.
 
 Primary author: MA Laforge (@ma-laforge)
 
