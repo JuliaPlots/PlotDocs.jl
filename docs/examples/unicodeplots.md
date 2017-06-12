@@ -12,7 +12,7 @@ unicodeplots()
 A simple line plot of the columns.
 
 ```julia
-plot(fakedata(50,5),w=3)
+plot(Plots.fakedata(50,5),w=3)
 ```
 
 ![](img/unicodeplots/unicodeplots_example_1.png)
