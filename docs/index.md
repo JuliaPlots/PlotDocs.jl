@@ -3,21 +3,21 @@
 
 **Author: Thomas Breloff (@tbreloff)**
 
-Data visualization has a complicated history, with plotting software making trade-offs between features vs simplicity, speed vs beauty, and static vs dynamic.  Some make a visualization and never change it, others must make updates in real-time.
+Data visualization has a complicated history.  Plotting software makes trade-offs between features and simplicity, speed and beauty, and a static and dynamic interface. Some packages make a display and never change it, while others make updates in real-time.
 
-Plots is a visualization interface and toolset.  It sits above other visualization "backends", connecting commands with implementation.  If one backend does not support your desired features, or make the right trade-offs, just switch to another backend with one command.  No need to change your code.  No need to learn something new.  Plots might be the last plotting package you ever learn.
+Plots is a visualization interface and toolset. It sits above other backends, like gr or pyplot, connecting commands with implementation. If one backend does not support your desired features or make the right trade-offs, you can just switch to another backend with one command. No need to change your code. No need to learn a new syntax. Plots might be the last plotting package you ever learn.
 
 My goals with the package are:
 
-- **Powerful**.  Do more with less.  Complex visualizations become easy.
-- **Intuitive**.  Start generating plots without reading volumes of documentation.  Commands should "just work".
-- **Concise**.  Less code means fewer mistakes and more efficient development/analysis.
-- **Flexible**.  Produce your favorite plots from your favorite package, but quicker and simpler.
-- **Consistent**.  Don't commit to one graphics package.  Use the same code and access the strengths of all [backends](/backends).
+- **Powerful**. Do more with less. Complex visualizations become easy.
+- **Intuitive**.   Start generating plots without reading volumes of documentation. Commands should "just work."
+- **Concise**. Less code means fewer mistakes and more efficient development and analysis.
+- **Flexible**.  . Produce your favorite plots from your favorite package, only quicker and simpler.
+- **Consistent**.  Don't commit to one graphics package. Use the same code and access the strengths of all [backends](/backends).
 - **Lightweight**.  Very few dependencies, since backends are loaded and initialized dynamically.
 - **Smart**.  It's not quite AGI, but Plots should figure out what you **want** it to do... not just what you **tell** it.
 
-Use the [preprocessing pipeline](/pipeline) in Plots to fully describe your visualization before it calls the backend code.  This maintains modularity and allows for efficient separation of front end code, algorithms, and backend graphics.
+Use the [preprocessing pipeline](/pipeline) in Plots to describe your visualization completely before it calls the backend code.  This preprocessing maintains modularity and allows for efficient separation of front end code, algorithms, and backend graphics.
 
 Tap into the extensive visualization functionality enabled by the [Plots ecosystem](/ecosystem), and easily build your own complex graphics components with [recipes](/recipes).
 
@@ -62,17 +62,17 @@ zs = zeros(0,40)
 
 @gif for i in linspace(0, 2π, 100)
     f(x,y) = sin(x + 10sin(i)) + cos(y)
-    
+
     # create a plot with 3 subplots and a custom layout
     l = @layout [a{0.7w} b; c{0.2h}]
     p = plot(x, y, f, st = [:surface, :contourf], layout=l)
-    
+
     # add a tracking line
     fixed_x = zeros(40)
     z = map(f,fixed_x,y)
     plot!(p[1], fixed_x, y, z, line = (:black, 5, 0.2))
     vline!(p[2], [0], line = (:black, 5))
-    
+
     # add to and show the tracked values over time
     zs = vcat(zs, z')
     plot!(p[3], zs, alpha = 0.2, palette = cgrad(:blues).colors)
