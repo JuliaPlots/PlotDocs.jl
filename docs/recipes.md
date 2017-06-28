@@ -22,7 +22,7 @@ These are the dispatch signatures for each type (note that most of these can acc
     - For user-defined types which wrap or have a one-to-one mapping to something supported by Plots, simply define a conversion method.
     - Note: this is effectively saying "when you see type T, replace it with ..."
     - See `SymPy` for an example.
-- Plot Recipes: `@recipe function f(::Type{Val{:myplotrecipename}}, plt::Plot; ...) end`
+- Plot Recipes: `@recipe function f(::Type{Val{:myplotrecipename}}, plt::AbstractPlot; ...) end`
     - These are called after input data has been processed, but **before the plot is created**.
     - Build layouts, add subplots, and other plot-wide attributes
     - See `marginalhist` for an example.
