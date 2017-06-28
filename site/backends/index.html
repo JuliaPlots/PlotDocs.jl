@@ -13,7 +13,7 @@
       
         <link rel="shortcut icon" href="../assets/images/favicon.png">
       
-      <meta name="generator" content="mkdocs-0.16.3, mkdocs-material-1.6.4">
+      <meta name="generator" content="mkdocs-0.16.3, mkdocs-material-1.7.3">
     
     
       
@@ -24,9 +24,9 @@
       <script src="../assets/javascripts/modernizr-1df76c4e58.js"></script>
     
     
-      <link rel="stylesheet" href="../assets/stylesheets/application-e2807e330f.css">
+      <link rel="stylesheet" href="../assets/stylesheets/application-acc56dad49.css">
       
-        <link rel="stylesheet" href="../assets/stylesheets/application-f78e5cb881.palette.css">
+        <link rel="stylesheet" href="../assets/stylesheets/application-8817cfa535.palette.css">
       
     
     
@@ -102,7 +102,7 @@
     </form>
     <div class="md-search__output">
       <div class="md-search__scrollwrap" data-md-scrollfix>
-        <div class="md-search-result" data-md-component="result">
+        <div class="md-search-result" data-md-component="result" data-md-lang-search="">
           <div class="md-search-result__meta" data-md-lang-result-none="No matching documents" data-md-lang-result-one="1 matching document" data-md-lang-result-other="# matching documents">
             Type to start searching
           </div>
@@ -114,9 +114,9 @@
 </div>
         
       </div>
-      <div class="md-flex__cell md-flex__cell--shrink">
-        <div class="md-header-nav__source">
-          
+      
+        <div class="md-flex__cell md-flex__cell--shrink">
+          <div class="md-header-nav__source">
             
 
 
@@ -136,9 +136,9 @@
     </div>
   </a>
 
-          
+          </div>
         </div>
-      </div>
+      
     </div>
   </nav>
 </header>
@@ -622,6 +622,10 @@ introduction to making that choice.</p>
 <td>a small footprint</td>
 <td>UnicodePlots, Plotly</td>
 </tr>
+<tr>
+<td>plot+data -&gt; <code>.hdf5</code> file</td>
+<td>HDF5</td>
+</tr>
 </tbody>
 </table>
 <p>Of course nothing in life is that simple.  Likely there are subtle tradeoffs between backends, long hidden bugs, and more excitement.  Don't be shy to try out something new!</p>
@@ -718,17 +722,50 @@ makes this backend stand out.  From the Julia REPL, it taps into Blink.jl and El
 <p><img alt="" src="../examples/img/inspectdr_deltamkr.png" /> <img alt="" src="../examples/img/inspectdr_bode_export.png" /></p>
 <p>Pros:</p>
 <ul>
-<li>Relatively short load times / time to first plot</li>
-<li>Interactive mouse/keybindings</li>
-<li>Fast &amp; simple way to pan/zoom into data</li>
+<li>Relatively short load times / time to first plot.</li>
+<li>Interactive mouse/keybindings.</li>
+<li>Fast &amp; simple way to pan/zoom into data.</li>
 <li>Drag &amp; drop &Delta;-markers (Measure/display &Delta;x, &Delta;y &amp; slope).</li>
-<li>Designed with larger datasets in mind</li>
-<li>Responsive even with moderate (&gt;200k points) datasets</li>
+<li>Designed with larger datasets in mind.</li>
+<li>Responsive even with moderate (&gt;200k points) datasets.</li>
 <li>Confirmed to handle 2GB datsets with reasonable speed on older desktop running Windows 7 (drag+pan of data area highly discouraged).</li>
 </ul>
 <p>Cons:</p>
 <ul>
 <li>Mostly limited to 2D line/scatter plots</li>
+</ul>
+<p>Primary author: MA Laforge (@ma-laforge)</p>
+<h3 id="hdf5-hdf5-plots"><a href="https://github.com/JuliaIO/HDF5.jl">HDF5</a> (HDF5-Plots)</h3>
+<p>Write plot + data to a <em>single</em> <code>HDF5</code> file using a human-readable structure that can easily be reverse-engineered.</p>
+<p><img alt="" src="../examples/img/hdf5_samplestruct.png" /></p>
+<p><strong>Write to .hdf5 file</strong></p>
+<div class="code"><pre><span></span>hdf5() #Select HDF5-Plots &quot;backend&quot;
+p = plot(...) #Construct plot as usual
+Plots.hdf5plot_write(p, &quot;plotsave.hdf5&quot;)
+</pre></div>
+
+
+<p><strong>Read from .hdf5 file</strong></p>
+<div class="code"><pre><span></span>pyplot() #Must first select some backend
+pread = Plots.hdf5plot_read(&quot;plotsave.hdf5&quot;)
+display(pread)
+</pre></div>
+
+
+<p>Pros:</p>
+<ul>
+<li>Open, standard file format for complex datasets.</li>
+<li>Human readble (using <a href="https://support.hdfgroup.org/products/java/hdfview/">HDF5view</a>).</li>
+<li>Save plot + data to a single binary file.</li>
+<li>(Re)-render plots at a later time using your favourite backend(s).</li>
+</ul>
+<p>Cons:</p>
+<ul>
+<li>Currently missing support for <code>SeriesAnnotations</code> &amp; <code>GridLayout</code>.</li>
+<li>(Please open an "issue" if you have a need).</li>
+<li>Not yet designed for backwards compatibility (no proper versionning).</li>
+<li>Therefore not truly adequate for archival purposes at the moment.</li>
+<li>Currently implemented as a "backend" to avoid adding dependencies to <code>Plots.jl</code>.</li>
 </ul>
 <p>Primary author: MA Laforge (@ma-laforge)</p>
 <hr />
@@ -847,7 +884,9 @@ makes this backend stand out.  From the Julia REPL, it taps into Blink.jl and El
       
     </div>
     
-      <script src="../assets/javascripts/application-06a3e72efd.js"></script>
+      <script src="../assets/javascripts/application-b30566c560.js"></script>
+      
+      
       <script>app.initialize({url:{base:".."}})</script>
       
         <script src="../mathjax-config.js"></script>
