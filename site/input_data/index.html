@@ -13,7 +13,7 @@
       
         <link rel="shortcut icon" href="../assets/images/favicon.png">
       
-      <meta name="generator" content="mkdocs-0.16.3, mkdocs-material-1.6.4">
+      <meta name="generator" content="mkdocs-0.16.3, mkdocs-material-1.7.3">
     
     
       
@@ -24,9 +24,9 @@
       <script src="../assets/javascripts/modernizr-1df76c4e58.js"></script>
     
     
-      <link rel="stylesheet" href="../assets/stylesheets/application-e2807e330f.css">
+      <link rel="stylesheet" href="../assets/stylesheets/application-acc56dad49.css">
       
-        <link rel="stylesheet" href="../assets/stylesheets/application-f78e5cb881.palette.css">
+        <link rel="stylesheet" href="../assets/stylesheets/application-8817cfa535.palette.css">
       
     
     
@@ -102,7 +102,7 @@
     </form>
     <div class="md-search__output">
       <div class="md-search__scrollwrap" data-md-scrollfix>
-        <div class="md-search-result" data-md-component="result">
+        <div class="md-search-result" data-md-component="result" data-md-lang-search="">
           <div class="md-search-result__meta" data-md-lang-result-none="No matching documents" data-md-lang-result-one="1 matching document" data-md-lang-result-other="# matching documents">
             Type to start searching
           </div>
@@ -114,9 +114,9 @@
 </div>
         
       </div>
-      <div class="md-flex__cell md-flex__cell--shrink">
-        <div class="md-header-nav__source">
-          
+      
+        <div class="md-flex__cell md-flex__cell--shrink">
+          <div class="md-header-nav__source">
             
 
 
@@ -136,9 +136,9 @@
     </div>
   </a>
 
-          
+          </div>
         </div>
-      </div>
+      
     </div>
   </nav>
 </header>
@@ -713,9 +713,33 @@ value for <code>:x</code> will impute a unit range <code>1:10</code>.</p>
 can have unique behavior, when desired.</p>
 <h2 id="columns-are-series">Columns are series</h2>
 <p>In most cases, passing a (<code>n</code> × <code>m</code>) matrix of values (numbers, etc) will create <code>m</code> series, each with <code>n</code> data points.  This follows a consistent rule… vectors apply to a series, matrices apply to many series.  This rule carries into keyword arguments.  <code>scatter(rand(10,4), markershape = [:circle, :rect])</code> will create 4 series, each assigned the markershape vector [:circle,:rect].  However, <code>scatter(rand(10,4), markershape = [:circle :rect])</code> will create 4 series, with series 1 and 3 having markers shaped as <code>:circle</code> and series 2 and 4 having markers shaped as <code>:rect</code> (i.e. as squares).  The difference is that in the first example, it is a length-2 column vector, and in the second example it is a (1 × 2) row vector (a Matrix).</p>
+<p>The flexibility and power of this can be illustrated by the following piece of code:</p>
+<div class="code"><pre><span></span><span class="k">using</span> <span class="n">Plots</span><span class="p">;</span> <span class="n">gr</span><span class="p">()</span>
+
+<span class="c"># 10 data points in 4 series</span>
+<span class="n">xs</span> <span class="o">=</span> <span class="mi">0</span> <span class="o">:</span> <span class="mi">2</span><span class="nb">π</span><span class="o">/</span><span class="mi">10</span> <span class="o">:</span> <span class="mi">2</span><span class="nb">π</span>
+<span class="n">data</span> <span class="o">=</span> <span class="p">[</span><span class="n">sin</span><span class="o">.</span><span class="p">(</span><span class="n">xs</span><span class="p">)</span> <span class="n">cos</span><span class="o">.</span><span class="p">(</span><span class="n">xs</span><span class="p">)</span> <span class="mi">2</span><span class="n">sin</span><span class="o">.</span><span class="p">(</span><span class="n">xs</span><span class="p">)</span> <span class="mi">2</span><span class="n">cos</span><span class="o">.</span><span class="p">(</span><span class="n">xs</span><span class="p">)]</span>
+
+<span class="c"># We put labels in a row vector: applies to each series</span>
+<span class="n">labels</span> <span class="o">=</span> <span class="p">[</span><span class="s">&quot;Apples&quot;</span> <span class="s">&quot;Oranges&quot;</span> <span class="s">&quot;Hats&quot;</span> <span class="s">&quot;Shoes&quot;</span><span class="p">]</span>
+
+<span class="c"># Marker shapes in a column vector: applies to data points</span>
+<span class="n">markershapes</span> <span class="o">=</span> <span class="p">[</span><span class="o">:</span><span class="n">circle</span><span class="p">,</span> <span class="o">:</span><span class="n">star5</span><span class="p">]</span>
+
+<span class="c"># Marker colors in a matrix: applies to series and data points</span>
+<span class="n">markercolors</span> <span class="o">=</span> <span class="p">[</span><span class="o">:</span><span class="n">green</span> <span class="o">:</span><span class="n">orange</span> <span class="o">:</span><span class="n">black</span> <span class="o">:</span><span class="n">purple</span>
+                <span class="o">:</span><span class="n">red</span>   <span class="o">:</span><span class="n">yellow</span> <span class="o">:</span><span class="n">brown</span> <span class="o">:</span><span class="n">white</span><span class="p">]</span>
+
+<span class="n">plot</span><span class="p">(</span><span class="n">xs</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">label</span> <span class="o">=</span> <span class="n">labels</span><span class="p">,</span> <span class="n">shape</span> <span class="o">=</span> <span class="n">markershapes</span><span class="p">,</span> <span class="n">color</span> <span class="o">=</span> <span class="n">markercolors</span><span class="p">,</span>
+     <span class="n">markersize</span> <span class="o">=</span> <span class="mi">10</span><span class="p">)</span>
+</pre></div>
+
+
+<p>This example plots the four series with different labels, marker shapes, and marker colors by combining row and column vectors to decorate the data.  The result is:
+<img alt="applesoranges" src="../examples/img/applesoranges.png" /></p>
 <h2 id="unconnected-data-within-same-groups">Unconnected Data within same groups</h2>
 <p>As shown in the examples, you can plot a single polygon by using a single call to <code>plot</code> usingi the <code>:path</code> line type. You can use several calls to <code>plot</code> to draw several polygons</p>
-<p>Now, let's say you're plotting <code>n</code> polygons grouped into <code>g</code> groups, with <code>n</code> &lt; <code>g</code>. While you can use <code>plot</code> to draw separate polygons with each call, you cannot group two separate plots back into a single group. You'll end up with <code>n</code> groups in the legend, rather than <code>g</code> groups. </p>
+<p>Now, let's say you're plotting <code>n</code> polygons grouped into <code>g</code> groups, with <code>n</code> &lt; <code>g</code>. While you can use <code>plot</code> to draw separate polygons with each call, you cannot group two separate plots back into a single group. You'll end up with <code>n</code> groups in the legend, rather than <code>g</code> groups.</p>
 <p>To adress this, you can use <code>NaN</code> as a path separator. A call to <code>plot</code> would then draw one path with disjoints The following code draws <code>n=4</code> rectangles in <code>g=2</code> groups.</p>
 <div class="code"><pre><span></span><span class="k">using</span> <span class="n">Plots</span><span class="p">;</span> <span class="n">plotly</span><span class="p">()</span>
 
@@ -745,8 +769,7 @@ can have unique behavior, when desired.</p>
 
 
 <p>This examples produces the following:
-<img alt="grouped_rectangles" src="../examples/img/grouped_polygons.png" />
-)</p>
+<img alt="grouped_rectangles" src="../examples/img/grouped_polygons.png" /></p>
 <h2 id="dataframes-support">DataFrames support</h2>
 <p>Using the <a href="https://github.com/JuliaPlots/StatPlots.jl">StatPlots</a> extension package, you can pass a <code>DataFrame</code> as the first argument (similar to Gadfly or R's ggplot2).  For data fields or certain attributes (such as <code>group</code>) a symbol will be replaced with the corresponding column(s) of the <code>DataFrame</code>.  Additionally, the column name might be used as the   An example:</p>
 <div class="code"><pre><span></span><span class="k">using</span> <span class="n">StatPlots</span><span class="p">,</span> <span class="n">RDatasets</span>
@@ -856,7 +879,9 @@ can have unique behavior, when desired.</p>
       
     </div>
     
-      <script src="../assets/javascripts/application-06a3e72efd.js"></script>
+      <script src="../assets/javascripts/application-b30566c560.js"></script>
+      
+      
       <script>app.initialize({url:{base:".."}})</script>
       
         <script src="../mathjax-config.js"></script>
