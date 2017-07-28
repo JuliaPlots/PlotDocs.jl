@@ -17,6 +17,8 @@ My goals with the package are:
 - **Lightweight**.  Very few dependencies, since backends are loaded and initialized dynamically.
 - **Smart**.  It's not quite AGI, but Plots should figure out what you **want** it to do... not just what you **tell** it.
 
+To get started, [see the tutorial](/tutorial).
+
 Use the [preprocessing pipeline](/pipeline) in Plots to fully describe your visualization before it calls the backend code.  This maintains modularity and allows for efficient separation of front end code, algorithms, and backend graphics.
 
 Tap into the extensive visualization functionality enabled by the [Plots ecosystem](/ecosystem), and easily build your own complex graphics components with [recipes](/recipes).
@@ -62,17 +64,17 @@ zs = zeros(0,40)
 
 @gif for i in linspace(0, 2π, 100)
     f(x,y) = sin(x + 10sin(i)) + cos(y)
-    
+
     # create a plot with 3 subplots and a custom layout
     l = @layout [a{0.7w} b; c{0.2h}]
     p = plot(x, y, f, st = [:surface, :contourf], layout=l)
-    
+
     # add a tracking line
     fixed_x = zeros(40)
     z = map(f,fixed_x,y)
     plot!(p[1], fixed_x, y, z, line = (:black, 5, 0.2))
     vline!(p[2], [0], line = (:black, 5))
-    
+
     # add to and show the tracked values over time
     zs = vcat(zs, z')
     plot!(p[3], zs, alpha = 0.2, palette = cgrad(:blues).colors)
