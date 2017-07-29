@@ -59,7 +59,7 @@ add a title with `title`. Let's apply that to our example:
 
 ```julia
 x = 1:10; y = rand(10,2) # 2 columns means two lines
-plot(x,y,title="Two Lines",label=["Line 1","Line 2"],lw=3)
+plot(x,y,title="Two Lines",label=["Line 1" "Line 2"],lw=3)
 ```
 
 Note that every attribute also has a modifier function for it. For example, the
