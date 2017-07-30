@@ -65,7 +65,7 @@ previous plot:
 
 ```julia
 x = 1:10; y = rand(10,2) # 2 columns means two lines
-plot(x,y,title="Two Lines",label=["Line 1","Line 2"],lw=3)
+plot(x,y,title="Two Lines",label=["Line 1" "Line 2"],lw=3)
 ```
 
 Note that every attribute can also be applied by mutating the plot with a
