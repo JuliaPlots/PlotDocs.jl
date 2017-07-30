@@ -129,7 +129,7 @@ plot(x,y,title="This is Plotted using GR") # This plots using GR
 
 ![plotly_plot](https://user-images.githubusercontent.com/1814174/28752391-55d2d860-74d2-11e7-824b-ca67d8485c66.png)
 
-![gr_plot](https://user-images.githubusercontent.com/1814174/28752389-4bbe2db6-74d2-11e7-9090-896e234ec591.png)
+![gr_plot](https://user-images.githubusercontent.com/1814174/28752685-5863cdf2-74da-11e7-8ce6-59083403f64f.png)
 
 If you're in Juno, the second plot command will cause the plot to open in the
 plot pane. If you're in the REPL, GR will open a GUI window. You can always
@@ -161,7 +161,7 @@ gr() # We will continue onward using the GR backend
 plot(x,y,seriestype=:scatter,title="My Scatter Plot")
 ```
 
-![scatter_plot](https://user-images.githubusercontent.com/1814174/28752303-b17faf32-74d0-11e7-8598-18d86839f169.png)
+![scatter_plot](https://user-images.githubusercontent.com/1814174/28752688-67293c50-74da-11e7-91ba-8056f3a8d6e1.png)
 
 For each built-in series type, there is a shorthand function for directly
 calling that series type which matches the name of the series type. It handles
@@ -172,7 +172,7 @@ ends in `!`. For example, we can instead do that scatter plot with:
 scatter(x,y,title="My Scatter Plot")
 ```
 
-![scatter_plot](https://user-images.githubusercontent.com/1814174/28752303-b17faf32-74d0-11e7-8598-18d86839f169.png)
+![scatter_plot](https://user-images.githubusercontent.com/1814174/28752688-67293c50-74da-11e7-91ba-8056f3a8d6e1.png)
 
 The series types which are available are dependent on the backend, and are
 documented on the [Supported Attributes page](/supported). As we will describe
