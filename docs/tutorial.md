@@ -18,6 +18,8 @@ x = 1:10; y = rand(10) # These are the plotting data
 plot(x,y)
 ```
 
+![first_plot](https://user-images.githubusercontent.com/1814174/28752263-dc198750-74cf-11e7-9d96-c61affb655d8.png)
+
 In Plots.jl, every column is a **series**, i.e. a set of related points which
 for lines, surfaces, or other plotting primitives. Thus we can plot multiple
 lines by plotting a matrix of values and each column is interpreted as a
@@ -28,6 +30,8 @@ x = 1:10; y = rand(10,2) # 2 columns means two lines
 plot(x,y)
 ```
 
+![twoseries_plot](https://user-images.githubusercontent.com/1814174/28752268-f32e269e-74cf-11e7-9074-ffbd1730e7f7.png)
+
 Additionally, we can add more lines by mutating the plot object. This is done
 by the `plot!` command. Let's add another line to our current plot:
 
@@ -35,6 +39,8 @@ by the `plot!` command. Let's add another line to our current plot:
 z = rand(10)
 plot!(x,z)
 ```
+
+![addline_plot](https://user-images.githubusercontent.com/1814174/28752269-047910e4-74d0-11e7-8059-7c20facabd49.png)
 
 Note that we could have done the same as above using an explicit plot variable:
 
@@ -44,6 +50,8 @@ p = plot(x,y)
 z = rand(10)
 plot!(p,x,z)
 ```
+
+![explicit_p_plot](https://user-images.githubusercontent.com/1814174/28752272-15f7a3ee-74d0-11e7-811c-847f33437b9d.png)
 
 Note that in the case where `p` is omitted, Plots.jl uses the global
 `Plots.CURRENT_PLOT` automatically in the same manner.
@@ -68,6 +76,8 @@ x = 1:10; y = rand(10,2) # 2 columns means two lines
 plot(x,y,title="Two Lines",label=["Line 1" "Line 2"],lw=3)
 ```
 
+![first_attributes_plot](https://user-images.githubusercontent.com/1814174/28752275-29e0f4dc-74d0-11e7-843d-f50d499ca772.png)
+
 Note that every attribute can also be applied by mutating the plot with a
 modifier function. For example, the `xlabel` attribute adds a label for the
 x-axis. We can in the plot command specify it via `xlabel=...` like we did above.
@@ -77,6 +87,8 @@ generated:
 ```julia
 xlabel!("My x label")
 ```
+
+![add_x_label_plot](https://user-images.githubusercontent.com/1814174/28752277-399e3830-74d0-11e7-9eb8-db337b3164a1.png)
 
 Every modifier function is the name of the attribute followed by `!`. Note that
 this implicitly uses the global `Plots.CURRENT_PLOT` and we can apply it to
@@ -115,13 +127,18 @@ gr() # Set the backend to GR
 plot(x,y) # This plots using GR
 ```
 
+![plotly_plot](https://user-images.githubusercontent.com/1814174/28752287-69ffa860-74d0-11e7-8a5b-20a543d95a8b.png)
+
+![gr_plot](https://user-images.githubusercontent.com/1814174/28752290-7184cd36-74d0-11e7-8a5f-447f08ae4c18.png)
+
 If you're in Juno, the second plot command will cause the plot to open in the
 plot pane. If you're in the REPL, GR will open a GUI window. You can always
 open a GUI anyways by using the `gui()` command.
 
 Each plotting backend has a very different feel. Some have interactivity, some
 are faster and can deal with huge numbers of datapoints, and some can do
-3D plots. For more information on backends, see the [backends page](/backends).
+3D plots. Some can save to vector graphics and PDFs, while others only save
+to `.png`s. For more information on backends, see the [backends page](/backends).
 For examples of plots from the various backends, see the Examples section.
 
 ## Changing the Plotting Series
@@ -133,8 +150,11 @@ series type which is commonly used. We can change the series type by the
 `seriestype` attribute:
 
 ```julia
+gr() # We will continue onward using the GR backend
 plot(x,y,seriestype=:scatter,title="My Scatter Plot")
 ```
+
+![scatter_plot](https://user-images.githubusercontent.com/1814174/28752303-b17faf32-74d0-11e7-8598-18d86839f169.png)
 
 For each built-in series type, there is a shorthand function for directly
 calling that series type which matches the name of the series type. It handles
@@ -144,6 +164,8 @@ ends in `!`. For example, we can instead do that scatter plot with:
 ```julia
 scatter(x,y,title="My Scatter Plot")
 ```
+
+![scatter_plot](https://user-images.githubusercontent.com/1814174/28752303-b17faf32-74d0-11e7-8598-18d86839f169.png)
 
 The series types which are available are dependent on the backend, and are
 documented on the [Supported Attributes page](/supported). As we will describe
@@ -185,6 +207,8 @@ y = rand(10,4)
 plot(x,y,layout=(4,1))
 ```
 
+![subplot_single_plot](https://user-images.githubusercontent.com/1814174/28752312-ceeec440-74d0-11e7-89a2-88fac0e3a8ed.png)
+
 We can also use layouts on plots of plot objects. For example, we can generate
 for separate plots and make a single plot that combines them in a 2x2 grid
 via the following:
@@ -196,6 +220,8 @@ p3 = plot(x,y,xlabel="This one is labelled",lw=3,title="Subtitle")
 p4 = histogram(x,y) # Four histograms each with 10 points? Why not!
 plot(p1,p2,p3,p4,layout=(2,2),legend=false)
 ```
+
+![multi_plot_subplot](https://user-images.githubusercontent.com/1814174/28752315-e6c8cfca-74d0-11e7-80e5-b785babdf4d9.png)
 
 Notice that the attributes in the individual plots are applied to the
 individual plots, while the attributes on the final `plot` call are applied
@@ -246,6 +272,8 @@ df = DataFrame(a = 1:10, b = 10*rand(10), c = 10 * rand(10))
 plot(df, :a, [:b :c]) # x = :a, y = [:b :c]. Notice this is two columns!
 ```
 
+![dataframeplot](https://user-images.githubusercontent.com/1814174/28752322-09f62f24-74d1-11e7-80a7-0d8183337a0c.png)
+
 Notice there's not much you have to do here: a user recipe is a way of
 translating a Julia type to plotting data, and all of the commands from before
 (attributes, series types, etc.) will still work on this data:
@@ -253,6 +281,8 @@ translating a Julia type to plotting data, and all of the commands from before
 ```julia
 scatter(df, :a, :b, title="My DataFrame Scatter Plot!") # x = :a, y = :b
 ```
+
+![dataframescatterplot](https://user-images.githubusercontent.com/1814174/28752326-19926966-74d1-11e7-8b7d-416eb1d1050e.png)
 
 ### Using a Type Recipe
 
@@ -265,6 +295,8 @@ using Distributions
 plot(Normal(3,5),lw=3)
 ```
 
+![distributionplot](https://user-images.githubusercontent.com/1814174/28752330-2de10fb2-74d1-11e7-902e-8ce60a62fba2.png)
+
 Thus type recipes are a very convenient way to plot a specialized type which
 requires no more intervention!
 
@@ -274,6 +306,7 @@ StatPlots.jl adds the `marginhist` multiplot via a plot recipe. For our data
 we will pull in the famous `iris` dataset from RDatasets:
 
 ```julia
+#Pkg.add("RDatasets")
 using RDatasets
 iris = dataset("datasets","iris")
 ```
