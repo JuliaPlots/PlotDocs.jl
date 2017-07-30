@@ -214,7 +214,7 @@ y = rand(10,4)
 plot(x,y,layout=(4,1))
 ```
 
-![subplot_single_plot](https://user-images.githubusercontent.com/1814174/28752312-ceeec440-74d0-11e7-89a2-88fac0e3a8ed.png)
+![subplot_single_plot](https://user-images.githubusercontent.com/1814174/28752693-85ac2c64-74da-11e7-82d7-1fb6986c9093.png)
 
 We can also use layouts on plots of plot objects. For example, we can generate
 for separate plots and make a single plot that combines them in a 2x2 grid
@@ -228,7 +228,7 @@ p4 = histogram(x,y) # Four histograms each with 10 points? Why not!
 plot(p1,p2,p3,p4,layout=(2,2),legend=false)
 ```
 
-![multi_plot_subplot](https://user-images.githubusercontent.com/1814174/28752315-e6c8cfca-74d0-11e7-80e5-b785babdf4d9.png)
+![multi_plot_subplot](https://user-images.githubusercontent.com/1814174/28752698-94c91248-74da-11e7-9431-8d3a12fb97b8.png)
 
 Notice that the attributes in the individual plots are applied to the
 individual plots, while the attributes on the final `plot` call are applied
@@ -289,7 +289,7 @@ translating a Julia type to plotting data, and all of the commands from before
 scatter(df, :a, :b, title="My DataFrame Scatter Plot!") # x = :a, y = :b
 ```
 
-![dataframescatterplot](https://user-images.githubusercontent.com/1814174/28752326-19926966-74d1-11e7-8b7d-416eb1d1050e.png)
+![dataframescatterplot](https://user-images.githubusercontent.com/1814174/28752706-c37b7720-74da-11e7-9fe2-aec281cef0dc.png)
 
 ### Using a Type Recipe
 
