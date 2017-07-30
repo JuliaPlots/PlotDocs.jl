@@ -137,9 +137,16 @@ open a GUI anyways by using the `gui()` command.
 
 Each plotting backend has a very different feel. Some have interactivity, some
 are faster and can deal with huge numbers of datapoints, and some can do
-3D plots. Some can save to vector graphics and PDFs, while others only save
-to `.png`s. For more information on backends, see the [backends page](/backends).
-For examples of plots from the various backends, see the Examples section.
+3D plots. Saving plots is done by the `savefig` command. As an example:
+
+```julia
+savefig("myplot.png") # Saves the CURRENT_PLOT as a .png
+savefig(p,"myplot.pdf") # Saves the plot from p as a .pdf vector graphic
+```
+
+Some like GR can save to vector graphics and PDFs, while others like Plotly only save to `.png`s. For more information on backends, see the
+[backends page](/backends). For examples of plots from the various backends, see
+the Examples section.
 
 ## Changing the Plotting Series
 
