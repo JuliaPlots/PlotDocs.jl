@@ -122,14 +122,14 @@ done `Pkg.add("GR")`!):
 ```julia
 x = 1:10; y = rand(10,2) # 2 columns means two lines
 plotly() # Set the backend to Plotly
-plot(x,y) # This plots into the web browser via Plotly
+plot(x,y,title="This is Plotted using Plotly") # This plots into the web browser via Plotly
 gr() # Set the backend to GR
-plot(x,y) # This plots using GR
+plot(x,y,title="This is Plotted using GR") # This plots using GR
 ```
 
-![plotly_plot](https://user-images.githubusercontent.com/1814174/28752287-69ffa860-74d0-11e7-8a5b-20a543d95a8b.png)
+![plotly_plot](https://user-images.githubusercontent.com/1814174/28752391-55d2d860-74d2-11e7-824b-ca67d8485c66.png)
 
-![gr_plot](https://user-images.githubusercontent.com/1814174/28752290-7184cd36-74d0-11e7-8a5f-447f08ae4c18.png)
+![gr_plot](https://user-images.githubusercontent.com/1814174/28752389-4bbe2db6-74d2-11e7-9090-896e234ec591.png)
 
 If you're in Juno, the second plot command will cause the plot to open in the
 plot pane. If you're in the REPL, GR will open a GUI window. You can always
@@ -319,6 +319,8 @@ columns:
 marginalhist(iris, :PetalLength, :PetalWidth)
 ```
 
+![marginalhistplot](https://user-images.githubusercontent.com/1814174/28752339-5fa4176a-74d1-11e7-9e7c-0dd366625f40.png)
+
 This demonstrates two important facts. Notice that this is more than a series
 since it generates multiple series (i.e. there are multiple plots due to the
 hists on the top and right). Thus a plot recipe is not just a series but instead
@@ -340,11 +342,15 @@ y = rand(100,4) # Four series of 100 points each
 violin(["Series 1" "Series 2" "Series 3" "Series 4"],y,leg=false)
 ```
 
+![violinplot](https://user-images.githubusercontent.com/1814174/28752344-6f5c3c00-74d1-11e7-9a30-18d2682f1e3a.png)
+
 and we can add a `boxplot` on top using the same mutation commands as before:
 
 ```julia
 boxplot!(["Series 1" "Series 2" "Series 3" "Series 4"],y,leg=false)
 ```
+
+![violinboxplot](https://user-images.githubusercontent.com/1814174/28752350-8646bb34-74d1-11e7-9f53-b2ecbf39a5cf.png)
 
 ## Additional Addons To Try
 
