@@ -9,10 +9,10 @@ Plots is a visualization interface and toolset. It sits above other backends, li
 
 My goals with the package are:
 
-- **Powerful**. Do more with less. Complex visualizations become easy.
-- **Intuitive**.   Start generating plots without reading volumes of documentation. Commands should "just work."
-- **Concise**. Less code means fewer mistakes and more efficient development and analysis.
-- **Flexible**.  . Produce your favorite plots from your favorite package, only quicker and simpler.
+- **Powerful**.  Do more with less. Complex visualizations become easy.
+- **Intuitive**.  Start generating plots without reading volumes of documentation. Commands should "just work."
+- **Concise**.  Less code means fewer mistakes and more efficient development and analysis.
+- **Flexible**.  Produce your favorite plots from your favorite package, only quicker and simpler.
 - **Consistent**.  Don't commit to one graphics package. Use the same code and access the strengths of all [backends](/backends).
 - **Lightweight**.  Very few dependencies, since backends are loaded and initialized dynamically.
 - **Smart**.  It's not quite AGI, but Plots should figure out what you **want** it to do... not just what you **tell** it.
