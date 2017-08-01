@@ -241,10 +241,10 @@ documentation freely to become a plotting master. However, there is one
 thing left: **recipes**. Plotting recipes are extensions to the Plots.jl
 framework. They add:
 
-1) New `plot` commands via **user recipes**.
-2) Default interpretations of Julia types as plotting data via **type recipes**.
-3) New functions for generating plots via **plot recipes**.
-4) New series types via **series recipes**.
+1. New `plot` commands via **user recipes**.
+2. Default interpretations of Julia types as plotting data via **type recipes**.
+3. New functions for generating plots via **plot recipes**.
+4. New series types via **series recipes**.
 
 Writing your own recipes is an advanced topic described on the
 [recipes page](/recipes). Instead, we will introduce the ways that one uses
@@ -256,10 +256,10 @@ are [PlotRecipes.jl](https://github.com/JuliaPlots/PlotRecipes.jl) and
 StatPlots.jl. StatPlots.jl adds a bunch of recipes, but the ones we'll focus
 on are:
 
-1) It adds a user recipe for `DataFrame`s.
-2) It adds a type recipe for `Distribution`s.
-3) It adds a plot recipe for marginal histograms.
-4) It adds a bunch of new statistical plot series.
+1. It adds a user recipe for `DataFrame`s.
+2. It adds a type recipe for `Distribution`s.
+3. It adds a plot recipe for marginal histograms.
+4. It adds a bunch of new statistical plot series.
 
 ### Using User Recipes
 
