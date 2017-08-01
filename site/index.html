@@ -5,6 +5,7 @@
     
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
+      <meta http-equiv="x-ua-compatible" content="ie=edge">
       
       
       
@@ -13,7 +14,7 @@
       
         <link rel="shortcut icon" href="./assets/images/favicon.png">
       
-      <meta name="generator" content="mkdocs-0.16.3, mkdocs-material-1.7.3">
+      <meta name="generator" content="mkdocs-0.16.3, mkdocs-material-1.7.5">
     
     
       
@@ -24,9 +25,9 @@
       <script src="./assets/javascripts/modernizr-1df76c4e58.js"></script>
     
     
-      <link rel="stylesheet" href="./assets/stylesheets/application-acc56dad49.css">
+      <link rel="stylesheet" href="./assets/stylesheets/application-769c285a91.css">
       
-        <link rel="stylesheet" href="./assets/stylesheets/application-8817cfa535.palette.css">
+        <link rel="stylesheet" href="./assets/stylesheets/application-02c2a4388f.palette.css">
       
     
     
@@ -88,11 +89,11 @@
         
           <label class="md-icon md-icon--search md-header-nav__button" for="search"></label>
           
-<div class="md-search" data-md-component="search">
+<div class="md-search" data-md-component="search" role="dialog">
   <label class="md-search__overlay" for="search"></label>
   <div class="md-search__inner">
     <form class="md-search__form" name="search">
-      <input type="text" class="md-search__input" name="query" required placeholder="Search" accesskey="s" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="query">
+      <input type="text" class="md-search__input" name="query" required placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="query">
       <label class="md-icon md-search__icon" for="search"></label>
       <button type="reset" class="md-icon md-search__icon" data-md-component="reset">close</button>
     </form>
@@ -234,15 +235,27 @@
       
 
 
+  <li class="md-nav__item">
+    <a href="tutorial/" title="Tutorial" class="md-nav__link">
+      Tutorial
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
   <li class="md-nav__item md-nav__item--nested">
     
-      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-2" type="checkbox" id="nav-2">
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-3" type="checkbox" id="nav-3">
     
-    <label class="md-nav__link" for="nav-2">
+    <label class="md-nav__link" for="nav-3">
       Getting Started
     </label>
     <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
-      <label class="md-nav__title" for="nav-2">
+      <label class="md-nav__title" for="nav-3">
         Getting Started
       </label>
       <ul class="md-nav__list" data-md-scrollfix>
@@ -380,13 +393,13 @@
 
   <li class="md-nav__item md-nav__item--nested">
     
-      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-5" type="checkbox" id="nav-5">
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-6" type="checkbox" id="nav-6">
     
-    <label class="md-nav__link" for="nav-5">
+    <label class="md-nav__link" for="nav-6">
       Advanced Topics
     </label>
     <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
-      <label class="md-nav__title" for="nav-5">
+      <label class="md-nav__title" for="nav-6">
         Advanced Topics
       </label>
       <ul class="md-nav__list" data-md-scrollfix>
@@ -476,13 +489,13 @@
 
   <li class="md-nav__item md-nav__item--nested">
     
-      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-8" type="checkbox" id="nav-8">
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-9" type="checkbox" id="nav-9">
     
-    <label class="md-nav__link" for="nav-8">
+    <label class="md-nav__link" for="nav-9">
       Examples
     </label>
     <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
-      <label class="md-nav__title" for="nav-8">
+      <label class="md-nav__title" for="nav-9">
         Examples
       </label>
       <ul class="md-nav__list" data-md-scrollfix>
@@ -611,19 +624,20 @@
                 
                 <h1 id="intro-to-plots-in-julia">Intro to Plots in Julia</h1>
 <p><strong>Author: Thomas Breloff (@tbreloff)</strong></p>
-<p>Data visualization has a complicated history, with plotting software making trade-offs between features vs simplicity, speed vs beauty, and static vs dynamic.  Some make a visualization and never change it, others must make updates in real-time.</p>
-<p>Plots is a visualization interface and toolset.  It sits above other visualization "backends", connecting commands with implementation.  If one backend does not support your desired features, or make the right trade-offs, just switch to another backend with one command.  No need to change your code.  No need to learn something new.  Plots might be the last plotting package you ever learn.</p>
+<p>Data visualization has a complicated history.  Plotting software makes trade-offs between features and simplicity, speed and beauty, and a static and dynamic interface. Some packages make a display and never change it, while others make updates in real-time.</p>
+<p>Plots is a visualization interface and toolset. It sits above other backends, like GR or PyPlot, connecting commands with implementation. If one backend does not support your desired features or make the right trade-offs, you can just switch to another backend with one command. No need to change your code. No need to learn a new syntax. Plots might be the last plotting package you ever learn.</p>
 <p>My goals with the package are:</p>
 <ul>
-<li><strong>Powerful</strong>.  Do more with less.  Complex visualizations become easy.</li>
-<li><strong>Intuitive</strong>.  Start generating plots without reading volumes of documentation.  Commands should "just work".</li>
-<li><strong>Concise</strong>.  Less code means fewer mistakes and more efficient development/analysis.</li>
-<li><strong>Flexible</strong>.  Produce your favorite plots from your favorite package, but quicker and simpler.</li>
-<li><strong>Consistent</strong>.  Don't commit to one graphics package.  Use the same code and access the strengths of all <a href="./backends">backends</a>.</li>
+<li><strong>Powerful</strong>.  Do more with less. Complex visualizations become easy.</li>
+<li><strong>Intuitive</strong>.  Start generating plots without reading volumes of documentation. Commands should "just work."</li>
+<li><strong>Concise</strong>.  Less code means fewer mistakes and more efficient development and analysis.</li>
+<li><strong>Flexible</strong>.  Produce your favorite plots from your favorite package, only quicker and simpler.</li>
+<li><strong>Consistent</strong>.  Don't commit to one graphics package. Use the same code and access the strengths of all <a href="./backends">backends</a>.</li>
 <li><strong>Lightweight</strong>.  Very few dependencies, since backends are loaded and initialized dynamically.</li>
 <li><strong>Smart</strong>.  It's not quite AGI, but Plots should figure out what you <strong>want</strong> it to do... not just what you <strong>tell</strong> it.</li>
 </ul>
-<p>Use the <a href="./pipeline">preprocessing pipeline</a> in Plots to fully describe your visualization before it calls the backend code.  This maintains modularity and allows for efficient separation of front end code, algorithms, and backend graphics.</p>
+<p>To get started, <a href="./tutorial">see the tutorial</a>.</p>
+<p>Use the <a href="./pipeline">preprocessing pipeline</a> in Plots to describe your visualization completely before it calls the backend code.  This preprocessing maintains modularity and allows for efficient separation of front end code, algorithms, and backend graphics.</p>
 <p>Tap into the extensive visualization functionality enabled by the <a href="./ecosystem">Plots ecosystem</a>, and easily build your own complex graphics components with <a href="./recipes">recipes</a>.</p>
 <p>Please add wishlist items, bugs, or any other comments/questions to the <a href="https://github.com/tbreloff/Plots.jl/issues">issues list</a>, and <a href="https://gitter.im/tbreloff/Plots.jl">join the conversation on gitter</a>.</p>
 <hr />
@@ -720,13 +734,13 @@
       <nav class="md-footer-nav__inner md-grid">
         
         
-          <a href="install/" title="Installation" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
+          <a href="tutorial/" title="Tutorial" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
             <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
               <span class="md-flex__ellipsis">
                 <span class="md-footer-nav__direction">
                   Next
                 </span>
-                Installation
+                Tutorial
               </span>
             </div>
             <div class="md-flex__cell md-flex__cell--shrink">
@@ -760,7 +774,7 @@
       
     </div>
     
-      <script src="./assets/javascripts/application-b30566c560.js"></script>
+      <script src="./assets/javascripts/application-07b0fbb49b.js"></script>
       
       
       <script>app.initialize({url:{base:"."}})</script>
