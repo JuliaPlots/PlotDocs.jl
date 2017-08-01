@@ -21,7 +21,7 @@ plot(x,y)
 ![first_plot](https://user-images.githubusercontent.com/1814174/28752263-dc198750-74cf-11e7-9d96-c61affb655d8.png)
 
 In Plots.jl, every column is a **series**, i.e. a set of related points which
-for lines, surfaces, or other plotting primitives. Thus we can plot multiple
+form lines, surfaces, or other plotting primitives. Thus we can plot multiple
 lines by plotting a matrix of values and each column is interpreted as a
 separate line:
 
