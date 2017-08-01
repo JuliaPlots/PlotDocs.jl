@@ -17,6 +17,8 @@ My goals with the package are:
 - **Lightweight**.  Very few dependencies, since backends are loaded and initialized dynamically.
 - **Smart**.  It's not quite AGI, but Plots should figure out what you **want** it to do... not just what you **tell** it.
 
+To get started, [see the tutorial](/tutorial).
+
 Use the [preprocessing pipeline](/pipeline) in Plots to describe your visualization completely before it calls the backend code.  This preprocessing maintains modularity and allows for efficient separation of front end code, algorithms, and backend graphics.
 
 Tap into the extensive visualization functionality enabled by the [Plots ecosystem](/ecosystem), and easily build your own complex graphics components with [recipes](/recipes).
