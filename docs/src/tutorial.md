@@ -14,11 +14,14 @@ numbers. For example:
 
 ```julia
 using Plots
-x = 1:10; y = rand(10) # These are the plotting data
+x = 1:10; y = rand(10); # These are the plotting data
 plot(x,y)
 ```
 
 ![first_plot](https://user-images.githubusercontent.com/1814174/28752263-dc198750-74cf-11e7-9d96-c61affb655d8.png)
+
+The plot is displayed in a plot pane, a stand-alone window or the browser,
+depending on the environment and backend (see [below](#plotting-backends)).
 
 In Plots.jl, every column is a **series**, i.e. a set of related points which
 form lines, surfaces, or other plotting primitives. Thus we can plot multiple
