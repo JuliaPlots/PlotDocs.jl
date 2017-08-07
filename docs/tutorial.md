@@ -14,8 +14,8 @@ numbers. For example:
 
 ```julia
 using Plots
-x = 1:10; y = rand(10) # These are the plotting data
-plot(x,y)
+x = 1:10; y = rand(10); # These are the plotting data
+plot(x,y) # uses Plotly by default, and opens the plot it in the browser
 ```
 
 ![first_plot](https://user-images.githubusercontent.com/1814174/28752263-dc198750-74cf-11e7-9d96-c61affb655d8.png)
