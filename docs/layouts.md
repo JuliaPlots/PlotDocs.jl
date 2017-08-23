@@ -55,7 +55,7 @@ l = @layout [  a{0.3w} [grid(3,3)
 plot(
 	rand(10,11),
 	layout = l, legend = false, seriestype = [:bar :scatter :path],
-	title = ["($i)" for i=1:11]', titleloc = :right, titlefont = font(8)
+	title = ["($i)" for j = 1:1, i=1:11], titleloc = :right, titlefont = font(8)
 )
 ```
 
