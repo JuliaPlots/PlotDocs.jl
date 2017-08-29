@@ -8,9 +8,6 @@ Pkg.add("Plots")
 
 # if you want the latest features:
 Pkg.checkout("Plots")
-
-# or for the bleeding edge:
-Pkg.checkout("Plots", "dev")
 ```
 
 then get any plotting packages you need (obviously, you should get at least one [backend](/backends)).
