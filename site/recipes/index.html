@@ -5,7 +5,6 @@
     
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
-      <meta http-equiv="x-ua-compatible" content="ie=edge">
       
       
       
@@ -14,7 +13,7 @@
       
         <link rel="shortcut icon" href="../assets/images/favicon.png">
       
-      <meta name="generator" content="mkdocs-0.16.3, mkdocs-material-1.7.5">
+      <meta name="generator" content="mkdocs-0.16.3, mkdocs-material-1.7.3">
     
     
       
@@ -25,9 +24,9 @@
       <script src="../assets/javascripts/modernizr-1df76c4e58.js"></script>
     
     
-      <link rel="stylesheet" href="../assets/stylesheets/application-769c285a91.css">
+      <link rel="stylesheet" href="../assets/stylesheets/application-acc56dad49.css">
       
-        <link rel="stylesheet" href="../assets/stylesheets/application-02c2a4388f.palette.css">
+        <link rel="stylesheet" href="../assets/stylesheets/application-8817cfa535.palette.css">
       
     
     
@@ -93,11 +92,11 @@
         
           <label class="md-icon md-icon--search md-header-nav__button" for="search"></label>
           
-<div class="md-search" data-md-component="search" role="dialog">
+<div class="md-search" data-md-component="search">
   <label class="md-search__overlay" for="search"></label>
   <div class="md-search__inner">
     <form class="md-search__form" name="search">
-      <input type="text" class="md-search__input" name="query" required placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="query">
+      <input type="text" class="md-search__input" name="query" required placeholder="Search" accesskey="s" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="query">
       <label class="md-icon md-search__icon" for="search"></label>
       <button type="reset" class="md-icon md-search__icon" data-md-component="reset">close</button>
     </form>
@@ -727,7 +726,7 @@
     <span class="n">linecolor</span>   <span class="o">--&gt;</span> <span class="o">:</span><span class="n">blue</span>
     <span class="n">seriestype</span>  <span class="o">:=</span>  <span class="o">:</span><span class="n">path</span>
     <span class="n">markershape</span> <span class="o">--&gt;</span> <span class="p">(</span><span class="n">add_marker</span> <span class="o">?</span> <span class="o">:</span><span class="n">circle</span> <span class="o">:</span> <span class="o">:</span><span class="n">none</span><span class="p">)</span>
-    <span class="n">delete!</span><span class="p">(</span><span class="n">d</span><span class="p">,</span> <span class="o">:</span><span class="n">add_marker</span><span class="p">)</span>
+    <span class="n">delete!</span><span class="p">(</span><span class="n">plotattributes</span><span class="p">,</span> <span class="o">:</span><span class="n">add_marker</span><span class="p">)</span>
     <span class="n">rand</span><span class="p">(</span><span class="n">n</span><span class="p">)</span>
 <span class="k">end</span>
 </pre></div>
@@ -736,14 +735,14 @@
 <p>We create a new type <code>MyType</code>, which is empty, and used purely for dispatch.  Our goal here is to create a random path of <code>n</code> points.</p>
 <p>There are a few important things to know, after which recipes boil down to updating an attribute dictionary and returning input data:</p>
 <ul>
-<li>A recipe signature <code>f(args...; kw...)</code> is converted into a definition of <code>apply_recipe(d::KW, args...)</code> where:<ul>
-<li><code>d</code> is an attribute dictionary of type <code>typealias KW Dict{Symbol,Any}</code></li>
+<li>A recipe signature <code>f(args...; kw...)</code> is converted into a definition of <code>apply_recipe(plotattributes::KW, args...)</code> where:<ul>
+<li><code>plotattributes</code> is an attribute dictionary of type <code>typealias KW Dict{Symbol,Any}</code></li>
 <li>Your <code>args</code> must be distinct enough that dispatch will call your definition (and without masking an existing definition).  Using a custom data type will ensure proper dispatch.</li>
 <li>The function <code>f</code> is unused/meaningless... call it whatever you want.</li>
 </ul>
 </li>
-<li>The special operator <code>--&gt;</code> turns <code>linecolor --&gt; :blue</code> into <code>get!(d, :linecolor, :blue)</code>, setting the attribute only when it doesn't already exist.  (Tip: Wrap the right hand side in parentheses for complex expressions.)</li>
-<li>The special operator <code>:=</code> turns <code>seriestype := :path</code> into <code>d[:seriestype] = :path</code>, forcing that attribute value.  (Tip: Wrap the right hand side in parentheses for complex expressions.)</li>
+<li>The special operator <code>--&gt;</code> turns <code>linecolor --&gt; :blue</code> into <code>get!(plotattributes, :linecolor, :blue)</code>, setting the attribute only when it doesn't already exist.  (Tip: Wrap the right hand side in parentheses for complex expressions.)</li>
+<li>The special operator <code>:=</code> turns <code>seriestype := :path</code> into <code>plotattributes[:seriestype] = :path</code>, forcing that attribute value.  (Tip: Wrap the right hand side in parentheses for complex expressions.)</li>
 <li>The return value of the recipe is the <code>args</code> of a <code>RecipeData</code> object, which also has a reference to the attribute dictionary.</li>
 <li>A recipe returns a Vector{RecipeData}.  We'll see how to add to this list later with the <code>@series</code> macro.</li>
 </ul>
@@ -814,9 +813,9 @@
 <h3 id="series-recipes">Series Recipes</h3>
 <p>This is where the magic happens.  You can create your own custom visualizations for arbitrary data.  Quickly define violin plots, error bars, and even standard types like histograms and step plots.  A histogram is a bar plot:</p>
 <div class="code"><pre><span></span><span class="nd">@recipe</span> <span class="k">function</span> <span class="n">f</span><span class="p">(</span><span class="o">::</span><span class="kt">Type</span><span class="p">{</span><span class="kt">Val</span><span class="p">{</span><span class="o">:</span><span class="n">histogram</span><span class="p">}},</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">)</span>
-    <span class="n">edges</span><span class="p">,</span> <span class="n">counts</span> <span class="o">=</span> <span class="n">my_hist</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">d</span><span class="p">[</span><span class="o">:</span><span class="n">bins</span><span class="p">],</span>
-                               <span class="n">normed</span> <span class="o">=</span> <span class="n">d</span><span class="p">[</span><span class="o">:</span><span class="n">normalize</span><span class="p">],</span>
-                               <span class="n">weights</span> <span class="o">=</span> <span class="n">d</span><span class="p">[</span><span class="o">:</span><span class="n">weights</span><span class="p">])</span>
+    <span class="n">edges</span><span class="p">,</span> <span class="n">counts</span> <span class="o">=</span> <span class="n">my_hist</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">plotattributes</span><span class="p">[</span><span class="o">:</span><span class="n">bins</span><span class="p">],</span>
+                               <span class="n">normed</span> <span class="o">=</span> <span class="n">plotattributes</span><span class="p">[</span><span class="o">:</span><span class="n">normalize</span><span class="p">],</span>
+                               <span class="n">weights</span> <span class="o">=</span> <span class="n">plotattributes</span><span class="p">[</span><span class="o">:</span><span class="n">weights</span><span class="p">])</span>
     <span class="n">x</span> <span class="o">:=</span> <span class="n">edges</span>
     <span class="n">y</span> <span class="o">:=</span> <span class="n">counts</span>
     <span class="n">seriestype</span> <span class="o">:=</span> <span class="o">:</span><span class="n">bar</span>
@@ -827,9 +826,9 @@
 
 <p>while a 2D histogram is really a heatmap:</p>
 <div class="code"><pre><span></span><span class="nd">@recipe</span> <span class="k">function</span> <span class="n">f</span><span class="p">(</span><span class="o">::</span><span class="kt">Type</span><span class="p">{</span><span class="kt">Val</span><span class="p">{</span><span class="o">:</span><span class="n">histogram2d</span><span class="p">}},</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">)</span>
-    <span class="n">xedges</span><span class="p">,</span> <span class="n">yedges</span><span class="p">,</span> <span class="n">counts</span> <span class="o">=</span> <span class="n">my_hist_2d</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">d</span><span class="p">[</span><span class="o">:</span><span class="n">bins</span><span class="p">],</span>
-                                              <span class="n">normed</span> <span class="o">=</span> <span class="n">d</span><span class="p">[</span><span class="o">:</span><span class="n">normalize</span><span class="p">],</span>
-                                              <span class="n">weights</span> <span class="o">=</span> <span class="n">d</span><span class="p">[</span><span class="o">:</span><span class="n">weights</span><span class="p">])</span>
+    <span class="n">xedges</span><span class="p">,</span> <span class="n">yedges</span><span class="p">,</span> <span class="n">counts</span> <span class="o">=</span> <span class="n">my_hist_2d</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">plotattributes</span><span class="p">[</span><span class="o">:</span><span class="n">bins</span><span class="p">],</span>
+                                              <span class="n">normed</span> <span class="o">=</span> <span class="n">plotattributes</span><span class="p">[</span><span class="o">:</span><span class="n">normalize</span><span class="p">],</span>
+                                              <span class="n">weights</span> <span class="o">=</span> <span class="n">plotattributes</span><span class="p">[</span><span class="o">:</span><span class="n">weights</span><span class="p">])</span>
     <span class="n">x</span> <span class="o">:=</span> <span class="n">centers</span><span class="p">(</span><span class="n">xedges</span><span class="p">)</span>
     <span class="n">y</span> <span class="o">:=</span> <span class="n">centers</span><span class="p">(</span><span class="n">yedges</span><span class="p">)</span>
     <span class="n">z</span> <span class="o">:=</span> <span class="n">Surface</span><span class="p">(</span><span class="n">counts</span><span class="p">)</span>
@@ -944,7 +943,7 @@
 </pre></div>
 
 
-<p>Define the series of the main plot.  The <code>@series</code> macro makes a local copy of the attribute dictionary <code>d</code> using a "let block".  The copied dictionary and the returned args are added to the <code>Vector{RecipeData}</code> which is returned from the recipe.  This block is similar to calling <code>histogram2d!(x, y; subplot = 2, d...)</code> (but you wouldn't actually want to do that).</p>
+<p>Define the series of the main plot.  The <code>@series</code> macro makes a local copy of the attribute dictionary <code>plotattributes</code> using a "let block".  The copied dictionary and the returned args are added to the <code>Vector{RecipeData}</code> which is returned from the recipe.  This block is similar to calling <code>histogram2d!(x, y; subplot = 2, plotattributes...)</code> (but you wouldn't actually want to do that).</p>
 <p>Note: this <code>@series</code> block gets a "snapshot" of the attributes, so it contains anything that was set before this block, but nothing from after it.  <code>@series</code> blocks can be standalone, as these are, or they can be in a loop.</p>
 <div class="code"><pre><span></span>    <span class="c"># main histogram2d</span>
     <span class="nd">@series</span> <span class="k">begin</span>
@@ -1100,7 +1099,7 @@
       
     </div>
     
-      <script src="../assets/javascripts/application-07b0fbb49b.js"></script>
+      <script src="../assets/javascripts/application-b30566c560.js"></script>
       
       
       <script>app.initialize({url:{base:".."}})</script>
