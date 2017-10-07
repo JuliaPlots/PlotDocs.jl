@@ -5,7 +5,7 @@
 
 To get started, [see the tutorial](/tutorial).
 
-Almost everything in Plots is done by specifying plot [attributes](/attributes)
+Almost everything in Plots is done by specifying plot [attributes](/attributes).
 
 Tap into the extensive visualization functionality enabled by the [Plots ecosystem](/ecosystem), and easily build your own complex graphics components with [recipes](/recipes).
 
