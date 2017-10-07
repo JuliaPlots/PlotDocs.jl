@@ -42,7 +42,7 @@ type MyType end
 	linecolor   --> :blue
 	seriestype  :=  :path
 	markershape --> (add_marker ? :circle : :none)
-	delete!(d, :add_marker)
+	delete!(plotattributes, :add_marker)
 	rand(n)
 end
 ```
@@ -51,12 +51,12 @@ We create a new type `MyType`, which is empty, and used purely for dispatch.  Ou
 
 There are a few important things to know, after which recipes boil down to updating an attribute dictionary and returning input data:
 
-- A recipe signature `f(args...; kw...)` is converted into a definition of `apply_recipe(d::KW, args...)` where:
-	- `d` is an attribute dictionary of type `typealias KW Dict{Symbol,Any}`
+- A recipe signature `f(args...; kw...)` is converted into a definition of `apply_recipe(plotattributes::KW, args...)` where:
+	- `plotattributes` is an attribute dictionary of type `typealias KW Dict{Symbol,Any}`
 	- Your `args` must be distinct enough that dispatch will call your definition (and without masking an existing definition).  Using a custom data type will ensure proper dispatch.
 	- The function `f` is unused/meaningless... call it whatever you want.
-- The special operator `-->` turns `linecolor --> :blue` into `get!(d, :linecolor, :blue)`, setting the attribute only when it doesn't already exist.  (Tip: Wrap the right hand side in parentheses for complex expressions.)
-- The special operator `:=` turns `seriestype := :path` into `d[:seriestype] = :path`, forcing that attribute value.  (Tip: Wrap the right hand side in parentheses for complex expressions.)
+- The special operator `-->` turns `linecolor --> :blue` into `get!(plotattributes, :linecolor, :blue)`, setting the attribute only when it doesn't already exist.  (Tip: Wrap the right hand side in parentheses for complex expressions.)
+- The special operator `:=` turns `seriestype := :path` into `plotattributes[:seriestype] = :path`, forcing that attribute value.  (Tip: Wrap the right hand side in parentheses for complex expressions.)
 - The return value of the recipe is the `args` of a `RecipeData` object, which also has a reference to the attribute dictionary.
 - A recipe returns a Vector{RecipeData}.  We'll see how to add to this list later with the `@series` macro.
 
@@ -148,9 +148,9 @@ This is where the magic happens.  You can create your own custom visualizations 
 
 ```julia
 @recipe function f(::Type{Val{:histogram}}, x, y, z)
-    edges, counts = my_hist(y, d[:bins],
-                               normed = d[:normalize],
-                               weights = d[:weights])
+    edges, counts = my_hist(y, plotattributes[:bins],
+                               normed = plotattributes[:normalize],
+                               weights = plotattributes[:weights])
     x := edges
     y := counts
     seriestype := :bar
@@ -162,9 +162,9 @@ while a 2D histogram is really a heatmap:
 
 ```julia
 @recipe function f(::Type{Val{:histogram2d}}, x, y, z)
-    xedges, yedges, counts = my_hist_2d(x, y, d[:bins],
-                                              normed = d[:normalize],
-                                              weights = d[:weights])
+    xedges, yedges, counts = my_hist_2d(x, y, plotattributes[:bins],
+                                              normed = plotattributes[:normalize],
+                                              weights = plotattributes[:weights])
     x := centers(xedges)
     y := centers(yedges)
     z := Surface(counts)
@@ -295,7 +295,7 @@ Next we build the subplot layout and define some attributes.  A few things to no
                  	   hist2d{0.9w,0.9h} righthist]
 ```
 
-Define the series of the main plot.  The `@series` macro makes a local copy of the attribute dictionary `d` using a "let block".  The copied dictionary and the returned args are added to the `Vector{RecipeData}` which is returned from the recipe.  This block is similar to calling `histogram2d!(x, y; subplot = 2, d...)` (but you wouldn't actually want to do that).
+Define the series of the main plot.  The `@series` macro makes a local copy of the attribute dictionary `plotattributes` using a "let block".  The copied dictionary and the returned args are added to the `Vector{RecipeData}` which is returned from the recipe.  This block is similar to calling `histogram2d!(x, y; subplot = 2, plotattributes...)` (but you wouldn't actually want to do that).
 
 Note: this `@series` block gets a "snapshot" of the attributes, so it contains anything that was set before this block, but nothing from after it.  `@series` blocks can be standalone, as these are, or they can be in a loop.
 
