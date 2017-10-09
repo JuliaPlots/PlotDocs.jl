@@ -72,3 +72,23 @@ foreground_color_text    | foreground_color_subplot
 - `color_palette` determines the colors assigned when `seriescolor == :auto`:
     - If passed a vector of colors, it will force cycling of those colors
     - If passed a gradient, it will infinitely draw unique colors from that gradient, attempting to spread them out
+
+---
+
+#### Colorschemes
+Color gradients are arranged into color libraries. To get a list of color libraries, use the `clibraries` function. To get a list of color gradients in each library, call `cgradients(library)`. `showlibrary(library)` creates a visual representation of color schemes. The following libraries and gradients are included in Plots:
+
+##### Plots
+![](examples/img/colorschemes/Plots.png)
+
+##### cmocean
+![](examples/img/colorschemes/cmocean.png)
+
+##### misc
+![](examples/img/colorschemes/misc.png)
+
+##### colorcet
+![](examples/img/colorschemes/colorcet.png)
+
+##### colorbrewer
+![](examples/img/colorschemes/colorbrewer.png)
