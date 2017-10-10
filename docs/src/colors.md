@@ -76,7 +76,7 @@ foreground_color_text    | foreground_color_subplot
 ---
 
 #### Colorschemes
-Color gradients are arranged into color libraries. To get a list of color libraries, use the `clibraries` function. To get a list of color gradients in each library, call `cgradients(library)`. `showlibrary(library)` creates a visual representation of color schemes. To change the active library, use `clibrary(library)`. This is only necessary in the case of namespace clashes, e.g. there are multiple `:blues`. The gradients can be reversed by appending `_r`, e.g. `:magma_r`.
+Color gradients are arranged into color libraries. To get a list of color libraries, use the `clibraries` function. To get a list of color gradients in each library, call `cgradients(library)`. `showlibrary(library)` creates a visual representation of color schemes. To change the active library, use `clibrary(library)`. This is only necessary in the case of namespace clashes, e.g. there are multiple `:blues`. The gradients can be reversed by appending `_r`, e.g. `:magma_r`. The `clims::NTuple{2,Number}` attribute can be used to define the data values that correspond with the ends of the schemes.
 
 The following libraries and gradients are included in Plots:
 
