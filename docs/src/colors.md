@@ -76,19 +76,29 @@ foreground_color_text    | foreground_color_subplot
 ---
 
 #### Colorschemes
-Color gradients are arranged into color libraries. To get a list of color libraries, use the `clibraries` function. To get a list of color gradients in each library, call `cgradients(library)`. `showlibrary(library)` creates a visual representation of color schemes. The following libraries and gradients are included in Plots:
+Color gradients are arranged into color libraries. To get a list of color libraries, use the `clibraries` function. To get a list of color gradients in each library, call `cgradients(library)`. `showlibrary(library)` creates a visual representation of color schemes. To change the active library, use `clibrary(library)`. This is only necessary in the case of namespace clashes, e.g. there are multiple `:blues`. The gradients can be reversed by appending `_r`, e.g. `:magma_r`.
+
+The following libraries and gradients are included in Plots:
 
 ##### Plots
+*Created by Nathaniel J. Smith, Stefan van der Walt, and (in the case of viridis) Eric Firing. Released under CC0 license / public domain dedication. Full license info available [here]((https://github.com/JuliaPlots/PlotUtils.jl/blob/master/LICENSE.md#matplotlib)).*
+
 ![](examples/img/colorschemes/Plots.png)
 
 ##### cmocean
+*Released under The MIT License (MIT) Copyright (c) 2015 Kristen M. Thyng. RGB values were taken from https://github.com/matplotlib/cmocean/tree/master/cmocean/rgb*
+
 ![](examples/img/colorschemes/cmocean.png)
 
 ##### misc
 ![](examples/img/colorschemes/misc.png)
 
 ##### colorcet
+*Released under The MIT License (MIT) Copyright (c) 2015 Peter Kovesi. These are the perceptually correct color maps designed by Peter Kovesi and described in Peter Kovesi. Good Colour Maps: How to Design Them. arXiv:1509.03700 [cs.GR] 2015*
+
 ![](examples/img/colorschemes/colorcet.png)
 
 ##### colorbrewer
+*Created by Cynthia Brewer, Mark Harrower, and The Pennsylvania State University. Released under the Apache License, Version 2.0. Full license info available [here](https://github.com/JuliaPlots/PlotUtils.jl/blob/master/LICENSE.md#colorbrewer).*
+
 ![](examples/img/colorschemes/colorbrewer.png)
