@@ -3,7 +3,7 @@
 
 There are many color attributes, for lines, fills, markers, backgrounds, and foregrounds.  Many colors follow a hierarchy... `linecolor` gets its value from `seriescolor`, for example, unless you override the value.  This allows for you to simply set precisely what you want, without lots of boilerplate.
 
-Color attributes will except many different types:
+Color attributes will accept many different types:
 
 - `Symbol`s or `String`s will be passed to `Colors.parse(Colorant, c)`, so `:red` is equivalent to `colorant"red"`
 - `false` or `nothing` will be converted to an invisible `RGBA(0,0,0,0)`
@@ -40,6 +40,8 @@ markerstrokecolor | foreground_color_subplot
 Note: each of these attributes have a corresponding alpha override: `seriesalpha`, `linealpha`, `fillalpha`, `markeralpha`, and `markerstrokealpha`.  They are optional, and you can still give alpha information as part of an `Colors.RGBA`.
 
 Note: in some contexts, and when the user hasn't set a value, the `linecolor` or `markerstrokecolor` may be overridden.
+
+Note: Currently, the default color for `linecolor` is `:steelblue`.
 
 ---
 
