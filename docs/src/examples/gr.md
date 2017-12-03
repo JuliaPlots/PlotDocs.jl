@@ -20,7 +20,7 @@ plot(Plots.fakedata(50,5),w=3)
 Plot function pair (x(u), y(u)).
 
 ```julia
-plot(sin,(x->begin 
+plot(sin,(x->begin
             sin(2x)
         end),0,2π,line=4,leg=false,fill=(0,:orange))
 ```
@@ -41,7 +41,11 @@ scatter!(y,zcolor=abs(y - 0.5),m=(:heat,0.8,stroke(1,:green)),ms=10 * abs(y - 0.
 
 ### Global
 
-Change the guides/background/limits/ticks.  Convenience args `xaxis` and `yaxis` allow you to pass a tuple or value which will be mapped to the relevant args automatically.  The `xaxis` below will be replaced with `xlabel` and `xlims` args automatically during the preprocessing step. You can also use shorthand functions: `title!`, `xaxis!`, `yaxis!`, `xlabel!`, `ylabel!`, `xlims!`, `ylims!`, `xticks!`, `yticks!`
+Change the guides/background/limits/ticks.  Convenience args `xaxis` and `yaxis` allow
+you to pass a tuple or value which will be mapped to the relevant args automatically.
+The `xaxis` below will be replaced with `xlabel` and `xlims` args automatically during
+the preprocessing step. You can also use shorthand functions: `title!`, `xaxis!`,
+`yaxis!`, `xlabel!`, `ylabel!`, `xlims!`, `ylims!`, `xticks!`, `yticks!`
 
 ```julia
 y = rand(20,3)
@@ -87,7 +91,7 @@ plot(rand(100) / 3,reg=true,fill=(0,:green))
 
 ![](img/gr/gr_example_8.png)
 
-### 
+###
 
 and add to it later.
 
@@ -126,7 +130,7 @@ plot(x,y,line=(linetypes,3),lab=map(string,linetypes),ms=15)
 
 
 ```julia
-styles = (filter((s->begin 
+styles = (filter((s->begin
             s in Plots.supported_styles()
         end),[:solid,:dash,:dot,:dashdot,:dashdotdot]))'
 n = length(styles)
@@ -141,7 +145,7 @@ plot(y,line=(5,styles),label=map(string,styles))
 
 
 ```julia
-markers = (filter((m->begin 
+markers = (filter((m->begin
             m in Plots.supported_markers()
         end),Plots._shape_keys))'
 n = length(markers)
@@ -194,7 +198,7 @@ plot(Plots.fakedata(100,10),layout=4,palette=[:grays :blues :heat :lightrainbow]
 
 ![](img/gr/gr_example_17.png)
 
-### 
+###
 
 
 
@@ -207,7 +211,9 @@ plot!(Plots.fakedata(100,10))
 
 ### Open/High/Low/Close
 
-Create an OHLC chart.  Pass in a list of (open,high,low,close) tuples as your `y` argument.  This uses recipes to first convert the tuples to OHLC objects, and subsequently create a :path series with the appropriate line segments.
+Create an OHLC chart.  Pass in a list of (open,high,low,close) tuples as your `y`
+argument.  This uses recipes to first convert the tuples to OHLC objects, and
+subsequently create a :path series with the appropriate line segments.
 
 ```julia
 n = 20
@@ -215,7 +221,8 @@ hgt = rand(n) + 1
 bot = randn(n)
 openpct = rand(n)
 closepct = rand(n)
-y = OHLC[(openpct[i] * hgt[i] + bot[i],bot[i] + hgt[i],bot[i],closepct[i] * hgt[i] + bot[i]) for i = 1:n]
+y = OHLC[(openpct[i] * hgt[i] + bot[i],bot[i] + hgt[i],bot[i],closepct[i] * hgt[i] +
+          bot[i]) for i = 1:n]
 ohlc(y)
 ```
 
@@ -223,38 +230,51 @@ ohlc(y)
 
 ### Annotations
 
-The `annotations` keyword is used for text annotations in data-coordinates.  Pass in a tuple (x,y,text) or a vector of annotations.  `annotate!(ann)` is shorthand for `plot!(; annotation=ann)`.  Series annotations are used for annotating individual data points.  They require only the annotation... x/y values are computed.  A `PlotText` object can be build with the method `text(string, attr...)`, which wraps font and color attributes.
+The `annotations` keyword is used for text annotations in data-coordinates.  Pass in a
+tuple (x,y,text) or a vector of annotations.  `annotate!(ann)` is shorthand for `plot!(;
+annotation=ann)`.  Series annotations are used for annotating individual data points.
+They require only the annotation... x/y values are computed.  A `PlotText` object can be
+build with the method `text(string, attr...)`, which wraps font and color attributes.
 
 ```julia
 y = rand(10)
 plot(y,annotations=(3,y[3],text("this is #3",:left)),leg=false)
-annotate!([(5,y[5],text("this is #5",16,:red,:center)),(10,y[10],text("this is #10",:right,20,"courier"))])
-scatter!(linspace(2,8,6),rand(6),marker=(50,0.2,:orange),series_annotations=["series","annotations","map","to","series",text("data",:green)])
+annotate!([(5,y[5],text("this is #5",16,:red,:center)),
+          (10,y[10],text("this is #10",:right,20,"courier"))])
+scatter!(linspace(2,8,6),rand(6),marker=(50,0.2,:orange),
+         series_annotations=["series","annotations","map","to","series",
+                             text("data",:green)])
 ```
 
 ![](img/gr/gr_example_20.png)
 
 ### Custom Markers
 
-A `Plots.Shape` is a light wrapper around vertices of a polygon.  For supported backends, pass arbitrary polygons as the marker shapes.  Note: The center is (0,0) and the size is expected to be rougly the area of the unit circle.
+A `Plots.Shape` is a light wrapper around vertices of a polygon.  For supported backends,
+pass arbitrary polygons as the marker shapes.  Note: The center is (0,0) and the size is
+expected to be rougly the area of the unit circle.
 
 ```julia
-verts = [(-1.0,1.0),(-1.28,0.6),(-0.2,-1.4),(0.2,-1.4),(1.28,0.6),(1.0,1.0),(-1.0,1.0),(-0.2,-0.6),(0.0,-0.2),(-0.4,0.6),(1.28,0.6),(0.2,-1.4),(-0.2,-1.4),(0.6,0.2),(-0.2,0.2),(0.0,-0.2),(0.2,0.2),(-0.2,-0.6)]
+verts = [(-1.0,1.0),(-1.28,0.6),(-0.2,-1.4),(0.2,-1.4),(1.28,0.6),(1.0,1.0),
+         (-1.0,1.0),(-0.2,-0.6),(0.0,-0.2),(-0.4,0.6),(1.28,0.6),(0.2,-1.4),
+         (-0.2,-1.4),(0.6,0.2),(-0.2,0.2),(0.0,-0.2),(0.2,0.2),(-0.2,-0.6)]
 x = 0.1:0.2:0.9
 y = 0.7 * rand(5) + 0.15
-plot(x,y,line=(3,:dash,:lightblue),marker=(Shape(verts),30,RGBA(0,0,0,0.2)),bg=:pink,fg=:darkblue,xlim=(0,1),ylim=(0,1),leg=false)
+plot(x,y,line=(3,:dash,:lightblue),marker=(Shape(verts),30,RGBA(0,0,0,0.2)),
+     bg=:pink,fg=:darkblue,xlim=(0,1),ylim=(0,1),leg=false)
 ```
 
 ![](img/gr/gr_example_21.png)
 
 ### Contours
 
-Any value for fill works here.  We first build a filled contour from a function, then an unfilled contour from a matrix.
+Any value for fill works here.  We first build a filled contour from a function, then an
+unfilled contour from a matrix.
 
 ```julia
 x = 1:0.5:20
 y = 1:0.5:10
-f(x,y) = begin 
+f(x,y) = begin
         (3x + y ^ 2) * abs(sin(x) + cos(y))
     end
 X = repmat(x',length(y),1)
@@ -300,7 +320,7 @@ plot!(zeros(n),zeros(n),1:n,w=10)
 
 
 ```julia
-group = rand(map((i->begin 
+group = rand(map((i->begin
                     "group $(i)"
                 end),1:4),100)
 plot(rand(100),layout=@layout([a b;c]),group=group,linetype=[:bar :scatter :steppre])
@@ -349,7 +369,9 @@ The `layout` macro can be used to create an animation with subplots.
 
 ```julia
 l = @layout([[a;b] c])
-p = plot(plot([sin,cos],1,leg=false),scatter([atan,cos],1,leg=false),plot(log,1,xlims=(1,10π),ylims=(0,5),leg=false),layout=l)
+p = plot(plot([sin,cos],1,leg=false),
+         scatter([atan,cos],1,leg=false),
+         plot(log,1,xlims=(1,10π),ylims=(0,5),leg=false),layout=l)
 anim = Animation()
 for x = linspace(1,10π,100)
     plot(push!(p,x,Float64[sin(x),cos(x),atan(x),cos(x),log(x)]))
