@@ -20,7 +20,7 @@ plot(Plots.fakedata(50,5),w=3)
 Plot function pair (x(u), y(u)).
 
 ```julia
-plot(sin,(x->begin 
+plot(sin,(x->begin
             sin(2x)
         end),0,2π,line=4,leg=false,fill=(0,:orange))
 ```
@@ -29,19 +29,26 @@ plot(sin,(x->begin
 
 ### Colors
 
-Access predefined palettes (or build your own with the `colorscheme` method).  Line/marker colors are auto-generated from the plot's palette, unless overridden.  Set the `z` argument to turn on series gradients.
+Access predefined palettes (or build your own with the `colorscheme` method).
+Line/marker colors are auto-generated from the plot's palette, unless overridden.  Set
+the `z` argument to turn on series gradients.
 
 ```julia
 y = rand(100)
 plot(0:10:100,rand(11,4),lab="lines",w=3,palette=:grays,fill=0,α=0.6)
-scatter!(y,zcolor=abs(y - 0.5),m=(:heat,0.8,stroke(1,:green)),ms=10 * abs(y - 0.5) + 4,lab="grad")
+scatter!(y,zcolor=abs(y - 0.5),
+         m=(:heat,0.8,stroke(1,:green)),ms=10 * abs(y - 0.5) + 4,lab="grad")
 ```
 
 ![](img/plotlyjs/plotlyjs_example_4.png)
 
 ### Global
 
-Change the guides/background/limits/ticks.  Convenience args `xaxis` and `yaxis` allow you to pass a tuple or value which will be mapped to the relevant args automatically.  The `xaxis` below will be replaced with `xlabel` and `xlims` args automatically during the preprocessing step. You can also use shorthand functions: `title!`, `xaxis!`, `yaxis!`, `xlabel!`, `ylabel!`, `xlims!`, `ylims!`, `xticks!`, `yticks!`
+Change the guides/background/limits/ticks.  Convenience args `xaxis` and `yaxis` allow
+you to pass a tuple or value which will be mapped to the relevant args automatically.
+The `xaxis` below will be replaced with `xlabel` and `xlims` args automatically during
+the preprocessing step. You can also use shorthand functions: `title!`, `xaxis!`,
+`yaxis!`, `xlabel!`, `ylabel!`, `xlims!`, `ylims!`, `xticks!`, `yticks!`
 
 ```julia
 y = rand(20,3)
@@ -56,7 +63,12 @@ yaxis!("YLABEL",:log10)
 
 ### Arguments
 
-Plot multiple series with different numbers of points.  Mix arguments that apply to all series (marker/markersize) with arguments unique to each series (colors).  Special arguments `line`, `marker`, and `fill` will automatically figure out what arguments to set (for example, we are setting the `linestyle`, `linewidth`, and `color` arguments with `line`.)  Note that we pass a matrix of colors, and this applies the colors to each series.
+Plot multiple series with different numbers of points.  Mix arguments that apply to all
+series (marker/markersize) with arguments unique to each series (colors).  Special
+arguments `line`, `marker`, and `fill` will automatically figure out what arguments to
+set (for example, we are setting the `linestyle`, `linewidth`, and `color` arguments with
+`line`.)  Note that we pass a matrix of colors, and this applies the colors to each
+series.
 
 ```julia
 ys = Vector[rand(10),rand(20)]
@@ -75,7 +87,7 @@ plot(rand(100) / 3,reg=true,fill=(0,:green))
 
 ![](img/plotlyjs/plotlyjs_example_8.png)
 
-### 
+###
 
 and add to it later.
 
@@ -114,7 +126,7 @@ plot(x,y,line=(linetypes,3),lab=map(string,linetypes),ms=15)
 
 
 ```julia
-styles = (filter((s->begin 
+styles = (filter((s->begin
             s in Plots.supported_styles()
         end),[:solid,:dash,:dot,:dashdot,:dashdotdot]))'
 n = length(styles)
@@ -129,7 +141,7 @@ plot(y,line=(5,styles),label=map(string,styles))
 
 
 ```julia
-markers = (filter((m->begin 
+markers = (filter((m->begin
             m in Plots.supported_markers()
         end),Plots._shape_keys))'
 n = length(markers)
@@ -162,27 +174,32 @@ histogram(randn(1000),nbins=20)
 
 ### Subplots
 
-Use the `layout` keyword, and optionally the convenient `@layout` macro to generate arbitrarily complex subplot layouts.
+Use the `layout` keyword, and optionally the convenient `@layout` macro to generate
+arbitrarily complex subplot layouts.
 
 
 ```julia
 l = @layout([a{0.1h};b [c;d e]])
-plot(randn(100,5),layout=l,t=[:line :histogram :scatter :steppre :bar],leg=false,ticks=nothing,border=false)
+plot(randn(100,5),layout=l,
+     t=[:line :histogram :scatter :steppre :bar],leg=false,ticks=nothing,border=false)
 ```
 
 ![](img/plotlyjs/plotlyjs_example_16.png)
 
 ### Adding to subplots
 
-Note here the automatic grid layout, as well as the order in which new series are added to the plots.
+Note here the automatic grid layout, as well as the order in which new series are added
+to the plots.
 
 ```julia
-plot(Plots.fakedata(100,10),layout=4,palette=[:grays :blues :heat :lightrainbow],bg_inside=[:orange :pink :darkblue :black])
+plot(Plots.fakedata(100,10),layout=4,
+     palette=[:grays :blues :heat :lightrainbow],
+     bg_inside=[:orange :pink :darkblue :black])
 ```
 
 ![](img/plotlyjs/plotlyjs_example_17.png)
 
-### 
+###
 
 
 
@@ -195,7 +212,9 @@ plot!(Plots.fakedata(100,10))
 
 ### Open/High/Low/Close
 
-Create an OHLC chart.  Pass in a list of (open,high,low,close) tuples as your `y` argument.  This uses recipes to first convert the tuples to OHLC objects, and subsequently create a :path series with the appropriate line segments.
+Create an OHLC chart.  Pass in a list of (open,high,low,close) tuples as your `y`
+argument.  This uses recipes to first convert the tuples to OHLC objects, and
+subsequently create a :path series with the appropriate line segments.
 
 ```julia
 n = 20
@@ -203,7 +222,8 @@ hgt = rand(n) + 1
 bot = randn(n)
 openpct = rand(n)
 closepct = rand(n)
-y = OHLC[(openpct[i] * hgt[i] + bot[i],bot[i] + hgt[i],bot[i],closepct[i] * hgt[i] + bot[i]) for i = 1:n]
+y = OHLC[(openpct[i] * hgt[i] + bot[i],bot[i] + hgt[i],bot[i],closepct[i] * hgt[i] +
+          bot[i]) for i = 1:n]
 ohlc(y)
 ```
 
@@ -211,13 +231,20 @@ ohlc(y)
 
 ### Annotations
 
-The `annotations` keyword is used for text annotations in data-coordinates.  Pass in a tuple (x,y,text) or a vector of annotations.  `annotate!(ann)` is shorthand for `plot!(; annotation=ann)`.  Series annotations are used for annotating individual data points.  They require only the annotation... x/y values are computed.  A `PlotText` object can be build with the method `text(string, attr...)`, which wraps font and color attributes.
+The `annotations` keyword is used for text annotations in data-coordinates.  Pass in a
+tuple (x,y,text) or a vector of annotations.  `annotate!(ann)` is shorthand for `plot!(;
+annotation=ann)`.  Series annotations are used for annotating individual data points.
+They require only the annotation... x/y values are computed.  A `PlotText` object can be
+build with the method `text(string, attr...)`, which wraps font and color attributes.
 
 ```julia
 y = rand(10)
 plot(y,annotations=(3,y[3],text("this is #3",:left)),leg=false)
-annotate!([(5,y[5],text("this is #5",16,:red,:center)),(10,y[10],text("this is #10",:right,20,"courier"))])
-scatter!(linspace(2,8,6),rand(6),marker=(50,0.2,:orange),series_annotations=["series","annotations","map","to","series",text("data",:green)])
+annotate!([(5,y[5],text("this is #5",16,:red,:center)),
+          (10,y[10],text("this is #10",:right,20,"courier"))])
+scatter!(linspace(2,8,6),rand(6),marker=(50,0.2,:orange),
+         series_annotations=["series","annotations","map","to","series",
+                             text("data",:green)])
 ```
 
 ![](img/plotlyjs/plotlyjs_example_20.png)
@@ -227,10 +254,13 @@ scatter!(linspace(2,8,6),rand(6),marker=(50,0.2,:orange),series_annotations=["se
 A `Plots.Shape` is a light wrapper around vertices of a polygon.  For supported backends, pass arbitrary polygons as the marker shapes.  Note: The center is (0,0) and the size is expected to be rougly the area of the unit circle.
 
 ```julia
-verts = [(-1.0,1.0),(-1.28,0.6),(-0.2,-1.4),(0.2,-1.4),(1.28,0.6),(1.0,1.0),(-1.0,1.0),(-0.2,-0.6),(0.0,-0.2),(-0.4,0.6),(1.28,0.6),(0.2,-1.4),(-0.2,-1.4),(0.6,0.2),(-0.2,0.2),(0.0,-0.2),(0.2,0.2),(-0.2,-0.6)]
+verts = [(-1.0,1.0),(-1.28,0.6),(-0.2,-1.4),(0.2,-1.4),(1.28,0.6),(1.0,1.0),(-1.0,1.0),
+         (-0.2,-0.6),(0.0,-0.2),(-0.4,0.6),(1.28,0.6),(0.2,-1.4),(-0.2,-1.4),(0.6,0.2),
+         (-0.2,0.2),(0.0,-0.2),(0.2,0.2),(-0.2,-0.6)]
 x = 0.1:0.2:0.9
 y = 0.7 * rand(5) + 0.15
-plot(x,y,line=(3,:dash,:lightblue),marker=(Shape(verts),30,RGBA(0,0,0,0.2)),bg=:pink,fg=:darkblue,xlim=(0,1),ylim=(0,1),leg=false)
+plot(x,y,line=(3,:dash,:lightblue),marker=(Shape(verts),30,RGBA(0,0,0,0.2)),bg=:pink,
+     fg=:darkblue,xlim=(0,1),ylim=(0,1),leg=false)
 ```
 
 ![](img/plotlyjs/plotlyjs_example_21.png)
@@ -242,7 +272,7 @@ Any value for fill works here.  We first build a filled contour from a function,
 ```julia
 x = 1:0.5:20
 y = 1:0.5:10
-f(x,y) = begin 
+f(x,y) = begin
         (3x + y ^ 2) * abs(sin(x) + cos(y))
     end
 X = repmat(x',length(y),1)
@@ -288,7 +318,7 @@ plot!(zeros(n),zeros(n),1:n,w=10)
 
 
 ```julia
-group = rand(map((i->begin 
+group = rand(map((i->begin
                     "group $(i)"
                 end),1:4),100)
 plot(rand(100),layout=@layout([a b;c]),group=group,linetype=[:bar :scatter :steppre])
