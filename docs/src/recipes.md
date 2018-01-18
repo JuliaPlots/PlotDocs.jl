@@ -18,14 +18,17 @@ These are the dispatch signatures for each type (note that most of these can acc
     - Process a unique set of types early in the pipeline.  Good for user-defined types or special combinations of Base types.
     - The `@userplot` macro is a nice convenience which both defines a new type (to ensure correct dispatch) and exports shorthands.
     - See `graphplot` for an example.
-- Type Recipes: `@recipe function f{T<:MyType}(::Type{T}, val::T) end`
+
+- Type Recipes: `@recipe function f(::Type{T}, val::T) where{T} end`
     - For user-defined types which wrap or have a one-to-one mapping to something supported by Plots, simply define a conversion method.
     - Note: this is effectively saying "when you see type T, replace it with ..."
     - See `SymPy` for an example.
+
 - Plot Recipes: `@recipe function f(::Type{Val{:myplotrecipename}}, plt::AbstractPlot; ...) end`
     - These are called after input data has been processed, but **before the plot is created**.
     - Build layouts, add subplots, and other plot-wide attributes
     - See `marginalhist` for an example.
+
 - Series Recipes: `@recipe function f(::Type{Val{:myseriesrecipename}}, x, y, z; ...) end`
     - These are the last calls to happen.  Each backend will support a short list of series types (`path`, `shape`, `histogram`, etc).  If a series type is natively supported, processing is passed (delegated) to the backend.  If a series type is **not** natively supported by the backend, we attempt to call a "series recipe".
     - Note: If there's no series recipe defined, and the backend doesn't support it, you'll see an error like: `ERROR: The backend must not support the series type Val{:hi}, and there isn't a series recipe defined.`
