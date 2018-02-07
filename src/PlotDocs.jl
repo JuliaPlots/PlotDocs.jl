@@ -8,12 +8,12 @@ import Plots: _examples
 export
     generate_markdown,
     save_attr_html_files,
-    make_support_graph_args,
-    make_support_graph_types,
-    make_support_graph_styles,
-    make_support_graph_markers,
-    make_support_graph_scales,
-    create_support_graphs
+    make_support_df_args,
+    make_support_df_types,
+    make_support_df_styles,
+    make_support_df_markers,
+    make_support_df_scales,
+    create_support_tables
 
 const DOCDIR = Pkg.dir("PlotDocs", "docs", "examples")
 const IMGDIR = joinpath(DOCDIR, "img")
@@ -108,51 +108,47 @@ end
 # ----------------------------------------------------------------------
 
 
-# graphs detailing the features that each backend supports
+# tables detailing the features that each backend supports
 
-function make_support_graph(allvals, func)
-    vals = reverse(sort(allvals))
+function make_support_df(allvals, func)
+    vals = sort(allvals) # rows
     bs = sort(backends())
-    bs = filter(be -> !(be in Plots._deprecated_backends), bs)
-    x, y = map(string, bs), map(string, vals)
-    nx, ny = map(length, (x,y))
-    z = zeros(ny, nx)
-    for i=1:nx, j=1:ny
-        if func == Plots.supported_seriestypes
-            stype = Plots.seriestype_supported(Plots._backend_instance(bs[i]), vals[j])
-            z[j,i] = stype == :native ? 1.0 : (stype == :no ? 0.0 : 0.5)
-        else
-            supported = func(Plots._backend_instance(bs[i]))
-            # z[j,i] = float(vals[j] in supported) * (0.4i/nx+0.6)
+    bs = filter(be -> !(be in Plots._deprecated_backends), bs) # cols
+    df = DataFrames.DataFrame(keys=vals)
 
-            # if it's supported, alternate between 0.5 and 1, otherwise 0
-            z[j,i] = (vals[j] in supported ? (1 - 0.5*(i%2)) : 0.0)
+    for b in bs
+        b_supported_vals = [' ' for _ in 1:length(vals)]
+        for (i, val) in enumerate(vals)
+            if func == Plots.supported_seriestypes
+                stype = Plots.seriestype_supported(Plots._backend_instance(b), val)
+                b_supported_vals[i] = stype == :native ? 'N' : (stype == :no ? ' ' : 'R')
+            else
+                supported = func(Plots._backend_instance(b))
+
+                b_supported_vals[i] = val in supported ? 'N' : ' '
+            end
         end
+        df[b] = b_supported_vals
     end
-    lastcolor = func == Plots.supported_seriestypes ? RGB(0.98,0.55,0.23) : :steelblue
-    # @show func x,y,z
-    heatmap(x, y, z,
-            # color = ColorGradient([:white, :darkblue]),
-            color = [:white, :steelblue,lastcolor],
-            line = (1, :black),
-            leg = false,
-            size = (50nx+50, 35ny+100),
-            xrotation = 90,
-            aspect_ratio = :equal)
+    df
 end
 
-make_support_graph_args()    = make_support_graph(Plots._all_args,   Plots.supported_attrs)
-# make_support_graph_types()   = make_support_graph(Plots._allTypes,   Plots.supported_types)
-make_support_graph_types()   = make_support_graph(Plots.all_seriestypes(),   Plots.supported_seriestypes)
-make_support_graph_styles()  = make_support_graph(Plots._allStyles,  Plots.supported_styles)
-make_support_graph_markers() = make_support_graph(Plots._allMarkers, Plots.supported_markers)
-make_support_graph_scales()  = make_support_graph(Plots._allScales,  Plots.supported_scales)
+make_support_df_args()    = make_support_df(Plots._all_args,   Plots.supported_attrs)
+# make_support_df_types()   = make_support_df(Plots._allTypes,   Plots.supported_types)
+make_support_df_types()   = make_support_df(Plots.all_seriestypes(),   Plots.supported_seriestypes)
+make_support_df_styles()  = make_support_df(Plots._allStyles,  Plots.supported_styles)
+make_support_df_markers() = make_support_df(Plots._allMarkers, Plots.supported_markers)
+make_support_df_scales()  = make_support_df(Plots._allScales,  Plots.supported_scales)
 
-function create_support_graphs()
-    for func in (make_support_graph_args, make_support_graph_types, make_support_graph_styles,
-               make_support_graph_markers, make_support_graph_scales)
-        plt = func()
-        png(Pkg.dir("PlotDocs", "docs", "examples", "img", "supported", "$(string(func))"))
+function create_support_tables()
+    basedir = Pkg.dir("PlotDocs", "docs", "src")
+    funcs = Dict(
+        "args" => make_support_df_args, "types" => make_support_df_types,
+        "styles" => make_support_df_styles, "markers" => make_support_df_markers,
+        "scales" => make_support_df_scales,
+    )
+    for (s, func) in funcs
+       save_html(func(), joinpath(basedir, "supported_$s.html"))
     end
 end
 
