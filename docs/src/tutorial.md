@@ -259,15 +259,17 @@ are [PlotRecipes.jl](https://github.com/JuliaPlots/PlotRecipes.jl) and
 StatPlots.jl. StatPlots.jl adds a bunch of recipes, but the ones we'll focus
 on are:
 
-1. It adds a user recipe for `DataFrame`s.
-2. It adds a type recipe for `Distribution`s.
-3. It adds a plot recipe for marginal histograms.
-4. It adds a bunch of new statistical plot series.
+1. It adds a type recipe for `Distribution`s.
+2. It adds a plot recipe for marginal histograms.
+3. It adds a bunch of new statistical plot series.
+
+Besides recipes, StatPlots.jl also provides a specialized macro from plotting directly
+from data tables.
 
 ### Using User Recipes
 
 A user recipe says how to interpret plotting commands on a new data type.
-In this case, StatPlots.jl thus has an extension which allows you to plot
+In this case, StatPlots.jl thus has a macro `@df` which allows you to plot
 a `DataFrame` directly by using the column names. Let's build a `DataFrame`
 with columns `a`, `b`, and `c`, and tell Plots.jl to use `a` as the `x` axis
 and plot the series defined by columns `b` and `c`:
@@ -279,17 +281,16 @@ using StatPlots # Required for the DataFrame user recipe
 using DataFrames
 df = DataFrame(a = 1:10, b = 10*rand(10), c = 10 * rand(10))
 # Plot the DataFrame by declaring the points by the column names
-plot(df, :a, [:b :c]) # x = :a, y = [:b :c]. Notice this is two columns!
+@df df plot(:a, [:b :c]) # x = :a, y = [:b :c]. Notice this is two columns!
 ```
 
 ![dataframeplot](https://user-images.githubusercontent.com/1814174/28752322-09f62f24-74d1-11e7-80a7-0d8183337a0c.png)
 
-Notice there's not much you have to do here: a user recipe is a way of
-translating a Julia type to plotting data, and all of the commands from before
+Notice there's not much you have to do here: all of the commands from before
 (attributes, series types, etc.) will still work on this data:
 
 ```julia
-scatter(df, :a, :b, title="My DataFrame Scatter Plot!") # x = :a, y = :b
+@df scatter(:a, :b, title="My DataFrame Scatter Plot!") # x = :a, y = :b
 ```
 
 ![dataframescatterplot](https://user-images.githubusercontent.com/1814174/28752706-c37b7720-74da-11e7-9fe2-aec281cef0dc.png)
@@ -321,12 +322,12 @@ using RDatasets
 iris = dataset("datasets","iris")
 ```
 
-Here `iris` is a Dataframe, using the user recipe on `Dataframe`s described above,
+Here `iris` is a Dataframe, using the `@df` macro on `Dataframe`s described above,
 we give `marginalhist(x,y)` the data from the `PetalLength` and the `PetalWidth`
 columns:
 
 ```julia
-marginalhist(iris, :PetalLength, :PetalWidth)
+@df iris marginalhist(:PetalLength, :PetalWidth)
 ```
 
 ![marginalhistplot](https://user-images.githubusercontent.com/1814174/28752339-5fa4176a-74d1-11e7-9e7c-0dd366625f40.png)
@@ -334,11 +335,7 @@ marginalhist(iris, :PetalLength, :PetalWidth)
 This demonstrates two important facts. Notice that this is more than a series
 since it generates multiple series (i.e. there are multiple plots due to the
 hists on the top and right). Thus a plot recipe is not just a series but instead
-something like a new `plot` command. Secondly, this shows that recipes can chain
-together. The `DataFrame` user recipes which defines a new way of
-inputing data from a `DataFrame`, and then any plot or series recipe can make
-use of this new data input style. In this sense, recipes are a true extension
-of the Plots.jl internal power via external libraries.
+something like a new `plot` command.
 
 ### Using Series Recipes
 
