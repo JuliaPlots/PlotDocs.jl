@@ -77,7 +77,7 @@ prog = Progress(n,1)
     # create a plot with 3 subplots and a custom layout
     l = @layout [a{0.7w} b; c{0.2h}]
     p = plot(x, y, f, st = [:surface, :contourf], layout=l)
-    
+
     # induce a slight oscillating camera angle sweep, in degrees (azimuth, altitude)
     plot!(p[1],camera=(15*cos(i),40))
 
@@ -90,7 +90,7 @@ prog = Progress(n,1)
     # add to and show the tracked values over time
     zs = vcat(zs, z')
     plot!(p[3], zs, alpha = 0.2, palette = cgrad(:blues).colors)
-    
+
     # increment the progress bar
     next!(prog)
 end
@@ -110,7 +110,7 @@ iris = dataset("datasets", "iris");
 using StatPlots
 
 # Scatter plot with some custom settings
-scatter(iris, :SepalLength, :SepalWidth, group=:Species,
+@df iris scatter(:SepalLength, :SepalWidth, group=:Species,
         title = "My awesome plot",
         xlabel = "Length", ylabel = "Width",
         m=(0.5, [:cross :hex :star7], 12),
