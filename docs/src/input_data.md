@@ -88,7 +88,7 @@ Using the [StatPlots](https://github.com/JuliaPlots/StatPlots.jl) extension pack
 ```julia
 using StatPlots, RDatasets
 iris = dataset("datasets", "iris")
-scatter(iris, :SepalLength, :SepalWidth, group=:Species,
+@df iris scatter(:SepalLength, :SepalWidth, group=:Species,
         m=(0.5, [:+ :h :star7], 12), bg=RGB(.2,.2,.2))
 ```
 
