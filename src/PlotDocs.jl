@@ -117,15 +117,15 @@ function make_support_df(allvals, func)
     df = DataFrames.DataFrame(keys=vals)
 
     for b in bs
-        b_supported_vals = [' ' for _ in 1:length(vals)]
+        b_supported_vals = ["" for _ in 1:length(vals)]
         for (i, val) in enumerate(vals)
             if func == Plots.supported_seriestypes
                 stype = Plots.seriestype_supported(Plots._backend_instance(b), val)
-                b_supported_vals[i] = stype == :native ? 'N' : (stype == :no ? ' ' : 'R')
+                b_supported_vals[i] = stype == :native ? "native" : (stype == :no ? "" : "recipe")
             else
                 supported = func(Plots._backend_instance(b))
 
-                b_supported_vals[i] = val in supported ? 'N' : ' '
+                b_supported_vals[i] = val in supported ? "native" : ""
             end
         end
         df[b] = b_supported_vals
@@ -141,14 +141,14 @@ make_support_df_markers() = make_support_df(Plots._allMarkers, Plots.supported_m
 make_support_df_scales()  = make_support_df(Plots._allScales,  Plots.supported_scales)
 
 function create_support_tables()
-    basedir = Pkg.dir("PlotDocs", "docs", "src")
+    basedir = Pkg.dir("PlotDocs", "docs")
     funcs = Dict(
         "args" => make_support_df_args, "types" => make_support_df_types,
         "styles" => make_support_df_styles, "markers" => make_support_df_markers,
         "scales" => make_support_df_scales,
     )
     for (s, func) in funcs
-       save_html(func(), joinpath(basedir, "supported_$s.html"))
+       save_html(func(), joinpath(basedir, "supported_$s.html"), :supported)
     end
 end
 
@@ -161,7 +161,7 @@ end
 #     @eval begin
 import DataFrames
 
-function save_html(df::DataFrames.AbstractDataFrame, fn = "/tmp/tmp.html")
+function save_html(df::DataFrames.AbstractDataFrame, fn = "/tmp/tmp.html", table_style = :attr)
     f = open(fn, "w")
     cnames = DataFrames._names(df)
     write(f, "<head><link type=\"text/css\" rel=\"stylesheet\" href=\"tables.css\" /></head><body><table><tr class=\"headerrow\">")
@@ -174,12 +174,24 @@ function save_html(df::DataFrames.AbstractDataFrame, fn = "/tmp/tmp.html")
         write(f, "<tr>")
         for (i,column_name) in enumerate(cnames)
             cell = string(df[row, column_name])
-            attrstr = if i == 1
-                " class=\"attr\""
-            elseif i == length(cnames)
-                " class=\"desc\""
-            else
-                ""
+            if table_style == :attr
+                attrstr = if i == 1
+                    " class=\"attr\""
+                elseif i == length(cnames)
+                    " class=\"desc\""
+                else
+                    ""
+                end
+            elseif table_style == :supported
+                attrstr = if i == 1
+                    " class=\"attr\""
+                elseif cell == "native"
+                    " class=\"supported_native\""
+                elseif cell == "recipe"
+                    " class=\"supported_recipe\""
+                else
+                    " class=\"supported_not\""
+                end
             end
             write(f, "<td$attrstr>$(DataFrames.html_escape(cell))</td>")
         end
