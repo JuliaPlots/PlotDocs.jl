@@ -15,7 +15,7 @@ If you require... | ... then use...
 ----------- | -----------------
 features         | PyPlot, Plotly(JS), GR
 speed            | GR, InspectDR
-interactivity    | Plotly(JS), InspectDR
+interactivity    | Plotly(JS), PyPlot, InspectDR
 beauty           | Plotly(JS), PGFPlots
 REPL Plotting    | UnicodePlots
 3D plots  		 | PyPlot, GR, Plotly(JS)
