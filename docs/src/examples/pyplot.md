@@ -36,8 +36,8 @@ the `z` argument to turn on series gradients.
 ```julia
 y = rand(100)
 plot(0:10:100,rand(11,4),lab="lines",w=3,palette=:grays,fill=0,α=0.6)
-scatter!(y,zcolor=abs(y - 0.5),
-         m=(:heat,0.8,stroke(1,:green)),ms=10 * abs(y - 0.5) + 4,lab="grad")
+scatter!(y,zcolor=abs.(y - 0.5),
+         m=(:heat,0.8,stroke(1,:green)),ms=10 * abs.(y - 0.5) + 4,lab="grad")
 ```
 
 ![](img/pyplot/pyplot_example_4.png)
@@ -277,7 +277,7 @@ unfilled contour from a matrix.
 x = 1:0.5:20
 y = 1:0.5:10
 f(x,y) = begin
-        (3x + y ^ 2) * abs(sin(x) + cos(y))
+        (3x + y ^ 2) * abs.(sin.(x) + cos.(y))
     end
 X = repmat(x',length(y),1)
 Y = repmat(y,1,length(x))
@@ -336,7 +336,7 @@ plot(rand(100),layout=@layout([a b;c]),group=group,linetype=[:bar :scatter :step
 
 ```julia
 Θ = linspace(0,1.5π,100)
-r = abs(0.1 * randn(100) + sin(3Θ))
+r = abs.(0.1 * randn(100) + sin(3Θ))
 plot(Θ,r,proj=:polar,m=2)
 ```
 
