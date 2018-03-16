@@ -159,6 +159,11 @@ Common plotting recipes for statistics and machine learning.
 ![](https://cloud.githubusercontent.com/assets/933338/17702662/cdc08752-639c-11e6-8c3c-e186456630e2.png)
 
 
+## [LazySets](https://github.com/JuliaReach/LazySets.jl)
+
+LazySets.jl is a Julia package for calculus with convex sets. The principle behind LazySets is to wrap set computations into specialized types, delaying the evaluation of the result of an expression until it is necessary. Combining lazy operations in high dimensions and explicit computations in low dimensions, the library can be applied to solve complex, high-dimensional problems.
+
+
 
 TODO:
 
