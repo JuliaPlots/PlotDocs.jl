@@ -163,7 +163,11 @@ Common plotting recipes for statistics and machine learning.
 
 LazySets.jl is a Julia package for calculus with convex sets. The principle behind LazySets is to wrap set computations into specialized types, delaying the evaluation of the result of an expression until it is necessary. Combining lazy operations in high dimensions and explicit computations in low dimensions, the library can be applied to solve complex, high-dimensional problems.
 
+Reachability plot of a [two-mode hybrid system](https://juliareach.github.io/LazySets.jl/latest/man/reach_zonotopes_hybrid.html#Example-1):
 
+<img src="https://raw.githubusercontent.com/JuliaReach/JuliaReach-website/master/src/images/hybrid2d.png" height="330">
+
+---
 
 TODO:
 
