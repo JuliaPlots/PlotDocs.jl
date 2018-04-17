@@ -3,7 +3,7 @@
 
 There are many color attributes, for lines, fills, markers, backgrounds, and foregrounds.  Many colors follow a hierarchy... `linecolor` gets its value from `seriescolor`, for example, unless you override the value.  This allows for you to simply set precisely what you want, without lots of boilerplate.
 
-Color attributes will except many different types:
+Color attributes will accept many different types:
 
 - `Symbol`s or `String`s will be passed to `Colors.parse(Colorant, c)`, so `:red` is equivalent to `colorant"red"`
 - `false` or `nothing` will be converted to an invisible `RGBA(0,0,0,0)`
