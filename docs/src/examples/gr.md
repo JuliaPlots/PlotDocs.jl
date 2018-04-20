@@ -216,7 +216,6 @@ savefig("img/gr/subplots2.svg"); nothing # hide
 
 ![](img/gr/subplots2.svg)
 
-
 ```@example GR
 plot!(Plots.fakedata(100,10))
 savefig("img/gr/subplots3.svg"); nothing # hide
