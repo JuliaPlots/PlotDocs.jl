@@ -1,5 +1,9 @@
 ### Initialize
 
+```@setup GR
+info("Generating example images for GR backend")
+```
+
 ```@example GR
 using Plots
 gr()
@@ -15,7 +19,7 @@ plot(Plots.fakedata(50,5),w=3)
 savefig("img/gr/lines.svg"); nothing # hide
 ```
 
-![](img/gr/gr/lines.svg)
+![](img/gr/lines.svg)
 
 ### Parametric plots
 
@@ -214,7 +218,6 @@ savefig("img/gr/subplots2.svg"); nothing # hide
 
 
 ```@example GR
-srand(111)
 plot!(Plots.fakedata(100,10))
 savefig("img/gr/subplots3.svg"); nothing # hide
 ```
@@ -407,7 +410,7 @@ gif(anim, "img/gr/anim_with_sub.gif"); nothing # hide
 
 ![](img/gr/anim_with_sub.gif)
 
-```@example
+```@example GR
 println("Example plots automatically generated: $(Dates.DateTime(now()))") # hide
 ```
 
