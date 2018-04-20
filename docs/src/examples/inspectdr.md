@@ -2,6 +2,7 @@
 
 ```@setup InspectDR
 info("Generating example images for InspectDR backend")
+Pkg.add("InspectDR")
 ```
 
 

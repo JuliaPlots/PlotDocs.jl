@@ -2,6 +2,7 @@
 
 ```@setup GR
 info("Generating example images for GR backend")
+Pkg.add("GR")
 ```
 
 ```@example GR

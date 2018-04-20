@@ -2,6 +2,7 @@
 
 ```@setup PlotlyJS
 info("Generating example images for PlotlyJS backend")
+Pkg.add("PlotlyJS")
 ```
 
 ```@example PlotlyJS

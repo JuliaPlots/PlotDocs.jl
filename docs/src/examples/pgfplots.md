@@ -2,6 +2,7 @@
 
 ```@setup PGFPlots
 info("Generating example images for PGFPlots backend")
+Pkg.add("PGFPlots")
 ```
 
 ```@example PGFPlots
