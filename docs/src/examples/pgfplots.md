@@ -280,6 +280,8 @@ Plot using DataFrame column symbols.
 
 ```@example PGFPlots
 Pkg.add("RDatasets") # hide
+Pkg.add("StatPlots") # hide
+using StatPlots # includes @df
 import RDatasets
 iris = RDatasets.dataset("datasets","iris")
 @df iris scatter(:SepalLength,:SepalWidth,group=:Species,title="My awesome plot",xlabel="Length",ylabel="Width",marker=(0.5,[:+ :h :star7],12),bg=RGB(0.2,0.2,0.2))
