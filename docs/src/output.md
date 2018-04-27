@@ -28,7 +28,7 @@ Plots are shown in the Atom PlotPane when possible, either when returned to the 
 
 Note that javascript-based libraries (for example: PlotlyJS) cannot be shown in the PlotPane due to issues within Atom's internals.
 
-### savefig / png
+### savefig / format
 
 Save the most recent plot, choosing file type automatically by the extension.
 
@@ -36,4 +36,48 @@ Save the most recent plot, choosing file type automatically by the extension.
 savefig(filename)
 ```
 
-There are also shorthands `png(fn)`, etc.  You don't need the file extension for those.
+#### File formats supported by most graphical backends
+
+ - png
+ - svg
+ - PDF
+
+#### Default output format
+
+ - png
+
+#### Plots supports the following output file formats
+
+ - eps
+ - html
+ - pdf
+ - png
+ - ps
+ - svg
+ - tex
+ - text
+
+But not all backends support every output file format.
+
+A simple table showing which format is supported by which backend
+
+ | format | backends |
+ |--------|----------|
+ | eps | inspectdr, plotlyjs, pyplot |
+ | html | plotly,  plotlyjs |
+ | pdf | gr, inspectdr, pgfplots, plotlyjs, pyplot |
+ | png | glvisualize, gr, inspectdr, plotly, plotlyjs, pyplot |
+ | ps | gr, pyplot |
+ | svg | gr, inspectdr, pgfplots, plotly, plotlyjs, pyplot |
+ | tex | pgfplots |
+ | text | hdf5, unicodeplots |
+
+#### shorthands to save figs in a specific format
+
+There are also shorthands `png(fn)`, etc, where fn is the string containing the filename.  You don't need the file extension for those.
+Plots support 2 different versions of shorthands per format.
+
+ - png(fn) : save the current fig as png with filename fn
+ - png(plot_ref, fn) : save the fig referenced by plot_ref as png witgh filename fn
+
+These examples are given using png.  The use of the others is equivalent.
