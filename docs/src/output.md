@@ -30,35 +30,35 @@ Note that javascript-based libraries (for example: PlotlyJS) cannot be shown in 
 
 ### savefig / format
 
-Save the most recent plot, choosing file type automatically by the extension.
+Plots support 2 different versions per save-command.
+The 1-argument command saves the most recent plot, while the 2-argument command saves the referenced plot.
+
+To save with `savefig`, choosing file type automatically by the extension of filename `fn`, use
 
 ```julia
-savefig(filename)
+savefig(fn) # save the most recent fig as fn
+savefig(plot_ref, fn) # save the fig referenced by plot_ref as fn
 ```
+
+In addition, Plots offers shorthands like `png(fn)`, etc, to save into a file.
+In this case the string fn containing the filename may lack the file extension for those.
+
+```julia
+png(fn) # save the current fig as png with filename fn
+png(plot_ref, fn) # save the fig referenced by plot_ref as png with filename fn
+```
+
+These examples are given using png.  The use of the others is equivalent.
 
 #### File formats supported by most graphical backends
 
- - png
+ - png (default output format)
  - svg
  - PDF
 
-#### Default output format
+#### Supported output file formats
 
- - png
-
-#### Plots supports the following output file formats
-
- - eps
- - html
- - pdf
- - png
- - ps
- - svg
- - tex
- - text
-
-But not all backends support every output file format.
-
+Note:   not all backends support every output file format !
 A simple table showing which format is supported by which backend
 
  | format | backends |
@@ -72,12 +72,3 @@ A simple table showing which format is supported by which backend
  | tex | pgfplots |
  | text | hdf5, unicodeplots |
 
-#### shorthands to save figs in a specific format
-
-There are also shorthands `png(fn)`, etc, where fn is the string containing the filename.  You don't need the file extension for those.
-Plots support 2 different versions of shorthands per format.
-
- - png(fn) : save the current fig as png with filename fn
- - png(plot_ref, fn) : save the fig referenced by plot_ref as png witgh filename fn
-
-These examples are given using png.  The use of the others is equivalent.
