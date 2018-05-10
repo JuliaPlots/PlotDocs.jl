@@ -31,24 +31,20 @@ Note that javascript-based libraries (for example: PlotlyJS) cannot be shown in 
 ### savefig / format
 
 Plots support 2 different versions per save-command.
-The 1-argument command saves the most recent plot, while the 2-argument command saves the referenced plot.
-
-To save with `savefig`, choosing file type automatically by the extension of filename `fn`, use
+Command `savefig` chooses file type automatically based on the file extension.
 
 ```julia
 savefig(fn) # save the most recent fig as fn
 savefig(plot_ref, fn) # save the fig referenced by plot_ref as fn
 ```
 
-In addition, Plots offers shorthands like `png(fn)`, etc, to save into a file.
-In this case the string fn containing the filename may lack the file extension for those.
+In addition, Plots offers shorthands like `png(fn)`, etc.
+In this case the string fn containing the filename does not need a file extension.
 
 ```julia
 png(fn) # save the current fig as png with filename fn
 png(plot_ref, fn) # save the fig referenced by plot_ref as png with filename fn
 ```
-
-These examples are given using png.  The use of the others is equivalent.
 
 #### File formats supported by most graphical backends
 
