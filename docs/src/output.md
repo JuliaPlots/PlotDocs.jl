@@ -28,12 +28,43 @@ Plots are shown in the Atom PlotPane when possible, either when returned to the 
 
 Note that javascript-based libraries (for example: PlotlyJS) cannot be shown in the PlotPane due to issues within Atom's internals.
 
-### savefig / png
+### savefig / format
 
-Save the most recent plot, choosing file type automatically by the extension.
+Plots support 2 different versions per save-command.
+Command `savefig` chooses file type automatically based on the file extension.
 
 ```julia
-savefig(filename)
+savefig(fn) # save the most recent fig as fn
+savefig(plot_ref, fn) # save the fig referenced by plot_ref as fn
 ```
 
-There are also shorthands `png(fn)`, etc.  You don't need the file extension for those.
+In addition, Plots offers shorthands like `png(fn)`, etc.
+In this case the string fn containing the filename does not need a file extension.
+
+```julia
+png(fn) # save the current fig as png with filename fn
+png(plot_ref, fn) # save the fig referenced by plot_ref as png with filename fn
+```
+
+#### File formats supported by most graphical backends
+
+ - png (default output format)
+ - svg
+ - PDF
+
+#### Supported output file formats
+
+Note:   not all backends support every output file format !
+A simple table showing which format is supported by which backend
+
+ | format | backends |
+ |--------|----------|
+ | eps | inspectdr, plotlyjs, pyplot |
+ | html | plotly,  plotlyjs |
+ | pdf | gr, inspectdr, pgfplots, plotlyjs, pyplot |
+ | png | glvisualize, gr, inspectdr, plotly, plotlyjs, pyplot |
+ | ps | gr, pyplot |
+ | svg | gr, inspectdr, pgfplots, plotly, plotlyjs, pyplot |
+ | tex | pgfplots |
+ | text | hdf5, unicodeplots |
+
