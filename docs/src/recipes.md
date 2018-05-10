@@ -3,6 +3,8 @@
 
 Like other tools in Plots, recipes are relatively simple, but extremely powerful.  A recipe is created by invoking the `@recipe` macro, which is defined in the lightweight package [RecipesBase](https://github.com/JuliaPlots/RecipesBase.jl).  There are many examples of recipes both within Plots and in many external packages, including [PlotRecipes](https://github.com/JuliaPlots/PlotRecipes.jl).
 
+## Recipe Types
+
 There are four main types of recipes in Plots (listed in the order they are processed):
 
 - User Recipes
@@ -14,25 +16,37 @@ There are four main types of recipes in Plots (listed in the order they are proc
 
 These are the dispatch signatures for each type (note that most of these can accept positional or keyword args, denoted by `...`):
 
-- User Recipes: `@recipe function f(custom_arg_1::T, custom_arg_2::S, ...; ...) end`
-    - Process a unique set of types early in the pipeline.  Good for user-defined types or special combinations of Base types.
-    - The `@userplot` macro is a nice convenience which both defines a new type (to ensure correct dispatch) and exports shorthands.
-    - See `graphplot` for an example.
+### User Recipes
+```julia
+@recipe function f(custom_arg_1::T, custom_arg_2::S, ...; ...) end
+```
+- Process a unique set of types early in the pipeline.  Good for user-defined types or special combinations of Base types.
+- The `@userplot` macro is a nice convenience which both defines a new type (to ensure correct dispatch) and exports shorthands.
+- See `graphplot` for an example.
 
-- Type Recipes: `@recipe function f(::Type{T}, val::T) where{T} end`
-    - For user-defined types which wrap or have a one-to-one mapping to something supported by Plots, simply define a conversion method.
-    - Note: this is effectively saying "when you see type T, replace it with ..."
-    - See `SymPy` for an example.
+### Type Recipes
+```julia
+@recipe function f(::Type{T}, val::T) where{T} end
+```
+- For user-defined types which wrap or have a one-to-one mapping to something supported by Plots, simply define a conversion method.
+- Note: this is effectively saying "when you see type T, replace it with ..."
+- See `SymPy` for an example.
 
-- Plot Recipes: `@recipe function f(::Type{Val{:myplotrecipename}}, plt::AbstractPlot; ...) end`
-    - These are called after input data has been processed, but **before the plot is created**.
-    - Build layouts, add subplots, and other plot-wide attributes
-    - See `marginalhist` for an example.
+### Plot Recipes
+```julia
+@recipe function f(::Type{Val{:myplotrecipename}}, plt::AbstractPlot; ...) end
+```
+- These are called after input data has been processed, but **before the plot is created**.
+- Build layouts, add subplots, and other plot-wide attributes
+- See `marginalhist` for an example.
 
-- Series Recipes: `@recipe function f(::Type{Val{:myseriesrecipename}}, x, y, z; ...) end`
-    - These are the last calls to happen.  Each backend will support a short list of series types (`path`, `shape`, `histogram`, etc).  If a series type is natively supported, processing is passed (delegated) to the backend.  If a series type is **not** natively supported by the backend, we attempt to call a "series recipe".
-    - Note: If there's no series recipe defined, and the backend doesn't support it, you'll see an error like: `ERROR: The backend must not support the series type Val{:hi}, and there isn't a series recipe defined.`
-    - Note: You must have the `x, y, z` included in the signature, or it won't be processed as a series type!!
+### Series Recipes
+```julia
+@recipe function f(::Type{Val{:myseriesrecipename}}, x, y, z; ...) end
+```
+- These are the last calls to happen.  Each backend will support a short list of series types (`path`, `shape`, `histogram`, etc).  If a series type is natively supported, processing is passed (delegated) to the backend.  If a series type is **not** natively supported by the backend, we attempt to call a "series recipe".
+- Note: If there's no series recipe defined, and the backend doesn't support it, you'll see an error like: `ERROR: The backend must not support the series type Val{:hi}, and there isn't a series recipe defined.`
+- Note: You must have the `x, y, z` included in the signature, or it won't be processed as a series type!!
 
 ## Recipe Syntax/Rules
 
