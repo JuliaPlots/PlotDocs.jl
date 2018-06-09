@@ -6,6 +6,10 @@ julia:
   - 0.6
 notifications:
   email: false
+# Install backend dependencies
+before_install:
+  # Gtk.jl can't install this without root
+  - sudo apt-get install -y libgtk-3-0
 script:
   - if [[ -a .git/shallow ]]; then git fetch --unshallow; fi
   - julia -e 'Pkg.clone(pwd())'
