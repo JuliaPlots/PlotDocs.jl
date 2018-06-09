@@ -3,12 +3,13 @@
 ```@setup GR
 info("Generating example images for GR backend")
 Pkg.add("GR")
+srand(1234)
 ```
 
 ```@example GR
 using Plots
 gr()
-srand(1234); size(600, 400); nothing # hide
+size(600, 400); nothing # hide
 ```
 
 ### Lines

@@ -3,12 +3,13 @@
 ```@setup PGFPlots
 info("Generating example images for PGFPlots backend")
 Pkg.add("PGFPlots")
+srand(1234)
 ```
 
 ```@example PGFPlots
 using Plots
 pgfplots()
-srand(1234); size(600, 400); nothing # hide
+size(600, 400); nothing # hide
 ```
 
 ### Lines

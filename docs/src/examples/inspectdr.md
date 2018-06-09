@@ -3,13 +3,14 @@
 ```@setup InspectDR
 info("Generating example images for InspectDR backend")
 Pkg.add("InspectDR")
+srand(1234)
 ```
 
 
 ```@example InspectDR
 using Plots
 inspectdr()
-srand(1234); size(600, 400); nothing # hide
+size(600, 400); nothing # hide
 ```
 
 ### Lines

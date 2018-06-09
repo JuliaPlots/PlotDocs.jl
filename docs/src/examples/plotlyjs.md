@@ -3,12 +3,13 @@
 ```@setup PlotlyJS
 info("Generating example images for PlotlyJS backend")
 Pkg.add("PlotlyJS")
+srand(1234)
 ```
 
 ```@example PlotlyJS
 using Plots
 plotlyjs()
-srand(1234); size(600, 400); nothing # hide
+size(600, 400); nothing # hide
 ```
 
 ### Lines
