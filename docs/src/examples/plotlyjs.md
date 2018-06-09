@@ -3,6 +3,7 @@
 ```@setup PlotlyJS
 info("Generating example images for PlotlyJS backend")
 Pkg.add("PlotlyJS")
+using Blink; Blink.AtomShell.install() # hide
 srand(1234)
 ```
 
