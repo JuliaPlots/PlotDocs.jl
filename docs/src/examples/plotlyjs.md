@@ -344,6 +344,8 @@ heatmap(xs,ys,z,aspect_ratio=1)
 
 
 ```julia
+using Plots.Measures
+
 plot(rand(100,6),layout=@layout([a b;c]),title=["A" "B" "C"],title_location=:left,left_margin=[20mm 0mm],bottom_margin=50px,xrotation=60)
 ```
 
