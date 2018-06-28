@@ -232,8 +232,8 @@ ohlc(y)
 ### Annotations
 
 The `annotations` keyword is used for text annotations in data-coordinates.  Pass in a
-tuple `(x, y, text)` or a vector of annotations.  `annotate!(ann)` is shorthand for 
-`plot!(; annotations=ann)`.  Series annotations are used for annotating individual data 
+tuple `(x, y, text)` or a vector of annotations.  `annotate!(ann)` is shorthand for
+`plot!(; annotations=ann)`.  Series annotations are used for annotating individual data
 points.
 They require only the annotation... x/y values are computed.  A `PlotText` object can be
 build with the method `text(string, attr...)`, which wraps font and color attributes.
@@ -360,6 +360,8 @@ heatmap(xs,ys,z,aspect_ratio=1)
 
 
 ```julia
+using Plots.Measures
+
 plot(rand(100,6),layout=@layout([a b;c]),
      title=["A" "B" "C"],title_location=:left,
      left_margin=[20mm 0mm],bottom_margin=50px,xrotation=60)
