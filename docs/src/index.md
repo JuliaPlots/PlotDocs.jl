@@ -69,8 +69,8 @@ Make some waves
 
 ```julia
 using Plots, ProgressMeter
-pyplot(leg=false, ticks=nothing)
-x = y = range(-5, stop=5, length=40)
+pyplot(leg=false, ticks=nothing) #change to the pyplot backend and define some defaults
+x = y = range(-5, stop = 5, length = 40)
 zs = zeros(0,40)
 n = 100
 
