@@ -94,7 +94,7 @@ prog = Progress(n,1)
     vline!(p[2], [0], line = (:black, 5))
 
     # add to and show the tracked values over time
-    zs = vcat(zs, z')
+    global zs = vcat(zs, z')
     plot!(p[3], zs, alpha = 0.2, palette = cgrad(:blues).colors)
 
     # increment the progress bar
