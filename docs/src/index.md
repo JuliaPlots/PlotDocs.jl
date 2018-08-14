@@ -37,23 +37,29 @@ Please add wishlist items, bugs, or any other comments/questions to the [issues 
 Lorenz Attractor
 
 ```julia
-# initialize the attractor
-n = 1500
-dt = 0.02
-σ, ρ, β = 10., 28., 8/3
-x, y, z = 1., 1., 1.
+
+# define the Lorenz attractor
+mutable struct Lorenz
+    dt; σ; ρ; β; x; y; z
+end
+
+function step!(l::Lorenz)
+    dx = l.σ*(l.y - l.x)       ; l.x += l.dt * dx
+    dy = l.x*(l.ρ - l.z) - l.y ; l.y += l.dt * dy
+    dz = l.x*l.y - l.β*l.z     ; l.z += l.dt * dz
+end
+
+attractor = Lorenz((dt = 0.02, σ = 10., ρ = 28., β = 8//3, x = 1., y = 1., z = 1.)...)
+
 
 # initialize a 3D plot with 1 empty series
-plt = path3d(1, xlim=(-25,25), ylim=(-25,25), zlim=(0,50),
-                xlab = "x", ylab = "y", zlab = "z",
-                title = "Lorenz Attractor", marker = 1)
+plt = plot3d(1, xlim=(-25,25), ylim=(-25,25), zlim=(0,50),
+                title = "Lorenz Attractor", marker = 2)
 
-# build an animated gif, saving every 10th frame
-@gif for i=1:n
-    dx = σ*(y - x)     ; x += dt * dx
-    dy = x*(ρ - z) - y ; y += dt * dy
-    dz = x*y - β*z     ; z += dt * dz
-    push!(plt, x, y, z)
+# build an animated gif by pushing new points to the plot, saving every 10th frame
+@gif for i=1:1500
+    step!(attractor)
+    push!(plt, attractor.x, attractor.y, attractor.z)
 end every 10
 ```
 
@@ -71,7 +77,7 @@ n = 100
 # create a progress bar for tracking the animation generation
 prog = Progress(n,1)
 
-@gif for i in linspace(0, 2π, n)
+@gif for i in range(0, stop = 2π, length = n)
     f(x,y) = sin(x + 10sin(i)) + cos(y)
 
     # create a plot with 3 subplots and a custom layout
@@ -79,11 +85,11 @@ prog = Progress(n,1)
     p = plot(x, y, f, st = [:surface, :contourf], layout=l)
 
     # induce a slight oscillating camera angle sweep, in degrees (azimuth, altitude)
-    plot!(p[1],camera=(15*cos(i),40))
+    plot!(p[1], camera=(15*cos(i), 40))
 
     # add a tracking line
     fixed_x = zeros(40)
-    z = map(f,fixed_x,y)
+    z = map(f, fixed_x, y)
     plot!(p[1], fixed_x, y, z, line = (:black, 5, 0.2))
     vline!(p[2], [0], line = (:black, 5))
 
