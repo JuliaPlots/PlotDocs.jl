@@ -139,7 +139,7 @@ plot(cumsum(randn(20,length(styles)),1),style=:auto,label=map(string,styles),w=5
 ```julia
 markers = setdiff(Plots.supported_markers(),[:none,:auto,Shape])'
 n = length(markers)
-x = (linspace(0,10,n + 2))[2:end - 1]
+x = (range(0, stop=10, length=n + 2))[2:end - 1]
 y = repmat(reverse(x)',n,1)
 scatter(x,y,m=(8,:auto),lab=map(string,markers),bg=:linen)
 ```

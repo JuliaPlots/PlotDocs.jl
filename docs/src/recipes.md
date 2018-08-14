@@ -53,7 +53,7 @@ These are the dispatch signatures for each type (note that most of these can acc
 Lets decompose what's happening inside the recipe macro, starting with a simple recipe:
 
 ```julia
-type MyType end
+mutable struct MyType end
 
 @recipe function f(::MyType, n::Integer = 10; add_marker = false)
 	linecolor   --> :blue
@@ -144,7 +144,7 @@ Here a call to `plot(MyType())` will apply these recipes in order; first mapping
 For some custom data types, they are essentially light wrappers around built-in containers.  For example you may have a type:
 
 ```julia
-type MyWrapper
+mutable struct MyWrapper
 	v::Vector
 end
 ```

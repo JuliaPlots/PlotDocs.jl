@@ -149,7 +149,7 @@ markers = (filter((m->begin
             m in Plots.supported_markers()
         end),Plots._shape_keys))'
 n = length(markers)
-x = (linspace(0,10,n + 2))[2:end - 1]
+x = (range(0, stop=10, length=n + 2))[2:end - 1]
 y = repmat((reverse(x))',n,1)
 scatter(x,y,m=(8,:auto),lab=map(string,markers),bg=:linen,xlim=(0,10),ylim=(0,10))
 ```
@@ -203,7 +203,7 @@ plot(Plots.fakedata(100,10),layout=4,palette=[:grays :blues :heat :lightrainbow]
 
 
 ```julia
-srand(111)
+Random.seed!(111)
 plot!(Plots.fakedata(100,10))
 ```
 
@@ -241,7 +241,7 @@ y = rand(10)
 plot(y,annotations=(3,y[3],text("this is #3",:left)),leg=false)
 annotate!([(5,y[5],text("this is #5",16,:red,:center)),
           (10,y[10],text("this is #10",:right,20,"courier"))])
-scatter!(linspace(2,8,6),rand(6),marker=(50,0.2,:orange),
+scatter!(range(2, stop=8, length=6),rand(6),marker=(50,0.2,:orange),
          series_annotations=["series","annotations","map","to","series",
                              text("data",:green)])
 ```
@@ -305,7 +305,7 @@ pie(x,y,title="The Julia Community",l=0.5)
 
 ```julia
 n = 100
-ts = linspace(0,8π,n)
+ts = range(0, stop=8π, length=n)
 x = ts .* map(cos,ts)
 y = (0.1ts) .* map(sin,ts)
 z = 1:n
@@ -333,7 +333,7 @@ plot(rand(100),layout=@layout([a b;c]),group=group,linetype=[:bar :scatter :step
 
 
 ```julia
-Θ = linspace(0,1.5π,100)
+Θ = range(0, stop=1.5π, length=100)
 r = abs(0.1 * randn(100) + sin(3Θ))
 plot(Θ,r,proj=:polar,m=2)
 ```
@@ -375,7 +375,7 @@ p = plot(plot([sin,cos],1,leg=false),
          scatter([atan,cos],1,leg=false),
          plot(log,1,xlims=(1,10π),ylims=(0,5),leg=false),layout=l)
 anim = Animation()
-for x = linspace(1,10π,100)
+for x = range(1, stop=10π, length=100)
     plot(push!(p,x,Float64[sin(x),cos(x),atan(x),cos(x),log(x)]))
     frame(anim)
 end
