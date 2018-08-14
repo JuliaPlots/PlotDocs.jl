@@ -28,7 +28,7 @@ Want to do something special whenever the first input is a time series?  Maybe y
 Many times a data type is a simple wrapper of a Function or Array.  For example:
 
 ```julia
-type MyVec
+mutable struct MyVec
 	v::Vector{Int}
 end
 ```
