@@ -10,7 +10,7 @@ Suppose we have data:
 
 ```julia
 n = 100
-x, y = linspace(0,1,n), randn(n, 3)
+x, y = range(0, stop=1, length=n), randn(n, 3)
 ```
 
 and we'd like to visualize `x` against each column of `y`.  Here's a sample command in Plots:
@@ -75,7 +75,7 @@ where each item represents the data for one plot series.  Under the hood, it mak
 Inputs are recursively processed until a matching recipe is found.  This means you can make modular and hierarchical recipes which are processed just like anything built into Plots.
 
 ```julia
-type MyVecWrapper
+mutable struct MyVecWrapper
   v::Vector{Float64}
 end
 mv = MyVecWrapper(rand(100))

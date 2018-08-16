@@ -64,7 +64,7 @@ Make some waves
 ```julia
 using Plots, ProgressMeter
 pyplot(leg=false, ticks=nothing)
-x = y = linspace(-5, 5, 40)
+x = y = range(-5, stop=5, length=40)
 zs = zeros(0,40)
 n = 100
 

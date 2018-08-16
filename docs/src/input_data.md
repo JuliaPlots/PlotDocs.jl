@@ -102,7 +102,7 @@ Functions can typically be used in place of input data, and they will be mapped 
 using Plots
 tmin = 0
 tmax = 4π
-tvec = linspace(tmin, tmax, 100)
+tvec = range(tmin, stop=tmax, length=100)
 
 plot(sin(tvec), cos(tvec))
 plot(sin, cos, tvec)

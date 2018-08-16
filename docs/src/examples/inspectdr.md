@@ -110,7 +110,7 @@ markers = (filter((m->begin
             m in Plots.supported_markers()
         end),Plots._shape_keys))'
 n = length(markers)
-x = (linspace(0,10,n + 2))[2:end - 1]
+x = (range(0, stop=10, length=n + 2))[2:end - 1]
 y = repmat((reverse(x))',n,1)
 scatter(x,y,m=(8,:auto),lab=map(string,markers),bg=:linen,xlim=(0,10),ylim=(0,10))
 ```
@@ -168,7 +168,7 @@ plot(Plots.fakedata(100,10),layout=4,palette=[:grays :blues :heat :lightrainbow]
 
 
 ```julia
-srand(111)
+Random.seed!(111)
 plot!(Plots.fakedata(100,10))
 ```
 
@@ -206,7 +206,7 @@ y = rand(10)
 plot(y,annotations=(3,y[3],text("this is #3",:left)),leg=false)
 annotate!([(5,y[5],text("this is #5",16,:red,:center)),
           (10,y[10],text("this is #10",:right,20,"courier"))])
-scatter!(linspace(2,8,6),rand(6),marker=(50,0.2,:orange),
+scatter!(range(2, stop=8, length=6),rand(6),marker=(50,0.2,:orange),
          series_annotations=["series","annotations","map","to","series",
                              text("data",:green)])
 ```
