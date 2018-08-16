@@ -8,6 +8,4 @@ notifications:
   email: false
 script:
   - if [[ -a .git/shallow ]]; then git fetch --unshallow; fi
-  - julia -e 'import Pkg; Pkg.add(Pkg.PackageSpec(path = pwd()))'
-  - julia -e 'Pkg.add("Documenter")'
-  - julia -e 'cd(Pkg.dir("PlotDocs")); include(joinpath("docs", "make.jl"))'
+  - julia -e 'import Pkg; Pkg.add(Pkg.PackageSpec(path = pwd())); Pkg.add("Documenter"); cd(Pkg.dir("PlotDocs")); include(joinpath("docs", "make.jl"))'
