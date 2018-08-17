@@ -81,7 +81,7 @@ Color gradients are arranged into color libraries. To get a list of color librar
 The following libraries and gradients are included in Plots:
 
 ##### Plots
-*Created by Nathaniel J. Smith, Stefan van der Walt, and (in the case of viridis) Eric Firing. Released under CC0 license / public domain dedication. Full license info available [here]((https://github.com/JuliaPlots/PlotUtils.jl/blob/master/LICENSE.md#matplotlib)).*
+*Created by Nathaniel J. Smith, Stefan van der Walt, and (in the case of viridis) Eric Firing. Released under CC0 license / public domain dedication. Full license info available [here](https://github.com/JuliaPlots/PlotUtils.jl/blob/master/LICENSE.md#matplotlib).*
 
 ![](examples/img/colorschemes/Plots.png)
 
