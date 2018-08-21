@@ -68,6 +68,7 @@ foreground_color_text    | foreground_color_subplot
 
 #### Misc
 
+- the `linecolor` under the default theme is not CSS-defined, but close to `:steelblue`.
 - `line_z` and `marker_z` parameters will map data values into a ColorGradient value
 - `color_palette` determines the colors assigned when `seriescolor == :auto`:
     - If passed a vector of colors, it will force cycling of those colors
