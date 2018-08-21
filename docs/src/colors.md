@@ -16,9 +16,10 @@ In addition, there is an extensive facility for selecting and generating color m
 - A list of colors (or anything that can be converted to a color)
 - A pre-built `ColorGradient`, which can be constructed with the `cgrad` helper function.  See [this short tutorial](https://github.com/tbreloff/ExamplePlots.jl/blob/master/notebooks/cgrad.ipynb) for example usage.
 
-### Constants
-There are many predefined consts
-,like `blue`, `blue2`, `blue3`, ...etc, listed in https://github.com/JuliaGraphics/Colors.jl/blob/master/src/names_data.jl.
+### Color names
+The supported color names is the union of [X11's](https://en.wikipedia.org/wiki/X11_color_names) and SVG's.
+They are defined in the [Colors.jl](https://github.com/JuliaGraphics/Colors.jl/blob/master/src/names_data.jl)
+,like `blue`, `blue2`, `blue3`, ...etc.
 
 ---
 
