@@ -290,7 +290,7 @@ Notice there's not much you have to do here: all of the commands from before
 (attributes, series types, etc.) will still work on this data:
 
 ```julia
-@df scatter(:a, :b, title="My DataFrame Scatter Plot!") # x = :a, y = :b
+@df df scatter(:a, :b, title="My DataFrame Scatter Plot!") # x = :a, y = :b
 ```
 
 ![dataframescatterplot](https://user-images.githubusercontent.com/1814174/28752706-c37b7720-74da-11e7-9fe2-aec281cef0dc.png)
