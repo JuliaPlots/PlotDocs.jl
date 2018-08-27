@@ -15,14 +15,16 @@
 
 ### Plots with Plots - JuliaCon 2016
 
+```@raw html
 <iframe width="560" height="315" src="https://www.youtube.com/embed/LGB8GvAL4HA" frameborder="0" allowfullscreen></iframe>
-
+```
 ### Ecosystem and Pipeline
 
 http://www.breloff.com/plots-video/
 
+```@raw html
 <iframe width="560" height="315" src="https://www.youtube.com/embed/Iof7Ccm8UiM" frameborder="0" allowfullscreen></iframe>
-
+```
 
 # Plots in the wild
 
