@@ -44,7 +44,7 @@ The point to be had is that a graphics package need only be able to draw lines a
 
 ## Recipe Types
 
-Abovae we described `Type recipes` and `Series Recipes`. In total there are four main types of recipes in Plots (listed in the order they are processed):
+Above we described `Type recipes` and `Series Recipes`. In total there are four main types of recipes in Plots (listed in the order they are processed):
 
 - User Recipes
 - Type Recipes
