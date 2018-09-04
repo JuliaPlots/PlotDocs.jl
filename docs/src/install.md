@@ -10,7 +10,7 @@ Pkg.add("Plots")
 Pkg.checkout("Plots")
 ```
 
-then get any plotting packages you need (obviously, you should get at least one [backend](/backends)).
+then get any plotting packages you need (obviously, you should get at least one [backend](@ref backends)).
 
 ```julia
 Pkg.add("PyPlot")
@@ -19,7 +19,7 @@ Pkg.add("UnicodePlots")
 Pkg.add("PlotlyJS")
 ```
 
-Finally, you may wish to add some extensions from the [Plots ecosystem](/ecosystem):
+Finally, you may wish to add some extensions from the [Plots ecosystem](@ref ecosystem):
 
 ```julia
 Pkg.add("StatPlots")
@@ -34,7 +34,7 @@ Pkg.add("PlotRecipes")
 using Plots # or StatPlots, or PlotRecipes
 ```
 
-[Choose a backend](/backends), and optionally override default settings at the same time:
+[Choose a backend](@ref backends), and optionally override default settings at the same time:
 
 ```julia
 pyplot(size = (300,300), legend = false)

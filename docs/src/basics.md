@@ -10,10 +10,10 @@ plot!(args...; kw...)                 # modifies Plot `current()`
 plot!(plt, args...; kw...)            # modifies Plot `plt`
 ```
 
-The graphic is not shown implicitly, only when "displayed".  This will happen automatically when returned to a REPL prompt or to an IJulia cell.  There are [many other options](/output) as well.
+The graphic is not shown implicitly, only when "displayed".  This will happen automatically when returned to a REPL prompt or to an IJulia cell.  There are [many other options](@ref output) as well.
 
 
-Input arguments can take [many forms](/input_data).  Some valid examples:
+Input arguments can take [many forms](@ref input-data).  Some valid examples:
 
 ```julia
 plot()                                    # empty Plot object
@@ -30,11 +30,11 @@ plot(1:10, Any[rand(10), sin])            # 2 series: rand(10) and map(sin,x)
 plot(dataset("Ecdat", "Airline"), :Cost)  # the :Cost column from a DataFrame... must import StatPlots
 ```
 
-[Keyword arguments](/attributes) allow for customization of the plot, subplots, axes, and series.  They follow consistent rules as much as possible, and you'll avoid common pitfalls if you read this section carefully:
+[Keyword arguments](@ref attributes) allow for customization of the plot, subplots, axes, and series.  They follow consistent rules as much as possible, and you'll avoid common pitfalls if you read this section carefully:
 
-- Many arguments have aliases which are [replaced during preprocessing](/pipeline/#step-1-replace-aliases).  `c` is the same as `color`, `m` is the same as `marker`, etc.  You can choose a verbosity that you are comfortable with.
-- There are some [special arguments](/pipeline/#step-2-handle-magic-arguments) which magically set many related things at once.
-- If the argument is a "matrix-type", then [each column will map to a series](/input_data/#columns-are-series), cycling through columns if there are fewer columns than series.  In this sense, a vector is treated just like an "nx1 matrix".
+- Many arguments have aliases which are [replaced during preprocessing](@ref step-1-replace-aliases).  `c` is the same as `color`, `m` is the same as `marker`, etc.  You can choose a verbosity that you are comfortable with.
+- There are some [special arguments](@ref step-2-handle-magic-arguments) which magically set many related things at once.
+- If the argument is a "matrix-type", then [each column will map to a series](@ref columns-are-series), cycling through columns if there are fewer columns than series.  In this sense, a vector is treated just like an "nx1 matrix".
 - Many arguments accept many different types... for example the color (also markercolor, fillcolor, etc) argument will accept strings or symbols with a color name, or any Colors.Colorant, or a ColorScheme, or a symbol representing a ColorGradient, or an AbstractVector of colors/symbols/etc...
 
 
@@ -44,10 +44,13 @@ plot(dataset("Ecdat", "Airline"), :Cost)  # the :Cost column from a DataFrame...
 
 ### Useful Tips
 
+```@raw html
 <div style="background-color: lightblue; padding: 10px; border-style: solid; border-width: medium; margin: 10px;">
 Tip: A common error is to pass a Vector when you intend for each item to apply to only one series.  Instead of an n-length Vector, pass a 1xn Matrix.
 </div>
+```
 
+```@raw html
 <div style="background-color: lightblue; padding: 10px; border-style: solid; border-width: medium; margin: 10px;">
   <p>Tip: You can update certain plot settings after plot creation:</p>
   <pre><code>
@@ -59,23 +62,30 @@ Tip: A common error is to pass a Vector when you intend for each item to apply t
     xaxis!("mylabel", :log10, :flip)
   </code></pre>
 </div>
+```
 
-
+```@raw html
 <div style="background-color: lightblue; padding: 10px; border-style: solid; border-width: medium; margin: 10px;">
 Tip: With <a href="supported">supported backends</a>, you can pass a Plots.Shape object for the marker/markershape arguments.  Shape takes a vector of 2-tuples in the constructor, defining the points of the polygon's shape in a unit-scaled coordinate space.  To make a square, for example, you could do: Shape([(1,1),(1,-1),(-1,-1),(-1,1)])
 </div>
+```
 
+```@raw html
 <div style="background-color: lightblue; padding: 10px; border-style: solid; border-width: medium; margin: 10px;">
 Tip: You can see the default value for a given argument with default(arg::Symbol), and set the default value with default(arg::Symbol, value) or default(; kw...).  For example set the
 default window size and whether we should show a legend with default(size=(600,400), leg=false).
 </div>
+```
 
+```@raw html
 <div style="background-color: lightblue; padding: 10px; border-style: solid; border-width: medium; margin: 10px;">
 Tip: Call `gui()` to display the plot in a window.  Interactivity depends on backend.  Plotting at the REPL (without semicolon) implicitly calls `gui()`.
 </div>
+```
 
+```@raw html
 <div style="background-color: lightblue; padding: 10px; border-style: solid; border-width: medium; margin: 10px;">
 Tip: See the <a href="../examples/pyplot">examples</a> for plotting ideas and features.
 </div>
-
+```
 ---

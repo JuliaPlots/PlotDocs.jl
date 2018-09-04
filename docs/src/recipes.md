@@ -1,4 +1,8 @@
 
+<<<<<<< HEAD
+=======
+# [Recipes](@id recipes)
+>>>>>>> updat make.jl, PlotDocs, use default Documenter html theme, update links
 
 # Recipes
 
@@ -63,7 +67,7 @@ These are the dispatch signatures for each type (note that most of these can acc
 - The `@userplot` macro is a nice convenience which both defines a new type (to ensure correct dispatch) and exports shorthands.
 - See `graphplot` for an example.
 
-### Type Recipes
+### [Type Recipes](@id type-recipes)
 ```julia
 @recipe function f(::Type{T}, val::T) where{T} end
 ```
@@ -79,7 +83,7 @@ These are the dispatch signatures for each type (note that most of these can acc
 - Build layouts, add subplots, and other plot-wide attributes
 - See `marginalhist` for an example.
 
-### Series Recipes
+### [Series Recipes](@id series-recipes)
 ```julia
 @recipe function f(::Type{Val{:myseriesrecipename}}, x, y, z; ...) end
 ```

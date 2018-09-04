@@ -1,5 +1,5 @@
 
-# Tutorial
+# [Tutorial](@id tutorial)
 
 This is a guide for getting you up and running with Plots.jl. Its main goal is
 to introduce you to the terminology used in the package, how to use Plots.jl in
@@ -18,10 +18,10 @@ x = 1:10; y = rand(10); # These are the plotting data
 plot(x,y)
 ```
 
-![first_plot](https://user-images.githubusercontent.com/1814174/28752263-dc198750-74cf-11e7-9d96-c61affb655d8.png)
+![first_plot](https://raw.githubusercontent.com/JuliaPlots/PlotReferenceImages.jl/master/PlotDocs/tutorial/lines_1.png)
 
 The plot is displayed in a plot pane, a stand-alone window or the browser,
-depending on the environment and backend (see [below](#plotting-backends)).
+depending on the environment and backend (see [below](@ref plotting-backends)).
 
 In Plots.jl, every column is a **series**, i.e. a set of related points which
 form lines, surfaces, or other plotting primitives. Thus we can plot multiple
@@ -33,7 +33,7 @@ x = 1:10; y = rand(10,2) # 2 columns means two lines
 plot(x,y)
 ```
 
-![twoseries_plot](https://user-images.githubusercontent.com/1814174/28752268-f32e269e-74cf-11e7-9074-ffbd1730e7f7.png)
+![twoseries_plot](https://raw.githubusercontent.com/JuliaPlots/PlotReferenceImages.jl/master/PlotDocs/tutorial/lines_2.png)
 
 Additionally, we can add more lines by mutating the plot object. This is done
 by the `plot!` command. Let's add another line to our current plot:
@@ -43,7 +43,7 @@ z = rand(10)
 plot!(x,z)
 ```
 
-![addline_plot](https://user-images.githubusercontent.com/1814174/28752269-047910e4-74d0-11e7-8059-7c20facabd49.png)
+![addline_plot](https://raw.githubusercontent.com/JuliaPlots/PlotReferenceImages.jl/master/PlotDocs/tutorial/lines_3.png)
 
 Note that we could have done the same as above using an explicit plot variable:
 
@@ -54,7 +54,7 @@ z = rand(10)
 plot!(p,x,z)
 ```
 
-![explicit_p_plot](https://user-images.githubusercontent.com/1814174/28752272-15f7a3ee-74d0-11e7-811c-847f33437b9d.png)
+![explicit_p_plot](https://raw.githubusercontent.com/JuliaPlots/PlotReferenceImages.jl/master/PlotDocs/tutorial/lines_4.png)
 
 Note that in the case where `p` is omitted, Plots.jl uses the global
 `Plots.CURRENT_PLOT` automatically in the same manner.
@@ -63,7 +63,7 @@ Note that in the case where `p` is omitted, Plots.jl uses the global
 
 In the previous section we made plots... we're done right? No! We need to style
 our plots. In Plots.jl, the modifiers to plots are called **attributes**. These
-are documented at the [attributes page](/attributes). Plots.jl follows a simple
+are documented at the [attributes page](@ref attributes). Plots.jl follows a simple
 rule with data vs attributes: positional arguments are input data, and keyword
 arguments are attributes. Thus something like `plot(x,y,z)` is 3-dimensional
 data for 3D plots, while `plot(x,y,attribute=value)` is 2-dimensional with
@@ -79,7 +79,7 @@ x = 1:10; y = rand(10,2) # 2 columns means two lines
 plot(x,y,title="Two Lines",label=["Line 1" "Line 2"],lw=3)
 ```
 
-![first_attributes_plot](https://user-images.githubusercontent.com/1814174/28752275-29e0f4dc-74d0-11e7-843d-f50d499ca772.png)
+![first_attributes_plot](https://raw.githubusercontent.com/JuliaPlots/PlotReferenceImages.jl/master/PlotDocs/tutorial/attr_1.png)
 
 Note that every attribute can also be applied by mutating the plot with a
 modifier function. For example, the `xlabel` attribute adds a label for the
@@ -91,14 +91,14 @@ generated:
 xlabel!("My x label")
 ```
 
-![add_x_label_plot](https://user-images.githubusercontent.com/1814174/28752277-399e3830-74d0-11e7-9eb8-db337b3164a1.png)
+![add_x_label_plot](https://raw.githubusercontent.com/JuliaPlots/PlotReferenceImages.jl/master/PlotDocs/tutorial/attr_2.png)
 
 Every modifier function is the name of the attribute followed by `!`. Note that
 this implicitly uses the global `Plots.CURRENT_PLOT` and we can apply it to
 other plot objects via `attribute!(p,value)`. For more examples of attributes
-in action, see the examples pages like the [PyPlot examples](/examples/pyplot).
+in action, see the examples pages.
 
-## Plotting Backends
+## [Plotting Backends](@id plotting-backends)
 
 Here's a secret: Plots.jl isn't actually a plotting package! Plots.jl is a
 plotting metapackage: it's an interface over many different plotting libraries.
@@ -130,9 +130,9 @@ gr() # Set the backend to GR
 plot(x,y,title="This is Plotted using GR") # This plots using GR
 ```
 
-![plotly_plot](https://user-images.githubusercontent.com/1814174/28752391-55d2d860-74d2-11e7-824b-ca67d8485c66.png)
+![plotly_plot](https://raw.githubusercontent.com/JuliaPlots/PlotReferenceImages.jl/master/PlotDocs/tutorial/backends_1.png)
 
-![gr_plot](https://user-images.githubusercontent.com/1814174/28752685-5863cdf2-74da-11e7-8ce6-59083403f64f.png)
+![gr_plot](https://raw.githubusercontent.com/JuliaPlots/PlotReferenceImages.jl/master/PlotDocs/tutorial/backends_2.png)
 
 If you're in Juno, the second plot command will cause the plot to open in the
 plot pane. If you're in the REPL, GR will open a GUI window. You can always
@@ -148,7 +148,7 @@ savefig(p,"myplot.pdf") # Saves the plot from p as a .pdf vector graphic
 ```
 
 Some like GR can save to vector graphics and PDFs, while others like Plotly only save to `.png`s. For more information on backends, see the
-[backends page](/backends). For examples of plots from the various backends, see
+[backends page](@ref backends). For examples of plots from the various backends, see
 the Examples section.
 
 ## Changing the Plotting Series
@@ -164,7 +164,7 @@ gr() # We will continue onward using the GR backend
 plot(x,y,seriestype=:scatter,title="My Scatter Plot")
 ```
 
-![scatter_plot](https://user-images.githubusercontent.com/1814174/28752688-67293c50-74da-11e7-91ba-8056f3a8d6e1.png)
+![scatter_plot](https://raw.githubusercontent.com/JuliaPlots/PlotReferenceImages.jl/master/PlotDocs/tutorial/scatter_1.png)
 
 For each built-in series type, there is a shorthand function for directly
 calling that series type which matches the name of the series type. It handles
@@ -175,10 +175,10 @@ ends in `!`. For example, we can instead do that scatter plot with:
 scatter(x,y,title="My Scatter Plot")
 ```
 
-![scatter_plot](https://user-images.githubusercontent.com/1814174/28752688-67293c50-74da-11e7-91ba-8056f3a8d6e1.png)
+![scatter_plot](https://raw.githubusercontent.com/JuliaPlots/PlotReferenceImages.jl/master/PlotDocs/tutorial/scatter_2.png)
 
 The series types which are available are dependent on the backend, and are
-documented on the [Supported Attributes page](/supported). As we will describe
+documented on the [Supported Attributes page](@ref supported). As we will describe
 later, other libraries can add new series types via **recipes** as well.
 
 ## Plotting in Scripts
@@ -204,7 +204,7 @@ If we have a plot object `p`, we can do `display(p)` at any time.
 We can combine multiple plots together as subplots using **layouts**.
 There are many methods for doing this, and we will show two simple methods
 for generating simple layouts. More advanced layouts are shown in the
-[Layouts page](/layouts).
+[Layouts page](@ref layouts).
 
 The first method is to define a layout which will split a series. The `layout`
 command takes in a 2-tuple `layout=(N,M)` which builds an NxM grid of plots.
@@ -217,7 +217,7 @@ y = rand(10,4)
 plot(x,y,layout=(4,1))
 ```
 
-![subplot_single_plot](https://user-images.githubusercontent.com/1814174/28752693-85ac2c64-74da-11e7-82d7-1fb6986c9093.png)
+![subplot_single_plot](https://raw.githubusercontent.com/JuliaPlots/PlotReferenceImages.jl/master/PlotDocs/tutorial/subplots_1.png)
 
 We can also use layouts on plots of plot objects. For example, we can generate
 for separate plots and make a single plot that combines them in a 2x2 grid
@@ -231,7 +231,7 @@ p4 = histogram(x,y) # Four histograms each with 10 points? Why not!
 plot(p1,p2,p3,p4,layout=(2,2),legend=false)
 ```
 
-![multi_plot_subplot](https://user-images.githubusercontent.com/1814174/28752698-94c91248-74da-11e7-9431-8d3a12fb97b8.png)
+![multi_plot_subplot](https://raw.githubusercontent.com/JuliaPlots/PlotReferenceImages.jl/master/PlotDocs/tutorial/subplots_2.png)
 
 Notice that the attributes in the individual plots are applied to the
 individual plots, while the attributes on the final `plot` call are applied
@@ -250,7 +250,7 @@ framework. They add:
 4. New series types via **series recipes**.
 
 Writing your own recipes is an advanced topic described on the
-[recipes page](/recipes). Instead, we will introduce the ways that one uses
+[recipes page](@ref recipes). Instead, we will introduce the ways that one uses
 a recipe.
 
 Recipes are included in many recipe libraries. Two fundamental recipe libraries
@@ -284,7 +284,7 @@ df = DataFrame(a = 1:10, b = 10*rand(10), c = 10 * rand(10))
 @df df plot(:a, [:b :c]) # x = :a, y = [:b :c]. Notice this is two columns!
 ```
 
-![dataframeplot](https://user-images.githubusercontent.com/1814174/28752322-09f62f24-74d1-11e7-80a7-0d8183337a0c.png)
+![dataframeplot](https://raw.githubusercontent.com/JuliaPlots/PlotReferenceImages.jl/master/PlotDocs/tutorial/user_recipes_1.png)
 
 Notice there's not much you have to do here: all of the commands from before
 (attributes, series types, etc.) will still work on this data:
@@ -293,7 +293,7 @@ Notice there's not much you have to do here: all of the commands from before
 @df df scatter(:a, :b, title="My DataFrame Scatter Plot!") # x = :a, y = :b
 ```
 
-![dataframescatterplot](https://user-images.githubusercontent.com/1814174/28752706-c37b7720-74da-11e7-9fe2-aec281cef0dc.png)
+![dataframescatterplot](https://raw.githubusercontent.com/JuliaPlots/PlotReferenceImages.jl/master/PlotDocs/tutorial/user_recipes_2.png)
 
 ### Using a Type Recipe
 
@@ -306,7 +306,7 @@ using Distributions
 plot(Normal(3,5),lw=3)
 ```
 
-![distributionplot](https://user-images.githubusercontent.com/1814174/28752330-2de10fb2-74d1-11e7-902e-8ce60a62fba2.png)
+![distributionplot](https://raw.githubusercontent.com/JuliaPlots/PlotReferenceImages.jl/master/PlotDocs/tutorial/type_recipes.png)
 
 Thus type recipes are a very convenient way to plot a specialized type which
 requires no more intervention!
@@ -330,7 +330,7 @@ columns:
 @df iris marginalhist(:PetalLength, :PetalWidth)
 ```
 
-![marginalhistplot](https://user-images.githubusercontent.com/1814174/28752339-5fa4176a-74d1-11e7-9e7c-0dd366625f40.png)
+![marginalhistplot](https://raw.githubusercontent.com/JuliaPlots/PlotReferenceImages.jl/master/PlotDocs/tutorial/plot_recipes.png)
 
 This demonstrates two important facts. Notice that this is more than a series
 since it generates multiple series (i.e. there are multiple plots due to the
@@ -349,7 +349,7 @@ y = rand(100,4) # Four series of 100 points each
 violin(["Series 1" "Series 2" "Series 3" "Series 4"],y,leg=false)
 ```
 
-![violinplot](https://user-images.githubusercontent.com/1814174/28752344-6f5c3c00-74d1-11e7-9a30-18d2682f1e3a.png)
+![violinplot](https://raw.githubusercontent.com/JuliaPlots/PlotReferenceImages.jl/master/PlotDocs/tutorial/series_recipes_1.png)
 
 and we can add a `boxplot` on top using the same mutation commands as before:
 
@@ -357,7 +357,7 @@ and we can add a `boxplot` on top using the same mutation commands as before:
 boxplot!(["Series 1" "Series 2" "Series 3" "Series 4"],y,leg=false)
 ```
 
-![violinboxplot](https://user-images.githubusercontent.com/1814174/28752350-8646bb34-74d1-11e7-9f53-b2ecbf39a5cf.png)
+![violinboxplot](https://raw.githubusercontent.com/JuliaPlots/PlotReferenceImages.jl/master/PlotDocs/tutorial/series_recipes_2.png)
 
 ## Additional Addons To Try
 
@@ -369,5 +369,5 @@ try. Here's a short list of very usable addons to check out:
   dark theme.
 - [GGPlots.jl](https://github.com/JuliaPlots/GGPlots.jl) adds a Grammar of
   Graphics (GoG) API to Plots.jl
-- The [ecosystem page](/ecosystem) shows many other packages which have recipes
+- The [ecosystem page](@ref ecosystem) shows many other packages which have recipes
   and extend Plots.jl's functionality.
