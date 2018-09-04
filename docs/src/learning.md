@@ -1,8 +1,9 @@
 # Tutorials
 
+- [Start with the tutorial](/tutorial)
+- [Section from Chris Rackauckas' awesome earlier tutorial](http://ucidatascienceinitiative.github.io/IntroToJulia/Html/PlotsJL)
 - [Machine Learning and Visualization in Julia](http://www.breloff.com/JuliaML-and-Plots/)
 - [Quant Econ tutorial](https://lectures.quantecon.org/jl/julia_plots.html#plotsjl-jl)
-- [Section from Chris Rackauckas' awesome tutorial](http://ucidatascienceinitiative.github.io/IntroToJulia/Html/PlotsJL)
 - [Plotting section of a Julia wiki](https://en.wikibooks.org/wiki/Introducing_Julia/Plotting)
 
 # Demos, Examples and Notebooks
