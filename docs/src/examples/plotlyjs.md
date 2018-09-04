@@ -121,7 +121,7 @@ plot(rand(100) / 3, reg=true, fill=(0, :green))
 
 ![](https://raw.githubusercontent.com/JuliaPlots/PlotReferenceImages.jl/master/PlotDocs/plotlyjs/ref8.png)
 
-### 
+###
 
 and add to it later.
 
@@ -258,7 +258,7 @@ plot(Plots.fakedata(100, 10), layout=4, palette=[:grays :blues :heat :lightrainb
 
 ![](https://raw.githubusercontent.com/JuliaPlots/PlotReferenceImages.jl/master/PlotDocs/plotlyjs/ref17.png)
 
-### 
+###
 
 
 
