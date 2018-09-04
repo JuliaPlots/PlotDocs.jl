@@ -23,11 +23,11 @@ When in doubt, use this handy dandy logic designed by a [legendary open source g
 This is the core package for:
 
 - Definitions of `plot`/`plot!`
-- The [core processing pipeline](/pipeline)
-- Base [recipes](/recipes) for `path`, `scatter`, `bar`, and many others
-- Generic [output](/output) methods
-- Generic [layout](/layouts) methods
-- Generic [animation](/animations) methods
+- The [core processing pipeline](@ref pipeline)
+- Base [recipes](@ref recipes) for `path`, `scatter`, `bar`, and many others
+- Generic [output](@ref output) methods
+- Generic [layout](@ref layouts) methods
+- Generic [animation](@ref animations) methods
 - Generic types: Plot, Subplot, Axis, Series, ...
 - Conveniences: `getindex`/`setindex`, `push!`/`append!`, `unzip`, `cycle`, ...
 
@@ -158,13 +158,13 @@ The recipe defined above is a "user recipe", which builds a histogram for arrays
 mycount(rand(500))
 ```
 
-![](https://cloud.githubusercontent.com/assets/933338/23183178/24e38dcc-f849-11e6-9fb5-e6ad722b433f.png)
+![](https://raw.githubusercontent.com/JuliaPlots/PlotReferenceImages.jl/master/PlotDocs/contributing/my_count_1.png)
 
 ```julia
 mycount(rand(["A","B","C"],100))
 ```
 
-![](https://cloud.githubusercontent.com/assets/933338/23183192/2ef6fd26-f849-11e6-9114-ea4d24b16bcb.png)
+![](https://raw.githubusercontent.com/JuliaPlots/PlotReferenceImages.jl/master/PlotDocs/contributing/my_count_2.png)
 
 But you didn't consider the person that, in the future, might want to pass integers to this recipe:
 
@@ -172,7 +172,7 @@ But you didn't consider the person that, in the future, might want to pass integ
 mycount(rand(1:500, 500))
 ```
 
-![](https://cloud.githubusercontent.com/assets/933338/23183201/3a04e6f6-f849-11e6-8808-5d7f78e6aeb7.png)
+![](https://raw.githubusercontent.com/JuliaPlots/PlotReferenceImages.jl/master/PlotDocs/contributing/my_count_3.png)
 
 This user expected integers to be treated as numbers and output a histogram, but instead they were treated like strings.  A simple solution would have been to replace `if T.parameters[1] == Float64` with `if T.parameters[1] <: Number`.  However, should we even depend on `T` having it's first parameter be the element type? (No)  So even better would be `if eltype(arr) <: Number`, which now allows any container with any numeric type to trigger the "histogram" logic.
 

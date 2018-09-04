@@ -1,5 +1,5 @@
 
-### Animations
+### [Animations](@id animations)
 
 Animations are created in 3 steps:
 
@@ -7,11 +7,12 @@ Animations are created in 3 steps:
 - Save each frame of the animation with `frame(anim)`.
 - Convert the frames to an animated gif with `gif(anim, filename, fps=15)`
 
-
+```@raw html
 <div style="background-color: lightblue; padding: 10px; border-style: solid; border-width: medium; margin: 10px;">
-Tip: the convenience macros `@gif` and `@animate` simplify this code immensely.  See the <a href="../#simple-is-beautiful">home page</a> for examples of the short version, or
-the <a href="../examples/pyplot/#functions-adding-data-and-animations">pyplot example</a> for the long version.
+Tip: the convenience macros `@gif` and `@animate` simplify this code immensely.  See the <a href="#simple-is-beautiful">home page</a> for examples of the short version, or
+the <a href="examples/pyplot/#functions-adding-data-and-animations">pyplot example</a> for the long version.
 </div>
+```
 
 ---
 
@@ -59,4 +60,4 @@ itr = repeatedly(()->rand(10), 20)
 animate(itr, ylims=(0,1), c=:red, fps=5)
 ```
 
-![](https://cloud.githubusercontent.com/assets/933338/19977039/84f8f242-a1c8-11e6-9531-9e3e12023021.gif)
+![](https://raw.githubusercontent.com/JuliaPlots/PlotReferenceImages.jl/master/PlotDocs/animations/rand_anim.png)

@@ -1,10 +1,10 @@
-# Backends
+# [Backends](@id backends)
 
-Backends are the lifeblood of Plots, and the diversity between features, approaches, and strengths/weaknesses was 
+Backends are the lifeblood of Plots, and the diversity between features, approaches, and strengths/weaknesses was
 one of the primary reasons that I started this package.
 
 For those who haven't had the pleasure of hacking on 15 different plotting APIs:  First, consider yourself lucky.  However,
-you will probably have a hard time choosing the right backend for your task at hand.  This document is meant to be a guide and 
+you will probably have a hard time choosing the right backend for your task at hand.  This document is meant to be a guide and
 introduction to making that choice.
 
 # For the impatient
@@ -31,7 +31,7 @@ Of course nothing in life is that simple.  Likely there are subtle tradeoffs bet
 
 A Julia wrapper around the popular python package PyPlot (Matplotlib).  It uses PyCall.jl to pass data with minimal overhead.
 
-![](examples/img/pyplot/pyplot_example_22.png)
+![](https://raw.githubusercontent.com/JuliaPlots/PlotReferenceImages.jl/master/PlotDocs/pyplot/ref22.png)
 
 Pros:
 
@@ -57,7 +57,7 @@ as the required javascript is bundled with Plots.  It can create inline plots in
 `plotlyjs()` is the preferred option, and taps into the great functionality of Spencer Lyon's PlotlyJS.jl.  Inline IJulia plots can be updated from any cell... something that
 makes this backend stand out.  From the Julia REPL, it taps into Blink.jl and Electron to plot within a standalone GUI window... also very cool. Also, PlotlyJS supports saving the output to more formats than Plotly, such as EPS and PDF, and thus is the recommended version of Plotly for developing publication-quality figures.
 
-![](examples/img/plotlyjs/plotlyjs_example_28.png)
+![](https://raw.githubusercontent.com/JuliaPlots/PlotReferenceImages.jl/master/PlotDocs/plotlyjs/ref28.png)
 
 Pros:
 
@@ -78,7 +78,7 @@ Primary PlotlyJS.jl author: Spencer Lyon (@spencerlyon2)
 
 Super fast with lots of plot types.  Still actively developed and improving daily.
 
-![](examples/img/gr/gr_example_24.png)
+![](https://raw.githubusercontent.com/JuliaPlots/PlotReferenceImages.jl/master/PlotDocs/gr/ref24.png)
 
 Pros:
 
@@ -97,7 +97,7 @@ Primary author: Josef Heinen (@jheinen)
 
 Simple and lightweight.  Plot directly in your terminal.  You won't produce anything publication quality, but for a quick look at your data it is awesome.
 
-![](examples/img/unicodeplots/unicodeplots_example_3.png)
+![](https://raw.githubusercontent.com/JuliaPlots/PlotReferenceImages.jl/master/PlotDocs/unicodeplots/ref3.png)
 
 Pros:
 
@@ -256,4 +256,3 @@ Unfinished, but very similar to PlotlyJS... use that instead.
 ### [Winston](https://github.com/nolta/Winston.jl)
 
 Functionality incomplete... I never finished wrapping it, and I don't think it offers anything beyond other backends.  However, the plots are clean looking and it's relatively fast.
-

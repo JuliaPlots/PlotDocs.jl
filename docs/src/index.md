@@ -3,11 +3,11 @@
 
 **Author: Thomas Breloff (@tbreloff)**
 
-To get started, [see the tutorial](/tutorial).
+To get started, [see the tutorial](@ref tutorial).
 
-Almost everything in Plots is done by specifying plot [attributes](/attributes).
+Almost everything in Plots is done by specifying plot [attributes](@ref attributes).
 
-Tap into the extensive visualization functionality enabled by the [Plots ecosystem](/ecosystem), and easily build your own complex graphics components with [recipes](/recipes).
+Tap into the extensive visualization functionality enabled by the [Plots ecosystem](@ref ecosystem), and easily build your own complex graphics components with [recipes](@ref recipes).
 
 
 ## Intro to Plots in Julia
@@ -22,11 +22,11 @@ My goals with the package are:
 - **Intuitive**.  Start generating plots without reading volumes of documentation. Commands should "just work."
 - **Concise**.  Less code means fewer mistakes and more efficient development and analysis.
 - **Flexible**.  Produce your favorite plots from your favorite package, only quicker and simpler.
-- **Consistent**.  Don't commit to one graphics package. Use the same code and access the strengths of all [backends](/backends).
+- **Consistent**.  Don't commit to one graphics package. Use the same code and access the strengths of all [backends](@ref backends).
 - **Lightweight**.  Very few dependencies, since backends are loaded and initialized dynamically.
 - **Smart**.  It's not quite AGI, but Plots should figure out what you **want** it to do... not just what you **tell** it.
 
-Use the [preprocessing pipeline](/pipeline) in Plots to describe your visualization completely before it calls the backend code.  This preprocessing maintains modularity and allows for efficient separation of front end code, algorithms, and backend graphics.
+Use the [preprocessing pipeline](@ref pipeline) in Plots to describe your visualization completely before it calls the backend code.  This preprocessing maintains modularity and allows for efficient separation of front end code, algorithms, and backend graphics.
 
 Please add wishlist items, bugs, or any other comments/questions to the [issues list](https://github.com/tbreloff/Plots.jl/issues), and [join the conversation on gitter](https://gitter.im/tbreloff/Plots.jl).
 
@@ -63,7 +63,7 @@ plt = plot3d(1, xlim=(-25,25), ylim=(-25,25), zlim=(0,50),
 end every 10
 ```
 
-![](examples/img/lorenz.gif)
+![](https://raw.githubusercontent.com/JuliaPlots/PlotReferenceImages.jl/master/PlotDocs/index/lorenz_attractor.gif)
 
 Make some waves
 
@@ -102,7 +102,7 @@ prog = Progress(n,1)
 end
 ```
 
-![waves](examples/img/waves.gif)
+![waves](https://raw.githubusercontent.com/JuliaPlots/PlotReferenceImages.jl/master/PlotDocs/index/waves.gif)
 
 Iris Dataset
 
@@ -126,6 +126,6 @@ using StatPlots
 png("iris")
 ```
 
-![iris_plt](examples/img/iris.png)
+![iris_plt](https://raw.githubusercontent.com/JuliaPlots/PlotReferenceImages.jl/master/PlotDocs/index/iris.png)
 
 ---
