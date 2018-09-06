@@ -48,8 +48,14 @@ makedocs(
             "InspectDR" => "examples/inspectdr.md",
         ],
     ],
-    )
+)
 
+deploydocs(
+    repo = "github.com/JuliaPlots/PlotDocs.jl.git",
+    target = "build",
+    deps = nothing,
+    make = nothing,
+)
 
 # deploydocs(
 #     deps = Deps.pip("mkdocs==0.17.5",
