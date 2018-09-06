@@ -1,6 +1,6 @@
 # Tutorials
 
-- [Start with the tutorial](/tutorial)
+- [Start with the tutorial](@ref tutorial)
 - [Section from Chris Rackauckas' awesome earlier tutorial](http://ucidatascienceinitiative.github.io/IntroToJulia/Html/PlotsJL)
 - [Machine Learning and Visualization in Julia](http://www.breloff.com/JuliaML-and-Plots/)
 - [Quant Econ tutorial](https://lectures.quantecon.org/jl/julia_plots.html#plotsjl-jl)

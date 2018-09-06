@@ -539,4 +539,4 @@ plot(p1, p2)
 - Supported values for linetype: `:contour`, `:heatmap`, `:path`, `:path3d`, `:pie`, `:scatter`, `:scatter3d`, `:scattergl`, `:shape`, `:straightline`, `:surface`, `:wireframe`
 - Supported values for linestyle: `:auto`, `:dash`, `:dashdot`, `:dot`, `:solid`
 - Supported values for marker: `:auto`, `:circle`, `:cross`, `:diamond`, `:dtriangle`, `:hexagon`, `:hline`, `:none`, `:octagon`, `:pentagon`, `:rect`, `:utriangle`, `:vline`, `:xcross`
-(Automatically generated: 2018-09-06T23:11:13.024)
+(Automatically generated: 2018-09-06T23:41:12.276)
