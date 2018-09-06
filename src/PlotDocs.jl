@@ -2,7 +2,7 @@
 module PlotDocs
 
 
-PRI_url = joinpath(homedir(), ".julia", "dev", "PlotReferenceImages")
+PRI_url = "https://raw.githubusercontent.com/JuliaPlots/PlotReferenceImages.jl/master/"
 
 
 using Plots, Dates
@@ -24,6 +24,7 @@ const IMGDIR = joinpath(DOCDIR, "img")
 
 # ----------------------------------------------------------------------
 
+# TODO: Make this work now on julia 1.0:
 isnotlinenumber(e::Expr) = !(e.head == :line)
 isnotlinenumber(e) = true
 function filter_out_line_numbers!(expr::Expr)

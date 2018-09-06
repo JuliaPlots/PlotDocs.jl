@@ -14,7 +14,7 @@ A simple line plot of the columns.
 plot(Plots.fakedata(50, 5), w=3)
 ```
 
-![](/home/dani/.julia/dev/PlotReferenceImages/PlotDocs/pyplot/ref1.png)
+![](https://raw.githubusercontent.com/JuliaPlots/PlotReferenceImages.jl/master/PlotDocs/pyplot/ref1.png)
 
 ### Functions, adding data, and animations
 
@@ -44,7 +44,7 @@ for x = range(0, stop=10π, length=100)
 end
 ```
 
-![](/home/dani/.julia/dev/PlotReferenceImages/PlotDocs/pyplot/ref2.gif)
+![](https://raw.githubusercontent.com/JuliaPlots/PlotReferenceImages.jl/master/PlotDocs/pyplot/ref2.gif)
 
 ### Parametric plots
 
@@ -58,7 +58,7 @@ plot(sin, (x->begin
         end), 0, 2π, line=4, leg=false, fill=(0, :orange))
 ```
 
-![](/home/dani/.julia/dev/PlotReferenceImages/PlotDocs/pyplot/ref3.png)
+![](https://raw.githubusercontent.com/JuliaPlots/PlotReferenceImages.jl/master/PlotDocs/pyplot/ref3.png)
 
 ### Colors
 
@@ -76,7 +76,7 @@ plot(0:10:100, rand(11, 4), lab="lines", w=3, palette=:grays, fill=0, α=0.6)
 scatter!(y, zcolor=abs.(y .- 0.5), m=(:heat, 0.8, Plots.stroke(1, :green)), ms=10 * abs.(y .- 0.5) .+ 4, lab="grad")
 ```
 
-![](/home/dani/.julia/dev/PlotReferenceImages/PlotDocs/pyplot/ref4.png)
+![](https://raw.githubusercontent.com/JuliaPlots/PlotReferenceImages.jl/master/PlotDocs/pyplot/ref4.png)
 
 ### Global
 
@@ -104,7 +104,7 @@ title!("TITLE")
 yaxis!("YLABEL", :log10)
 ```
 
-![](/home/dani/.julia/dev/PlotReferenceImages/PlotDocs/pyplot/ref5.png)
+![](https://raw.githubusercontent.com/JuliaPlots/PlotReferenceImages.jl/master/PlotDocs/pyplot/ref5.png)
 
 ### Images
 
@@ -119,7 +119,7 @@ img = FileIO.load(joinpath(dirname(pathof(PlotReferenceImages)), "..", "Plots", 
 plot(img)
 ```
 
-![](/home/dani/.julia/dev/PlotReferenceImages/PlotDocs/pyplot/ref6.png)
+![](https://raw.githubusercontent.com/JuliaPlots/PlotReferenceImages.jl/master/PlotDocs/pyplot/ref6.png)
 
 ### Arguments
 
@@ -138,7 +138,7 @@ ys = Vector[rand(10), rand(20)]
 plot(ys, color=[:black :orange], line=(:dot, 4), marker=([:hex :d], 12, 0.8, Plots.stroke(3, :gray)))
 ```
 
-![](/home/dani/.julia/dev/PlotReferenceImages/PlotDocs/pyplot/ref7.png)
+![](https://raw.githubusercontent.com/JuliaPlots/PlotReferenceImages.jl/master/PlotDocs/pyplot/ref7.png)
 
 ### Build plot in pieces
 
@@ -149,7 +149,7 @@ Start with a base plot...
 plot(rand(100) / 3, reg=true, fill=(0, :green))
 ```
 
-![](/home/dani/.julia/dev/PlotReferenceImages/PlotDocs/pyplot/ref8.png)
+![](https://raw.githubusercontent.com/JuliaPlots/PlotReferenceImages.jl/master/PlotDocs/pyplot/ref8.png)
 
 ### 
 
@@ -160,7 +160,7 @@ and add to it later.
 scatter!(rand(100), markersize=6, c=:orange)
 ```
 
-![](/home/dani/.julia/dev/PlotReferenceImages/PlotDocs/pyplot/ref9.png)
+![](https://raw.githubusercontent.com/JuliaPlots/PlotReferenceImages.jl/master/PlotDocs/pyplot/ref9.png)
 
 ### Histogram2D
 
@@ -171,7 +171,7 @@ scatter!(rand(100), markersize=6, c=:orange)
 histogram2d(randn(10000), randn(10000), nbins=20)
 ```
 
-![](/home/dani/.julia/dev/PlotReferenceImages/PlotDocs/pyplot/ref10.png)
+![](https://raw.githubusercontent.com/JuliaPlots/PlotReferenceImages.jl/master/PlotDocs/pyplot/ref10.png)
 
 ### Line types
 
@@ -190,7 +190,7 @@ y = rand(20, n)
 plot(x, y, line=(linetypes, 3), lab=map(string, linetypes), ms=15)
 ```
 
-![](/home/dani/.julia/dev/PlotReferenceImages/PlotDocs/pyplot/ref11.png)
+![](https://raw.githubusercontent.com/JuliaPlots/PlotReferenceImages.jl/master/PlotDocs/pyplot/ref11.png)
 
 ### Line styles
 
@@ -212,7 +212,7 @@ y = cumsum(randn(20, n), dims=1)
 plot(y, line=(5, styles), label=map(string, styles), legendtitle="linestyle")
 ```
 
-![](/home/dani/.julia/dev/PlotReferenceImages/PlotDocs/pyplot/ref12.png)
+![](https://raw.githubusercontent.com/JuliaPlots/PlotReferenceImages.jl/master/PlotDocs/pyplot/ref12.png)
 
 ### Marker types
 
@@ -236,7 +236,7 @@ y = repeat(reshape(reverse(x), 1, :), n, 1)
 scatter(x, y, m=(8, :auto), lab=map(string, markers), bg=:linen, xlim=(0, 10), ylim=(0, 10))
 ```
 
-![](/home/dani/.julia/dev/PlotReferenceImages/PlotDocs/pyplot/ref13.png)
+![](https://raw.githubusercontent.com/JuliaPlots/PlotReferenceImages.jl/master/PlotDocs/pyplot/ref13.png)
 
 ### Bar
 
@@ -247,7 +247,7 @@ x is the midpoint of the bar. (todo: allow passing of edges instead of midpoints
 bar(randn(99))
 ```
 
-![](/home/dani/.julia/dev/PlotReferenceImages/PlotDocs/pyplot/ref14.png)
+![](https://raw.githubusercontent.com/JuliaPlots/PlotReferenceImages.jl/master/PlotDocs/pyplot/ref14.png)
 
 ### Histogram
 
@@ -258,7 +258,7 @@ bar(randn(99))
 histogram(randn(1000), bins=:scott, weights=repeat(1:5, outer=200))
 ```
 
-![](/home/dani/.julia/dev/PlotReferenceImages/PlotDocs/pyplot/ref15.png)
+![](https://raw.githubusercontent.com/JuliaPlots/PlotReferenceImages.jl/master/PlotDocs/pyplot/ref15.png)
 
 ### Subplots
 
@@ -273,7 +273,7 @@ l = #= /home/dani/.julia/dev/Plots/src/examples.jl:186 =# @layout([a{0.1h}; b [c
 plot(randn(100, 5), layout=l, t=[:line :histogram :scatter :steppre :bar], leg=false, ticks=nothing, border=:none)
 ```
 
-![](/home/dani/.julia/dev/PlotReferenceImages/PlotDocs/pyplot/ref16.png)
+![](https://raw.githubusercontent.com/JuliaPlots/PlotReferenceImages.jl/master/PlotDocs/pyplot/ref16.png)
 
 ### Adding to subplots
 
@@ -286,7 +286,7 @@ to the plots.
 plot(Plots.fakedata(100, 10), layout=4, palette=[:grays :blues :heat :lightrainbow], bg_inside=[:orange :pink :darkblue :black])
 ```
 
-![](/home/dani/.julia/dev/PlotReferenceImages/PlotDocs/pyplot/ref17.png)
+![](https://raw.githubusercontent.com/JuliaPlots/PlotReferenceImages.jl/master/PlotDocs/pyplot/ref17.png)
 
 ### 
 
@@ -301,7 +301,7 @@ Random.seed!(111)
 plot!(Plots.fakedata(100, 10))
 ```
 
-![](/home/dani/.julia/dev/PlotReferenceImages/PlotDocs/pyplot/ref18.png)
+![](https://raw.githubusercontent.com/JuliaPlots/PlotReferenceImages.jl/master/PlotDocs/pyplot/ref18.png)
 
 ### Open/High/Low/Close
 
@@ -327,7 +327,7 @@ y = OHLC[(openpct[i] * hgt[i] + bot[i], bot[i] + hgt[i], bot[i], closepct[i] * h
 ohlc(y)
 ```
 
-![](/home/dani/.julia/dev/PlotReferenceImages/PlotDocs/pyplot/ref19.png)
+![](https://raw.githubusercontent.com/JuliaPlots/PlotReferenceImages.jl/master/PlotDocs/pyplot/ref19.png)
 
 ### Annotations
 
@@ -349,7 +349,7 @@ annotate!([(5, y[5], text("this is #5", 16, :red, :center)), (10, y[10], text("t
 scatter!(range(2, stop=8, length=6), rand(6), marker=(50, 0.2, :orange), series_annotations=["series", "annotations", "map", "to", "series", text("data", :green)])
 ```
 
-![](/home/dani/.julia/dev/PlotReferenceImages/PlotDocs/pyplot/ref20.png)
+![](https://raw.githubusercontent.com/JuliaPlots/PlotReferenceImages.jl/master/PlotDocs/pyplot/ref20.png)
 
 ### Custom Markers
 
@@ -369,7 +369,7 @@ y = 0.7 * rand(5) .+ 0.15
 plot(x, y, line=(3, :dash, :lightblue), marker=(Shape(verts), 30, RGBA(0, 0, 0, 0.2)), bg=:pink, fg=:darkblue, xlim=(0, 1), ylim=(0, 1), leg=false)
 ```
 
-![](/home/dani/.julia/dev/PlotReferenceImages/PlotDocs/pyplot/ref21.png)
+![](https://raw.githubusercontent.com/JuliaPlots/PlotReferenceImages.jl/master/PlotDocs/pyplot/ref21.png)
 
 ### Contours
 
@@ -401,7 +401,7 @@ p2 = contour(x, y, Z)
 plot(p1, p2)
 ```
 
-![](/home/dani/.julia/dev/PlotReferenceImages/PlotDocs/pyplot/ref22.png)
+![](https://raw.githubusercontent.com/JuliaPlots/PlotReferenceImages.jl/master/PlotDocs/pyplot/ref22.png)
 
 ### Pie
 
@@ -416,7 +416,7 @@ y = [0.4, 0.35, 0.25]
 pie(x, y, title="The Julia Community", l=0.5)
 ```
 
-![](/home/dani/.julia/dev/PlotReferenceImages/PlotDocs/pyplot/ref23.png)
+![](https://raw.githubusercontent.com/JuliaPlots/PlotReferenceImages.jl/master/PlotDocs/pyplot/ref23.png)
 
 ### 3D
 
@@ -439,7 +439,7 @@ plot(x, y, z, zcolor=reverse(z), m=(10, 0.8, :blues, Plots.stroke(0)), leg=false
 plot!(zeros(n), zeros(n), 1:n, w=10)
 ```
 
-![](/home/dani/.julia/dev/PlotReferenceImages/PlotDocs/pyplot/ref24.png)
+![](https://raw.githubusercontent.com/JuliaPlots/PlotReferenceImages.jl/master/PlotDocs/pyplot/ref24.png)
 
 ### Groups and Subplots
 
@@ -455,7 +455,7 @@ group = rand(map((i->begin
 plot(rand(100), layout=#= /home/dani/.julia/dev/Plots/src/examples.jl:320 =# @layout([a b; c]), group=group, linetype=[:bar :scatter :steppre], linecolor=:match)
 ```
 
-![](/home/dani/.julia/dev/PlotReferenceImages/PlotDocs/pyplot/ref26.png)
+![](https://raw.githubusercontent.com/JuliaPlots/PlotReferenceImages.jl/master/PlotDocs/pyplot/ref26.png)
 
 ### Polar Plots
 
@@ -470,7 +470,7 @@ r = abs.(0.1 * randn(100) + sin.(3Θ))
 plot(Θ, r, proj=:polar, m=2)
 ```
 
-![](/home/dani/.julia/dev/PlotReferenceImages/PlotDocs/pyplot/ref27.png)
+![](https://raw.githubusercontent.com/JuliaPlots/PlotReferenceImages.jl/master/PlotDocs/pyplot/ref27.png)
 
 ### Heatmap, categorical axes, and aspect_ratio
 
@@ -487,7 +487,7 @@ z = float((1:4) * reshape(1:10, 1, :))
 heatmap(xs, ys, z, aspect_ratio=1)
 ```
 
-![](/home/dani/.julia/dev/PlotReferenceImages/PlotDocs/pyplot/ref28.png)
+![](https://raw.githubusercontent.com/JuliaPlots/PlotReferenceImages.jl/master/PlotDocs/pyplot/ref28.png)
 
 ### Layouts, margins, label rotation, title location
 
@@ -500,7 +500,7 @@ using Plots.PlotMeasures
 plot(rand(100, 6), layout=#= /home/dani/.julia/dev/Plots/src/examples.jl:348 =# @layout([a b; c]), title=["A" "B" "C"], title_location=:left, left_margin=[20mm 0mm], bottom_margin=10px, xrotation=60)
 ```
 
-![](/home/dani/.julia/dev/PlotReferenceImages/PlotDocs/pyplot/ref29.png)
+![](https://raw.githubusercontent.com/JuliaPlots/PlotReferenceImages.jl/master/PlotDocs/pyplot/ref29.png)
 
 ### Animation with subplots
 
@@ -522,7 +522,7 @@ for x = range(1, stop=10π, length=100)
 end
 ```
 
-![](/home/dani/.julia/dev/PlotReferenceImages/PlotDocs/pyplot/ref31.png)
+![](https://raw.githubusercontent.com/JuliaPlots/PlotReferenceImages.jl/master/PlotDocs/pyplot/ref31.png)
 
 ### Spy
 
@@ -542,7 +542,7 @@ b = spdiagm(0 => 1:50, 1 => 1:49, -1 => 1:49, 10 => 1:40, -10 => 1:40)
 plot(spy(a), spy(b), title=["Unique nonzeros" "Different nonzeros"])
 ```
 
-![](/home/dani/.julia/dev/PlotReferenceImages/PlotDocs/pyplot/ref32.png)
+![](https://raw.githubusercontent.com/JuliaPlots/PlotReferenceImages.jl/master/PlotDocs/pyplot/ref32.png)
 
 ### Magic grid argument
 
@@ -564,7 +564,7 @@ xgrid!(p3, :on, :cadetblue, 2, :dashdot, 0.4)
 plot(p1, p2, p3, layout=(1, 3), label="", fillrange=0, fillalpha=0.3)
 ```
 
-![](/home/dani/.julia/dev/PlotReferenceImages/PlotDocs/pyplot/ref33.png)
+![](https://raw.githubusercontent.com/JuliaPlots/PlotReferenceImages.jl/master/PlotDocs/pyplot/ref33.png)
 
 ### Framestyle
 
@@ -577,7 +577,7 @@ attribute. The default framestyle is `:axes`.
 scatter(fill(randn(10), 6), fill(randn(10), 6), framestyle=[:box :semi :origin :zerolines :grid :none], title=[":box" ":semi" ":origin" ":zerolines" ":grid" ":none"], color=permutedims(1:6), layout=6, label="", markerstrokewidth=0, ticks=-2:2)
 ```
 
-![](/home/dani/.julia/dev/PlotReferenceImages/PlotDocs/pyplot/ref34.png)
+![](https://raw.githubusercontent.com/JuliaPlots/PlotReferenceImages.jl/master/PlotDocs/pyplot/ref34.png)
 
 ### Lines and markers with varying colors
 
@@ -605,10 +605,10 @@ p2 = scatter(x, y, marker_z=((x, y)->begin
 plot(p1, p2)
 ```
 
-![](/home/dani/.julia/dev/PlotReferenceImages/PlotDocs/pyplot/ref35.png)
+![](https://raw.githubusercontent.com/JuliaPlots/PlotReferenceImages.jl/master/PlotDocs/pyplot/ref35.png)
 
 - Supported arguments: `annotations`, `arrow`, `aspect_ratio`, `background_color`, `background_color_inside`, `background_color_legend`, `background_color_outside`, `background_color_subplot`, `bar_edges`, `bar_position`, `bar_width`, `bins`, `bottom_margin`, `camera`, `clims`, `color_palette`, `colorbar`, `colorbar_title`, `contour_labels`, `contours`, `discrete_values`, `dpi`, `fill_z`, `fillalpha`, `fillcolor`, `fillrange`, `flip`, `foreground_color`, `foreground_color_axis`, `foreground_color_border`, `foreground_color_grid`, `foreground_color_guide`, `foreground_color_legend`, `foreground_color_subplot`, `foreground_color_text`, `foreground_color_title`, `framestyle`, `grid`, `gridalpha`, `gridlinewidth`, `gridstyle`, `group`, `guide`, `guidefontcolor`, `guidefontfamily`, `guidefontsize`, `html_output_format`, `inset_subplots`, `label`, `layout`, `left_margin`, `legend`, `legendfontcolor`, `legendfontfamily`, `legendfontsize`, `legendtitle`, `levels`, `lims`, `line_z`, `linealpha`, `linecolor`, `linestyle`, `linewidth`, `link`, `margin`, `marker_z`, `markeralpha`, `markercolor`, `markershape`, `markersize`, `markerstrokealpha`, `markerstrokecolor`, `markerstrokewidth`, `match_dimensions`, `normalize`, `orientation`, `overwrite_figure`, `polar`, `primary`, `projection`, `quiver`, `ribbon`, `right_margin`, `rotation`, `scale`, `series_annotations`, `seriesalpha`, `seriescolor`, `seriestype`, `show`, `size`, `smooth`, `stride`, `subplot`, `subplot_index`, `tick_direction`, `tickfontcolor`, `tickfontfamily`, `tickfontsize`, `ticks`, `title`, `title_location`, `titlefont`, `titlefontcolor`, `titlefontfamily`, `titlefontsize`, `top_margin`, `weights`, `window_title`, `x`, `xdiscrete_values`, `xerror`, `xflip`, `xforeground_color_axis`, `xforeground_color_border`, `xforeground_color_grid`, `xforeground_color_guide`, `xforeground_color_text`, `xgrid`, `xgridalpha`, `xgridlinewidth`, `xgridstyle`, `xguide`, `xguidefontcolor`, `xguidefontfamily`, `xguidefontsize`, `xlims`, `xlink`, `xrotation`, `xscale`, `xtick_direction`, `xtickfontcolor`, `xtickfontfamily`, `xtickfontsize`, `xticks`, `y`, `ydiscrete_values`, `yerror`, `yflip`, `yforeground_color_axis`, `yforeground_color_border`, `yforeground_color_grid`, `yforeground_color_guide`, `yforeground_color_text`, `ygrid`, `ygridalpha`, `ygridlinewidth`, `ygridstyle`, `yguide`, `yguidefontcolor`, `yguidefontfamily`, `yguidefontsize`, `ylims`, `ylink`, `yrotation`, `yscale`, `ytick_direction`, `ytickfontcolor`, `ytickfontfamily`, `ytickfontsize`, `yticks`, `z`, `zdiscrete_values`, `zflip`, `zforeground_color_axis`, `zforeground_color_border`, `zforeground_color_grid`, `zforeground_color_guide`, `zforeground_color_text`, `zgrid`, `zgridalpha`, `zgridlinewidth`, `zgridstyle`, `zguide`, `zguidefontcolor`, `zguidefontfamily`, `zguidefontsize`, `zlims`, `zlink`, `zrotation`, `zscale`, `ztick_direction`, `ztickfontcolor`, `ztickfontfamily`, `ztickfontsize`, `zticks`
 - Supported values for linetype: `:contour`, `:contour3d`, `:heatmap`, `:hexbin`, `:image`, `:path`, `:path3d`, `:pie`, `:scatter`, `:scatter3d`, `:shape`, `:steppost`, `:steppre`, `:straightline`, `:surface`, `:wireframe`
 - Supported values for linestyle: `:auto`, `:dash`, `:dashdot`, `:dot`, `:solid`
 - Supported values for marker: `:+`, `:auto`, `:circle`, `:cross`, `:diamond`, `:dtriangle`, `:heptagon`, `:hexagon`, `:hline`, `:ltriangle`, `:none`, `:octagon`, `:pentagon`, `:pixel`, `:rect`, `:rtriangle`, `:star4`, `:star5`, `:star6`, `:star7`, `:star8`, `:utriangle`, `:vline`, `:x`, `:xcross`
-(Automatically generated: 2018-09-03T22:18:56.217)
+(Automatically generated: 2018-09-06T23:11:01.903)

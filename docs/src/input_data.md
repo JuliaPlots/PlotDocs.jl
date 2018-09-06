@@ -79,7 +79,7 @@ plot(some_rects[:,1], some_rects[:,2],label="some group")
 plot!(other_rects[:,1], other_rects[:,2],label="other group")
 ```
 This examples produces the following:
-![grouped_rectangles](https://raw.githubusercontent.com/JuliaPlots/PlotReferenceImages.jl/master/PlotDocs/input/groups.png)
+![grouped_rectangles](https://raw.githubusercontent.com/JuliaPlots/PlotReferenceImages.jl/master/PlotDocs/input/unconnected.png)
 
 ## DataFrames support
 
