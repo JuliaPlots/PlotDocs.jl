@@ -1,12 +1,10 @@
 using Documenter, Plots, PlotDocs
 
-if isinteractive()
-    for be in (:gr, :pyplot, :plotlyjs)
-        generate_markdown(be)
-    end
-    save_attr_html_files()
-    create_support_tables()
+for be in (:gr, :pyplot, :plotlyjs)
+    generate_markdown(be)
 end
+save_attr_html_files()
+create_support_tables()
 
 # makedocs(modules=[Plots], doctest=false)
 
