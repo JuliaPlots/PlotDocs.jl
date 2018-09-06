@@ -165,7 +165,7 @@ plot(
 )
 ```
 
-![](/examples/img/recipes1.png)
+![](examples/img/recipes1.png)
 
 ---
 
@@ -307,7 +307,7 @@ y = -0.5x + randn(n)
 marginalhist(x, y, fc=:plasma, bins=40)
 ```
 
-![](/examples/img/marginalhist.png)
+![](examples/img/marginalhist.png)
 
 ---
 
