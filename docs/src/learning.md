@@ -29,4 +29,4 @@ http://www.breloff.com/plots-video/
 
 # Plots in the wild
 
-TODO (See the [ecosystem](https://juliaplots.github.io/ecosystem/))
+TODO (See the [ecosystem](http://docs.juliaplots.org/latest/ecosystem/))
