@@ -50,18 +50,18 @@ Foreground and background colors work similarly:
 
 This color... | matches this color...
 --- | ---
-background_color_outside | background_color
-background_color_subplot | background_color
-background_color_legend  | background_color_subplot
-background_color_inside  | background_color_subplot
-foreground_color_subplot | foreground_color
-foreground_color_legend  | foreground_color_subplot
-foreground_color_grid    | foreground_color_subplot
-foreground_color_title   | foreground_color_subplot
-foreground_color_axis    | foreground_color_subplot
-foreground_color_border  | foreground_color_subplot
-foreground_color_guide   | foreground_color_subplot
-foreground_color_text    | foreground_color_subplot
+background\_color\_outside | background\_color
+background\_color\_subplot | background\_color
+background\_color\_legend  | background\_color\_subplot
+background\_color\_inside  | background\_color\_subplot
+foreground\_color\_subplot | foreground\_color
+foreground\_color\_legend  | foreground\_color\_subplot
+foreground\_color\_grid    | foreground\_color\_subplot
+foreground\_color\_title   | foreground\_color\_subplot
+foreground\_color\_axis    | foreground\_color\_subplot
+foreground\_color\_border  | foreground\_color\_subplot
+foreground\_color\_guide   | foreground\_color\_subplot
+foreground\_color\_text    | foreground\_color\_subplot
 
 
 ---
