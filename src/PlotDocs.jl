@@ -25,7 +25,7 @@ const IMGDIR = joinpath(DOCDIR, "img")
 # ----------------------------------------------------------------------
 
 # TODO: Make this work now on julia 1.0:
-isnotlinenumber(e::Expr) = !(e.head == :line)
+isnotlinenumber(e::LineNumberNode) = false
 isnotlinenumber(e) = true
 function filter_out_line_numbers!(expr::Expr)
     expr.args = filter(isnotlinenumber, expr.args)

@@ -1,7 +1,6 @@
 using Documenter, Plots, PlotDocs
 
-
-for be in (:gr, :pyplot, :plotlyjs)
+for be in (:gr, :pyplot, :plotlyjs, :pgfplots)
     generate_markdown(be)
 end
 save_attr_html_files()
@@ -39,15 +38,15 @@ makedocs(modules=[Plots], doctest=false)
 #             "Internals" => "pipeline.md",
 #         ],
 #         "Examples" => [
-#             "PyPlot" => "examples/pyplot.md",
 #             "GR" => "examples/gr.md",
+#             "PyPlot" => "examples/pyplot.md",
 #             "PlotlyJS" => "examples/plotlyjs.md",
 #             "PGFPlots" => "examples/pgfplots.md",
 #             "UnicodePlots" => "examples/unicodeplots.md",
 #             "InspectDR" => "examples/inspectdr.md",
 #         ],
 #     ],
-# )
+#     )
 
 # deploydocs(
 #     repo = "github.com/JuliaPlots/PlotDocs.jl.git",

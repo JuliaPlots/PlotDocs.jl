@@ -10,7 +10,6 @@ plotlyjs()
 A simple line plot of the columns.
 
 ```julia
-#= /home/dani/.julia/dev/Plots/src/examples.jl:16 =#
 plot(Plots.fakedata(50, 5), w=3)
 ```
 
@@ -21,9 +20,7 @@ plot(Plots.fakedata(50, 5), w=3)
 Plot function pair (x(u), y(u)).
 
 ```julia
-#= /home/dani/.julia/dev/Plots/src/examples.jl:42 =#
 plot(sin, (x->begin
-            #= /home/dani/.julia/dev/Plots/src/examples.jl:42 =#
             sin(2x)
         end), 0, 2π, line=4, leg=false, fill=(0, :orange))
 ```
@@ -38,11 +35,8 @@ the `z` argument to turn on series gradients.
 
 
 ```julia
-#= /home/dani/.julia/dev/Plots/src/examples.jl:53 =#
 y = rand(100)
-#= /home/dani/.julia/dev/Plots/src/examples.jl:54 =#
 plot(0:10:100, rand(11, 4), lab="lines", w=3, palette=:grays, fill=0, α=0.6)
-#= /home/dani/.julia/dev/Plots/src/examples.jl:55 =#
 scatter!(y, zcolor=abs.(y .- 0.5), m=(:heat, 0.8, Plots.stroke(1, :green)), ms=10 * abs.(y .- 0.5) .+ 4, lab="grad")
 ```
 
@@ -58,19 +52,12 @@ the preprocessing step. You can also use shorthand functions: `title!`, `xaxis!`
 
 
 ```julia
-#= /home/dani/.julia/dev/Plots/src/examples.jl:69 =#
 using Statistics
-#= /home/dani/.julia/dev/Plots/src/examples.jl:70 =#
 y = rand(20, 3)
-#= /home/dani/.julia/dev/Plots/src/examples.jl:71 =#
 plot(y, xaxis=("XLABEL", (-5, 30), 0:2:20, :flip), background_color=RGB(0.2, 0.2, 0.2), leg=false)
-#= /home/dani/.julia/dev/Plots/src/examples.jl:73 =#
 hline!(mean(y, dims=1) + rand(1, 3), line=(4, :dash, 0.6, [:lightgreen :green :darkgreen]))
-#= /home/dani/.julia/dev/Plots/src/examples.jl:74 =#
 vline!([5, 10])
-#= /home/dani/.julia/dev/Plots/src/examples.jl:75 =#
 title!("TITLE")
-#= /home/dani/.julia/dev/Plots/src/examples.jl:76 =#
 yaxis!("YLABEL", :log10)
 ```
 
@@ -81,11 +68,8 @@ yaxis!("YLABEL", :log10)
 Plot an image.  y-axis is set to flipped
 
 ```julia
-#= /home/dani/.julia/dev/Plots/src/examples.jl:89 =#
 import FileIO, PlotReferenceImages
-#= /home/dani/.julia/dev/Plots/src/examples.jl:90 =#
 img = FileIO.load(joinpath(dirname(pathof(PlotReferenceImages)), "..", "Plots", "pyplot", "0.7.0", "ref1.png"))
-#= /home/dani/.julia/dev/Plots/src/examples.jl:91 =#
 plot(img)
 ```
 
@@ -102,9 +86,7 @@ series.
 
 
 ```julia
-#= /home/dani/.julia/dev/Plots/src/examples.jl:105 =#
 ys = Vector[rand(10), rand(20)]
-#= /home/dani/.julia/dev/Plots/src/examples.jl:106 =#
 plot(ys, color=[:black :orange], line=(:dot, 4), marker=([:hex :d], 12, 0.8, Plots.stroke(3, :gray)))
 ```
 
@@ -115,7 +97,6 @@ plot(ys, color=[:black :orange], line=(:dot, 4), marker=([:hex :d], 12, 0.8, Plo
 Start with a base plot...
 
 ```julia
-#= /home/dani/.julia/dev/Plots/src/examples.jl:113 =#
 plot(rand(100) / 3, reg=true, fill=(0, :green))
 ```
 
@@ -126,7 +107,6 @@ plot(rand(100) / 3, reg=true, fill=(0, :green))
 and add to it later.
 
 ```julia
-#= /home/dani/.julia/dev/Plots/src/examples.jl:120 =#
 scatter!(rand(100), markersize=6, c=:orange)
 ```
 
@@ -137,7 +117,6 @@ scatter!(rand(100), markersize=6, c=:orange)
 
 
 ```julia
-#= /home/dani/.julia/dev/Plots/src/examples.jl:127 =#
 histogram2d(randn(10000), randn(10000), nbins=20)
 ```
 
@@ -148,15 +127,10 @@ histogram2d(randn(10000), randn(10000), nbins=20)
 
 
 ```julia
-#= /home/dani/.julia/dev/Plots/src/examples.jl:134 =#
 linetypes = [:path :steppre :steppost :sticks :scatter]
-#= /home/dani/.julia/dev/Plots/src/examples.jl:135 =#
 n = length(linetypes)
-#= /home/dani/.julia/dev/Plots/src/examples.jl:136 =#
 x = Vector[sort(rand(20)) for i = 1:n]
-#= /home/dani/.julia/dev/Plots/src/examples.jl:137 =#
 y = rand(20, n)
-#= /home/dani/.julia/dev/Plots/src/examples.jl:138 =#
 plot(x, y, line=(linetypes, 3), lab=map(string, linetypes), ms=15)
 ```
 
@@ -167,18 +141,12 @@ plot(x, y, line=(linetypes, 3), lab=map(string, linetypes), ms=15)
 
 
 ```julia
-#= /home/dani/.julia/dev/Plots/src/examples.jl:145 =#
 styles = filter((s->begin
-                #= /home/dani/.julia/dev/Plots/src/examples.jl:145 =#
                 s in Plots.supported_styles()
             end), [:solid, :dash, :dot, :dashdot, :dashdotdot])
-#= /home/dani/.julia/dev/Plots/src/examples.jl:147 =#
 styles = reshape(styles, 1, length(styles))
-#= /home/dani/.julia/dev/Plots/src/examples.jl:148 =#
 n = length(styles)
-#= /home/dani/.julia/dev/Plots/src/examples.jl:149 =#
 y = cumsum(randn(20, n), dims=1)
-#= /home/dani/.julia/dev/Plots/src/examples.jl:150 =#
 plot(y, line=(5, styles), label=map(string, styles), legendtitle="linestyle")
 ```
 
@@ -189,20 +157,13 @@ plot(y, line=(5, styles), label=map(string, styles), legendtitle="linestyle")
 
 
 ```julia
-#= /home/dani/.julia/dev/Plots/src/examples.jl:157 =#
 markers = filter((m->begin
-                #= /home/dani/.julia/dev/Plots/src/examples.jl:157 =#
                 m in Plots.supported_markers()
             end), Plots._shape_keys)
-#= /home/dani/.julia/dev/Plots/src/examples.jl:158 =#
 markers = reshape(markers, 1, length(markers))
-#= /home/dani/.julia/dev/Plots/src/examples.jl:159 =#
 n = length(markers)
-#= /home/dani/.julia/dev/Plots/src/examples.jl:160 =#
 x = (range(0, stop=10, length=n + 2))[2:end - 1]
-#= /home/dani/.julia/dev/Plots/src/examples.jl:161 =#
 y = repeat(reshape(reverse(x), 1, :), n, 1)
-#= /home/dani/.julia/dev/Plots/src/examples.jl:162 =#
 scatter(x, y, m=(8, :auto), lab=map(string, markers), bg=:linen, xlim=(0, 10), ylim=(0, 10))
 ```
 
@@ -213,7 +174,6 @@ scatter(x, y, m=(8, :auto), lab=map(string, markers), bg=:linen, xlim=(0, 10), y
 x is the midpoint of the bar. (todo: allow passing of edges instead of midpoints)
 
 ```julia
-#= /home/dani/.julia/dev/Plots/src/examples.jl:169 =#
 bar(randn(99))
 ```
 
@@ -224,7 +184,6 @@ bar(randn(99))
 
 
 ```julia
-#= /home/dani/.julia/dev/Plots/src/examples.jl:176 =#
 histogram(randn(1000), bins=:scott, weights=repeat(1:5, outer=200))
 ```
 
@@ -237,9 +196,7 @@ arbitrarily complex subplot layouts.
 
 
 ```julia
-#= /home/dani/.julia/dev/Plots/src/examples.jl:186 =#
-l = #= /home/dani/.julia/dev/Plots/src/examples.jl:186 =# @layout([a{0.1h}; b [c; d e]])
-#= /home/dani/.julia/dev/Plots/src/examples.jl:187 =#
+l = @layout()
 plot(randn(100, 5), layout=l, t=[:line :histogram :scatter :steppre :bar], leg=false, ticks=nothing, border=:none)
 ```
 
@@ -252,7 +209,6 @@ to the plots.
 
 
 ```julia
-#= /home/dani/.julia/dev/Plots/src/examples.jl:198 =#
 plot(Plots.fakedata(100, 10), layout=4, palette=[:grays :blues :heat :lightrainbow], bg_inside=[:orange :pink :darkblue :black])
 ```
 
@@ -263,11 +219,8 @@ plot(Plots.fakedata(100, 10), layout=4, palette=[:grays :blues :heat :lightrainb
 
 
 ```julia
-#= /home/dani/.julia/dev/Plots/src/examples.jl:206 =#
 using Random
-#= /home/dani/.julia/dev/Plots/src/examples.jl:207 =#
 Random.seed!(111)
-#= /home/dani/.julia/dev/Plots/src/examples.jl:208 =#
 plot!(Plots.fakedata(100, 10))
 ```
 
@@ -281,19 +234,12 @@ subsequently create a :path series with the appropriate line segments.
 
 
 ```julia
-#= /home/dani/.julia/dev/Plots/src/examples.jl:219 =#
 n = 20
-#= /home/dani/.julia/dev/Plots/src/examples.jl:220 =#
 hgt = rand(n) .+ 1
-#= /home/dani/.julia/dev/Plots/src/examples.jl:221 =#
 bot = randn(n)
-#= /home/dani/.julia/dev/Plots/src/examples.jl:222 =#
 openpct = rand(n)
-#= /home/dani/.julia/dev/Plots/src/examples.jl:223 =#
 closepct = rand(n)
-#= /home/dani/.julia/dev/Plots/src/examples.jl:224 =#
 y = OHLC[(openpct[i] * hgt[i] + bot[i], bot[i] + hgt[i], bot[i], closepct[i] * hgt[i] + bot[i]) for i = 1:n]
-#= /home/dani/.julia/dev/Plots/src/examples.jl:226 =#
 ohlc(y)
 ```
 
@@ -309,13 +255,9 @@ build with the method `text(string, attr...)`, which wraps font and color attrib
 
 
 ```julia
-#= /home/dani/.julia/dev/Plots/src/examples.jl:239 =#
 y = rand(10)
-#= /home/dani/.julia/dev/Plots/src/examples.jl:240 =#
 plot(y, annotations=(3, y[3], text("this is #3", :left)), leg=false)
-#= /home/dani/.julia/dev/Plots/src/examples.jl:241 =#
 annotate!([(5, y[5], text("this is #5", 16, :red, :center)), (10, y[10], text("this is #10", :right, 20, "courier"))])
-#= /home/dani/.julia/dev/Plots/src/examples.jl:243 =#
 scatter!(range(2, stop=8, length=6), rand(6), marker=(50, 0.2, :orange), series_annotations=["series", "annotations", "map", "to", "series", text("data", :green)])
 ```
 
@@ -328,26 +270,16 @@ unfilled contour from a matrix.
 
 
 ```julia
-#= /home/dani/.julia/dev/Plots/src/examples.jl:271 =#
 x = 1:0.5:20
-#= /home/dani/.julia/dev/Plots/src/examples.jl:272 =#
 y = 1:0.5:10
-#= /home/dani/.julia/dev/Plots/src/examples.jl:273 =#
 f(x, y) = begin
-        #= /home/dani/.julia/dev/Plots/src/examples.jl:273 =#
         (3x + y ^ 2) * abs(sin(x) + cos(y))
     end
-#= /home/dani/.julia/dev/Plots/src/examples.jl:274 =#
 X = repeat(reshape(x, 1, :), length(y), 1)
-#= /home/dani/.julia/dev/Plots/src/examples.jl:275 =#
 Y = repeat(y, 1, length(x))
-#= /home/dani/.julia/dev/Plots/src/examples.jl:276 =#
 Z = map(f, X, Y)
-#= /home/dani/.julia/dev/Plots/src/examples.jl:277 =#
 p1 = contour(x, y, f, fill=true)
-#= /home/dani/.julia/dev/Plots/src/examples.jl:278 =#
 p2 = contour(x, y, Z)
-#= /home/dani/.julia/dev/Plots/src/examples.jl:279 =#
 plot(p1, p2)
 ```
 
@@ -358,11 +290,8 @@ plot(p1, p2)
 
 
 ```julia
-#= /home/dani/.julia/dev/Plots/src/examples.jl:286 =#
 x = ["Nerds", "Hackers", "Scientists"]
-#= /home/dani/.julia/dev/Plots/src/examples.jl:287 =#
 y = [0.4, 0.35, 0.25]
-#= /home/dani/.julia/dev/Plots/src/examples.jl:288 =#
 pie(x, y, title="The Julia Community", l=0.5)
 ```
 
@@ -373,19 +302,12 @@ pie(x, y, title="The Julia Community", l=0.5)
 
 
 ```julia
-#= /home/dani/.julia/dev/Plots/src/examples.jl:295 =#
 n = 100
-#= /home/dani/.julia/dev/Plots/src/examples.jl:296 =#
 ts = range(0, stop=8π, length=n)
-#= /home/dani/.julia/dev/Plots/src/examples.jl:297 =#
 x = ts .* map(cos, ts)
-#= /home/dani/.julia/dev/Plots/src/examples.jl:298 =#
 y = (0.1ts) .* map(sin, ts)
-#= /home/dani/.julia/dev/Plots/src/examples.jl:299 =#
 z = 1:n
-#= /home/dani/.julia/dev/Plots/src/examples.jl:300 =#
 plot(x, y, z, zcolor=reverse(z), m=(10, 0.8, :blues, Plots.stroke(0)), leg=false, cbar=true, w=5)
-#= /home/dani/.julia/dev/Plots/src/examples.jl:301 =#
 plot!(zeros(n), zeros(n), 1:n, w=10)
 ```
 
@@ -396,13 +318,10 @@ plot!(zeros(n), zeros(n), 1:n, w=10)
 
 
 ```julia
-#= /home/dani/.julia/dev/Plots/src/examples.jl:319 =#
 group = rand(map((i->begin
-                    #= /home/dani/.julia/dev/Plots/src/examples.jl:319 =#
                     "group $(i)"
                 end), 1:4), 100)
-#= /home/dani/.julia/dev/Plots/src/examples.jl:320 =#
-plot(rand(100), layout=#= /home/dani/.julia/dev/Plots/src/examples.jl:320 =# @layout([a b; c]), group=group, linetype=[:bar :scatter :steppre], linecolor=:match)
+plot(rand(100), layout=@layout(), group=group, linetype=[:bar :scatter :steppre], linecolor=:match)
 ```
 
 ![](https://raw.githubusercontent.com/JuliaPlots/PlotReferenceImages.jl/master/PlotDocs/plotlyjs/ref26.png)
@@ -412,11 +331,8 @@ plot(rand(100), layout=#= /home/dani/.julia/dev/Plots/src/examples.jl:320 =# @la
 
 
 ```julia
-#= /home/dani/.julia/dev/Plots/src/examples.jl:328 =#
 Θ = range(0, stop=1.5π, length=100)
-#= /home/dani/.julia/dev/Plots/src/examples.jl:329 =#
 r = abs.(0.1 * randn(100) + sin.(3Θ))
-#= /home/dani/.julia/dev/Plots/src/examples.jl:330 =#
 plot(Θ, r, proj=:polar, m=2)
 ```
 
@@ -427,13 +343,9 @@ plot(Θ, r, proj=:polar, m=2)
 
 
 ```julia
-#= /home/dani/.julia/dev/Plots/src/examples.jl:337 =#
 xs = [string("x", i) for i = 1:10]
-#= /home/dani/.julia/dev/Plots/src/examples.jl:338 =#
 ys = [string("y", i) for i = 1:4]
-#= /home/dani/.julia/dev/Plots/src/examples.jl:339 =#
 z = float((1:4) * reshape(1:10, 1, :))
-#= /home/dani/.julia/dev/Plots/src/examples.jl:340 =#
 heatmap(xs, ys, z, aspect_ratio=1)
 ```
 
@@ -444,10 +356,8 @@ heatmap(xs, ys, z, aspect_ratio=1)
 
 
 ```julia
-#= /home/dani/.julia/dev/Plots/src/examples.jl:347 =#
 using Plots.PlotMeasures
-#= /home/dani/.julia/dev/Plots/src/examples.jl:348 =#
-plot(rand(100, 6), layout=#= /home/dani/.julia/dev/Plots/src/examples.jl:348 =# @layout([a b; c]), title=["A" "B" "C"], title_location=:left, left_margin=[20mm 0mm], bottom_margin=10px, xrotation=60)
+plot(rand(100, 6), layout=@layout(), title=["A" "B" "C"], title_location=:left, left_margin=[20mm 0mm], bottom_margin=10px, xrotation=60)
 ```
 
 ![](https://raw.githubusercontent.com/JuliaPlots/PlotReferenceImages.jl/master/PlotDocs/plotlyjs/ref29.png)
@@ -460,13 +370,9 @@ various different nonzero values, a colorbar is added. The colorbar can be disab
 
 
 ```julia
-#= /home/dani/.julia/dev/Plots/src/examples.jl:387 =#
 using SparseArrays
-#= /home/dani/.julia/dev/Plots/src/examples.jl:388 =#
 a = spdiagm(0 => ones(50), 1 => ones(49), -1 => ones(49), 10 => ones(40), -10 => ones(40))
-#= /home/dani/.julia/dev/Plots/src/examples.jl:389 =#
 b = spdiagm(0 => 1:50, 1 => 1:49, -1 => 1:49, 10 => 1:40, -10 => 1:40)
-#= /home/dani/.julia/dev/Plots/src/examples.jl:390 =#
 plot(spy(a), spy(b), title=["Unique nonzeros" "Different nonzeros"])
 ```
 
@@ -478,17 +384,11 @@ The grid lines can be modified individually for each axis with the magic `grid` 
 
 
 ```julia
-#= /home/dani/.julia/dev/Plots/src/examples.jl:399 =#
 x = rand(10)
-#= /home/dani/.julia/dev/Plots/src/examples.jl:400 =#
 p1 = plot(x, title="Default looks")
-#= /home/dani/.julia/dev/Plots/src/examples.jl:401 =#
 p2 = plot(x, grid=(:y, :olivedrab, :dot, 1, 0.9), title="Modified y grid")
-#= /home/dani/.julia/dev/Plots/src/examples.jl:402 =#
 p3 = plot(deepcopy(p2), title="Add x grid")
-#= /home/dani/.julia/dev/Plots/src/examples.jl:403 =#
 xgrid!(p3, :on, :cadetblue, 2, :dashdot, 0.4)
-#= /home/dani/.julia/dev/Plots/src/examples.jl:404 =#
 plot(p1, p2, p3, layout=(1, 3), label="", fillrange=0, fillalpha=0.3)
 ```
 
@@ -501,7 +401,6 @@ attribute. The default framestyle is `:axes`.
 
 
 ```julia
-#= /home/dani/.julia/dev/Plots/src/examples.jl:414 =#
 scatter(fill(randn(10), 6), fill(randn(10), 6), framestyle=[:box :semi :origin :zerolines :grid :none], title=[":box" ":semi" ":origin" ":zerolines" ":grid" ":none"], color=permutedims(1:6), layout=6, label="", markerstrokewidth=0, ticks=-2:2)
 ```
 
@@ -514,22 +413,14 @@ each line segment or marker in the plot.
 
 
 ```julia
-#= /home/dani/.julia/dev/Plots/src/examples.jl:428 =#
 t = range(0, stop=1, length=100)
-#= /home/dani/.julia/dev/Plots/src/examples.jl:429 =#
 θ = (6π) .* t
-#= /home/dani/.julia/dev/Plots/src/examples.jl:430 =#
 x = t .* cos.(θ)
-#= /home/dani/.julia/dev/Plots/src/examples.jl:431 =#
 y = t .* sin.(θ)
-#= /home/dani/.julia/dev/Plots/src/examples.jl:432 =#
 p1 = plot(x, y, line_z=t, linewidth=3, legend=false)
-#= /home/dani/.julia/dev/Plots/src/examples.jl:433 =#
 p2 = scatter(x, y, marker_z=((x, y)->begin
-                    #= /home/dani/.julia/dev/Plots/src/examples.jl:433 =#
                     x + y
                 end), color=:bluesreds, legend=false)
-#= /home/dani/.julia/dev/Plots/src/examples.jl:434 =#
 plot(p1, p2)
 ```
 
@@ -539,4 +430,4 @@ plot(p1, p2)
 - Supported values for linetype: `:contour`, `:heatmap`, `:path`, `:path3d`, `:pie`, `:scatter`, `:scatter3d`, `:scattergl`, `:shape`, `:straightline`, `:surface`, `:wireframe`
 - Supported values for linestyle: `:auto`, `:dash`, `:dashdot`, `:dot`, `:solid`
 - Supported values for marker: `:auto`, `:circle`, `:cross`, `:diamond`, `:dtriangle`, `:hexagon`, `:hline`, `:none`, `:octagon`, `:pentagon`, `:rect`, `:utriangle`, `:vline`, `:xcross`
-(Automatically generated: 2018-09-18T23:54:30.689)
+(Automatically generated: 2018-10-14T17:10:27.646)
