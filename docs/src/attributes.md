@@ -1,4 +1,4 @@
-
+```@raw html
 <script language="JavaScript">
 <!--
 function autoResize(id){
@@ -15,6 +15,7 @@ function autoResize(id){
 }
 //-->
 </script>
+```
 
 ---
 
