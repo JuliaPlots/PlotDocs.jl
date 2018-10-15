@@ -1,5 +1,5 @@
 
-# Layouts
+# [Layouts](@id layouts)
 
 As of v0.7.0, Plots has taken control of subplot positioning, allowing complex, nested grids of subplots and components.  Care has been taken to keep the framework flexible and generic, so that backends need only support the ability to precisely define the absolute position of a subplot, and they get the full power of nesting, plot area alignment, and more.  Just set the `layout` keyword in a call to `plot(...)`
 
@@ -22,7 +22,7 @@ Pass an integer to `layout` to allow it to automatically compute a grid size for
 plot(rand(100,4), layout = 4)
 ```
 
-![](examples/img/layouts1.png)
+![](https://raw.githubusercontent.com/JuliaPlots/PlotReferenceImages.jl/master/PlotDocs/layout/layout_1.png)
 
 Pass a tuple to `layout` to create a grid of that size:
 
@@ -31,7 +31,7 @@ Pass a tuple to `layout` to create a grid of that size:
 plot(rand(100,4), layout = (4,1))
 ```
 
-![](examples/img/layouts2.png)
+![](https://raw.githubusercontent.com/JuliaPlots/PlotReferenceImages.jl/master/PlotDocs/layout/layout_2.png)
 
 
 More complex grid layouts can be created with the `grid(...)` constructor:
@@ -40,7 +40,7 @@ More complex grid layouts can be created with the `grid(...)` constructor:
 plot(rand(100,4), layout = grid(4,1,heights=[0.1,0.4,0.4,0.1]))
 ```
 
-![](examples/img/layouts3.png)
+![](https://raw.githubusercontent.com/JuliaPlots/PlotReferenceImages.jl/master/PlotDocs/layout/layout_3.png)
 
 ---
 
@@ -59,7 +59,7 @@ plot(
 )
 ```
 
-![](examples/img/layouts4.png)
+![](https://raw.githubusercontent.com/JuliaPlots/PlotReferenceImages.jl/master/PlotDocs/layout/layout_4.png)
 
 ---
 
@@ -84,4 +84,4 @@ histogram!(randn(1000), inset = (1, bbox(0.05,0.05,0.5,0.25,:bottom,:right)), ti
 sticks!(randn(100), inset = bbox(0,-0.2,200px,100px,:center), ticks=nothing, subplot=4)
 ```
 
-![](https://cloud.githubusercontent.com/assets/933338/18135883/6ba2252c-6f71-11e6-89b3-e32337259795.png)
+![](https://raw.githubusercontent.com/JuliaPlots/PlotReferenceImages.jl/master/PlotDocs/layout/layout_1.png)

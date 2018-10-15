@@ -2,7 +2,10 @@
 module PlotDocs
 
 
-using Plots
+PRI_url = "https://raw.githubusercontent.com/JuliaPlots/PlotReferenceImages.jl/master/"
+
+
+using Plots, Dates
 import Plots: _examples
 
 export
@@ -15,12 +18,14 @@ export
     make_support_df_scales,
     create_support_tables
 
-const DOCDIR = Pkg.dir("PlotDocs", "docs", "examples")
+const BASEDIR = normpath(@__DIR__, "..", "docs", "src")
+const DOCDIR = joinpath(BASEDIR, "examples")
 const IMGDIR = joinpath(DOCDIR, "img")
 
 # ----------------------------------------------------------------------
 
-isnotlinenumber(e::Expr) = !(e.head == :line)
+# TODO: Make this work now on julia 1.0:
+isnotlinenumber(e::LineNumberNode) = false
 isnotlinenumber(e) = true
 function filter_out_line_numbers!(expr::Expr)
     expr.args = filter(isnotlinenumber, expr.args)
@@ -44,17 +49,8 @@ markdown_symbols_to_string(arr) = isempty(arr) ? "" : markdown_code_to_string(ar
 
 # ----------------------------------------------------------------------
 
-function generate_markdown(pkgname::Symbol; skip = [])
-    # set up the backend, and don't show the plots by default
-    pkg = backend(pkgname)
-    default(reuse = true)
-
-    # mkdir if necessary
-    pkgdir = joinpath(IMGDIR, string(pkgname))
-    try
-        mkdir(pkgdir)
-    catch
-    end
+function generate_markdown(pkgname::Symbol; skip = get(Plots._backend_skips, pkgname, Int[]))
+    pkg = Plots._backend_instance(pkgname)
 
     # open the markdown file
     md = open("$DOCDIR/$(pkgname).md", "w")
@@ -64,37 +60,17 @@ function generate_markdown(pkgname::Symbol; skip = [])
     for (i,example) in enumerate(_examples)
         i in skip && continue
 
-        try
-            # we want to always produce consistent results
-            Random.seed!(1234)
-
-            # run the code
-            map(eval, example.exprs)
-
-            # NOTE: uncomment this to overwrite the images as well
-            if i == 2
-                imgname = "$(pkgname)_example_$i.gif"
-                gif(anim, "$pkgdir/$imgname", fps=15)
-            else
-                imgname = "$(pkgname)_example_$i.png"
-                png("$pkgdir/$imgname")
-            end
-
-            # write out the header, description, code block, and image link
-            write(md, "### $(example.header)\n\n")
-            write(md, "$(example.desc)\n\n")
-            # write(md, "```julia\n$(join(map(string, example.exprs), "\n"))\n```\n\n")
-            write(md, "```julia\n")
-            for expr in example.exprs
-                pretty_print_expr(md, expr)
-            end
-            write(md, "```\n\n")
-            write(md, "![](img/$pkgname/$imgname)\n\n")
-
-        catch ex
-            # TODO: put error info into markdown?
-            warn("Example $pkgname:$i failed with: $ex")
+        # write out the header, description, code block, and image link
+        write(md, "### $(example.header)\n\n")
+        write(md, "$(example.desc)\n\n")
+        # write(md, "```julia\n$(join(map(string, example.exprs), "\n"))\n```\n\n")
+        write(md, "```julia\n")
+        for expr in example.exprs
+            pretty_print_expr(md, expr)
         end
+        write(md, "```\n\n")
+        imgpath = joinpath(PRI_url, "PlotDocs", string(pkgname), string("ref", i, i in Plots._animation_examples ? ".gif" : ".png"))
+        write(md, "![]($imgpath)\n\n")
     end
 
     write(md, "- Supported arguments: $(markdown_code_to_string(collect(Plots.supported_attrs(pkg))))\n")
@@ -142,14 +118,13 @@ make_support_df_markers() = make_support_df(Plots._allMarkers, Plots.supported_m
 make_support_df_scales()  = make_support_df(Plots._allScales,  Plots.supported_scales)
 
 function create_support_tables()
-    basedir = Pkg.dir("PlotDocs", "docs")
     funcs = Dict(
         "args" => make_support_df_args, "types" => make_support_df_types,
         "styles" => make_support_df_styles, "markers" => make_support_df_markers,
         "scales" => make_support_df_scales,
     )
     for (s, func) in funcs
-       save_html(func(), joinpath(basedir, "supported_$s.html"), :supported)
+       save_html(func(), joinpath(BASEDIR, "supported_$s.html"), :supported)
     end
 end
 
@@ -174,7 +149,8 @@ function save_html(df::DataFrames.AbstractDataFrame, fn = "/tmp/tmp.html", table
     for row in 1:size(df,1)
         write(f, "<tr>")
         for (i,column_name) in enumerate(cnames)
-            cell = string(df[row, column_name])
+            data = df[row, i]
+            cell = data == nothing ? "" : string(data)
             if table_style == :attr
                 attrstr = if i == 1
                     " class=\"attr\""
@@ -210,33 +186,40 @@ function attr_dataframe_from_defaults(ktype::Symbol, defs::KW)
     )
     for (i,(k,def)) in enumerate(defs)
         desc = get(Plots._arg_desc, k, "")
-        first_period_idx = findfirst(desc, '.')
-        typedesc = desc[1:first_period_idx-1]
-        desc = strip(desc[first_period_idx+1:end])
-        aliases = keys(filter((_,v)->v==k, Plots._keyAliases)) |> collect |> sort
-        aliases = join(map(string,aliases), ", ")
+        first_period_idx = findfirst(isequal('.'), desc)
+
         df[i,1] = k
-        # df[i,2] = ktype
-        df[i,2] = def
-        df[i,3] = aliases
-        df[i,4] = typedesc
-        df[i,5] = desc
+        if first_period_idx == nothing
+            df[i,2] = ""
+            df[i,3] = ""
+            df[i,4] = ""
+            df[i,5] = ""
+        else
+            typedesc = desc[1:first_period_idx-1]
+            desc = strip(desc[first_period_idx+1:end])
+            aliases = keys(filter(p->p.second==k, Plots._keyAliases)) |> collect |> sort
+            aliases = join(map(string,aliases), ", ")
+
+            df[i,2] = def
+            df[i,3] = aliases
+            df[i,4] = typedesc
+            df[i,5] = desc
+        end
     end
-    sort!(df, cols = [:Attribute])
+    sort!(df, [:Attribute])
     df
 end
 
 # for each default dict, save an html file with the attributes table
 function save_attr_html_files()
-    basedir = Pkg.dir("PlotDocs","docs")
     for (ktype, defs) in [(:Series, Plots._series_defaults),
                           (:Subplot, Plots._subplot_defaults),
                           (:Plot, Plots._plot_defaults),
                           (:Axis, Plots._axis_defaults)]
-        fn = joinpath(basedir, "$(lowercase(string(ktype)))_attr.html")
+        fn = joinpath(BASEDIR, "$(lowercase(string(ktype)))_attr.html")
         df = attr_dataframe_from_defaults(ktype, defs)
         save_html(df, fn)
-        info("Wrote html file for $ktype: $fn")
+        @info("Wrote html file for $ktype: $fn")
     end
 end
 

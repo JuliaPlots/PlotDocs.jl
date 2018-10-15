@@ -1,4 +1,4 @@
-# Input Data
+# [Input Data](@id input-data)
 
 Part of the power of Plots lies is in the many combinations of allowed input data.
 You shouldn't spend your time transforming and massaging your data into a specific format.
@@ -16,7 +16,7 @@ value for `:x` will impute a unit range `1:10`.
 The reason lies in the flexibility of Julia's multiple dispatch, where every combination of input types
 can have unique behavior, when desired.
 
-## Columns are series
+## [Columns are series](@id columns-are-series)
 
 In most cases, passing a (`n` × `m`) matrix of values (numbers, etc) will create `m` series, each with `n` data points.  This follows a consistent rule… vectors apply to a series, matrices apply to many series.  This rule carries into keyword arguments.  `scatter(rand(10,4), markershape = [:circle, :rect])` will create 4 series, each assigned the markershape vector [:circle,:rect].  However, `scatter(rand(10,4), markershape = [:circle :rect])` will create 4 series, with series 1 and 3 having markers shaped as `:circle` and series 2 and 4 having markers shaped as `:rect` (i.e. as squares).  The difference is that in the first example, it is a length-2 column vector, and in the second example it is a (1 × 2) row vector (a Matrix).
 
@@ -42,7 +42,7 @@ plot(xs, data, label = labels, shape = markershapes, color = markercolors,
      markersize = 10)
 ```
 This example plots the four series with different labels, marker shapes, and marker colors by combining row and column vectors to decorate the data.  The result is:
-![applesoranges](examples/img/applesoranges.png)
+![applesoranges](https://raw.githubusercontent.com/JuliaPlots/PlotReferenceImages.jl/master/PlotDocs/input/columns_are_series.png)
 
 ## Unconnected Data within same groups
 
@@ -79,7 +79,7 @@ plot(some_rects[:,1], some_rects[:,2],label="some group")
 plot!(other_rects[:,1], other_rects[:,2],label="other group")
 ```
 This examples produces the following:
-![grouped_rectangles](examples/img/grouped_polygons.png)
+![grouped_rectangles](https://raw.githubusercontent.com/JuliaPlots/PlotReferenceImages.jl/master/PlotDocs/input/unconnected.png)
 
 ## DataFrames support
 
@@ -92,7 +92,7 @@ iris = dataset("datasets", "iris")
         m=(0.5, [:+ :h :star7], 12), bg=RGB(.2,.2,.2))
 ```
 
-![iris_plt](https://cloud.githubusercontent.com/assets/933338/19221014/9bb6ad18-8e08-11e6-9030-9037352e3119.png)
+![iris_plt](https://raw.githubusercontent.com/JuliaPlots/PlotReferenceImages.jl/master/PlotDocs/input/dataframes.png)
 
 ## Functions
 
@@ -127,4 +127,4 @@ PDF graphics can also be added to Plots.jl plots using `load("image.pdf")`. Note
 
 Check out [this tutorial](https://github.com/tbreloff/ExamplePlots.jl/blob/master/notebooks/batman.ipynb) to save Gotham:
 
-![batman](examples/img/batman.png)
+![batman](https://raw.githubusercontent.com/JuliaPlots/PlotReferenceImages.jl/master/PlotDocs/input/batman.png)

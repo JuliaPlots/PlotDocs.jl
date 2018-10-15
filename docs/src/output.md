@@ -1,5 +1,5 @@
 
-# Output
+# [Output](@id output)
 
 
 **A Plot is only displayed when returned** (a semicolon will suppress the return), or if explicitly displayed with `display(plt)`, `gui()`, or by adding `show = true` to your plot command.
