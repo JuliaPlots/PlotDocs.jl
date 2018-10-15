@@ -341,4 +341,4 @@ plot(p1, p2)
 - Supported values for linetype: `:contour`, `:histogram2d`, `:path`, `:path3d`, `:scatter`, `:shape`, `:stepmid`, `:steppost`, `:steppre`, `:straightline`, `:xsticks`, `:ysticks`
 - Supported values for linestyle: `:auto`, `:dash`, `:dashdot`, `:dashdotdot`, `:dot`, `:solid`
 - Supported values for marker: `:auto`, `:circle`, `:cross`, `:diamond`, `:dtriangle`, `:hline`, `:none`, `:pentagon`, `:rect`, `:star5`, `:utriangle`, `:xcross`
-(Automatically generated: 2018-10-14T17:10:38.389)
+(Automatically generated: 2018-10-15T16:48:13.424)
