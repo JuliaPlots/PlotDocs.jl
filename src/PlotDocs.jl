@@ -50,9 +50,6 @@ markdown_symbols_to_string(arr) = isempty(arr) ? "" : markdown_code_to_string(ar
 # ----------------------------------------------------------------------
 
 function generate_markdown(pkgname::Symbol; skip = get(Plots._backend_skips, pkgname, Int[]))
-    # set up the backend, and don't show the plots by default
-    pkg = backend(pkgname)
-    default(reuse = true)
 
     # open the markdown file
     md = open("$DOCDIR/$(pkgname).md", "w")
