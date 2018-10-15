@@ -127,7 +127,7 @@ plot(rand(100) / 3, reg=true, fill=(0, :green))
 
 ![](https://raw.githubusercontent.com/JuliaPlots/PlotReferenceImages.jl/master/PlotDocs/pyplot/ref8.png)
 
-###
+### 
 
 and add to it later.
 
@@ -239,7 +239,7 @@ plot(Plots.fakedata(100, 10), layout=4, palette=[:grays :blues :heat :lightrainb
 
 ![](https://raw.githubusercontent.com/JuliaPlots/PlotReferenceImages.jl/master/PlotDocs/pyplot/ref17.png)
 
-###
+### 
 
 
 
@@ -487,4 +487,4 @@ plot(p1, p2)
 - Supported values for linetype: `:contour`, `:contour3d`, `:heatmap`, `:hexbin`, `:image`, `:path`, `:path3d`, `:pie`, `:scatter`, `:scatter3d`, `:shape`, `:steppost`, `:steppre`, `:straightline`, `:surface`, `:wireframe`
 - Supported values for linestyle: `:auto`, `:dash`, `:dashdot`, `:dot`, `:solid`
 - Supported values for marker: `:+`, `:auto`, `:circle`, `:cross`, `:diamond`, `:dtriangle`, `:heptagon`, `:hexagon`, `:hline`, `:ltriangle`, `:none`, `:octagon`, `:pentagon`, `:pixel`, `:rect`, `:rtriangle`, `:star4`, `:star5`, `:star6`, `:star7`, `:star8`, `:utriangle`, `:vline`, `:x`, `:xcross`
-(Automatically generated: 2018-10-14T17:10:15.574)
+(Automatically generated: 2018-10-15T16:48:13.372)
