@@ -1,4 +1,3 @@
-
 <script language="JavaScript">
 <!--
 function autoResize(id){
@@ -18,32 +17,37 @@ function autoResize(id){
 
 ---
 
-# Attributes
+# [Attributes](@id attributes)
 
 In Plots, input data is passed positionally (for example, the `y` in `plot(y)`), and attributes are passed as keywords (for example, `plot(y, color = :blue)`).
+```@raw html
 <div style="background-color: lightblue; padding: 10px; border-style: solid; border-width: medium; margin: 10px;">
 Tip: Most of the information on this page is available from your Julia session with the function `plotattr`, e.g. `plotattr(:Series)` to print a list of all series attributes, or `plotattr("ms")` to print the aliases and descriptions of `markersize`.
 </div>
+```
 
 ---
 
-### Aliases
+### [Aliases](@id aliases)
 
 Keywords can take a range of values through the **alias mechanic**.  For example, `plot(y, color = :blue)` is really interpreted as `plot(y, seriescolor = :blue)`.  Each attribute has a number of aliases (see the charts below), which are available to avoid the pain of constantly looking up plotting API documentation because you forgot the argument name.  `c`, `color`, and `seriescolor` all mean the same thing, and in fact those are eventually converted into the more precise attributes `linecolor`, `markercolor`, `markerstrokecolor`, and `fillcolor` (which you can then override if desired).
 
 
-
+```@raw html
 <div style="background-color: lightblue; padding: 10px; border-style: solid; border-width: medium; margin: 10px;">
 Tip: Use aliases for one-off analysis and visualization, but use the true keyword name for long-lived library code to avoid confusion.
 </div>
+```
 
+```@raw html
 <div style="background-color: lightblue; padding: 10px; border-style: solid; border-width: medium; margin: 10px;">
 Tip: As of this writing, aliases do not work inside recipes!!
 </div>
+```
 
 ---
 
-### Magic Arguments
+### [Magic Arguments](@id magic-arguments)
 
 
 Some arguments encompass smart shorthands for setting many related arguments at the same time.  Plots uses type checking and multiple dispatch to smartly "figure out" which values apply to which argument.  Pass in a tuple of values.  Single values will be first wrapped in a tuple before processing.
@@ -118,7 +122,7 @@ scatter(y, markershape = :hexagon,
 These attributes apply to individual series (lines, scatters, heatmaps, etc)
 
 ```@raw html
-<iframe src="../series_attr.html" name="series attributes" height="700" width="700", id="seriesframe" marginheight="0" frameborder="0" onLoad="autoResize('seriesframe');">You need a Frames Capable browser to view this content.</iframe>
+<iframe src="series_attr.html" name="series attributes" height="700" width="700", id="seriesframe" marginheight="0" frameborder="0" onLoad="autoResize('seriesframe');">You need a Frames Capable browser to view this content.</iframe>
 ```
 ---
 
@@ -127,7 +131,7 @@ These attributes apply to individual series (lines, scatters, heatmaps, etc)
 These attributes apply to the full Plot.  (A Plot contains a tree-like layout of Subplots)
 
 ```@raw html
-<iframe src="../plot_attr.html" name="plot attributes" height="700" width="700", id="plotframe" marginheight="0" frameborder="0" onLoad="autoResize('plotframe');">You need a Frames Capable browser to view this content.</iframe>
+<iframe src="plot_attr.html" name="plot attributes" height="700" width="700", id="plotframe" marginheight="0" frameborder="0" onLoad="autoResize('plotframe');">You need a Frames Capable browser to view this content.</iframe>
 ```
 
 ---
@@ -137,7 +141,7 @@ These attributes apply to the full Plot.  (A Plot contains a tree-like layout of
 These attributes apply to settings for individual Subplots.
 
 ```@raw html
-<iframe src="../subplot_attr.html" name="subplot attributes" height="700" width="700", id="subplotframe" marginheight="0" frameborder="0" onLoad="autoResize('subplotframe');">You need a Frames Capable browser to view this content.</iframe>
+<iframe src="subplot_attr.html" name="subplot attributes" height="700" width="700", id="subplotframe" marginheight="0" frameborder="0" onLoad="autoResize('subplotframe');">You need a Frames Capable browser to view this content.</iframe>
 ```
 
 ---
@@ -147,5 +151,5 @@ These attributes apply to settings for individual Subplots.
 These attributes apply to an individual Axis in a Subplot (for example the `subplot[:xaxis]`)
 
 ```@raw html
-<iframe src="../axis_attr.html" name="axis attributes" height="700" width="700", id="axisframe" marginheight="0" frameborder="0" onLoad="autoResize('axisframe');">You need a Frames Capable browser to view this content.</iframe>
+<iframe src="axis_attr.html" name="axis attributes" height="700" width="700", id="axisframe" marginheight="0" frameborder="0" onLoad="autoResize('axisframe');">You need a Frames Capable browser to view this content.</iframe>
 ```
