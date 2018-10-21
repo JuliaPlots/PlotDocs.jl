@@ -8,4 +8,16 @@ notifications:
   email: false
 script:
   - if [[ -a .git/shallow ]]; then git fetch --unshallow; fi
-  - julia -e 'import Pkg; Pkg.add(Pkg.PackageSpec(path = pwd())); Pkg.add("Documenter"); Pkg.add("Plots"); include("docs/make.jl")'
+  # The command to build the docs does the following:
+  #
+  # - Modify the LOAD_PATH so that we could load the code in src/PlotDocs.jl
+  # - Instantiate the dependencies in the Project.toml
+  # - Run docs/make.jl to build the docs
+  # - Uses a bash heredoc to pipe the "script" into the standard input (<<EOF .. EOF)
+  #
+  - |
+    JULIA_LOAD_PATH="$PWD/src/:@:@stdlib" julia --project --color=yes <<EOF
+        using Pkg
+        Pkg.instantiate()
+        include("docs/make.jl")
+    EOF
