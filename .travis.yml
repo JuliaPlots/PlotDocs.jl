@@ -1,11 +1,23 @@
-# https://discourse.julialang.org/t/psa-use-a-project-for-building-your-docs/14974
-jobs:
-  include:
-    - stage: "Documentation"
-      julia: 1.0
-      os: linux
-      script:
-        - julia --project=docs/ -e 'using Pkg; Pkg.develop(PackageSpec(path=pwd()));
-                                               Pkg.instantiate()'
-        - julia --project=docs/ docs/make.jl
-      after_success: skip
+# Documentation: http://docs.travis-ci.com/user/languages/julia/
+language: julia
+os:
+  - linux
+julia:
+  - 1.0
+notifications:
+  email: false
+script:
+  - if [[ -a .git/shallow ]]; then git fetch --unshallow; fi
+  # The command to build the docs does the following:
+  #
+  # - Modify the LOAD_PATH so that we could load the code in src/PlotDocs.jl
+  # - Instantiate the dependencies in the Project.toml
+  # - Run docs/make.jl to build the docs
+  # - Uses a bash heredoc to pipe the "script" into the standard input (<<EOF .. EOF)
+  #
+  - |
+    JULIA_LOAD_PATH="$PWD/src/:@:@stdlib" julia --project --color=yes <<EOF
+        using Pkg
+        Pkg.instantiate()
+        include("docs/make.jl")
+    EOF
