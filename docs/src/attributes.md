@@ -122,7 +122,7 @@ scatter(y, markershape = :hexagon,
 These attributes apply to individual series (lines, scatters, heatmaps, etc)
 
 ```@raw html
-<iframe src="series_attr.html" name="series attributes" height="700" width="700", id="seriesframe" marginheight="0" frameborder="0" onLoad="autoResize('seriesframe');">You need a Frames Capable browser to view this content.</iframe>
+<iframe src="../series_attr.html" name="series attributes" height="700" width="700", id="seriesframe" marginheight="0" frameborder="0" onLoad="autoResize('seriesframe');">You need a Frames Capable browser to view this content.</iframe>
 ```
 ---
 
@@ -131,7 +131,7 @@ These attributes apply to individual series (lines, scatters, heatmaps, etc)
 These attributes apply to the full Plot.  (A Plot contains a tree-like layout of Subplots)
 
 ```@raw html
-<iframe src="plot_attr.html" name="plot attributes" height="700" width="700", id="plotframe" marginheight="0" frameborder="0" onLoad="autoResize('plotframe');">You need a Frames Capable browser to view this content.</iframe>
+<iframe src="../plot_attr.html" name="plot attributes" height="700" width="700", id="plotframe" marginheight="0" frameborder="0" onLoad="autoResize('plotframe');">You need a Frames Capable browser to view this content.</iframe>
 ```
 
 ---
@@ -141,7 +141,7 @@ These attributes apply to the full Plot.  (A Plot contains a tree-like layout of
 These attributes apply to settings for individual Subplots.
 
 ```@raw html
-<iframe src="subplot_attr.html" name="subplot attributes" height="700" width="700", id="subplotframe" marginheight="0" frameborder="0" onLoad="autoResize('subplotframe');">You need a Frames Capable browser to view this content.</iframe>
+<iframe src="../subplot_attr.html" name="subplot attributes" height="700" width="700", id="subplotframe" marginheight="0" frameborder="0" onLoad="autoResize('subplotframe');">You need a Frames Capable browser to view this content.</iframe>
 ```
 
 ---
@@ -151,5 +151,5 @@ These attributes apply to settings for individual Subplots.
 These attributes apply to an individual Axis in a Subplot (for example the `subplot[:xaxis]`)
 
 ```@raw html
-<iframe src="axis_attr.html" name="axis attributes" height="700" width="700", id="axisframe" marginheight="0" frameborder="0" onLoad="autoResize('axisframe');">You need a Frames Capable browser to view this content.</iframe>
+<iframe src="../axis_attr.html" name="axis attributes" height="700" width="700", id="axisframe" marginheight="0" frameborder="0" onLoad="autoResize('axisframe');">You need a Frames Capable browser to view this content.</iframe>
 ```
