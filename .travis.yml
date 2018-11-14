@@ -13,11 +13,11 @@ script:
   # - Modify the LOAD_PATH so that we could load the code in src/PlotDocs.jl
   # - Instantiate the dependencies in the Project.toml
   # - Run docs/make.jl to build the docs
-  # - Uses a bash heredoc to pipe the "script" into the standard input (<<EOF .. EOF)
+  # - Use a YAML block scalar (|) for a proper multiline command
   #
   - |
-    JULIA_LOAD_PATH="$PWD/src/:@:@stdlib" julia --project --color=yes <<EOF
+    JULIA_LOAD_PATH="$PWD/src/:@:@stdlib" julia --project --color=yes -e'
         using Pkg
         Pkg.instantiate()
         include("docs/make.jl")
-    EOF
+    '
