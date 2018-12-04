@@ -104,7 +104,7 @@ tmin = 0
 tmax = 4π
 tvec = range(tmin, stop=tmax, length=100)
 
-plot(sin(tvec), cos(tvec))
+plot(sin.(tvec), cos.(tvec))
 plot(sin, cos, tvec)
 plot(sin, cos, tmin, tmax)
 ```
