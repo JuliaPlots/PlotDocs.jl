@@ -1,10 +1,5 @@
 
-<<<<<<< HEAD
-=======
 # [Recipes](@id recipes)
->>>>>>> updat make.jl, PlotDocs, use default Documenter html theme, update links
-
-# Recipes
 
 Recipes are a way of defining visualizations in your own packages and code, without having to depend on Plots. The functionality relies on [RecipesBase](https://github.com/JuliaPlots/RecipesBase.jl), a super lightweight but powerful package which allows users to create advanced plotting logic without Plots.  The `@recipe` macro in RecipesBase will add a method definition for `RecipesBase.apply_recipe`.  Plots adds to and calls this same function, and so your package and Plots can communicate without ever knowing about the other.  Magic!
 
