@@ -22,9 +22,9 @@ plot(rand(10))                            # 1 series... x = 1:10
 plot(rand(10,5))                          # 5 series... x = 1:10
 plot(rand(10), rand(10))                  # 1 series
 plot(rand(10,5), rand(10))                # 5 series... y is the same for all
-plot(sin, rand(10))                       # y = sin(x)
-plot(rand(10), sin)                       # same... y = sin(x)
-plot([sin,cos], 0:0.1:π)                  # 2 series, sin(x) and cos(x)
+plot(sin, rand(10))                       # y = sin.(x)
+plot(rand(10), sin)                       # same... y = sin.(x)
+plot([sin,cos], 0:0.1:π)                  # 2 series, sin.(x) and cos.(x)
 plot([sin,cos], 0, π)                     # sin and cos on the range [0, π]
 plot(1:10, Any[rand(10), sin])            # 2 series: rand(10) and map(sin,x)
 plot(dataset("Ecdat", "Airline"), :Cost)  # the :Cost column from a DataFrame... must import StatPlots
