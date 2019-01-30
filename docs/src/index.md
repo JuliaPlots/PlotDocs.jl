@@ -111,9 +111,9 @@ Iris Dataset
 using RDatasets
 iris = dataset("datasets", "iris");
 
-# load the StatPlots recipes (for DataFrames) available via:
-# Pkg.add("StatPlots")
-using StatPlots
+# load the StatsPlots recipes (for DataFrames) available via:
+# Pkg.add("StatsPlots")
+using StatsPlots
 
 # Scatter plot with some custom settings
 @df iris scatter(:SepalLength, :SepalWidth, group=:Species,

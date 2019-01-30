@@ -31,7 +31,7 @@ This is the core package for:
 - Generic types: Plot, Subplot, Axis, Series, ...
 - Conveniences: `getindex`/`setindex`, `push!`/`append!`, `unzip`, `cycle`, ...
 
-This package depends on RecipesBase, PlotUtils, and PlotThemes.  When contributing new functionality/features, you should make best efforts to find a more appropriate home (StatPlots, PlotUtils, etc) than contributing to core Plots.  In general, the push has been to reduce the size and scope of Plots, when possible, and move features to other packages.
+This package depends on RecipesBase, PlotUtils, and PlotThemes.  When contributing new functionality/features, you should make best efforts to find a more appropriate home (StatsPlots, PlotUtils, etc) than contributing to core Plots.  In general, the push has been to reduce the size and scope of Plots, when possible, and move features to other packages.
 
 ### Backends
 
@@ -76,13 +76,13 @@ Components that could be used for other (non-Plots) packages.  Anything that is 
 
 Visual themes (i.e. attribute defaults) such as "dark", "orange", etc.
 
-### StatPlots
+### StatsPlots
 
 An extension of Plots: Statistical plotting and tabular data.  Complex histograms and densities, correlation plots, and support for DataFrames.  Anything related to stats or special handling for table-like data should live here.
 
 ### PlotRecipes
 
-An extension of StatPlots: Graphs, maps, and more.  If it's not a "base recipe", and also not clearly "statistical" in nature, then this package might be a good home.
+An extension of StatsPlots: Graphs, maps, and more.  If it's not a "base recipe", and also not clearly "statistical" in nature, then this package might be a good home.
 
 ### MLPlots
 
@@ -109,7 +109,7 @@ For people new to Plots, the first step should be to read (and reread) the docum
 - **Improve your favorite backend**: There are many missing features and other improvements that can be made to individual backends.  Most issues specific to a backend have a [special tag](https://github.com/JuliaPlots/Plots.jl/issues?q=is%3Aissue+is%3Aopen+label%3APlotly).
 - **Help with documentation**: This could come in the form of improved descriptions, additional examples, or full tutorials.  Please contribute improvements to [PlotDocs](https://github.com/JuliaPlots/PlotDocs.jl).
 - **Help with the v0.6 reorganization**: The [reorg](#backends) requires the annoying effort of creating new repos (PlotsPyPlot, PlotsPlotlyJS, etc) that hold the backend code.  I consider this intermediate because you need to know a little about Plots and git, but it's fairly straightforward to follow the model of PlotsGR.
-- **Expand StatPlots functionality**:  qqplot, DataStreams, or anything else you can think of.
+- **Expand StatsPlots functionality**:  qqplot, DataStreams, or anything else you can think of.
 
 ### Advanced Project Ideas
 

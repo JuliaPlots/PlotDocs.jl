@@ -255,28 +255,28 @@ a recipe.
 
 Recipes are included in many recipe libraries. Two fundamental recipe libraries
 are [PlotRecipes.jl](https://github.com/JuliaPlots/PlotRecipes.jl) and
-[StatPlots.jl](https://github.com/JuliaPlots/StatPlots.jl). Let's look into
-StatPlots.jl. StatPlots.jl adds a bunch of recipes, but the ones we'll focus
+[StatsPlots.jl](https://github.com/JuliaPlots/StatsPlots.jl). Let's look into
+StatsPlots.jl. StatsPlots.jl adds a bunch of recipes, but the ones we'll focus
 on are:
 
 1. It adds a type recipe for `Distribution`s.
 2. It adds a plot recipe for marginal histograms.
 3. It adds a bunch of new statistical plot series.
 
-Besides recipes, StatPlots.jl also provides a specialized macro from plotting directly
+Besides recipes, StatsPlots.jl also provides a specialized macro from plotting directly
 from data tables.
 
 ### Using User Recipes
 
 A user recipe says how to interpret plotting commands on a new data type.
-In this case, StatPlots.jl thus has a macro `@df` which allows you to plot
+In this case, StatsPlots.jl thus has a macro `@df` which allows you to plot
 a `DataFrame` directly by using the column names. Let's build a `DataFrame`
 with columns `a`, `b`, and `c`, and tell Plots.jl to use `a` as the `x` axis
 and plot the series defined by columns `b` and `c`:
 
 ```julia
-# Pkg.add("StatPlots")
-using StatPlots # Required for the DataFrame user recipe
+# Pkg.add("StatsPlots")
+using StatsPlots # Required for the DataFrame user recipe
 # Now let's create the DataFrame
 using DataFrames
 df = DataFrame(a = 1:10, b = 10*rand(10), c = 10 * rand(10))
@@ -297,7 +297,7 @@ Notice there's not much you have to do here: all of the commands from before
 
 ### Using a Type Recipe
 
-In addition, StatPlots.jl extends Distributions.jl by adding a type recipe
+In addition, StatsPlots.jl extends Distributions.jl by adding a type recipe
 for its distribution types, so they can be directly interpreted as plotting
 data:
 
@@ -313,7 +313,7 @@ requires no more intervention!
 
 ### Using Plot Recipes
 
-StatPlots.jl adds the `marginhist` multiplot via a plot recipe. For our data
+StatsPlots.jl adds the `marginhist` multiplot via a plot recipe. For our data
 we will pull in the famous `iris` dataset from RDatasets:
 
 ```julia
@@ -339,8 +339,8 @@ something like a new `plot` command.
 
 ### Using Series Recipes
 
-StatPlots.jl also introduces new series recipes. The key is that you don't have
-to do anything differently: after `using StatPlots` you can simply use those
+StatsPlots.jl also introduces new series recipes. The key is that you don't have
+to do anything differently: after `using StatsPlots` you can simply use those
 new series recipes as though they were built into the plotting libraries. Let's
 use the Violin plot on some random data:
 

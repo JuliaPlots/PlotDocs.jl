@@ -83,10 +83,10 @@ This examples produces the following:
 
 ## DataFrames support
 
-Using the [StatPlots](https://github.com/JuliaPlots/StatPlots.jl) extension package, you can pass a `DataFrame` as the first argument (similar to Gadfly or R's ggplot2).  For data fields or certain attributes (such as `group`) a symbol will be replaced with the corresponding column(s) of the `DataFrame`.  Additionally, the column name might be used as the   An example:
+Using the [StatsPlots](https://github.com/JuliaPlots/StatsPlots.jl) extension package, you can pass a `DataFrame` as the first argument (similar to Gadfly or R's ggplot2).  For data fields or certain attributes (such as `group`) a symbol will be replaced with the corresponding column(s) of the `DataFrame`.  Additionally, the column name might be used as the   An example:
 
 ```julia
-using StatPlots, RDatasets
+using StatsPlots, RDatasets
 iris = dataset("datasets", "iris")
 @df iris scatter(:SepalLength, :SepalWidth, group=:Species,
         m=(0.5, [:+ :h :star7], 12), bg=RGB(.2,.2,.2))
