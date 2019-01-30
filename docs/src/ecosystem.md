@@ -6,7 +6,7 @@ Plots is great on its own, but the real power comes from the ecosystem surroundi
 
 The [JuliaPlots](https://github.com/JuliaPlots) organization builds and maintains much of the most commonly used functionality external to core Plots, as well as RecipesBase, PlotUtils, the documentation, and more.
 
-## [StatPlots](https://github.com/JuliaPlots/StatPlots.jl)
+## [StatsPlots](https://github.com/JuliaPlots/StatsPlots.jl)
 
 Much of this functionality once existed in core Plots, but has been moved out to facilitate a clean separation between those features that are truly "core" and those which are specific to certain types of workflows and disciplines.
 

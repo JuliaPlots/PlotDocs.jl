@@ -68,8 +68,8 @@ Create inset (floating) subplots using the `inset_subplots` attribute. `inset_su
 Use `px`/`mm`/`inch` for absolute coords, `w`/`h` for percentage relative to the parent. Origin is top-left. `h_anchor`/`v_anchor` define what the `x`/`y` inputs of the bounding box refer to.
 
 ```julia
-# boxplot is defined in StatPlots
-using StatPlots
+# boxplot is defined in StatsPlots
+using StatsPlots
 gr(leg=false, bg=:lightgrey)
 
 # Create a filled contour and boxplot side by side.
