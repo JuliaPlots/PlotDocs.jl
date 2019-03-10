@@ -113,7 +113,7 @@ grad = cgrad(cgrad(:lighttest).colors[[1:end; 1]])
 
 mp4(@animate(for t = 0:0.03:13
     # create a simple classifier to return the region for any point (x, y)
-    midpoints = sum(points; dims=1)[:] / P
+    midpoints = vec(sum(points; dims=1)) / P
     classify(x, y) = argmin(abs.(x + y*im .- midpoints))
 
     # draw decision boundary and points
