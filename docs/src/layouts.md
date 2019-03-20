@@ -88,9 +88,11 @@ sticks!(randn(100), inset = bbox(0,-0.2,200px,100px,:center), ticks=nothing, sub
 
 ### Adding Subplots incrementally
 You can also combine multiple plots to a single plot. To do this, simply pass the variables holding the previous plots to the `plot` function:
+
 ```julia
 l = @layout [a ; b c]
 p1 = plot(...)
 p2 = plot(...)
 p3 = plot(...)
 plot(p1, p2, p3, layout = l)
+```
