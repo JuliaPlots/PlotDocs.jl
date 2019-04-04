@@ -55,7 +55,7 @@ Some arguments encompass smart shorthands for setting many related arguments at 
 ##### axis (and xaxis/yaxis/zaxis)
 
 Passing a tuple of settings to the `xaxis` argument will allow the quick definition
-of `xlabel`, `xlim`, `xticks`, `xscale`, `xflip`, and `xtickfont`.  The following are equivalent:
+of `xlabel`, `xlims`, `xticks`, `xscale`, `xflip`, and `xtickfont`.  The following are equivalent:
 
 ```julia
 plot(y, xaxis = ("my label", (0,10), 0:0.5:10, :log, :flip, font(20, "Courier")))
