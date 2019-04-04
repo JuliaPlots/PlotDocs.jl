@@ -70,7 +70,7 @@ plot(y, xlabel = "my label",
 
 Note that `yaxis` and `zaxis` work similarly, and `axis` will apply to all.
 
-Passing a tuple to `xticks` (and similarlly to `yticks` and `zticks`) changes
+Passing a tuple to `xticks` (and similarly to `yticks` and `zticks`) changes
 the position of the ticks and the labels:
 
 ```julia
