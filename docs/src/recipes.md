@@ -114,6 +114,7 @@ There are a few important things to know, after which recipes boil down to updat
 - The special operator `:=` turns `seriestype := :path` into `plotattributes[:seriestype] = :path`, forcing that attribute value.  (Tip: Wrap the right hand side in parentheses for complex expressions.)
 - The return value of the recipe is the `args` of a `RecipeData` object, which also has a reference to the attribute dictionary.
 - A recipe returns a Vector{RecipeData}.  We'll see how to add to this list later with the `@series` macro.
+- One cannot use aliases (such as `colour` or `alpha`) in a recipe, only the full attribute name.
 
 Breaking down the example:
 
