@@ -10,7 +10,7 @@ Animations are created in 3 steps:
 ```@raw html
 <div style="background-color: lightblue; padding: 10px; border-style: solid; border-width: medium; margin: 10px;">
 Tip: the convenience macros `@gif` and `@animate` simplify this code immensely.  See the <a href="#simple-is-beautiful">home page</a> for examples of the short version, or
-the <a href="examples/pyplot/#functions-adding-data-and-animations">pyplot example</a> for the long version.
+the <a href="../examples/pyplot/#functions-adding-data-and-animations">pyplot example</a> for the long version.
 </div>
 ```
 
