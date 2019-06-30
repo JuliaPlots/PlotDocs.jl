@@ -37,7 +37,7 @@ Please add wishlist items, bugs, or any other comments/questions to the [issues 
 Lorenz Attractor
 
 ```julia
-
+using Plots
 # define the Lorenz attractor
 mutable struct Lorenz
     dt; σ; ρ; β; x; y; z
