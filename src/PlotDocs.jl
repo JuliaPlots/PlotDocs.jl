@@ -8,6 +8,10 @@ PRI_url = "https://raw.githubusercontent.com/JuliaPlots/PlotReferenceImages.jl/m
 using Plots, Dates
 import Plots: _examples
 
+# import plotting backends
+import PyPlot, PlotlyJS, ORCA, PGFPlots
+PyPlot.ioff()
+
 export
     generate_markdown,
     save_attr_html_files,
@@ -16,11 +20,16 @@ export
     make_support_df_styles,
     make_support_df_markers,
     make_support_df_scales,
-    create_support_tables
+    create_support_tables,
+    generate_reference_images,
+    generate_doc_images
 
 const BASEDIR = normpath(@__DIR__, "..", "docs", "src")
 const DOCDIR = joinpath(BASEDIR, "examples")
 const IMGDIR = joinpath(DOCDIR, "img")
+
+include("doc_image_constants.jl")
+include("generate_images.jl")
 
 # ----------------------------------------------------------------------
 
