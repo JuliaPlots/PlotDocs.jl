@@ -4,10 +4,11 @@
 First, add the package
 
 ```julia
+import Pkg
 Pkg.add("Plots")
 
 # if you want the latest features:
-Pkg.checkout("Plots")
+Pkg.pkg"add Plots#master"
 ```
 
 then get any plotting packages you need (obviously, you should get at least one [backend](@ref backends)).
