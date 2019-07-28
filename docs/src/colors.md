@@ -9,6 +9,7 @@ Color attributes will accept many different types:
 - `false` or `nothing` will be converted to an invisible `RGBA(0,0,0,0)`
 - Any `Colors.Colorant`, with or without alpha/opacity
 - Any `Plots.ColorScheme`, which includes `ColorVector`, `ColorGradient`, etc
+- An integer, which picks the corresponding color from the `seriescolor`
 
 In addition, there is an extensive facility for selecting and generating color maps/gradients.
 
