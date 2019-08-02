@@ -31,6 +31,9 @@ For series, there are a few attributes to know:
 
 `seriescolor` defaults to `:auto`, and gets assigned a color from the `color_palette` based on its index in the subplot.  By default, the other colors `:match`.  (See the table below)
 
+!!! tip
+    In general, color gradients can be set by `*color`, and the corresponding color values to look up in the gradients by `*_z`.
+
 This color... | matches this color...
 --- | ---
 linecolor | seriescolor
@@ -38,9 +41,11 @@ fillcolor | seriescolor
 markercolor | seriescolor
 markerstrokecolor | foreground_color_subplot
 
-Note: each of these attributes have a corresponding alpha override: `seriesalpha`, `linealpha`, `fillalpha`, `markeralpha`, and `markerstrokealpha`.  They are optional, and you can still give alpha information as part of an `Colors.RGBA`.
+!!! note
+    each of these attributes have a corresponding alpha override: `seriesalpha`, `linealpha`, `fillalpha`, `markeralpha`, and `markerstrokealpha`.  They are optional, and you can still give alpha information as part of an `Colors.RGBA`.
 
-Note: in some contexts, and when the user hasn't set a value, the `linecolor` or `markerstrokecolor` may be overridden.
+!!! note
+    In some contexts, and when the user hasn't set a value, the `linecolor` or `markerstrokecolor` may be overridden.
 
 ---
 
