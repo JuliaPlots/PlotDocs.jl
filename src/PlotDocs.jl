@@ -8,6 +8,11 @@ PRI_url = "https://raw.githubusercontent.com/JuliaPlots/PlotReferenceImages.jl/m
 using Plots, Dates
 import Plots: _examples
 
+using DataStructures, Random
+using StatsPlots, RDatasets, ProgressMeter, DataFrames, Distributions, StatsBase
+# For Plots' Examples
+using Statistics, FileIO, ImageMagick, SparseArrays
+
 # import plotting backends
 import PyPlot, PlotlyJS, ORCA, PGFPlots
 PyPlot.ioff()

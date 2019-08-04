@@ -92,7 +92,7 @@ function generate_doc_image(id::AbstractString, overwrite = true)
     dir = joinpath(IMGDIR, DOC_IMAGE_FILES[id])
     isdir(dir) || mkpath(dir)
 
-    filetype = if id in DOC_ANIMATION_EXAMPLES
+    filetype = if id in DOC_ANIMATION_IMAGES
         ".gif"
     elseif id in DOC_MP4_IMAGES
         ".mp4"
@@ -102,7 +102,7 @@ function generate_doc_image(id::AbstractString, overwrite = true)
     fn = joinpath(dir, string(id, filetype))
     overwrite || !isfile(fn) || return
 
-    if id in DOC_ANIMATION_EXAMPLES
+    if id in DOC_ANIMATION_IMAGES
         anim = @eval PlotDocs anim
         if typeof(anim) <: Plots.AnimatedGif
             mv(anim.filename, fn, force = true)
