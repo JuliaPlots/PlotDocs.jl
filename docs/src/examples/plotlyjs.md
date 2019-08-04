@@ -68,8 +68,9 @@ yaxis!("YLABEL", :log10)
 Plot an image.  y-axis is set to flipped
 
 ```julia
-import FileIO, PlotReferenceImages
-img = FileIO.load(joinpath(dirname(pathof(PlotReferenceImages)), "..", "Plots", "pyplot", "0.7.0", "ref1.png"))
+import FileIO
+path = download("http://juliaplots.org/PlotReferenceImages.jl/Plots/pyplot/0.7.0/ref1.png")
+img = FileIO.load(path)
 plot(img)
 ```
 
@@ -101,8 +102,6 @@ plot(rand(100) / 3, reg=true, fill=(0, :green))
 ```
 
 ![](https://raw.githubusercontent.com/JuliaPlots/PlotReferenceImages.jl/master/PlotDocs/plotlyjs/ref8.png)
-
-### 
 
 and add to it later.
 
@@ -213,8 +212,6 @@ plot(Plots.fakedata(100, 10), layout=4, palette=[:grays :blues :heat :lightrainb
 ```
 
 ![](https://raw.githubusercontent.com/JuliaPlots/PlotReferenceImages.jl/master/PlotDocs/plotlyjs/ref17.png)
-
-### 
 
 
 
@@ -426,8 +423,27 @@ plot(p1, p2)
 
 ![](https://raw.githubusercontent.com/JuliaPlots/PlotReferenceImages.jl/master/PlotDocs/plotlyjs/ref35.png)
 
-- Supported arguments: `annotations`, `aspect_ratio`, `background_color`, `background_color_inside`, `background_color_legend`, `background_color_outside`, `background_color_subplot`, `bar_width`, `bins`, `bottom_margin`, `camera`, `clims`, `color_palette`, `colorbar`, `colorbar_title`, `contour_labels`, `discrete_values`, `fill_z`, `fillalpha`, `fillcolor`, `fillrange`, `flip`, `foreground_color`, `foreground_color_axis`, `foreground_color_border`, `foreground_color_grid`, `foreground_color_guide`, `foreground_color_legend`, `foreground_color_subplot`, `foreground_color_text`, `foreground_color_title`, `framestyle`, `grid`, `gridalpha`, `gridlinewidth`, `group`, `guide`, `guidefont`, `guidefontcolor`, `guidefontfamily`, `guidefontsize`, `hover`, `html_output_format`, `inset_subplots`, `label`, `layout`, `left_margin`, `legend`, `legendfont`, `legendfontcolor`, `legendfontfamily`, `legendfontsize`, `levels`, `lims`, `line_z`, `linealpha`, `linecolor`, `linestyle`, `linewidth`, `link`, `margin`, `marker_z`, `markeralpha`, `markercolor`, `markershape`, `markersize`, `markerstrokealpha`, `markerstrokecolor`, `markerstrokestyle`, `markerstrokewidth`, `normalize`, `orientation`, `polar`, `primary`, `projection`, `quiver`, `ribbon`, `right_margin`, `rotation`, `scale`, `series_annotations`, `seriesalpha`, `seriescolor`, `seriestype`, `show`, `size`, `smooth`, `subplot`, `subplot_index`, `tick_direction`, `tickfont`, `tickfontcolor`, `tickfontfamily`, `tickfontsize`, `ticks`, `title`, `title_location`, `titlefontcolor`, `titlefontfamily`, `titlefonthalign`, `titlefontsize`, `titlefontvalign`, `top_margin`, `weights`, `window_title`, `x`, `xdiscrete_values`, `xerror`, `xflip`, `xforeground_color_axis`, `xforeground_color_border`, `xforeground_color_grid`, `xforeground_color_guide`, `xforeground_color_text`, `xgrid`, `xgridalpha`, `xgridlinewidth`, `xguide`, `xguidefontcolor`, `xguidefontfamily`, `xguidefontsize`, `xlims`, `xlink`, `xrotation`, `xscale`, `xtick_direction`, `xtickfontcolor`, `xtickfontfamily`, `xtickfontsize`, `xticks`, `y`, `ydiscrete_values`, `yerror`, `yflip`, `yforeground_color_axis`, `yforeground_color_border`, `yforeground_color_grid`, `yforeground_color_guide`, `yforeground_color_text`, `ygrid`, `ygridalpha`, `ygridlinewidth`, `yguide`, `yguidefontcolor`, `yguidefontfamily`, `yguidefontsize`, `ylims`, `ylink`, `yrotation`, `yscale`, `ytick_direction`, `ytickfontcolor`, `ytickfontfamily`, `ytickfontsize`, `yticks`, `z`, `zdiscrete_values`, `zflip`, `zforeground_color_axis`, `zforeground_color_border`, `zforeground_color_grid`, `zforeground_color_guide`, `zforeground_color_text`, `zgrid`, `zgridalpha`, `zgridlinewidth`, `zguide`, `zguidefontcolor`, `zguidefontfamily`, `zguidefontsize`, `zlims`, `zlink`, `zrotation`, `zscale`, `ztick_direction`, `ztickfontcolor`, `ztickfontfamily`, `ztickfontsize`, `zticks`
+### Portfolio Composition maps
+
+see: http://stackoverflow.com/a/37732384/5075246
+
+
+```julia
+using Random
+Random.seed!(111)
+tickers = ["IBM", "Google", "Apple", "Intel"]
+N = 10
+D = length(tickers)
+weights = rand(N, D)
+weights ./= sum(weights, dims=2)
+returns = sort!((1:N) + D * randn(N))
+portfoliocomposition(weights, returns, labels=permutedims(tickers))
+```
+
+![](https://raw.githubusercontent.com/JuliaPlots/PlotReferenceImages.jl/master/PlotDocs/plotlyjs/ref36.png)
+
+- Supported arguments: `annotations`, `aspect_ratio`, `background_color`, `background_color_inside`, `background_color_legend`, `background_color_outside`, `background_color_subplot`, `bar_width`, `bins`, `bottom_margin`, `camera`, `clims`, `color_palette`, `colorbar`, `colorbar_entry`, `colorbar_title`, `contour_labels`, `discrete_values`, `fill_z`, `fillalpha`, `fillcolor`, `fillrange`, `flip`, `foreground_color`, `foreground_color_axis`, `foreground_color_border`, `foreground_color_grid`, `foreground_color_guide`, `foreground_color_legend`, `foreground_color_subplot`, `foreground_color_text`, `foreground_color_title`, `framestyle`, `grid`, `gridalpha`, `gridlinewidth`, `group`, `guide`, `guidefont`, `guidefontcolor`, `guidefontfamily`, `guidefontsize`, `hover`, `html_output_format`, `inset_subplots`, `label`, `layout`, `left_margin`, `legend`, `legendfont`, `legendfontcolor`, `legendfontfamily`, `legendfontsize`, `levels`, `lims`, `line_z`, `linealpha`, `linecolor`, `linestyle`, `linewidth`, `link`, `margin`, `marker_z`, `markeralpha`, `markercolor`, `markershape`, `markersize`, `markerstrokealpha`, `markerstrokecolor`, `markerstrokestyle`, `markerstrokewidth`, `normalize`, `orientation`, `polar`, `primary`, `projection`, `quiver`, `ribbon`, `right_margin`, `rotation`, `scale`, `series_annotations`, `seriesalpha`, `seriescolor`, `seriestype`, `show`, `size`, `smooth`, `subplot`, `subplot_index`, `tick_direction`, `tickfont`, `tickfontcolor`, `tickfontfamily`, `tickfontsize`, `ticks`, `title`, `title_location`, `titlefontcolor`, `titlefontfamily`, `titlefonthalign`, `titlefontsize`, `titlefontvalign`, `top_margin`, `weights`, `window_title`, `x`, `xdiscrete_values`, `xerror`, `xflip`, `xforeground_color_axis`, `xforeground_color_border`, `xforeground_color_grid`, `xforeground_color_guide`, `xforeground_color_text`, `xgrid`, `xgridalpha`, `xgridlinewidth`, `xguide`, `xguidefontcolor`, `xguidefontfamily`, `xguidefontsize`, `xlims`, `xlink`, `xrotation`, `xscale`, `xtick_direction`, `xtickfontcolor`, `xtickfontfamily`, `xtickfontsize`, `xticks`, `y`, `ydiscrete_values`, `yerror`, `yflip`, `yforeground_color_axis`, `yforeground_color_border`, `yforeground_color_grid`, `yforeground_color_guide`, `yforeground_color_text`, `ygrid`, `ygridalpha`, `ygridlinewidth`, `yguide`, `yguidefontcolor`, `yguidefontfamily`, `yguidefontsize`, `ylims`, `ylink`, `yrotation`, `yscale`, `ytick_direction`, `ytickfontcolor`, `ytickfontfamily`, `ytickfontsize`, `yticks`, `z`, `zdiscrete_values`, `zflip`, `zforeground_color_axis`, `zforeground_color_border`, `zforeground_color_grid`, `zforeground_color_guide`, `zforeground_color_text`, `zgrid`, `zgridalpha`, `zgridlinewidth`, `zguide`, `zguidefontcolor`, `zguidefontfamily`, `zguidefontsize`, `zlims`, `zlink`, `zrotation`, `zscale`, `ztick_direction`, `ztickfontcolor`, `ztickfontfamily`, `ztickfontsize`, `zticks`
 - Supported values for linetype: `:contour`, `:heatmap`, `:path`, `:path3d`, `:pie`, `:scatter`, `:scatter3d`, `:scattergl`, `:shape`, `:straightline`, `:surface`, `:wireframe`
 - Supported values for linestyle: `:auto`, `:dash`, `:dashdot`, `:dot`, `:solid`
 - Supported values for marker: `:auto`, `:circle`, `:cross`, `:diamond`, `:dtriangle`, `:hexagon`, `:hline`, `:none`, `:octagon`, `:pentagon`, `:rect`, `:utriangle`, `:vline`, `:xcross`
-(Automatically generated: 2018-10-15T16:48:13.399)
+(Automatically generated: 2019-08-04T15:12:55.706)

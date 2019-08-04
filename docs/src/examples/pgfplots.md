@@ -69,8 +69,6 @@ plot(rand(100) / 3, reg=true, fill=(0, :green))
 
 ![](https://raw.githubusercontent.com/JuliaPlots/PlotReferenceImages.jl/master/PlotDocs/pgfplots/ref8.png)
 
-### 
-
 and add to it later.
 
 ```julia
@@ -157,8 +155,6 @@ plot(Plots.fakedata(100, 10), layout=4, palette=[:grays :blues :heat :lightrainb
 ```
 
 ![](https://raw.githubusercontent.com/JuliaPlots/PlotReferenceImages.jl/master/PlotDocs/pgfplots/ref17.png)
-
-### 
 
 
 
@@ -337,8 +333,27 @@ plot(p1, p2)
 
 ![](https://raw.githubusercontent.com/JuliaPlots/PlotReferenceImages.jl/master/PlotDocs/pgfplots/ref35.png)
 
+### Portfolio Composition maps
+
+see: http://stackoverflow.com/a/37732384/5075246
+
+
+```julia
+using Random
+Random.seed!(111)
+tickers = ["IBM", "Google", "Apple", "Intel"]
+N = 10
+D = length(tickers)
+weights = rand(N, D)
+weights ./= sum(weights, dims=2)
+returns = sort!((1:N) + D * randn(N))
+portfoliocomposition(weights, returns, labels=permutedims(tickers))
+```
+
+![](https://raw.githubusercontent.com/JuliaPlots/PlotReferenceImages.jl/master/PlotDocs/pgfplots/ref36.png)
+
 - Supported arguments: `annotations`, `aspect_ratio`, `background_color`, `background_color_inside`, `background_color_legend`, `background_color_subplot`, `bins`, `bottom_margin`, `camera`, `color_palette`, `colorbar`, `colorbar_title`, `contour_labels`, `discrete_values`, `fill_z`, `fillalpha`, `fillcolor`, `fillrange`, `flip`, `foreground_color`, `foreground_color_axis`, `foreground_color_border`, `foreground_color_grid`, `foreground_color_subplot`, `foreground_color_text`, `framestyle`, `grid`, `group`, `guide`, `guide_position`, `guidefont`, `html_output_format`, `label`, `layout`, `left_margin`, `legend`, `legendfont`, `levels`, `lims`, `line_z`, `linealpha`, `linecolor`, `linestyle`, `linewidth`, `link`, `margin`, `marker_z`, `markeralpha`, `markercolor`, `markershape`, `markersize`, `markerstrokealpha`, `markerstrokecolor`, `markerstrokestyle`, `markerstrokewidth`, `polar`, `primary`, `projection`, `right_margin`, `rotation`, `scale`, `series_annotations`, `seriesalpha`, `seriescolor`, `seriestype`, `show`, `size`, `smooth`, `subplot`, `subplot_index`, `tick_direction`, `tickfont`, `ticks`, `title`, `top_margin`, `x`, `xdiscrete_values`, `xerror`, `xflip`, `xforeground_color_axis`, `xforeground_color_border`, `xforeground_color_grid`, `xforeground_color_text`, `xgrid`, `xguide`, `xguide_position`, `xlims`, `xlink`, `xrotation`, `xscale`, `xtick_direction`, `xticks`, `y`, `ydiscrete_values`, `yerror`, `yflip`, `yforeground_color_axis`, `yforeground_color_border`, `yforeground_color_grid`, `yforeground_color_text`, `ygrid`, `yguide`, `yguide_position`, `ylims`, `ylink`, `yrotation`, `yscale`, `ytick_direction`, `yticks`, `z`, `zdiscrete_values`, `zflip`, `zforeground_color_axis`, `zforeground_color_border`, `zforeground_color_grid`, `zforeground_color_text`, `zgrid`, `zguide`, `zguide_position`, `zlims`, `zlink`, `zrotation`, `zscale`, `ztick_direction`, `zticks`
 - Supported values for linetype: `:contour`, `:histogram2d`, `:path`, `:path3d`, `:scatter`, `:shape`, `:stepmid`, `:steppost`, `:steppre`, `:straightline`, `:xsticks`, `:ysticks`
 - Supported values for linestyle: `:auto`, `:dash`, `:dashdot`, `:dashdotdot`, `:dot`, `:solid`
-- Supported values for marker: `:auto`, `:circle`, `:cross`, `:diamond`, `:dtriangle`, `:hline`, `:none`, `:pentagon`, `:rect`, `:star5`, `:utriangle`, `:xcross`
-(Automatically generated: 2018-10-15T16:48:13.424)
+- Supported values for marker: `:auto`, `:circle`, `:cross`, `:diamond`, `:dtriangle`, `:hline`, `:none`, `:pentagon`, `:rect`, `:star5`, `:utriangle`, `:vline`, `:xcross`
+(Automatically generated: 2019-08-04T15:15:57.587)
