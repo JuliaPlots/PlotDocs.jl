@@ -3,8 +3,25 @@ jobs:
     - stage: "Documentation"
       julia: 1.1
       os: linux
+      env:
+        - PYTHON=python3
+      addons:
+        apt:
+          packages:
+            # pyplot
+            - python3-matplotlib
+            # pgfplots
+            - pdf2svg
+            - texlive-latex-base
+            - texlive-binaries
+            - texlive-pictures
+            - texlive-latex-extra
+            # plotlyjs
+            - xvfb
+            # orca
+            - libgconf2-4
       script:
-        - julia --project=docs/ -e 'using Pkg; Pkg.develop(PackageSpec(path=pwd()));
+        - xvfb-run julia --project=docs/ -e 'using Pkg; Pkg.develop(PackageSpec(path=pwd()));
                                                Pkg.instantiate()'
-        - julia --project=docs/ docs/make.jl
+        - xvfb-run julia --project=docs/ docs/make.jl
       after_success: skip
