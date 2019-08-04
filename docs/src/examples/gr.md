@@ -93,8 +93,9 @@ yaxis!("YLABEL", :log10)
 Plot an image.  y-axis is set to flipped
 
 ```julia
-import FileIO, PlotReferenceImages
-img = FileIO.load(joinpath(dirname(pathof(PlotReferenceImages)), "..", "Plots", "pyplot", "0.7.0", "ref1.png"))
+import FileIO
+path = download("http://juliaplots.org/PlotReferenceImages.jl/Plots/pyplot/0.7.0/ref1.png")
+img = FileIO.load(path)
 plot(img)
 ```
 
@@ -126,8 +127,6 @@ plot(rand(100) / 3, reg=true, fill=(0, :green))
 ```
 
 ![](https://raw.githubusercontent.com/JuliaPlots/PlotReferenceImages.jl/master/PlotDocs/gr/ref8.png)
-
-### 
 
 and add to it later.
 
@@ -238,8 +237,6 @@ plot(Plots.fakedata(100, 10), layout=4, palette=[:grays :blues :heat :lightrainb
 ```
 
 ![](https://raw.githubusercontent.com/JuliaPlots/PlotReferenceImages.jl/master/PlotDocs/gr/ref17.png)
-
-### 
 
 
 
@@ -483,8 +480,27 @@ plot(p1, p2)
 
 ![](https://raw.githubusercontent.com/JuliaPlots/PlotReferenceImages.jl/master/PlotDocs/gr/ref35.png)
 
-- Supported arguments: `annotations`, `arrow`, `aspect_ratio`, `background_color`, `background_color_inside`, `background_color_legend`, `background_color_outside`, `background_color_subplot`, `bar_width`, `bins`, `bottom_margin`, `camera`, `color_palette`, `colorbar`, `colorbar_title`, `contour_labels`, `discrete_values`, `fill_z`, `fillalpha`, `fillcolor`, `fillrange`, `flip`, `foreground_color`, `foreground_color_axis`, `foreground_color_border`, `foreground_color_grid`, `foreground_color_legend`, `foreground_color_subplot`, `foreground_color_text`, `framestyle`, `grid`, `gridalpha`, `gridlinewidth`, `gridstyle`, `group`, `guide`, `guidefontcolor`, `guidefontfamily`, `guidefonthalign`, `guidefontrotation`, `guidefontsize`, `guidefontvalign`, `html_output_format`, `inset_subplots`, `label`, `layout`, `left_margin`, `legend`, `legendfontcolor`, `legendfontfamily`, `legendfonthalign`, `legendfontrotation`, `legendfontsize`, `legendfontvalign`, `legendtitle`, `levels`, `lims`, `line_z`, `linealpha`, `linecolor`, `linestyle`, `linewidth`, `link`, `margin`, `marker_z`, `markeralpha`, `markercolor`, `markershape`, `markersize`, `markerstrokealpha`, `markerstrokecolor`, `markerstrokewidth`, `match_dimensions`, `normalize`, `orientation`, `overwrite_figure`, `polar`, `primary`, `projection`, `quiver`, `ribbon`, `right_margin`, `scale`, `series_annotations`, `seriesalpha`, `seriescolor`, `seriestype`, `show`, `size`, `smooth`, `subplot`, `subplot_index`, `tick_direction`, `tickfontcolor`, `tickfontfamily`, `tickfonthalign`, `tickfontrotation`, `tickfontsize`, `tickfontvalign`, `ticks`, `title`, `titlefontcolor`, `titlefontfamily`, `titlefonthalign`, `titlefontrotation`, `titlefontsize`, `titlefontvalign`, `top_margin`, `weights`, `window_title`, `x`, `xdiscrete_values`, `xerror`, `xflip`, `xforeground_color_axis`, `xforeground_color_border`, `xforeground_color_grid`, `xforeground_color_text`, `xgrid`, `xgridalpha`, `xgridlinewidth`, `xgridstyle`, `xguide`, `xguidefontcolor`, `xguidefontfamily`, `xguidefonthalign`, `xguidefontrotation`, `xguidefontsize`, `xguidefontvalign`, `xlims`, `xlink`, `xscale`, `xtick_direction`, `xtickfontcolor`, `xtickfontfamily`, `xtickfonthalign`, `xtickfontrotation`, `xtickfontsize`, `xtickfontvalign`, `xticks`, `y`, `ydiscrete_values`, `yerror`, `yflip`, `yforeground_color_axis`, `yforeground_color_border`, `yforeground_color_grid`, `yforeground_color_text`, `ygrid`, `ygridalpha`, `ygridlinewidth`, `ygridstyle`, `yguide`, `yguidefontcolor`, `yguidefontfamily`, `yguidefonthalign`, `yguidefontrotation`, `yguidefontsize`, `yguidefontvalign`, `ylims`, `ylink`, `yscale`, `ytick_direction`, `ytickfontcolor`, `ytickfontfamily`, `ytickfonthalign`, `ytickfontrotation`, `ytickfontsize`, `ytickfontvalign`, `yticks`, `z`, `zdiscrete_values`, `zflip`, `zforeground_color_axis`, `zforeground_color_border`, `zforeground_color_grid`, `zforeground_color_text`, `zgrid`, `zgridalpha`, `zgridlinewidth`, `zgridstyle`, `zguide`, `zguidefontcolor`, `zguidefontfamily`, `zguidefonthalign`, `zguidefontrotation`, `zguidefontsize`, `zguidefontvalign`, `zlims`, `zlink`, `zscale`, `ztick_direction`, `ztickfontcolor`, `ztickfontfamily`, `ztickfonthalign`, `ztickfontrotation`, `ztickfontsize`, `ztickfontvalign`, `zticks`
-- Supported values for linetype: `:contour`, `:heatmap`, `:image`, `:path`, `:path3d`, `:pie`, `:scatter`, `:scatter3d`, `:shape`, `:straightline`, `:surface`, `:wireframe`
+### Portfolio Composition maps
+
+see: http://stackoverflow.com/a/37732384/5075246
+
+
+```julia
+using Random
+Random.seed!(111)
+tickers = ["IBM", "Google", "Apple", "Intel"]
+N = 10
+D = length(tickers)
+weights = rand(N, D)
+weights ./= sum(weights, dims=2)
+returns = sort!((1:N) + D * randn(N))
+portfoliocomposition(weights, returns, labels=permutedims(tickers))
+```
+
+![](https://raw.githubusercontent.com/JuliaPlots/PlotReferenceImages.jl/master/PlotDocs/gr/ref36.png)
+
+- Supported arguments: `annotations`, `arrow`, `aspect_ratio`, `background_color`, `background_color_inside`, `background_color_legend`, `background_color_outside`, `background_color_subplot`, `bar_width`, `bins`, `bottom_margin`, `camera`, `color_palette`, `colorbar`, `colorbar_entry`, `colorbar_title`, `contour_labels`, `discrete_values`, `fill_z`, `fillalpha`, `fillcolor`, `fillrange`, `flip`, `foreground_color`, `foreground_color_axis`, `foreground_color_border`, `foreground_color_grid`, `foreground_color_legend`, `foreground_color_subplot`, `foreground_color_text`, `framestyle`, `grid`, `gridalpha`, `gridlinewidth`, `gridstyle`, `group`, `guide`, `guidefontcolor`, `guidefontfamily`, `guidefonthalign`, `guidefontrotation`, `guidefontsize`, `guidefontvalign`, `html_output_format`, `inset_subplots`, `label`, `layout`, `left_margin`, `legend`, `legendfontcolor`, `legendfontfamily`, `legendfonthalign`, `legendfontrotation`, `legendfontsize`, `legendfontvalign`, `legendtitle`, `levels`, `lims`, `line_z`, `linealpha`, `linecolor`, `linestyle`, `linewidth`, `link`, `margin`, `marker_z`, `markeralpha`, `markercolor`, `markershape`, `markersize`, `markerstrokealpha`, `markerstrokecolor`, `markerstrokewidth`, `match_dimensions`, `normalize`, `orientation`, `overwrite_figure`, `polar`, `primary`, `projection`, `quiver`, `ribbon`, `right_margin`, `scale`, `series_annotations`, `seriesalpha`, `seriescolor`, `seriestype`, `show`, `size`, `smooth`, `subplot`, `subplot_index`, `tick_direction`, `tickfontcolor`, `tickfontfamily`, `tickfonthalign`, `tickfontrotation`, `tickfontsize`, `tickfontvalign`, `ticks`, `title`, `titlefontcolor`, `titlefontfamily`, `titlefonthalign`, `titlefontrotation`, `titlefontsize`, `titlefontvalign`, `top_margin`, `weights`, `window_title`, `x`, `xdiscrete_values`, `xerror`, `xflip`, `xforeground_color_axis`, `xforeground_color_border`, `xforeground_color_grid`, `xforeground_color_text`, `xgrid`, `xgridalpha`, `xgridlinewidth`, `xgridstyle`, `xguide`, `xguidefontcolor`, `xguidefontfamily`, `xguidefonthalign`, `xguidefontrotation`, `xguidefontsize`, `xguidefontvalign`, `xlims`, `xlink`, `xscale`, `xtick_direction`, `xtickfontcolor`, `xtickfontfamily`, `xtickfonthalign`, `xtickfontrotation`, `xtickfontsize`, `xtickfontvalign`, `xticks`, `y`, `ydiscrete_values`, `yerror`, `yflip`, `yforeground_color_axis`, `yforeground_color_border`, `yforeground_color_grid`, `yforeground_color_text`, `ygrid`, `ygridalpha`, `ygridlinewidth`, `ygridstyle`, `yguide`, `yguidefontcolor`, `yguidefontfamily`, `yguidefonthalign`, `yguidefontrotation`, `yguidefontsize`, `yguidefontvalign`, `ylims`, `ylink`, `yscale`, `ytick_direction`, `ytickfontcolor`, `ytickfontfamily`, `ytickfonthalign`, `ytickfontrotation`, `ytickfontsize`, `ytickfontvalign`, `yticks`, `z`, `zdiscrete_values`, `zflip`, `zforeground_color_axis`, `zforeground_color_border`, `zforeground_color_grid`, `zforeground_color_text`, `zgrid`, `zgridalpha`, `zgridlinewidth`, `zgridstyle`, `zguide`, `zguidefontcolor`, `zguidefontfamily`, `zguidefonthalign`, `zguidefontrotation`, `zguidefontsize`, `zguidefontvalign`, `zlims`, `zlink`, `zscale`, `ztick_direction`, `ztickfontcolor`, `ztickfontfamily`, `ztickfonthalign`, `ztickfontrotation`, `ztickfontsize`, `ztickfontvalign`, `zticks`
+- Supported values for linetype: `:contour`, `:heatmap`, `:image`, `:path`, `:path3d`, `:pie`, `:scatter`, `:scatter3d`, `:shape`, `:straightline`, `:surface`, `:volume`, `:wireframe`
 - Supported values for linestyle: `:auto`, `:dash`, `:dashdot`, `:dashdotdot`, `:dot`, `:solid`
 - Supported values for marker: `:+`, `:auto`, `:circle`, `:cross`, `:diamond`, `:dtriangle`, `:heptagon`, `:hexagon`, `:hline`, `:ltriangle`, `:none`, `:octagon`, `:pentagon`, `:rect`, `:rtriangle`, `:star4`, `:star5`, `:star6`, `:star7`, `:star8`, `:utriangle`, `:vline`, `:x`, `:xcross`
-(Automatically generated: 2018-10-15T16:48:13.308)
+(Automatically generated: 2019-08-04T15:11:30.745)
