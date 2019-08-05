@@ -1,6 +1,6 @@
 using Documenter, DocumenterMarkdown, PlotDocs, Plots
 
-for be in (:gr, :pyplot, :plotlyjs, :pgfplots)
+for be in (:plotlyjs, :gr, :pyplot, :pgfplots)
     generate_reference_images(be)
     generate_markdown(be)
 end
