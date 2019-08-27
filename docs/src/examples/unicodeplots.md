@@ -97,8 +97,6 @@ plot(rand(100) / 3,reg=true,fill=(0,:green))
 
 ![](img/unicodeplots/unicodeplots_example_8.png)
 
-###
-
 and add to it later.
 
 ```julia
@@ -193,8 +191,6 @@ subplot(fakedata(100,10),n=4,palette=[:grays :blues :heat :lightrainbow],
 ```
 
 ![](img/unicodeplots/unicodeplots_example_17.png)
-
-###
 
 
 

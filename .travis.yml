@@ -1,23 +1,36 @@
-# Documentation: http://docs.travis-ci.com/user/languages/julia/
 language: julia
 os:
   - linux
 julia:
-  - 1.0
+  - 1.1
+matrix:
+  allow_failures:
+    - julia: nightly
 notifications:
   email: false
-script:
-  - if [[ -a .git/shallow ]]; then git fetch --unshallow; fi
-  # The command to build the docs does the following:
-  #
-  # - Modify the LOAD_PATH so that we could load the code in src/PlotDocs.jl
-  # - Instantiate the dependencies in the Project.toml
-  # - Run docs/make.jl to build the docs
-  # - Use a YAML block scalar (|) for a proper multiline command
-  #
-  - |
-    JULIA_LOAD_PATH="$PWD/src/:@:@stdlib" julia --project --color=yes -e'
-        using Pkg
-        Pkg.instantiate()
-        include("docs/make.jl")
-    '
+jobs:
+  include:
+    - stage: "Documentation"
+      julia: 1.1
+      os: linux
+      env:
+        - PYTHON=""
+      addons:
+        apt:
+          packages:
+            - qt5-default
+            # pgfplots
+            - pdf2svg
+            - texlive-latex-base
+            - texlive-binaries
+            - texlive-pictures
+            - texlive-latex-extra
+            - texlive-luatex
+            - ghostscript-x
+            # orca
+            - libgconf2-4
+      script:
+        - xvfb-run julia --project=docs/ -e 'using Pkg; Pkg.develop(PackageSpec(path=pwd()));
+                                               Pkg.instantiate()'
+        - xvfb-run julia --project=docs/ docs/make.jl
+      after_success: skip
