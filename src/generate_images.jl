@@ -1,5 +1,10 @@
 # avoid some images failing on travis
-push!(Plots._backend_skips[:plotlyjs], 24)
+_backend_skips = Dict{Symbol, Vector{Int}}(
+    :gr => [],
+    :pyplot => [],
+    :plotlyjs => [24],
+    :pgfplots => [],
+)
 
 function no_initialize_backend(be)
     Plots.CURRENT_BACKEND.sym = be
@@ -21,7 +26,7 @@ If `overwrite == true` existing files are overwritten.
 """
 function generate_reference_images(be::Symbol, overwrite = true)
     for i in eachindex(Plots._examples)
-        if i in Plots._backend_skips[be]
+        if i in Plots._backend_skips[be] || i in PlotDocs._backend_skips[be]
             @info "Skipping $be reference image $i."
         else
             @info "Generating $be reference image $i."
