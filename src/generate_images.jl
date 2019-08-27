@@ -1,3 +1,5 @@
+# avoid some images failing on travis
+push!(Plots._backend_skips[:plotlyjs], 24)
 
 function no_initialize_backend(be)
     Plots.CURRENT_BACKEND.sym = be
