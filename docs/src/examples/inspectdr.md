@@ -62,8 +62,6 @@ plot(ys,color=[:black :orange],line=(:dot,4),marker=([:hex :d],12,0.8,stroke(3,:
 
 ![](img/inspectdr/inspectdr_example_7.png)
 
-###
-
 and add to it later.
 
 ```julia
@@ -162,8 +160,6 @@ plot(Plots.fakedata(100,10),layout=4,palette=[:grays :blues :heat :lightrainbow]
 ```
 
 ![](img/inspectdr/inspectdr_example_17.png)
-
-###
 
 
 
