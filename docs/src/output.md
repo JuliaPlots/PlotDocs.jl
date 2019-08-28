@@ -5,9 +5,8 @@
 **A Plot is only displayed when returned** (a semicolon will suppress the return), or if explicitly displayed with `display(plt)`, `gui()`, or by adding `show = true` to your plot command.
 
 
-<div style="background-color: lightblue; padding: 10px; border-style: solid; border-width: medium; margin: 10px;">
-Tip: You can have MATLAB-like interactive behavior by setting the default value: default(show = true)
-</div>
+!!! tip
+    You can have MATLAB-like interactive behavior by setting the default value: default(show = true)
 
 ### Standalone window
 
