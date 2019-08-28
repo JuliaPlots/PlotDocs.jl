@@ -1,25 +1,10 @@
-<script language="JavaScript">
-<!--
-function autoResize(id){
-    var newheight;
-    var newwidth;
-
-    if(document.getElementById){
-        newheight = document.getElementById(id).contentWindow.document .body.scrollHeight;
-        newwidth = document.getElementById(id).contentWindow.document .body.scrollWidth;
-    }
-
-    document.getElementById(id).height = (newheight) + "px";
-    document.getElementById(id).width = (newwidth) + "px";
-}
-//-->
-</script>
 
 ---
 
 # [Attributes](@id attributes)
 
 In Plots, input data is passed positionally (for example, the `y` in `plot(y)`), and attributes are passed as keywords (for example, `plot(y, color = :blue)`).
+
 !!! tip
 	Most of the information on this page is available from your Julia session with the function `plotattr`, e.g. `plotattr(:Series)` to print a list of all series attributes, or `plotattr("ms")` to print the aliases and descriptions of `markersize`.
 
