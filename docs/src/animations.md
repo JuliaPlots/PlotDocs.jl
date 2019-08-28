@@ -8,7 +8,7 @@ Animations are created in 3 steps:
 - Convert the frames to an animated gif with `gif(anim, filename, fps=15)`
 
 !!! tip
-	The convenience macros `@gif` and `@animate` simplify this code immensely.  See the [home page](@ref simple-is-beautiful) for examples of the short version, or the [pyplot example](@ref pyplot-ref2) for the long version.
+    The convenience macros `@gif` and `@animate` simplify this code immensely.  See the [home page](@ref simple-is-beautiful) for examples of the short version, or the [pyplot example](@ref pyplot-ref2) for the long version.
 
 ---
 
@@ -32,7 +32,7 @@ The `every` flag will only save a frame "every N iterations":
 
 ```julia
 @gif for i=1:100
-	plot(...)
+    plot(...)
 end every 10
 ```
 
@@ -40,6 +40,6 @@ The `when` flag will only save a frame "when the expression is true"
 
 ```julia
 @gif for i=1:100
-	plot(...)
+    plot(...)
 end when i > 50 && mod1(i, 10) == 5
 ```
