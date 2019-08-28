@@ -372,7 +372,7 @@ const DOC_IMAGES = OrderedDict(
 
             pts = P2[]
             for (i,mi) in enumerate(m)
-                append!(pts, coords(BezierCurve(P2[p[i], m[i], p[i+1]])))
+                append!(pts, map(BezierCurve(P2[p[i], m[i], p[i+1]]), range(0, 1, length = 30)))
             end
             x, y = Plots.unzip(pts)
             Shape(vcat(x, -reverse(x)), vcat(y, reverse(y)))
