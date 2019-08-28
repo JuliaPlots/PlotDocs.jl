@@ -20,11 +20,8 @@ function autoResize(id){
 # [Attributes](@id attributes)
 
 In Plots, input data is passed positionally (for example, the `y` in `plot(y)`), and attributes are passed as keywords (for example, `plot(y, color = :blue)`).
-```@raw html
-<div style="background-color: lightblue; padding: 10px; border-style: solid; border-width: medium; margin: 10px;">
-Tip: Most of the information on this page is available from your Julia session with the function `plotattr`, e.g. `plotattr(:Series)` to print a list of all series attributes, or `plotattr("ms")` to print the aliases and descriptions of `markersize`.
-</div>
-```
+!!! tip
+	Most of the information on this page is available from your Julia session with the function `plotattr`, e.g. `plotattr(:Series)` to print a list of all series attributes, or `plotattr("ms")` to print the aliases and descriptions of `markersize`.
 
 ---
 
@@ -33,17 +30,11 @@ Tip: Most of the information on this page is available from your Julia session w
 Keywords can take a range of values through the **alias mechanic**.  For example, `plot(y, color = :blue)` is really interpreted as `plot(y, seriescolor = :blue)`.  Each attribute has a number of aliases (see the charts below), which are available to avoid the pain of constantly looking up plotting API documentation because you forgot the argument name.  `c`, `color`, and `seriescolor` all mean the same thing, and in fact those are eventually converted into the more precise attributes `linecolor`, `markercolor`, `markerstrokecolor`, and `fillcolor` (which you can then override if desired).
 
 
-```@raw html
-<div style="background-color: lightblue; padding: 10px; border-style: solid; border-width: medium; margin: 10px;">
-Tip: Use aliases for one-off analysis and visualization, but use the true keyword name for long-lived library code to avoid confusion.
-</div>
-```
+!!! tip
+	Use aliases for one-off analysis and visualization, but use the true keyword name for long-lived library code to avoid confusion.
 
-```@raw html
-<div style="background-color: lightblue; padding: 10px; border-style: solid; border-width: medium; margin: 10px;">
-Tip: As of this writing, aliases do not work inside recipes!!
-</div>
-```
+!!! tip
+	As of this writing, aliases do not work inside recipes!!
 
 ---
 
