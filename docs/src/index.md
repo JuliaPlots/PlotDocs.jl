@@ -32,7 +32,7 @@ Please add wishlist items, bugs, or any other comments/questions to the [issues 
 
 ---
 
-### Simple is Beautiful
+### [Simple is Beautiful](@id simple-is-beautiful)
 
 Lorenz Attractor
 
