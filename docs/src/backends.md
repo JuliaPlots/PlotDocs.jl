@@ -18,7 +18,7 @@ speed            | GR, InspectDR
 interactivity    | Plotly(JS), PyPlot, InspectDR
 beauty           | Plotly(JS), PGFPlots
 REPL Plotting    | UnicodePlots
-3D plots  		 | PyPlot, GR, Plotly(JS)
+3D plots         | PyPlot, GR, Plotly(JS)
 a GUI Window     | GR, PyPlot, PlotlyJS, InspectDR
 a small footprint | UnicodePlots, Plotly
 plot+data -> `.hdf5` file | HDF5
