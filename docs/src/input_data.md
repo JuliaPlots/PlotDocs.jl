@@ -42,7 +42,7 @@ plot(xs, data, label = labels, shape = markershapes, color = markercolors,
      markersize = 10)
 ```
 This example plots the four series with different labels, marker shapes, and marker colors by combining row and column vectors to decorate the data.  The result is:
-![applesoranges](https://raw.githubusercontent.com/JuliaPlots/PlotReferenceImages.jl/master/PlotDocs/input/columns_are_series.png)
+![applesoranges](examples/img/input/columns_are_series.png)
 
 ## Unconnected Data within same groups
 
@@ -79,7 +79,7 @@ plot(some_rects[:,1], some_rects[:,2],label="some group")
 plot!(other_rects[:,1], other_rects[:,2],label="other group")
 ```
 This examples produces the following:
-![grouped_rectangles](https://raw.githubusercontent.com/JuliaPlots/PlotReferenceImages.jl/master/PlotDocs/input/unconnected.png)
+![grouped_rectangles](examples/img/input/groups.png)
 
 ## DataFrames support
 
@@ -92,7 +92,7 @@ iris = dataset("datasets", "iris")
         m=(0.5, [:+ :h :star7], 12), bg=RGB(.2,.2,.2))
 ```
 
-![iris_plt](https://raw.githubusercontent.com/JuliaPlots/PlotReferenceImages.jl/master/PlotDocs/input/dataframes.png)
+![iris_plt](examples/img/input/dataframes.png)
 
 ## Functions
 
@@ -127,4 +127,4 @@ PDF graphics can also be added to Plots.jl plots using `load("image.pdf")`. Note
 
 Check out [this tutorial](https://github.com/tbreloff/ExamplePlots.jl/blob/master/notebooks/batman.ipynb) to save Gotham:
 
-![batman](https://raw.githubusercontent.com/JuliaPlots/PlotReferenceImages.jl/master/PlotDocs/input/batman.png)
+![batman](examples/img/input/batman.png)
