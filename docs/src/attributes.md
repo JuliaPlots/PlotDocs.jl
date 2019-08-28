@@ -1,4 +1,4 @@
-q
+
 # [Attributes](@id attributes)
 
 In Plots, input data is passed positionally (for example, the `y` in `plot(y)`), and attributes are passed as keywords (for example, `plot(y, color = :blue)`).
