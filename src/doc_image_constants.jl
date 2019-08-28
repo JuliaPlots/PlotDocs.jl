@@ -360,7 +360,8 @@ const DOC_IMAGES = OrderedDict(
 
 
     "batman" => [quote
-        pyplot(leg = false, framestyle = :none, size=(500,500))
+        no_initialize_backend(:pyplot)
+        default(leg = false, framestyle = :none, size=(500,500))
     end,
     quote
         P2 = Plots.P2
