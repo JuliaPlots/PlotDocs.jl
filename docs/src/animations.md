@@ -47,17 +47,3 @@ The `when` flag will only save a frame "when the expression is true"
 	plot(...)
 end when i > 50 && mod1(i, 10) == 5
 ```
-
-<!-- ### Custom Iterators
-
-The newly added `animate` method allows you to pass an arbitrary iterator which returns
-the "input data" for plotting each frame of an animation.  As an example, we'll use
-`Iterators.repeatedly` to give us an iterator which returns a random vector on each iteration:
-
-```julia
-using Plots, Iterators
-itr = repeatedly(()->rand(10), 20)
-animate(itr, ylims=(0,1), c=:red, fps=5)
-```
-
-![](https://raw.githubusercontent.com/JuliaPlots/PlotReferenceImages.jl/master/PlotDocs/animations/rand_anim.png) -->
