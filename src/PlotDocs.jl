@@ -82,7 +82,7 @@ function generate_markdown(pkgname::Symbol; skip = get(Plots._backend_skips, pkg
             pretty_print_expr(md, expr)
         end
         write(md, "```\n\n")
-        imgpath = joinpath(IMGDIR, string(pkgname), filename(i))
+        imgpath = joinpath("img", string(pkgname), filename(i))
         write(md, "![]($imgpath)\n\n")
     end
 
