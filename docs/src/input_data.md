@@ -56,24 +56,24 @@ To adress this, you can use `NaN` as a path separator. A call to `plot` would th
 using Plots; plotly()
 
 function rectangle_from_coords(xb,yb,xt,yt)
-	[
-		xb yb
-		xt yb
-		xt yt
-		xb yt
-		xb yb
-		NaN NaN
-	]
+    [
+        xb yb
+        xt yb
+        xt yt
+        xb yt
+        xb yb
+        NaN NaN
+    ]
 end
 
 some_rects=[
-	rectangle_from_coords(1 ,1 ,5 ,5 )
-	rectangle_from_coords(10,10,15,15)
-	]
+    rectangle_from_coords(1 ,1 ,5 ,5 )
+    rectangle_from_coords(10,10,15,15)
+    ]
 other_rects=[
-	rectangle_from_coords(1 ,10,5 ,15)
-	rectangle_from_coords(10,1 ,15,5 )
-	]
+    rectangle_from_coords(1 ,10,5 ,15)
+    rectangle_from_coords(10,1 ,15,5 )
+    ]
 
 plot(some_rects[:,1], some_rects[:,2],label="some group")
 plot!(other_rects[:,1], other_rects[:,2],label="other group")

@@ -20,7 +20,7 @@ Many times a data type is a simple wrapper of a Function or Array.  For example:
 
 ```julia
 mutable struct MyVec
-	v::Vector{Int}
+    v::Vector{Int}
 end
 ```
 
@@ -94,11 +94,11 @@ Lets decompose what's happening inside the recipe macro, starting with a simple 
 mutable struct MyType end
 
 @recipe function f(::MyType, n::Integer = 10; add_marker = false)
-	linecolor   --> :blue
-	seriestype  :=  :path
-	markershape --> (add_marker ? :circle : :none)
-	delete!(plotattributes, :add_marker)
-	rand(n)
+    linecolor   --> :blue
+    seriestype  :=  :path
+    markershape --> (add_marker ? :circle : :none)
+    delete!(plotattributes, :add_marker)
+    rand(n)
 end
 ```
 
@@ -107,9 +107,9 @@ We create a new type `MyType`, which is empty, and used purely for dispatch.  Ou
 There are a few important things to know, after which recipes boil down to updating an attribute dictionary and returning input data:
 
 - A recipe signature `f(args...; kw...)` is converted into a definition of `apply_recipe(plotattributes::KW, args...)` where:
-	- `plotattributes` is an attribute dictionary of type `typealias KW Dict{Symbol,Any}`
-	- Your `args` must be distinct enough that dispatch will call your definition (and without masking an existing definition).  Using a custom data type will ensure proper dispatch.
-	- The function `f` is unused/meaningless... call it whatever you want.
+    - `plotattributes` is an attribute dictionary of type `typealias KW Dict{Symbol,Any}`
+    - Your `args` must be distinct enough that dispatch will call your definition (and without masking an existing definition).  Using a custom data type will ensure proper dispatch.
+    - The function `f` is unused/meaningless... call it whatever you want.
 - The special operator `-->` turns `linecolor --> :blue` into `get!(plotattributes, :linecolor, :blue)`, setting the attribute only when it doesn't already exist.  (Tip: Wrap the right hand side in parentheses for complex expressions.)
 - The special operator `:=` turns `seriestype := :path` into `plotattributes[:seriestype] = :path`, forcing that attribute value.  (Tip: Wrap the right hand side in parentheses for complex expressions.)
 - The return value of the recipe is the `args` of a `RecipeData` object, which also has a reference to the attribute dictionary.
@@ -127,25 +127,25 @@ In the example above, we use `MyType` for dispatch, with optional positional arg
 With a call to `plot(MyType())` or similar, this recipe will be invoked.  If `linecolor` has not been set, it is set to `:blue`:
 
 ```julia
-	linecolor   --> :blue
+    linecolor   --> :blue
 ```
 
 The `seriestype` is forced to be `:path`:
 
 ```julia
-	seriestype  :=  :path
+    seriestype  :=  :path
 ```
 
 The `markershape` is a little more complex; it checks the `add_marker` custom keyword, but only if `markershape` was not already set.  (Note: the `add_marker` key is redundant, as the user can just set the marker shape directly... I use it only for demonstration):
 
 ```julia
-	markershape --> (add_marker ? :circle : :none)
+    markershape --> (add_marker ? :circle : :none)
 ```
 
 then return the data to be plotted:
 
 ```julia
-	rand(n)
+    rand(n)
 end
 ```
 
@@ -154,10 +154,10 @@ Some example usages of our (mostly useless) recipe:
 ```julia
 mt = MyType()
 plot(
-	plot(mt),
-	plot(mt, 100, linecolor = :red),
-	plot(mt, marker = (:star,20), add_marker = false),
-	plot(mt, add_marker = true)
+    plot(mt),
+    plot(mt, 100, linecolor = :red),
+    plot(mt, marker = (:star,20), add_marker = false),
+    plot(mt, add_marker = true)
 )
 ```
 
@@ -184,7 +184,7 @@ For some custom data types, they are essentially light wrappers around built-in 
 
 ```julia
 mutable struct MyWrapper
-	v::Vector
+    v::Vector
 end
 ```
 
@@ -261,7 +261,7 @@ Marginal histograms are a visualization comparing two variables.  The main plot 
     grid := false
     foreground_color_subplot := [RGBA(0,0,0,0) :match RGBA(0,0,0,0)]
     layout := @layout [tophist           _
-                 	   hist2d{0.9w,0.9h} righthist]
+                        hist2d{0.9w,0.9h} righthist]
 
     # main histogram2d
     @series begin
@@ -334,11 +334,11 @@ Some error checking.  Note that we're extracting the real inputs (like in a call
 
 Next we build the subplot layout and define some attributes.  A few things to note:
 
-	- The layout creates three subplots (`_` is left blank)
-	- Attributes are mapped to each subplot when passed in as a matrix (row-vector)
-	- The attribute `link := :both` means that the y-axes of each row (and x-axes of
-		each column) will share data extrema.  Other values include `:x`, `:y`,
-		`:all`, and `:none`.
+    - The layout creates three subplots (`_` is left blank)
+    - Attributes are mapped to each subplot when passed in as a matrix (row-vector)
+    - The attribute `link := :both` means that the y-axes of each row (and x-axes of
+        each column) will share data extrema.  Other values include `:x`, `:y`,
+        `:all`, and `:none`.
 
 ```julia
     # set up the subplots
@@ -348,7 +348,7 @@ Next we build the subplot layout and define some attributes.  A few things to no
     grid := false
     foreground_color_subplot := [RGBA(0,0,0,0) :match RGBA(0,0,0,0)]
     layout := @layout [tophist           _
-                 	   hist2d{0.9w,0.9h} righthist]
+                        hist2d{0.9w,0.9h} righthist]
 ```
 
 Define the series of the main plot.  The `@series` macro makes a local copy of the attribute dictionary `plotattributes` using a "let block".  The copied dictionary and the returned args are added to the `Vector{RecipeData}` which is returned from the recipe.  This block is similar to calling `histogram2d!(x, y; subplot = 2, plotattributes...)` (but you wouldn't actually want to do that).
