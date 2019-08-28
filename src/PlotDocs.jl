@@ -66,14 +66,14 @@ function generate_markdown(pkgname::Symbol; skip = get(Plots._backend_skips, pkg
     # open the markdown file
     md = open("$DOCDIR/$(pkgname).md", "w")
 
-    write(md, "### Initialize\n\n```julia\nusing Plots\n$(pkgname)()\n```\n\n")
+    write(md, "### [Initialize](@id $pkgname-examples)\n\n```julia\nusing Plots\n$(pkgname)()\n```\n\n")
 
     for (i,example) in enumerate(_examples)
         i in skip && continue
 
         # write out the header, description, code block, and image link
         if !isempty(example.header)
-            write(md, "### $(example.header)\n\n")
+            write(md, "### [$(example.header)](@id $pkgname-ref$i)\n\n")
         end
         write(md, "$(example.desc)\n\n")
         # write(md, "```julia\n$(join(map(string, example.exprs), "\n"))\n```\n\n")

@@ -144,9 +144,6 @@ Much of the heavy processing is offloaded until it's needed.  Plots will try to 
 
 Open/refresh a GUI window, write to a file, or display inline in IJulia.  Remember that, in IJulia or the REPL, **a Plot is only displayed when returned** (a semicolon will suppress the return), or if explicitly displayed with `display()`, `gui()`, or by adding `show = true` to your plot command.
 
-```@raw html
-<div style="background-color: lightblue; padding: 10px; border-style: solid; border-width: medium; margin: 10px;">
-Tip: You can have MATLAB-like interactive behavior by setting the default value: default(show = true)
-</div>
-```
+!!! tip
+    You can have MATLAB-like interactive behavior by setting the default value: default(show = true)
 ---
