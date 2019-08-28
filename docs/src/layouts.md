@@ -22,7 +22,7 @@ Pass an integer to `layout` to allow it to automatically compute a grid size for
 plot(rand(100,4), layout = 4)
 ```
 
-![](https://raw.githubusercontent.com/JuliaPlots/PlotReferenceImages.jl/master/PlotDocs/layout/layout_1.png)
+![](examples/img/layout/layout_1.png)
 
 Pass a tuple to `layout` to create a grid of that size:
 
@@ -31,7 +31,7 @@ Pass a tuple to `layout` to create a grid of that size:
 plot(rand(100,4), layout = (4,1))
 ```
 
-![](https://raw.githubusercontent.com/JuliaPlots/PlotReferenceImages.jl/master/PlotDocs/layout/layout_2.png)
+![](examples/img/layout/layout_2.png)
 
 
 More complex grid layouts can be created with the `grid(...)` constructor:
@@ -40,7 +40,7 @@ More complex grid layouts can be created with the `grid(...)` constructor:
 plot(rand(100,4), layout = grid(4,1,heights=[0.1,0.4,0.4,0.1]))
 ```
 
-![](https://raw.githubusercontent.com/JuliaPlots/PlotReferenceImages.jl/master/PlotDocs/layout/layout_3.png)
+![](examples/img/layout/layout_3.png)
 
 ---
 
@@ -59,7 +59,7 @@ plot(
 )
 ```
 
-![](https://raw.githubusercontent.com/JuliaPlots/PlotReferenceImages.jl/master/PlotDocs/layout/layout_4.png)
+![](examples/img/layout/layout_4.png)
 
 ---
 
@@ -84,7 +84,7 @@ histogram!(randn(1000), inset = (1, bbox(0.05,0.05,0.5,0.25,:bottom,:right)), ti
 sticks!(randn(100), inset = bbox(0,-0.2,200px,100px,:center), ticks=nothing, subplot=4)
 ```
 
-![](https://raw.githubusercontent.com/JuliaPlots/PlotReferenceImages.jl/master/PlotDocs/layout/layout_1.png)
+![](examples/img/layout/layout_5.png)
 
 ### Adding Subplots incrementally
 You can also combine multiple plots to a single plot. To do this, simply pass the variables holding the previous plots to the `plot` function:

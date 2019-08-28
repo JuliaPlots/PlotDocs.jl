@@ -158,13 +158,13 @@ The recipe defined above is a "user recipe", which builds a histogram for arrays
 mycount(rand(500))
 ```
 
-![](https://raw.githubusercontent.com/JuliaPlots/PlotReferenceImages.jl/master/PlotDocs/contributing/my_count_1.png)
+![](examples/img/contributing/my_count_1.png)
 
 ```julia
 mycount(rand(["A","B","C"],100))
 ```
 
-![](https://raw.githubusercontent.com/JuliaPlots/PlotReferenceImages.jl/master/PlotDocs/contributing/my_count_2.png)
+![](examples/img/contributing/my_count_2.png)
 
 But you didn't consider the person that, in the future, might want to pass integers to this recipe:
 
@@ -172,7 +172,7 @@ But you didn't consider the person that, in the future, might want to pass integ
 mycount(rand(1:500, 500))
 ```
 
-![](https://raw.githubusercontent.com/JuliaPlots/PlotReferenceImages.jl/master/PlotDocs/contributing/my_count_3.png)
+![](examples/img/contributing/my_count_3.png)
 
 This user expected integers to be treated as numbers and output a histogram, but instead they were treated like strings.  A simple solution would have been to replace `if T.parameters[1] == Float64` with `if T.parameters[1] <: Number`.  However, should we even depend on `T` having it's first parameter be the element type? (No)  So even better would be `if eltype(arr) <: Number`, which now allows any container with any numeric type to trigger the "histogram" logic.
 
