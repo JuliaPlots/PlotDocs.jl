@@ -31,7 +31,7 @@ Much of this functionality once existed in core Plots, but has been moved out to
 ![](https://cloud.githubusercontent.com/assets/933338/17787917/3af9b0e2-6559-11e6-8613-c177efb0b038.png)
 
 
-![](https://juliaplots.github.io/examples/img/pyplot/pyplot_example_30.png)
+![](examples/img/pyplot/pyplot_example_30.png)
 
 
 ![](https://cloud.githubusercontent.com/assets/933338/16718702/561510f6-46f0-11e6-834a-3cf17a5b77d6.png)

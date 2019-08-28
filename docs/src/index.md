@@ -63,7 +63,7 @@ plt = plot3d(1, xlim=(-25,25), ylim=(-25,25), zlim=(0,50),
 end every 10
 ```
 
-![](https://raw.githubusercontent.com/JuliaPlots/PlotReferenceImages.jl/master/PlotDocs/index/lorenz_attractor.gif)
+![](examples/img/index/lorenz_attractor.gif)
 
 Make some waves
 
@@ -102,7 +102,7 @@ prog = Progress(n,1)
 end
 ```
 
-![waves](https://raw.githubusercontent.com/JuliaPlots/PlotReferenceImages.jl/master/PlotDocs/index/waves.gif)
+![waves](examples/img/index/waves.gif)
 
 Decision boundary
 
@@ -154,6 +154,6 @@ using StatsPlots
 png("iris")
 ```
 
-![iris_plt](https://raw.githubusercontent.com/JuliaPlots/PlotReferenceImages.jl/master/PlotDocs/index/iris.png)
+![iris_plt](examples/img/index/iris.png)
 
 ---
