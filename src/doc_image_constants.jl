@@ -277,6 +277,7 @@ const DOC_IMAGES = OrderedDict(
         #Pkg.add("RDatasets")
         using RDatasets
         iris = dataset("datasets", "iris")
+        @df iris marginalhist(:PetalLength, :PetalWidth)
     end],
 
 
