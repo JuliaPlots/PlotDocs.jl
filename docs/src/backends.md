@@ -119,6 +119,9 @@ LaTeX plotting, based on PGF/TikZ.
 
 ![](examples/img/pgf_contour.svg)
 
+!!! tip
+    To add save a standalone .tex file including a preamble use attribute `tex_output_standalone = true` in your `plot` command.
+
 Pros:
 
 - Nice looking plots
