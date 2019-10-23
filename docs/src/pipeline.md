@@ -22,7 +22,7 @@ plot(x, y, line = (0.5, [4 1 0], [:path :scatter :density]),
     orientation = :h, title = "My title")
 ```
 
-![pipeline_img](https://raw.githubusercontent.com/JuliaPlots/PlotReferenceImages.jl/master/PlotDocs/pipeline/pipeline_1.png)
+![pipeline_img](examples/img/pipeline/pipeline_1.png)
 
 In this example, we have an input matrix, and we'd like to plot three series on top of each other, one for each column of data.
 We create a row vector (1x3 matrix) of symbols to assign different visualization types for each series, set the orientation of the histogram, and set
@@ -92,7 +92,7 @@ plot(
 )
 ```
 
-![pipeline_img](https://raw.githubusercontent.com/JuliaPlots/PlotReferenceImages.jl/master/PlotDocs/pipeline/pipeline_2.png)
+![pipeline_img](examples/img/pipeline/pipeline_2.png)
 
 Note that if dispatch does not find a recipe for the full combination of inputs, it will then try to apply [type recipes](@ref type-recipes) to each individual argument.
 
@@ -106,7 +106,7 @@ In this example, we split the data points into 3 groups randomly, and give them 
 scatter(rand(100), group = rand(1:3, 100), marker = (10,0.3,[:s :o :x]))
 ```
 
-![pipeline_img](https://raw.githubusercontent.com/JuliaPlots/PlotReferenceImages.jl/master/PlotDocs/pipeline/pipeline_3.png)
+![pipeline_img](examples/img/pipeline/pipeline_3.png)
 
 ---
 
@@ -144,9 +144,6 @@ Much of the heavy processing is offloaded until it's needed.  Plots will try to 
 
 Open/refresh a GUI window, write to a file, or display inline in IJulia.  Remember that, in IJulia or the REPL, **a Plot is only displayed when returned** (a semicolon will suppress the return), or if explicitly displayed with `display()`, `gui()`, or by adding `show = true` to your plot command.
 
-```@raw html
-<div style="background-color: lightblue; padding: 10px; border-style: solid; border-width: medium; margin: 10px;">
-Tip: You can have MATLAB-like interactive behavior by setting the default value: default(show = true)
-</div>
-```
+!!! tip
+    You can have MATLAB-like interactive behavior by setting the default value: default(show = true)
 ---

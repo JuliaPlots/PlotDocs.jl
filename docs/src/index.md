@@ -32,12 +32,12 @@ Please add wishlist items, bugs, or any other comments/questions to the [issues 
 
 ---
 
-### Simple is Beautiful
+### [Simple is Beautiful](@id simple-is-beautiful)
 
 Lorenz Attractor
 
 ```julia
-
+using Plots
 # define the Lorenz attractor
 mutable struct Lorenz
     dt; σ; ρ; β; x; y; z
@@ -63,7 +63,7 @@ plt = plot3d(1, xlim=(-25,25), ylim=(-25,25), zlim=(0,50),
 end every 10
 ```
 
-![](https://raw.githubusercontent.com/JuliaPlots/PlotReferenceImages.jl/master/PlotDocs/index/lorenz_attractor.gif)
+![](examples/img/index/lorenz_attractor.gif)
 
 Make some waves
 
@@ -102,7 +102,35 @@ prog = Progress(n,1)
 end
 ```
 
-![waves](https://raw.githubusercontent.com/JuliaPlots/PlotReferenceImages.jl/master/PlotDocs/index/waves.gif)
+![waves](examples/img/index/waves.gif)
+
+Decision boundary
+
+```julia
+P = 40;  R = 50;  N = P*R;  r = 0:0.004:1
+points = rand(ComplexF64, P, R)
+
+mp4(@animate(for t = 0:0.03:13
+    # create a simple classifier to return the region for any point (x, y)
+    midpoints = vec(sum(points; dims=1)) / P
+    classify(x, y) = argmin(abs.(x + y*im .- midpoints))
+
+    # draw decision boundary and points
+    contour(r, r, classify, c=:cyclic2, fill=true, nlev=R, leg=:none)
+    scatter!(reim(points)..., c=cvec(:cyclic2, R)', lims=(0,1))
+
+    # update position of points
+    target(d) = 0.65*cis(4*sin(t/2+d)+d) + 0.5 + 0.5im
+    points[:] .+= 0.01*(target.(0:2π/(N-1):2π) .- points[:])
+end), "decision.mp4", fps = 30)
+```
+
+```@raw html
+<video width="600" height="400" controls loop poster="https://raw.githubusercontent.com/JuliaPlots/PlotReferenceImages.jl/master/PlotDocs/index/decision-poster.png">
+  <source src="https://raw.githubusercontent.com/JuliaPlots/PlotReferenceImages.jl/master/PlotDocs/index/decision.mp4" type="video/mp4">
+  Your browser does not support the video tag.
+</video>
+```
 
 Iris Dataset
 
@@ -111,9 +139,9 @@ Iris Dataset
 using RDatasets
 iris = dataset("datasets", "iris");
 
-# load the StatPlots recipes (for DataFrames) available via:
-# Pkg.add("StatPlots")
-using StatPlots
+# load the StatsPlots recipes (for DataFrames) available via:
+# Pkg.add("StatsPlots")
+using StatsPlots
 
 # Scatter plot with some custom settings
 @df iris scatter(:SepalLength, :SepalWidth, group=:Species,
@@ -126,6 +154,6 @@ using StatPlots
 png("iris")
 ```
 
-![iris_plt](https://raw.githubusercontent.com/JuliaPlots/PlotReferenceImages.jl/master/PlotDocs/index/iris.png)
+![iris_plt](examples/img/index/iris.png)
 
 ---

@@ -42,7 +42,7 @@ plot(xs, data, label = labels, shape = markershapes, color = markercolors,
      markersize = 10)
 ```
 This example plots the four series with different labels, marker shapes, and marker colors by combining row and column vectors to decorate the data.  The result is:
-![applesoranges](https://raw.githubusercontent.com/JuliaPlots/PlotReferenceImages.jl/master/PlotDocs/input/columns_are_series.png)
+![applesoranges](examples/img/input/columns_are_series.png)
 
 ## Unconnected Data within same groups
 
@@ -56,43 +56,43 @@ To adress this, you can use `NaN` as a path separator. A call to `plot` would th
 using Plots; plotly()
 
 function rectangle_from_coords(xb,yb,xt,yt)
-	[
-		xb yb
-		xt yb
-		xt yt
-		xb yt
-		xb yb
-		NaN NaN
-	]
+    [
+        xb yb
+        xt yb
+        xt yt
+        xb yt
+        xb yb
+        NaN NaN
+    ]
 end
 
 some_rects=[
-	rectangle_from_coords(1 ,1 ,5 ,5 )
-	rectangle_from_coords(10,10,15,15)
-	]
+    rectangle_from_coords(1 ,1 ,5 ,5 )
+    rectangle_from_coords(10,10,15,15)
+    ]
 other_rects=[
-	rectangle_from_coords(1 ,10,5 ,15)
-	rectangle_from_coords(10,1 ,15,5 )
-	]
+    rectangle_from_coords(1 ,10,5 ,15)
+    rectangle_from_coords(10,1 ,15,5 )
+    ]
 
 plot(some_rects[:,1], some_rects[:,2],label="some group")
 plot!(other_rects[:,1], other_rects[:,2],label="other group")
 ```
 This examples produces the following:
-![grouped_rectangles](https://raw.githubusercontent.com/JuliaPlots/PlotReferenceImages.jl/master/PlotDocs/input/unconnected.png)
+![grouped_rectangles](examples/img/input/groups.png)
 
 ## DataFrames support
 
-Using the [StatPlots](https://github.com/JuliaPlots/StatPlots.jl) extension package, you can pass a `DataFrame` as the first argument (similar to Gadfly or R's ggplot2).  For data fields or certain attributes (such as `group`) a symbol will be replaced with the corresponding column(s) of the `DataFrame`.  Additionally, the column name might be used as the   An example:
+Using the [StatsPlots](https://github.com/JuliaPlots/StatsPlots.jl) extension package, you can pass a `DataFrame` as the first argument (similar to Gadfly or R's ggplot2).  For data fields or certain attributes (such as `group`) a symbol will be replaced with the corresponding column(s) of the `DataFrame`.  Additionally, the column name might be used as the   An example:
 
 ```julia
-using StatPlots, RDatasets
+using StatsPlots, RDatasets
 iris = dataset("datasets", "iris")
 @df iris scatter(:SepalLength, :SepalWidth, group=:Species,
         m=(0.5, [:+ :h :star7], 12), bg=RGB(.2,.2,.2))
 ```
 
-![iris_plt](https://raw.githubusercontent.com/JuliaPlots/PlotReferenceImages.jl/master/PlotDocs/input/dataframes.png)
+![iris_plt](examples/img/input/dataframes.png)
 
 ## Functions
 
@@ -104,7 +104,7 @@ tmin = 0
 tmax = 4π
 tvec = range(tmin, stop=tmax, length=100)
 
-plot(sin(tvec), cos(tvec))
+plot(sin.(tvec), cos.(tvec))
 plot(sin, cos, tvec)
 plot(sin, cos, tmin, tmax)
 ```
@@ -127,4 +127,4 @@ PDF graphics can also be added to Plots.jl plots using `load("image.pdf")`. Note
 
 Check out [this tutorial](https://github.com/tbreloff/ExamplePlots.jl/blob/master/notebooks/batman.ipynb) to save Gotham:
 
-![batman](https://raw.githubusercontent.com/JuliaPlots/PlotReferenceImages.jl/master/PlotDocs/input/batman.png)
+![batman](examples/img/input/batman.png)

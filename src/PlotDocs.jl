@@ -2,11 +2,17 @@
 module PlotDocs
 
 
-PRI_url = "https://raw.githubusercontent.com/JuliaPlots/PlotReferenceImages.jl/master/"
-
-
 using Plots, Dates
 import Plots: _examples
+
+using DataStructures, Random
+using StatsPlots, RDatasets, ProgressMeter, DataFrames, Distributions, StatsBase
+# For Plots' Examples
+using Statistics, FileIO, ImageMagick, SparseArrays
+
+# import plotting backends
+import PyPlot, PlotlyJS, ORCA, PGFPlots
+PyPlot.ioff()
 
 export
     generate_markdown,
@@ -16,11 +22,16 @@ export
     make_support_df_styles,
     make_support_df_markers,
     make_support_df_scales,
-    create_support_tables
+    create_support_tables,
+    generate_reference_images,
+    generate_doc_images
 
 const BASEDIR = normpath(@__DIR__, "..", "docs", "src")
 const DOCDIR = joinpath(BASEDIR, "examples")
 const IMGDIR = joinpath(DOCDIR, "img")
+
+include("doc_image_constants.jl")
+include("generate_images.jl")
 
 # ----------------------------------------------------------------------
 
@@ -55,13 +66,15 @@ function generate_markdown(pkgname::Symbol; skip = get(Plots._backend_skips, pkg
     # open the markdown file
     md = open("$DOCDIR/$(pkgname).md", "w")
 
-    write(md, "### Initialize\n\n```julia\nusing Plots\n$(pkgname)()\n```\n\n")
+    write(md, "### [Initialize](@id $pkgname-examples)\n\n```julia\nusing Plots\n$(pkgname)()\n```\n\n")
 
     for (i,example) in enumerate(_examples)
         i in skip && continue
 
         # write out the header, description, code block, and image link
-        write(md, "### $(example.header)\n\n")
+        if !isempty(example.header)
+            write(md, "### [$(example.header)](@id $pkgname-ref$i)\n\n")
+        end
         write(md, "$(example.desc)\n\n")
         # write(md, "```julia\n$(join(map(string, example.exprs), "\n"))\n```\n\n")
         write(md, "```julia\n")
@@ -69,7 +82,7 @@ function generate_markdown(pkgname::Symbol; skip = get(Plots._backend_skips, pkg
             pretty_print_expr(md, expr)
         end
         write(md, "```\n\n")
-        imgpath = joinpath(PRI_url, "PlotDocs", string(pkgname), string("ref", i, i in Plots._animation_examples ? ".gif" : ".png"))
+        imgpath = joinpath("img", string(pkgname), filename(i))
         write(md, "![]($imgpath)\n\n")
     end
 
