@@ -12,6 +12,10 @@
 - [ExamplePlots](https://github.com/JuliaPlots/ExamplePlots.jl)
 - [Some notebooks](https://github.com/tbreloff/notebooks)
 
+# Reference sheets
+
+- [A one-page Plots.jl cheatsheet](https://github.com/sswatson/cheatsheets/blob/master/plotsjl-cheatsheet.pdf)
+
 # Video tutorials
 
 ### Plots with Plots - JuliaCon 2016

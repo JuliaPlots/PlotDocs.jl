@@ -1,12 +1,15 @@
-using Documenter, Plots, PlotDocs
+using Documenter, DocumenterMarkdown, PlotDocs, Plots
 
-for be in (:gr, :pyplot, :plotlyjs, :pgfplots)
+for be in (:plotlyjs, :gr, :pyplot, :pgfplots)
+    generate_reference_images(be)
     generate_markdown(be)
 end
 save_attr_html_files()
 create_support_tables()
+generate_doc_images()
 
-makedocs(modules=[Plots], doctest=false)
+makedocs(modules=[Plots], doctest=false, format = Markdown())
+
 
 
 # makedocs(
@@ -59,6 +62,6 @@ deploydocs(
     deps = Deps.pip("mkdocs==0.17.5",
         "mkdocs-material==2.9.4" ,"python-markdown-math", "pygments", "pymdown-extensions"),
     repo   = "github.com/JuliaPlots/PlotDocs.jl.git",
-    julia  = "1.0",
-    osname = "linux"
+    make   = () -> run(`mkdocs build`),
+    target = "site"
 )

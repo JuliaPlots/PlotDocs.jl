@@ -18,7 +18,7 @@ speed            | GR, InspectDR
 interactivity    | Plotly(JS), PyPlot, InspectDR
 beauty           | Plotly(JS), PGFPlots
 REPL Plotting    | UnicodePlots
-3D plots  		 | PyPlot, GR, Plotly(JS)
+3D plots         | PyPlot, GR, Plotly(JS)
 a GUI Window     | GR, PyPlot, PlotlyJS, InspectDR
 a small footprint | UnicodePlots, Plotly
 plot+data -> `.hdf5` file | HDF5
@@ -31,7 +31,7 @@ Of course nothing in life is that simple.  Likely there are subtle tradeoffs bet
 
 A Julia wrapper around the popular python package PyPlot (Matplotlib).  It uses PyCall.jl to pass data with minimal overhead.
 
-![](https://raw.githubusercontent.com/JuliaPlots/PlotReferenceImages.jl/master/PlotDocs/pyplot/ref22.png)
+![](examples/img/pyplot/ref22.png)
 
 Pros:
 
@@ -57,7 +57,7 @@ as the required javascript is bundled with Plots.  It can create inline plots in
 `plotlyjs()` is the preferred option, and taps into the great functionality of Spencer Lyon's PlotlyJS.jl.  Inline IJulia plots can be updated from any cell... something that
 makes this backend stand out.  From the Julia REPL, it taps into Blink.jl and Electron to plot within a standalone GUI window... also very cool. Also, PlotlyJS supports saving the output to more formats than Plotly, such as EPS and PDF, and thus is the recommended version of Plotly for developing publication-quality figures.
 
-![](https://raw.githubusercontent.com/JuliaPlots/PlotReferenceImages.jl/master/PlotDocs/plotlyjs/ref28.png)
+![](examples/img/plotlyjs/ref28.png)
 
 Pros:
 
@@ -78,7 +78,7 @@ Primary PlotlyJS.jl author: Spencer Lyon (@spencerlyon2)
 
 Super fast with lots of plot types.  Still actively developed and improving daily.
 
-![](https://raw.githubusercontent.com/JuliaPlots/PlotReferenceImages.jl/master/PlotDocs/gr/ref24.png)
+![](examples/img/gr/ref24.png)
 
 Pros:
 
@@ -97,7 +97,7 @@ Primary author: Josef Heinen (@jheinen)
 
 Simple and lightweight.  Plot directly in your terminal.  You won't produce anything publication quality, but for a quick look at your data it is awesome.
 
-![](https://raw.githubusercontent.com/JuliaPlots/PlotReferenceImages.jl/master/PlotDocs/unicodeplots/ref3.png)
+![](examples/img/unicodeplots/ref3.png)
 
 Pros:
 
@@ -118,6 +118,9 @@ Primary author: Christof Stocker (@Evizero)
 LaTeX plotting, based on PGF/TikZ.
 
 ![](examples/img/pgf_contour.svg)
+
+!!! tip
+    To add save a standalone .tex file including a preamble use attribute `tex_output_standalone = true` in your `plot` command.
 
 Pros:
 
