@@ -20,6 +20,12 @@ Pkg.add("UnicodePlots")
 Pkg.add("PlotlyJS")
 ```
 
+!!! tip
+    If you want to use PlotlyJS.jl with plots, you will also need to install ORCA.jl:
+    ```julia
+    Pkg.add("ORCA")
+    ```
+    
 Finally, you may wish to add some extensions from the [Plots ecosystem](@ref ecosystem):
 
 ```julia
