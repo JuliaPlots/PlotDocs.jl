@@ -302,7 +302,7 @@ for its distribution types, so they can be directly interpreted as plotting
 data:
 
 ```julia
-using Distributions
+using Distributions, StatsPlots
 plot(Normal(3,5),lw=3)
 ```
 
