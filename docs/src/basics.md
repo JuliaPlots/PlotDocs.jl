@@ -16,18 +16,18 @@ The graphic is not shown implicitly, only when "displayed".  This will happen au
 Input arguments can take [many forms](@ref input-data).  Some valid examples:
 
 ```julia
-plot()                                    # empty Plot object
-plot(4)                                   # initialize with 4 empty series
-plot(rand(10))                            # 1 series... x = 1:10
-plot(rand(10,5))                          # 5 series... x = 1:10
-plot(rand(10), rand(10))                  # 1 series
-plot(rand(10,5), rand(10))                # 5 series... y is the same for all
-plot(sin, rand(10))                       # y = sin.(x)
-plot(rand(10), sin)                       # same... y = sin.(x)
-plot([sin,cos], 0:0.1:π)                  # 2 series, sin.(x) and cos.(x)
-plot([sin,cos], 0, π)                     # sin and cos on the range [0, π]
-plot(1:10, Any[rand(10), sin])            # 2 series: rand(10) and map(sin,x)
-plot(dataset("Ecdat", "Airline"), :Cost)  # the :Cost column from a DataFrame... must import StatsPlots
+plot()                                       # empty Plot object
+plot(4)                                      # initialize with 4 empty series
+plot(rand(10))                               # 1 series... x = 1:10
+plot(rand(10,5))                             # 5 series... x = 1:10
+plot(rand(10), rand(10))                     # 1 series
+plot(rand(10,5), rand(10))                   # 5 series... y is the same for all
+plot(sin, rand(10))                          # y = sin.(x)
+plot(rand(10), sin)                          # same... y = sin.(x)
+plot([sin,cos], 0:0.1:π)                     # 2 series, sin.(x) and cos.(x)
+plot([sin,cos], 0, π)                        # sin and cos on the range [0, π]
+plot(1:10, Any[rand(10), sin])               # 2 series: rand(10) and map(sin,x)
+@df dataset("Ecdat", "Airline") plot(:Cost)  # the :Cost column from a DataFrame... must import StatsPlots
 ```
 
 [Keyword arguments](@ref attributes) allow for customization of the plot, subplots, axes, and series.  They follow consistent rules as much as possible, and you'll avoid common pitfalls if you read this section carefully:
