@@ -1,5 +1,9 @@
+```@setup contributing
+using Plots; gr()
+Plots.reset_defaults()
+```
 
-This is a guide to contributing to Plots and the surrounding ecosystem.  Plots is a complex and far-reaching suite of software components, and as such will be most effective when the community contributes their own expertise, knowledge, perspective, and effort.  The document is roughly broken up into the following categories, and after reading this introduction you should feel comfortable skipping to the section(s) that interest you the most:
+This is a guide to contributing to Plots and the surrounding ecosystem. Plots is a complex and far-reaching suite of software components, and as such will be most effective when the community contributes their own expertise, knowledge, perspective, and effort. The document is roughly broken up into the following categories, and after reading this introduction you should feel comfortable skipping to the section(s) that interest you the most:
 
 - [The JuliaPlots Organization](#the-juliaplots-organization): Packages and dependencies
 - [Choosing a Project](#choosing-a-project): Fix bugs, add features, create recipes
@@ -15,7 +19,7 @@ When in doubt, use this handy dandy logic designed by a [legendary open source g
 
 ## The JuliaPlots Organization
 
-[JuliaPlots](https://github.com/JuliaPlots) is the home for all things Plots.  It was founded by [Tom Breloff](http://www.breloff.com), and extended through many contributions from [members](https://github.com/orgs/JuliaPlots/people) and others.  The first step in contributing will be to understand which package(s) are appropriate destinations for your code.
+[JuliaPlots](https://github.com/JuliaPlots) is the home for all things Plots. It was founded by [Tom Breloff](http://www.breloff.com), and extended through many contributions from [members](https://github.com/orgs/JuliaPlots/people) and others.  The first step in contributing will be to understand which package(s) are appropriate destinations for your code.
 
 
 ### Plots
@@ -31,42 +35,23 @@ This is the core package for:
 - Generic types: Plot, Subplot, Axis, Series, ...
 - Conveniences: `getindex`/`setindex`, `push!`/`append!`, `unzip`, `cycle`, ...
 
-This package depends on RecipesBase, PlotUtils, and PlotThemes.  When contributing new functionality/features, you should make best efforts to find a more appropriate home (StatsPlots, PlotUtils, etc) than contributing to core Plots.  In general, the push has been to reduce the size and scope of Plots, when possible, and move features to other packages.
+This package depends on RecipesBase, PlotUtils, and PlotThemes.  When contributing new functionality/features, you should make best efforts to find a more appropriate home (StatsPlots, PlotUtils, etc) than contributing to core Plots. In general, the push has been to reduce the size and scope of Plots, when possible, and move features to other packages.
 
 ### Backends
 
-In Julia versions v0.5 and earlier, backend code (such as code linking Plots with GR) lived in the `Plots/src/backends` directory.  As such, backend code should be contributed to core Plots.
-
-Starting with v0.6, the backend code will live in separate repos, and loaded on demand.  For example, the GR backend is being developed at [PlotsGR](https://github.com/JuliaPlots/PlotsGR.jl).  Users targeting v0.6 and later should contribute to the respective backend package "Plots[backend].jl".
-
-Note: As of 2/22/17, the `reorg` branch of Plots is needed for compatibility with the new backend repos.  This will be merged into the master branch sometime after the release of v0.6.
-
-This redesign will help with improved support for precompilation, and a cleaner separation of "generic plotting" development and "backend-specific" development.
+Backend code (such as code linking Plots with GR) lives in the `Plots/src/backends` directory. As such, backend code should be contributed to core Plots. GR and Plotly are the only backends installed by default. All other backend code is loaded conditionally using [Requires.jl](https://github.com/JuliaPackaging/Requires.jl) in `Plots/src/init.jl`.
 
 ### PlotDocs
 
-PlotDocs is the home of this documentation.  The documentation is built using the "material" theme in "mkdocs".  For those contributing documentation (to the `docs` directory of PlotDocs), it must be subsequently built and deployed using the following instructions:
-
-```
-# Note: the site is built inside the PlotDocs.jl repo, but then deployed to the JuliaPlots organization page
-
-# To build, run from inside the PlotDocs directory:
-#     mkdocs build --clean
-# (optional) Make the githubio remote point to JuliaPlots/juliaplots.github.io:
-#     git remote add githubio git@github.com:JuliaPlots/juliaplots.github.io.git
-# Add files, commit, then push:
-#     git push origin master
-# Push just the site directory to the master branch of githubio
-#     git subtree push --prefix site githubio master
-```
+PlotDocs is the home of this documentation. The documentation is built using [Documenter.jl](https://github.com/JuliaDocs/Documenter.jl).
 
 ### RecipesBase
 
-Seldom updated, but essential.  This is the package that you would depend on to create third-party recipes.  It contains the bare minimum to define new recipes.
+Seldom updated, but essential. This is the package that you would depend on to create third-party recipes. It contains the bare minimum to define new recipes.
 
 ### PlotUtils
 
-Components that could be used for other (non-Plots) packages.  Anything that is sufficiently generic and useful could be contributed here.
+Components that could be used for other (non-Plots) packages. Anything that is sufficiently generic and useful could be contributed here.
 
 - Color (conversions, construction, conveniences)
 - Color gradients/maps
@@ -80,23 +65,15 @@ Visual themes (i.e. attribute defaults) such as "dark", "orange", etc.
 
 An extension of Plots: Statistical plotting and tabular data.  Complex histograms and densities, correlation plots, and support for DataFrames.  Anything related to stats or special handling for table-like data should live here.
 
-### PlotRecipes
+### GraphRecipes
 
-An extension of StatsPlots: Graphs, maps, and more.  If it's not a "base recipe", and also not clearly "statistical" in nature, then this package might be a good home.
-
-### MLPlots
-
-An extension of PlotRecipes, geared toward Machine Learning applications: neural nets, spike trains, ROC curves, and more.
-
-### GGPlots
-
-A prototype API/interface for "Grammar of Graphics" style plotting.  This likely wouldn't add actual functionality, but would give users coming from R/ggplot2 a simple way to avoid Gadfly.  I (Tom) wrote the prototype to show how easy it is, but since I dislike GoG-style, I never finished it.  Completing this package would be a great self-contained project for interested parties.
+An extension of StatsPlots: Graphs, maps, and more.
 
 ---
 
 ## Choosing a Project
 
-For people new to Plots, the first step should be to read (and reread) the documentation.  Code up some examples, play with the attributes, and try out multiple backends.  It's really hard to contribute to a project that you don't know how to use.
+For people new to Plots, the first step should be to read (and reread) the documentation.  Code up some examples, play with the attributes, and try out multiple backends. It's really hard to contribute to a project that you don't know how to use.
 
 ### Beginner Project Ideas
 
@@ -108,7 +85,6 @@ For people new to Plots, the first step should be to read (and reread) the docum
 
 - **Improve your favorite backend**: There are many missing features and other improvements that can be made to individual backends.  Most issues specific to a backend have a [special tag](https://github.com/JuliaPlots/Plots.jl/issues?q=is%3Aissue+is%3Aopen+label%3APlotly).
 - **Help with documentation**: This could come in the form of improved descriptions, additional examples, or full tutorials.  Please contribute improvements to [PlotDocs](https://github.com/JuliaPlots/PlotDocs.jl).
-- **Help with the v0.6 reorganization**: The [reorg](#backends) requires the annoying effort of creating new repos (PlotsPyPlot, PlotsPlotlyJS, etc) that hold the backend code.  I consider this intermediate because you need to know a little about Plots and git, but it's fairly straightforward to follow the model of PlotsGR.
 - **Expand StatsPlots functionality**:  qqplot, DataStreams, or anything else you can think of.
 
 ### Advanced Project Ideas
@@ -129,9 +105,9 @@ When contributing new features to Plots (or the surrounding ecosystem), you shou
 
 As an example, you may want a new recipe that shows a histogram when passed Float64 numbers, but shows counts of every unique value for strings.  So you make a recipe that works perfectly for your purpose:
 
-```julia
+```@example contributing
 using Plots, StatsBase
-gr(size=(300,300), leg=false)
+gr(size = (300, 300), leg = false)
 
 @userplot MyCount
 @recipe function f(mc::MyCount)
@@ -146,7 +122,7 @@ gr(size=(300,300), leg=false)
         seriestype := :bar
         cm = countmap(arr)
         x = sort!(collect(keys(cm)))
-        y = [cm[xi] for xi=x]
+        y = [cm[xi] for xi ∈ x]
         x, y
     end
 end
@@ -154,25 +130,19 @@ end
 
 The recipe defined above is a "user recipe", which builds a histogram for arrays of Float64, and otherwise shows a "countmap" of sorted unique values and their observed counts.  You only care about Float64 and String, and so you're results are fine:
 
-```julia
+```@example contributing
 mycount(rand(500))
 ```
 
-![](examples/img/contributing/my_count_1.png)
-
-```julia
+```@example contributing
 mycount(rand(["A","B","C"],100))
 ```
 
-![](examples/img/contributing/my_count_2.png)
-
 But you didn't consider the person that, in the future, might want to pass integers to this recipe:
 
-```julia
+```@example contributing
 mycount(rand(1:500, 500))
 ```
-
-![](examples/img/contributing/my_count_3.png)
 
 This user expected integers to be treated as numbers and output a histogram, but instead they were treated like strings.  A simple solution would have been to replace `if T.parameters[1] == Float64` with `if T.parameters[1] <: Number`.  However, should we even depend on `T` having it's first parameter be the element type? (No)  So even better would be `if eltype(arr) <: Number`, which now allows any container with any numeric type to trigger the "histogram" logic.
 
@@ -196,7 +166,7 @@ These files should probably be reorganized, but until then...
 
 ### Creating new backends
 
-Model new backends on [PlotsGR](https://github.com/JuliaPlots/PlotsGR.jl).  Implement the callbacks that are appropriate, especially `_display` and `_show` for GUI and image output respectively.
+Model new backends on `Plots/src/backends/template.jl`. Implement the callbacks that are appropriate, especially `_display` and `_show` for GUI and image output respectively.
 
 ### Style/Design Guidelines
 

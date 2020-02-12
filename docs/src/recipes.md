@@ -1,3 +1,8 @@
+```@setup recipes
+using Plots; gr()
+Plots.reset_defaults()
+```
+
 
 # [Recipes](@id recipes)
 
@@ -75,8 +80,8 @@ These are the dispatch signatures for each type (note that most of these can acc
 @recipe function f(::Type{Val{:myplotrecipename}}, plt::AbstractPlot; ...) end
 ```
 - These are called after input data has been processed, but **before the plot is created**.
-- Build layouts, add subplots, and other plot-wide attributes
-- See `marginalhist` for an example.
+- Build layouts, add subplots, and other plot-wide attributes.
+- See `marginalhist` in [StatsPlots](https://github.com/JuliaPlots/StatsPlots.jl) for an example.
 
 ### [Series Recipes](@id series-recipes)
 ```julia
@@ -90,7 +95,7 @@ These are the dispatch signatures for each type (note that most of these can acc
 
 Lets decompose what's happening inside the recipe macro, starting with a simple recipe:
 
-```julia
+```@example recipes
 mutable struct MyType end
 
 @recipe function f(::MyType, n::Integer = 10; add_marker = false)
@@ -151,7 +156,7 @@ end
 
 Some example usages of our (mostly useless) recipe:
 
-```julia
+```@example recipes
 mt = MyType()
 plot(
     plot(mt),
@@ -160,8 +165,6 @@ plot(
     plot(mt, add_marker = true)
 )
 ```
-
-![](examples/img/recipes1.png)
 
 ---
 
@@ -241,15 +244,16 @@ See below where I go through a series recipe for creating boxplots.  Many of the
 
 ### Marginal Histograms
 
-In this case study, I'll explain how I built the `marginalhist` recipe for [PlotRecipes](https://github.com/JuliaPlots/PlotRecipes.jl).  This is a nice example because, although easy to understand, it utilizes some great Plots features.
+Here we show a user recipe version of the `marginalhist` plot recipe for [StatsPlots](https://github.com/JuliaPlots/StatsPlots.jl). This is a nice example because, although easy to understand, it utilizes some great Plots features.
 
 Marginal histograms are a visualization comparing two variables.  The main plot is a 2D histogram, where each rectangle is a (possibly normalized and weighted) count of data points in that bucket.  Above the main plot is a smaller histogram of the first variable, and to the right of the main plot is a histogram of the second variable.  The full recipe:
 
-```julia
+```@example recipes
 @userplot MarginalHist
 
 @recipe function f(h::MarginalHist)
-    if length(h.args) != 2 || !(typeof(h.args[1]) <: AbstractVector) || !(typeof(h.args[2]) <: AbstractVector)
+    if length(h.args) != 2 || !(typeof(h.args[1]) <: AbstractVector) ||
+        !(typeof(h.args[2]) <: AbstractVector)
         error("Marginal Histograms should be given two vectors.  Got: $(typeof(h.args))")
     end
     x, y = h.args
@@ -257,11 +261,10 @@ Marginal histograms are a visualization comparing two variables.  The main plot 
     # set up the subplots
     legend := false
     link := :both
-    ticks := [nothing :auto nothing]
+    framestyle := [:none :axes :none]
     grid := false
-    foreground_color_subplot := [RGBA(0,0,0,0) :match RGBA(0,0,0,0)]
     layout := @layout [tophist           _
-                        hist2d{0.9w,0.9h} righthist]
+                       hist2d{0.9w,0.9h} righthist]
 
     # main histogram2d
     @series begin
@@ -294,16 +297,14 @@ end
 Usage:
 
 
-```julia
-using Distributions, PlotRecipes
-pyplot()
+```@example recipes
+using Distributions
 n = 1000
 x = rand(Gamma(2), n)
 y = -0.5x + randn(n)
-marginalhist(x, y, fc=:plasma, bins=40)
+marginalhist(x, y, fc = :plasma, bins = 40)
 ```
 
-![](examples/img/marginalhist.png)
 
 ---
 
@@ -326,7 +327,8 @@ We dispatch only on the generated type, as the real inputs are wrapped inside it
 Some error checking.  Note that we're extracting the real inputs (like in a call to `marginalhist(randn(100), randn(100))`) into `x` and `y`:
 
 ```julia
-    if length(h.args) != 2 || !(typeof(h.args[1]) <: AbstractVector) || !(typeof(h.args[2]) <: AbstractVector)
+    if length(h.args) != 2 || !(typeof(h.args[1]) <: AbstractVector) ||
+        !(typeof(h.args[2]) <: AbstractVector)
         error("Marginal Histograms should be given two vectors.  Got: $(typeof(h.args))")
     end
     x, y = h.args
@@ -344,11 +346,10 @@ Next we build the subplot layout and define some attributes.  A few things to no
     # set up the subplots
     legend := false
     link := :both
-    ticks := [nothing :auto nothing]
+    framestyle := [:none :axes :none]
     grid := false
-    foreground_color_subplot := [RGBA(0,0,0,0) :match RGBA(0,0,0,0)]
     layout := @layout [tophist           _
-                        hist2d{0.9w,0.9h} righthist]
+                       hist2d{0.9w,0.9h} righthist]
 ```
 
 Define the series of the main plot.  The `@series` macro makes a local copy of the attribute dictionary `plotattributes` using a "let block".  The copied dictionary and the returned args are added to the `Vector{RecipeData}` which is returned from the recipe.  This block is similar to calling `histogram2d!(x, y; subplot = 2, plotattributes...)` (but you wouldn't actually want to do that).

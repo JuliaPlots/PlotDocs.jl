@@ -44,7 +44,7 @@ using Plots # or StatsPlots, or PlotRecipes
 [Choose a backend](@ref backends), and optionally override default settings at the same time:
 
 ```julia
-pyplot(size = (300,300), legend = false)
+pyplot(size = (300, 300), legend = false)
 ```
 
 !!! tip

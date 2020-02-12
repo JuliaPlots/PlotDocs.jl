@@ -1,3 +1,7 @@
+```@setup animations
+using Plots; gr()
+Plots.reset_defaults()
+```
 
 ### [Animations](@id animations)
 
