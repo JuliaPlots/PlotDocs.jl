@@ -1,3 +1,46 @@
+```@setup backends
+using StatsPlots, RecipesBase, Statistics; gr()
+Plots.reset_defaults()
+
+@userplot BackendPlot
+
+@recipe function f(bp::BackendPlot; n = 4)
+    t = range(0, 3π, length = 100)
+    d = rand(3, 3)
+
+    layout := n
+
+    @series begin
+        subplot := 1
+        f = s -> -cos(s) * log(s)
+        g = t -> sin(t) * log(t)
+        [f g]
+    end
+
+    @series begin
+        subplot := 2 + (n > 2)
+        RecipesBase.recipetype(:groupedbar, d)
+    end
+
+    if n > 2
+        @series begin
+            subplot := 2
+            line_z := t
+            label := false
+            c := :viridis
+            seriestype := surface
+            t, t, (x, y) -> x * sin(x) - y * cos(y)
+        end
+
+        @series begin
+            subplot := 4
+            seriestype := contourf
+            t, t, (x, y) -> x * sin(x) - y * cos(y)
+        end
+    end
+end
+```
+
 # [Backends](@id backends)
 
 Backends are the lifeblood of Plots, and the diversity between features, approaches, and strengths/weaknesses was
@@ -27,11 +70,62 @@ Of course nothing in life is that simple.  Likely there are subtle tradeoffs bet
 
 ---
 
+### [GR](https://github.com/jheinen/GR.jl)
+
+Super fast with lots of plot types. Still actively developed and improving daily.
+
+```@example backends
+gr(); backendplot() # hide
+```
+
+Pros:
+
+- Speed
+- 2D and 3D
+- Standalone or inline
+
+Cons:
+
+- Limited interactivity
+
+Primary author: Josef Heinen (@jheinen)
+
+### [Plotly / PlotlyJS](https://github.com/spencerlyon2/PlotlyJS.jl)
+
+These are treated as separate backends, though they share much of the code and use the Plotly javascript API.  `plotly()` is the only dependency-free plotting option,
+as the required javascript is bundled with Plots.  It can create inline plots in IJulia, or open standalone browser windows when run from the Julia REPL.
+
+`plotlyjs()` is the preferred option, and taps into the great functionality of Spencer Lyon's PlotlyJS.jl.  Inline IJulia plots can be updated from any cell... something that
+makes this backend stand out.  From the Julia REPL, it taps into Blink.jl and Electron to plot within a standalone GUI window... also very cool. Also, PlotlyJS supports saving the output to more formats than Plotly, such as EPS and PDF, and thus is the recommended version of Plotly for developing publication-quality figures.
+
+```@example backends
+plotly(); backendplot(n = 2) # hide # hide
+png("backends_plotly") # hide
+```
+![](backends_plotly.png)
+
+Pros:
+
+- [Tons of functionality](https://plot.ly/javascript/)
+- 2D and 3D
+- Mature library
+- Interactivity (even when inline)
+- Standalone or inline
+
+Cons:
+
+- No custom shapes
+- JSON may limit performance
+
+Primary PlotlyJS.jl author: Spencer Lyon (@spencerlyon2)
+
 ### [PyPlot](https://github.com/stevengj/PyPlot.jl)
 
 A Julia wrapper around the popular python package PyPlot (Matplotlib).  It uses PyCall.jl to pass data with minimal overhead.
 
-![](examples/img/pyplot/ref22.png)
+```@example backends
+pyplot(); backendplot() # hide
+```
 
 Pros:
 
@@ -49,55 +143,14 @@ Cons:
 
 Primary author: Steven G Johnson (@stevengj)
 
-### [Plotly / PlotlyJS](https://github.com/spencerlyon2/PlotlyJS.jl)
-
-These are treated as separate backends, though they share much of the code and use the Plotly javascript API.  `plotly()` is the only dependency-free plotting option,
-as the required javascript is bundled with Plots.  It can create inline plots in IJulia, or open standalone browser windows when run from the Julia REPL.
-
-`plotlyjs()` is the preferred option, and taps into the great functionality of Spencer Lyon's PlotlyJS.jl.  Inline IJulia plots can be updated from any cell... something that
-makes this backend stand out.  From the Julia REPL, it taps into Blink.jl and Electron to plot within a standalone GUI window... also very cool. Also, PlotlyJS supports saving the output to more formats than Plotly, such as EPS and PDF, and thus is the recommended version of Plotly for developing publication-quality figures.
-
-![](examples/img/plotlyjs/ref28.png)
-
-Pros:
-
-- [Tons of functionality](https://plot.ly/javascript/)
-- 2D and 3D
-- Mature library
-- Interactivity (even when inline)
-- Standalone or inline
-
-Cons:
-
-- No custom shapes
-- JSON may limit performance
-
-Primary PlotlyJS.jl author: Spencer Lyon (@spencerlyon2)
-
-### [GR](https://github.com/jheinen/GR.jl)
-
-Super fast with lots of plot types.  Still actively developed and improving daily.
-
-![](examples/img/gr/ref24.png)
-
-Pros:
-
-- Speed
-- 2D and 3D
-- Standalone or inline
-
-Cons:
-
-- Limited interactivity
-- Plots integration is still a work in progress
-
-Primary author: Josef Heinen (@jheinen)
-
 ### [UnicodePlots](https://github.com/Evizero/UnicodePlots.jl)
 
 Simple and lightweight.  Plot directly in your terminal.  You won't produce anything publication quality, but for a quick look at your data it is awesome.
 
-![](examples/img/unicodeplots/ref3.png)
+```@example backends
+unicodeplots()
+plot([sin cos])
+```
 
 Pros:
 
@@ -117,7 +170,9 @@ Primary author: Christof Stocker (@Evizero)
 
 LaTeX plotting, based on PGF/TikZ.
 
-![](examples/img/pgf_contour.svg)
+```@example backends
+pgfplots(); backendplot(n = 2) # hide
+```
 
 !!! tip
     To add save a standalone .tex file including a preamble use attribute `tex_output_standalone = true` in your `plot` command.
@@ -142,7 +197,9 @@ Authors:
 
 Fast plotting with a responsive GUI (optional).  Target: Quickly identify design/simulation issues & glitches in order to shorten design iterations.
 
-![](examples/img/inspectdr_deltamkr.png) ![](examples/img/inspectdr_bode_export.png)
+```@example backends
+inspectdr(); backendplot(n = 2) # hide
+```
 
 Pros:
 
@@ -167,14 +224,14 @@ Write plot + data to a *single* `HDF5` file using a human-readable structure tha
 ![](examples/img/hdf5_samplestruct.png)
 
 **Write to .hdf5 file**
-```
+```julia
 hdf5() #Select HDF5-Plots "backend"
 p = plot(...) #Construct plot as usual
 Plots.hdf5plot_write(p, "plotsave.hdf5")
 ```
 
 **Read from .hdf5 file**
-```
+```julia
 pyplot() #Must first select some backend
 pread = Plots.hdf5plot_read("plotsave.hdf5")
 display(pread)
@@ -196,14 +253,6 @@ Cons:
 - Currently implemented as a "backend" to avoid adding dependencies to `Plots.jl`.
 
 Primary author: MA Laforge (@ma-laforge)
-
----
-
-# The future: works in progress
-
-### [GLVisualize](https://github.com/JuliaGL/GLVisualize.jl)
-
-A really awesome 2D/3D visualization library written in Julia and OpenGL.  It is feature-packed and fast, and author Simon Danisch has put a ton of energy into its development.  I'm very excited for the day that this is cleanly wrapped.
 
 ---
 

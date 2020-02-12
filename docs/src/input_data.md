@@ -1,3 +1,8 @@
+```@setup input_data
+using Plots; gr()
+Plots.reset_defaults()
+```
+
 # [Input Data](@id input-data)
 
 Part of the power of Plots lies is in the many combinations of allowed input data.
@@ -21,11 +26,11 @@ can have unique behavior, when desired.
 In most cases, passing a (`n` × `m`) matrix of values (numbers, etc) will create `m` series, each with `n` data points.  This follows a consistent rule… vectors apply to a series, matrices apply to many series.  This rule carries into keyword arguments.  `scatter(rand(10,4), markershape = [:circle, :rect])` will create 4 series, each assigned the markershape vector [:circle,:rect].  However, `scatter(rand(10,4), markershape = [:circle :rect])` will create 4 series, with series 1 and 3 having markers shaped as `:circle` and series 2 and 4 having markers shaped as `:rect` (i.e. as squares).  The difference is that in the first example, it is a length-2 column vector, and in the second example it is a (1 × 2) row vector (a Matrix).
 
 The flexibility and power of this can be illustrated by the following piece of code:
-```julia
-using Plots; gr()
+```@example input_data
+using Plots
 
 # 10 data points in 4 series
-xs = 0 : 2π/10 : 2π
+xs = range(0, 2π, length = 10)
 data = [sin.(xs) cos.(xs) 2sin.(xs) 2cos.(xs)]
 
 # We put labels in a row vector: applies to each series
@@ -35,14 +40,21 @@ labels = ["Apples" "Oranges" "Hats" "Shoes"]
 markershapes = [:circle, :star5]
 
 # Marker colors in a matrix: applies to series and data points
-markercolors = [:green :orange :black :purple
-                :red   :yellow :brown :white]
+markercolors = [
+    :green :orange :black :purple
+    :red   :yellow :brown :white
+]
 
-plot(xs, data, label = labels, shape = markershapes, color = markercolors,
-     markersize = 10)
+plot(
+    xs,
+    data,
+    label = labels,
+    shape = markershapes,
+    color = markercolors,
+    markersize = 10
+)
 ```
-This example plots the four series with different labels, marker shapes, and marker colors by combining row and column vectors to decorate the data.  The result is:
-![applesoranges](examples/img/input/columns_are_series.png)
+This example plots the four series with different labels, marker shapes, and marker colors by combining row and column vectors to decorate the data.
 
 ## Unconnected Data within same groups
 
@@ -52,60 +64,69 @@ Now, let's say you're plotting `n` polygons grouped into `g` groups, with `n` > 
 
 To adress this, you can use `NaN` as a path separator. A call to `plot` would then draw one path with disjoints The following code draws `n=4` rectangles in `g=2` groups.
 
-```julia
-using Plots; plotly()
+```@example input_data
+using Plots
+plotly()
 
 function rectangle_from_coords(xb,yb,xt,yt)
     [
-        xb yb
-        xt yb
-        xt yt
-        xb yt
-        xb yb
+        xb  yb
+        xt  yb
+        xt  yt
+        xb  yt
+        xb  yb
         NaN NaN
     ]
 end
 
 some_rects=[
-    rectangle_from_coords(1 ,1 ,5 ,5 )
-    rectangle_from_coords(10,10,15,15)
-    ]
+    rectangle_from_coords(1, 1, 5, 5)
+    rectangle_from_coords(10, 10, 15, 15)
+]
 other_rects=[
-    rectangle_from_coords(1 ,10,5 ,15)
-    rectangle_from_coords(10,1 ,15,5 )
-    ]
+    rectangle_from_coords(1, 10, 5, 15)
+    rectangle_from_coords(10, 1, 15, 5)
+]
 
-plot(some_rects[:,1], some_rects[:,2],label="some group")
-plot!(other_rects[:,1], other_rects[:,2],label="other group")
+plot(some_rects[:,1], some_rects[:,2], label = "some group")
+plot!(other_rects[:,1], other_rects[:,2], label = "other group")
+png("input_data_1") # hide
 ```
-This examples produces the following:
-![grouped_rectangles](examples/img/input/groups.png)
+![](input_data_1.png)
 
 ## DataFrames support
 
 Using the [StatsPlots](https://github.com/JuliaPlots/StatsPlots.jl) extension package, you can pass a `DataFrame` as the first argument (similar to Gadfly or R's ggplot2).  For data fields or certain attributes (such as `group`) a symbol will be replaced with the corresponding column(s) of the `DataFrame`.  Additionally, the column name might be used as the   An example:
 
-```julia
+```@example input_data
 using StatsPlots, RDatasets
+gr()
 iris = dataset("datasets", "iris")
-@df iris scatter(:SepalLength, :SepalWidth, group=:Species,
-        m=(0.5, [:+ :h :star7], 12), bg=RGB(.2,.2,.2))
+@df iris scatter(
+    :SepalLength,
+    :SepalWidth,
+    group = :Species,
+    m = (0.5, [:+ :h :star7], 12),
+    bg = RGB(0.2, 0.2, 0.2)
+)
 ```
-
-![iris_plt](examples/img/input/dataframes.png)
 
 ## Functions
 
 Functions can typically be used in place of input data, and they will be mapped as needed. 2D and 3D parametric plots can also be created, and ranges can be given as vectors or min/max.  For example, here are alternative methods to create the same plot:
 
-```julia
+```@example input_data
 using Plots
 tmin = 0
 tmax = 4π
-tvec = range(tmin, stop=tmax, length=100)
+tvec = range(tmin, tmax, length = 100)
 
 plot(sin.(tvec), cos.(tvec))
+```
+```@example input_data
 plot(sin, cos, tvec)
+```
+```@example input_data
 plot(sin, cos, tmin, tmax)
 ```
 
@@ -116,7 +137,7 @@ Vectors of functions are allowed as well (one series per function).
 Images can be directly added to plots by using the [Images.jl](https://github.com/timholy/Images.jl) library. For example, one can import a raster image and plot it with Plots via the commands:
 
 ```julia
-using Plots,Images
+using Plots, Images
 img = load("image.png")
 plot(img)
 ```
@@ -125,6 +146,83 @@ PDF graphics can also be added to Plots.jl plots using `load("image.pdf")`. Note
 
 ## Shapes
 
-Check out [this tutorial](https://github.com/tbreloff/ExamplePlots.jl/blob/master/notebooks/batman.ipynb) to save Gotham:
+*Save Gotham*
 
-![batman](examples/img/input/batman.png)
+```@example input_data
+using Plots
+P2 = Plots.P2
+function make_batman()
+    p = P2[(0, 0), (0.5, 0.2), (1, 0), (1, 2),  (0.3, 1.2), (0.2, 2), (0, 1.7)]
+    m = P2[(p[i] + p[i + 1]) / 2 for i in 1:length(p) - 1]
+    m += P2[(0.2, 1), (0.4, 1), (2, 0), (0.5, -0.6), (0, 0), (0, -0.15)]
+
+    pts = P2[]
+    for (i, mi) in enumerate(m)
+        append!(
+            pts,
+            map(BezierCurve(P2[p[i], m[i], p[i + 1]]), range(0, 1, length = 30))
+        )
+    end
+    x, y = Plots.unzip(pts)
+    Shape(vcat(x, -reverse(x)), vcat(y, reverse(y)))
+end
+
+# background and limits
+plt = plot(
+    bg = :black,
+    xlim = (0.1, 0.9),
+    ylim = (0.2, 1.5),
+    framestyle = :none,
+    size = (400, 400),
+    legend = false,
+)
+```
+
+```@example input_data
+# create an ellipse in the sky
+pts = Plots.partialcircle(0, 2π, 100, 0.1)
+x, y = Plots.unzip(pts)
+x = 1.5x .+ 0.7
+y .+= 1.3
+pts = collect(zip(x, y))
+
+# beam
+beam = Shape([(0.3, 0.0), pts[95], pts[50], (0.3, 0.0)])
+plot!(beam, fillcolor = plot_color(:yellow, 0.3))
+```
+
+```@example input_data
+# spotlight
+plot!(Shape(x, y), c = :yellow)
+```
+
+```@example input_data
+# buildings
+rect(w, h, x, y) = Shape(x .+ [0, w, w, 0, 0], y .+ [0, 0, h, h, 0])
+gray(pct) = RGB(pct, pct, pct)
+function windowrange(dim, denom)
+    range(0, 1, length = max(3, round(Int, dim/denom)))[2:end - 1]
+end
+
+for k in 1:50
+    w, h, x, y = 0.1rand() + 0.05, 0.8rand() + 0.3, rand(), 0.0
+    shape = rect(w, h, x, y)
+    graypct = 0.3rand() + 0.3
+    plot!(shape, c = gray(graypct))
+
+    # windows
+    I = windowrange(w, 0.015)
+    J = windowrange(h, 0.04)
+    pts = vec([(Float64(x + w * i), Float64(y + h * j)) for i in I, j in J])
+    windowcolors = Symbol[rand() < 0.2 ? :yellow : :black for i in 1:length(pts)]
+    scatter!(pts, marker = (stroke(0), :rect, windowcolors))
+end
+plt
+```
+
+```@example input_data
+# Holy plotting, Batman!
+batman = Plots.scale(make_batman(), 0.07, 0.07, (0, 0))
+batman = translate(batman, 0.7, 1.23)
+plot!(batman, fillcolor = :black)
+```
