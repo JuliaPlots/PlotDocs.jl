@@ -2,53 +2,23 @@
 module PlotDocs
 
 
-using Plots, Dates
+using Plots, DataFrames, Latexify, MacroTools, OrderedCollections, Dates
 import Plots: _examples
-
-using DataStructures, Random
-using StatsPlots, RDatasets, ProgressMeter, DataFrames, Distributions, StatsBase
-# For Plots' Examples
-using Statistics, FileIO, ImageMagick, SparseArrays
-
-# import plotting backends
-import PyPlot, PlotlyJS, ORCA, PGFPlots
-PyPlot.ioff()
 
 export
     generate_markdown,
-    save_attr_html_files,
-    make_support_df_args,
-    make_support_df_types,
-    make_support_df_styles,
-    make_support_df_markers,
-    make_support_df_scales,
-    create_support_tables,
-    generate_reference_images,
-    generate_doc_images
+    generate_supported_markdown,
+    generate_attr_markdown,
+    GENDIR
 
-const BASEDIR = normpath(@__DIR__, "..", "docs", "src")
-const DOCDIR = joinpath(BASEDIR, "examples")
-const IMGDIR = joinpath(DOCDIR, "img")
-
-include("doc_image_constants.jl")
-include("generate_images.jl")
+const GENDIR = normpath(@__DIR__, "..", "docs", "src", "generated")
+mkpath(GENDIR)
 
 # ----------------------------------------------------------------------
 
 # TODO: Make this work now on julia 1.0:
-isnotlinenumber(e::LineNumberNode) = false
-isnotlinenumber(e) = true
-function filter_out_line_numbers!(expr::Expr)
-    expr.args = filter(isnotlinenumber, expr.args)
-    map(filter_out_line_numbers!, expr.args)
-end
-filter_out_line_numbers!(v) = nothing
-
-
 function pretty_print_expr(io::IO, expr::Expr)
-    e2 = copy(expr)
-    filter_out_line_numbers!(e2)
-    for arg in e2.args
+    for arg in rmlines(expr).args
         println(io, arg)
     end
 end
@@ -64,26 +34,44 @@ function generate_markdown(pkgname::Symbol; skip = get(Plots._backend_skips, pkg
     pkg = Plots._backend_instance(pkgname)
 
     # open the markdown file
-    md = open("$DOCDIR/$(pkgname).md", "w")
+    md = open(joinpath(GENDIR, "$(pkgname).md"), "w")
 
-    write(md, "### [Initialize](@id $pkgname-examples)\n\n```julia\nusing Plots\n$(pkgname)()\n```\n\n")
+    write(md, """
+    ### [Initialize](@id $pkgname-examples)
+
+    ```@example $pkgname
+    using Plots
+    Plots.reset_defaults() # hide
+    $(pkgname)()
+    ```
+    """)
 
     for (i,example) in enumerate(_examples)
         i in skip && continue
 
         # write out the header, description, code block, and image link
         if !isempty(example.header)
-            write(md, "### [$(example.header)](@id $pkgname-ref$i)\n\n")
+            write(md, """
+            ### [$(example.header)](@id $pkgname-ref$i)
+            """)
         end
-        write(md, "$(example.desc)\n\n")
+        write(md, """
+        $(example.desc)
+        """)
         # write(md, "```julia\n$(join(map(string, example.exprs), "\n"))\n```\n\n")
-        write(md, "```julia\n")
+        write(md, """
+        ```@example $pkgname
+        """)
         for expr in example.exprs
             pretty_print_expr(md, expr)
         end
-        write(md, "```\n\n")
-        imgpath = joinpath("img", string(pkgname), filename(i))
-        write(md, "![]($imgpath)\n\n")
+        if pkgname ∈ (:plotly, :plotlyjs)
+            write(md, "png(\"$(pkgname)_ex$i\") # hide\n")
+        end
+        write(md, "```\n")
+        if pkgname ∈ (:plotly, :plotlyjs)
+            write(md, "![]($(pkgname)_ex$i.png)\n")
+        end
     end
 
     write(md, "- Supported arguments: $(markdown_code_to_string(collect(Plots.supported_attrs(pkg))))\n")
@@ -103,142 +91,135 @@ end
 function make_support_df(allvals, func)
     vals = sort(allvals) # rows
     bs = sort(backends())
-    bs = filter(be -> !(be in Plots._deprecated_backends), bs) # cols
-    df = DataFrames.DataFrame(keys=vals)
+    bs = filter(be -> be ∉ [Plots._deprecated_backends; :plotlyjs; :hdf5], bs) # cols
+    df = DataFrames.DataFrame(keys = string.('`', vals, '`'))
 
     for b in bs
         b_supported_vals = ["" for _ in 1:length(vals)]
         for (i, val) in enumerate(vals)
             if func == Plots.supported_seriestypes
                 stype = Plots.seriestype_supported(Plots._backend_instance(b), val)
-                b_supported_vals[i] = stype == :native ? "native" : (stype == :no ? "" : "recipe")
+                b_supported_vals[i] = stype == :native ? "✅" : (stype == :no ? "" : "🔼")
             else
                 supported = func(Plots._backend_instance(b))
 
-                b_supported_vals[i] = val in supported ? "native" : ""
+                b_supported_vals[i] = val in supported ? "✅" : ""
             end
         end
-        df[b] = b_supported_vals
+        df[!, b] = b_supported_vals
     end
-    df
+    return string(mdtable(df, latex=false))
 end
 
-make_support_df_args()    = make_support_df(Plots._all_args,   Plots.supported_attrs)
-# make_support_df_types()   = make_support_df(Plots._allTypes,   Plots.supported_types)
-make_support_df_types()   = make_support_df(Plots.all_seriestypes(),   Plots.supported_seriestypes)
-make_support_df_styles()  = make_support_df(Plots._allStyles,  Plots.supported_styles)
-make_support_df_markers() = make_support_df(Plots._allMarkers, Plots.supported_markers)
-make_support_df_scales()  = make_support_df(Plots._allScales,  Plots.supported_scales)
+function generate_supported_markdown()
+    md = open(joinpath(GENDIR, "supported.md"), "w")
 
-function create_support_tables()
-    funcs = Dict(
-        "args" => make_support_df_args, "types" => make_support_df_types,
-        "styles" => make_support_df_styles, "markers" => make_support_df_markers,
-        "scales" => make_support_df_scales,
+    write(md, """
+    ## [Series Types](@id supported)
+
+    Key:
+
+    - ✅ the series type is natively supported by the backend.
+    - 🔼 the series type is supported through series recipes.
+
+
+    """)
+    write(md, make_support_df(Plots.all_seriestypes(), Plots.supported_seriestypes))
+
+    supported_args =OrderedDict(
+        "Keyword Arguments" => (Plots._all_args, Plots.supported_attrs),
+        "Markers" => (Plots._allMarkers, Plots.supported_markers),
+        "Line Styles" => (Plots._allStyles,  Plots.supported_styles),
+        "Scales" => (Plots._allScales,  Plots.supported_scales)
     )
-    for (s, func) in funcs
-       save_html(func(), joinpath(BASEDIR, "supported_$s.html"), :supported)
+
+    for (header, args) in supported_args
+        write(md, """
+
+        ## $header
+
+        """)
+        write(md, make_support_df(args...))
     end
+
+    write(md, "\n(Automatically generated: $(now()))")
+    close(md)
 end
 
 
 # ----------------------------------------------------------------------
 
 
-# need dataframes to make html tables, etc easily
-# if is_installed("DataFrames")
-#     @eval begin
-import DataFrames
-
-function save_html(df::DataFrames.AbstractDataFrame, fn = "/tmp/tmp.html", table_style = :attr)
-    f = open(fn, "w")
-    cnames = DataFrames._names(df)
-    write(f, "<head><link type=\"text/css\" rel=\"stylesheet\" href=\"tables.css\" /></head><body><table><tr class=\"headerrow\">")
-    for column_name in cnames
-        write(f, "<th>$column_name</th>")
-    end
-    write(f, "</tr>")
-    attrstr = " class=\"attr\""
-    for row in 1:size(df,1)
-        write(f, "<tr>")
-        for (i,column_name) in enumerate(cnames)
-            data = df[row, i]
-            cell = data == nothing ? "" : string(data)
-            if table_style == :attr
-                attrstr = if i == 1
-                    " class=\"attr\""
-                elseif i == length(cnames)
-                    " class=\"desc\""
-                else
-                    ""
-                end
-            elseif table_style == :supported
-                attrstr = if i == 1
-                    " class=\"attr\""
-                elseif cell == "native"
-                    " class=\"supported_native\""
-                elseif cell == "recipe"
-                    " class=\"supported_recipe\""
-                else
-                    " class=\"supported_not\""
-                end
-            end
-            write(f, "<td$attrstr>$(DataFrames.html_escape(cell))</td>")
-        end
-        write(f, "</tr>")
-    end
-    write(f, "</table></body>")
-    close(f)
-end
-
-function attr_dataframe_from_defaults(ktype::Symbol, defs::KW)
-    df = DataFrames.DataFrame(
-        [Symbol,Any,Any,Any,Any],
-        [:Attribute, :Default, :Aliases, :Type, :Description],
-        length(defs)
+function make_attr_df(ktype::Symbol, defs::KW)
+    n = length(defs)
+    df = DataFrame(
+        Attribute = fill("", n),
+        Default = fill("", n),
+        Type = fill("", n),
+        Description = fill("", n),
     )
-    for (i,(k,def)) in enumerate(defs)
+    for (i, (k, def)) in enumerate(defs)
         desc = get(Plots._arg_desc, k, "")
         first_period_idx = findfirst(isequal('.'), desc)
 
-        df[i,1] = k
-        if first_period_idx == nothing
-            df[i,2] = ""
-            df[i,3] = ""
-            df[i,4] = ""
-            df[i,5] = ""
-        else
+        aliases = sort(collect(keys(filter(p -> p.second == k, Plots._keyAliases))))
+        add = isempty(aliases) ? "" : string(
+            "\n*`",
+            join(aliases, "`*, *`"),
+            "`*"
+        )
+        df.Attribute[i] = string("`", k, "`", add)
+        if first_period_idx !== nothing
             typedesc = desc[1:first_period_idx-1]
             desc = strip(desc[first_period_idx+1:end])
-            aliases = keys(filter(p->p.second==k, Plots._keyAliases)) |> collect |> sort
+
             aliases = join(map(string,aliases), ", ")
 
-            df[i,2] = def
-            df[i,3] = aliases
-            df[i,4] = typedesc
-            df[i,5] = desc
+            df.Default[i] = string("`", def, "`")
+            df.Type[i] = string(typedesc)
+            df.Description[i] = string(desc)
         end
     end
     sort!(df, [:Attribute])
-    df
+    return string(mdtable(df, latex=false))
 end
 
-# for each default dict, save an html file with the attributes table
-function save_attr_html_files()
-    for (ktype, defs) in [(:Series, Plots._series_defaults),
-                          (:Subplot, Plots._subplot_defaults),
-                          (:Plot, Plots._plot_defaults),
-                          (:Axis, Plots._axis_defaults)]
-        fn = joinpath(BASEDIR, "$(lowercase(string(ktype)))_attr.html")
-        df = attr_dataframe_from_defaults(ktype, defs)
-        save_html(df, fn)
-        @info("Wrote html file for $ktype: $fn")
+const ATTRIBUTE_TEXTS = Dict(
+    :Series => "These attributes apply to individual series (lines, scatters, heatmaps, etc)",
+    :Plot => "These attributes apply to the full Plot. (A Plot contains a tree-like layout of Subplots)",
+    :Subplot => "These attributes apply to settings for individual Subplots.",
+    :Axis => "These attributes apply to an individual Axis in a Subplot (for example the `subplot[:xaxis]`)",
+)
+
+const ATTRIBUTE_DEFAULTS = Dict(
+    :Series => Plots._series_defaults,
+    :Plot => Plots._plot_defaults,
+    :Subplot => Plots._subplot_defaults,
+    :Axis => Plots._axis_defaults,
+)
+
+function generate_attr_markdown(c)
+    # open the markdown file
+    cstr = lowercase(string(c))
+    attr_text = ATTRIBUTE_TEXTS[c]
+    md = open(joinpath(GENDIR, "attributes_$cstr.md"), "w")
+
+    write(md, """
+    ### $c
+
+    $attr_text
+
+    """)
+    write(md, make_attr_df(c, ATTRIBUTE_DEFAULTS[c]))
+
+    write(md, "\n(Automatically generated: $(now()))")
+    close(md)
+end
+
+function generate_attr_markdown()
+    for c in (:Series, :Plot, :Subplot, :Axis)
+        generate_attr_markdown(c)
     end
 end
-
-#     end
-# end
-
-# ----------------------------------------------------------------------
 
 end # module

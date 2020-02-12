@@ -56,15 +56,13 @@ png(plot_ref, fn) # save the fig referenced by plot_ref as png with filename fn
 Note:   not all backends support every output file format !
 A simple table showing which format is supported by which backend
 
-```@raw html
- | format | backends |
- |--------|----------|
- | eps | inspectdr, plotlyjs, pyplot |
- | html | plotly,  plotlyjs |
- | pdf | gr, inspectdr, pgfplots, plotlyjs, pyplot |
- | png | glvisualize, gr, inspectdr, plotly, plotlyjs, pyplot |
- | ps | gr, pyplot |
- | svg | gr, inspectdr, pgfplots, plotly, plotlyjs, pyplot |
- | tex | pgfplots |
- | text | hdf5, unicodeplots |
-```
+| format | backends |
+|--------|----------|
+| eps | inspectdr, plotlyjs, pyplot |
+| html | plotly,  plotlyjs |
+| pdf | gr, inspectdr, pgfplots, plotlyjs, pyplot |
+| png | glvisualize, gr, inspectdr, plotly, plotlyjs, pyplot |
+| ps | gr, pyplot |
+| svg | gr, inspectdr, pgfplots, plotly, plotlyjs, pyplot |
+| tex | pgfplots |
+| text | hdf5, unicodeplots |
