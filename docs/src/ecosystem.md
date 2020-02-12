@@ -65,7 +65,7 @@ bar!(dist, func=cdf, alpha=0.3) # hide
 groupedbar(rand(10, 3), bar_position = :stack, bar_width = 0.7) # hide
 ```
 
-## [GraphRecipes](https://github.com/JuliaPlots/PlotRecipes.jl)
+## [GraphRecipes](https://github.com/JuliaPlots/GraphRecipes.jl)
 
 Recipes for Graphs (networks of nodes and edges)
 
