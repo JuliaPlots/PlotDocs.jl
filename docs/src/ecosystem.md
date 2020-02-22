@@ -41,28 +41,6 @@ Much of this functionality once existed in core Plots, but has been moved out to
 ![](https://cloud.githubusercontent.com/assets/933338/16718720/729b6fea-46f0-11e6-9bff-fdf2541ce305.png)
 
 
-
-
-## [PlotRecipes](https://github.com/JuliaPlots/PlotRecipes.jl)
-
-A catch-all for functionality and recipes which don't have a home elsewhere.  Graphs (networks of nodes and edges), maps/shapes, finance, and more.
-
-
-![graph3d](https://cloud.githubusercontent.com/assets/933338/16094180/0dd2edf0-330d-11e6-8596-d12b0b8d5393.png)
-
-
-![graph_layout](https://cloud.githubusercontent.com/assets/933338/16698919/ee1f9e76-451e-11e6-8936-881551f120dd.gif)
-
-
-![arcs](https://cloud.githubusercontent.com/assets/2822757/16072526/aba39c2e-32b7-11e6-947c-6faab1d13cc7.png)
-
-
-![map](https://cloud.githubusercontent.com/assets/933338/16770876/83dea362-481c-11e6-9943-bb77148be5b8.png)
-
-
-![portcomp](https://cloud.githubusercontent.com/assets/933338/17529235/96a48040-5e40-11e6-8698-7d371f36fd22.png)
-
-
 ---
 
 # Community packages
