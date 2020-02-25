@@ -164,9 +164,9 @@ function make_attr_df(ktype::Symbol, defs::KW)
 
         aliases = sort(collect(keys(filter(p -> p.second == k, Plots._keyAliases))))
         add = isempty(aliases) ? "" : string(
-            "\n*`",
+            " *(`",
             join(aliases, "`*, *`"),
-            "`*"
+            "`)*"
         )
         df.Attribute[i] = string("`", k, "`", add)
         if first_period_idx !== nothing
