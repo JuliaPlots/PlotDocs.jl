@@ -26,7 +26,14 @@ const PAGES = Any[
     ],
     "Learning" => "learning.md",
     "Contributing" => "contributing.md", # TODO: testing
-    "Ecosystem" => "ecosystem.md",
+    "Ecosystem" => [
+        "Overview" => "ecosystem.md",
+        "GraphRecipes" => [
+        "Introduction" => "graphrecipes/introduction.md",
+        "Examples" => "graphrecipes/examples.md",
+        "Attributes" => "graphrecipes/attributes.md",
+        ],
+    ],
     "Advanced Topics" => [
         "Internals" => "pipeline.md",
     ],
