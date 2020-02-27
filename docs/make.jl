@@ -31,7 +31,7 @@ const PAGES = Any[
         "GraphRecipes" => [
         "Introduction" => "graphrecipes/introduction.md",
         "Examples" => "graphrecipes/examples.md",
-        "Attributes" => "graphrecipes/attributes.md",
+        "Attributes" => "generated/graph_attributes.md",
         ],
     ],
     "Advanced Topics" => [
@@ -51,6 +51,7 @@ const EXAMPLES = "Examples" => [
 function builddocs(; examples=true)
     generate_attr_markdown()
     generate_supported_markdown()
+    generate_graph_attr_markdown()
     for be in (:gr, :plotly, :pyplot, :pgfplots)
         if examples
             generate_markdown(be)
