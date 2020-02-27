@@ -1,7 +1,7 @@
 using Documenter, PlotDocs, Plots
 
 # Set matplotlib gui backend
-ENV["MPLBACKEND"]="tkagg"
+ENV["MPLBACKEND"]="agg"
 
 # Initialize backends
 pyplot()
