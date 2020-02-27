@@ -1,5 +1,11 @@
 using Documenter, PlotDocs, Plots
 
+# Initialize backends
+pyplot()
+pgfplots()
+plotly()
+gr()
+
 const PAGES = Any[
     "Home" => "index.md",
     "Getting Started" => [
