@@ -70,7 +70,7 @@ data for 3D plots, while `plot(x,y,attribute=value)` is 2-dimensional with
 an attribute.
 
 As an example, we see that from the attributes page that we can increase the
-line width using `line_width` (or its alias `lw`), change the legend's labels
+line width using `linewidth` (or its alias `lw`), change the legend's labels
 using the `label` command, and add a title with `title`. Let's apply that to our
 previous plot:
 
