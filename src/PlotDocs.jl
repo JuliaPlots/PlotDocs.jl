@@ -2,7 +2,7 @@
 module PlotDocs
 
 
-using Plots, DataFrames, Latexify, MacroTools, OrderedCollections, Dates
+using Plots, DataFrames, MacroTools, OrderedCollections, Dates
 import Plots: _examples
 
 export
@@ -92,8 +92,8 @@ end
 function make_support_df(allvals, func)
     vals = sort(allvals) # rows
     bs = sort(backends())
-    bs = filter(be -> be ∉ [Plots._deprecated_backends; :plotlyjs; :hdf5], bs) # cols
-    df = DataFrames.DataFrame(keys = string.('`', vals, '`'))
+    bs = filter(be -> !(be in Plots._deprecated_backends), bs) # cols
+    df = DataFrames.DataFrame(keys=vals)
 
     for b in bs
         b_supported_vals = ["" for _ in 1:length(vals)]
@@ -109,7 +109,7 @@ function make_support_df(allvals, func)
         end
         df[!, b] = b_supported_vals
     end
-    return string(mdtable(df, latex=false))
+    df
 end
 
 function generate_supported_markdown()
@@ -125,7 +125,17 @@ function generate_supported_markdown()
 
 
     """)
-    write(md, make_support_df(Plots.all_seriestypes(), Plots.supported_seriestypes))
+
+    write(md, "```@raw html\n")
+    write(md,
+        to_html(
+            make_support_df(
+                Plots.all_seriestypes(),
+                Plots.supported_seriestypes,
+            )
+        )
+    )
+    write(md, "\n```\n\n")
 
     supported_args =OrderedDict(
         "Keyword Arguments" => (Plots._all_args, Plots.supported_attrs),
@@ -140,7 +150,10 @@ function generate_supported_markdown()
         ## $header
 
         """)
-        write(md, make_support_df(args...))
+
+        write(md, "```@raw html\n")
+        write(md, to_html(make_support_df(args...)))
+        write(md, "\n```\n\n")
     end
 
     write(md, "\n(Automatically generated: $(now()))")
@@ -155,6 +168,7 @@ function make_attr_df(ktype::Symbol, defs::KW)
     n = length(defs)
     df = DataFrame(
         Attribute = fill("", n),
+        Aliases = fill("", n),
         Default = fill("", n),
         Type = fill("", n),
         Description = fill("", n),
@@ -164,25 +178,18 @@ function make_attr_df(ktype::Symbol, defs::KW)
         first_period_idx = findfirst(isequal('.'), desc)
 
         aliases = sort(collect(keys(filter(p -> p.second == k, Plots._keyAliases))))
-        add = isempty(aliases) ? "" : string(
-            " *(`",
-            join(aliases, "`*, *`"),
-            "`)*"
-        )
-        df.Attribute[i] = string("`", k, "`", add)
+        df.Attribute[i] = string(k)
+        df.Aliases[i] = join(aliases, ", ")
         if first_period_idx !== nothing
             typedesc = desc[1:first_period_idx-1]
             desc = strip(desc[first_period_idx+1:end])
-
-            aliases = join(map(string,aliases), ", ")
-
             df.Default[i] = string("`", def, "`")
             df.Type[i] = string(typedesc)
             df.Description[i] = string(desc)
         end
     end
     sort!(df, [:Attribute])
-    return string(mdtable(df, latex=false))
+    return df
 end
 
 const ATTRIBUTE_TEXTS = Dict(
@@ -211,7 +218,10 @@ function generate_attr_markdown(c)
     $attr_text
 
     """)
-    write(md, make_attr_df(c, ATTRIBUTE_DEFAULTS[c]))
+
+    write(md, "```@raw html\n")
+    write(md, to_html(make_attr_df(c, ATTRIBUTE_DEFAULTS[c])))
+    write(md, "\n```\n\n")
 
     write(md, "\n(Automatically generated: $(now()))")
     close(md)
@@ -222,7 +232,6 @@ function generate_attr_markdown()
         generate_attr_markdown(c)
     end
 end
-
 
 function generate_graph_attr_markdown()
     md = open(joinpath(GENDIR, "graph_attributes.md"), "w")
@@ -240,80 +249,107 @@ function generate_graph_attr_markdown()
 
     df = DataFrame(
         Attribute = [
-            "`dim`",
-            "`T`",
-            "`curves`",
-            "`curvature_scalar`, *(`curvaturescalar`, `curvature`)*",
-            "`root`",
-            "`node_weights`, *(`nodeweights`)*",
-            "`names`",
-            "`fontsize`",
-            "`nodeshape`, *(`node_shape`)*",
-            "`nodesize`, *(`node_size`)*",
-            "`nodecolor`, *(`marker_color`)*",
-            "`x`, `y`, `z`",
-            "`method`",
-            "`func`",
-            "`shorten`, *(`shorten_edge`)*",
-            "`axis_buffer`, *(`axisbuffer`)*",
-            "`layout_kw`",
-            "`edgewidth`, *(`edge_width`, `ew`)*",
-            "`edgelabel`, *(`edge_label`, `el`)*",
-            "`edgelabel_offset`, *(`edgelabeloffset`, `elo`)*",
-            "`self_edge_size`, *(`selfedgesize`, `ses`)*",
-            "`edge_label_box`, *(`edgelabelbox`, `edgelabel_box`, `elb`)*",
+            "dim",
+            "T",
+            "curves",
+            "curvature_scalar",
+            "root",
+            "node_weights",
+            "names",
+            "fontsize",
+            "nodeshape",
+            "nodesize",
+            "nodecolor",
+            "x, y, z",
+            "method",
+            "func",
+            "shorten",
+            "axis_buffer",
+            "layout_kw",
+            "edgewidth",
+            "edgelabel",
+            "edgelabel_offset",
+            "self_edge_size",
+            "edge_label_box",
+        ],
+        Aliases = [
+            "",
+            "",
+            "",
+            "curvaturescalar, curvature",
+            "",
+            "nodeweights",
+            "",
+            "",
+            "node_shape",
+            "node_size",
+            "marker_color",
+            "x",
+            "",
+            "",
+            "shorten_edge",
+            "axisbuffer",
+            "",
+            "edge_width, ew",
+            "edge_label, el",
+            "edgelabeloffset, elo",
+            "selfedgesize, ses",
+            "edgelabelbox, edgelabel_box, elb",
         ],
         Default = [
-            "`2`",
-            "`Float64`",
-            "`true`",
-            "`0.05`",
-            "`:top`",
-            "`nothing`",
-            "`[]`",
-            "`7`",
-            "`:hexagon`",
-            "`0.1`",
-            "`1`",
-            "`nothing`",
-            "`:stress`",
-            "`get(_graph_funcs, method, by_axis_local_stress_graph)`",
-            "`0.0`",
-            "`0.2`",
-            "`Dict{Symbol,Any}()`",
-            "`(s, d, w) -> 1`",
-            "`nothing`",
-            "`0.0`",
-            "`0.1`",
-            "`true`",
+            "2",
+            "Float64",
+            "true",
+            "0.05",
+            ":top",
+            "nothing",
+            "[]",
+            "7",
+            ":hexagon",
+            "0.1",
+            "1",
+            "nothing",
+            ":stress",
+            "get(_graph_funcs, method, by_axis_local_stress_graph)",
+            "0.0",
+            "0.2",
+            "Dict{Symbol,Any}()",
+            "(s, d, w) -> 1",
+            "nothing",
+            "0.0",
+            "0.1",
+            "true",
         ],
         Description = [
-        "The number of dimensions in the visualization.",
-        "The data type for the coordinates of the graph nodes.",
-        "Whether or not edges are curved. If `curves == true`, then the edge going from node \$s\$ to node \$d\$ will be defined by a cubic spline passing through three points: (i) node \$s\$, (ii) a point `p` that is distance `curvature_scalar` from the average of node \$s\$ and node \$d\$ and (iii) node \$d\$.",
-        "A scalar that defines how much edges curve, see `curves` for more explanation.",
-        "For displaying trees, choose from `:top`, `:bottom`, `:left`, `:right`. If you choose `:top`, then the tree will be plotted from the top down.",
-        "The weight of the nodes given by a list of numbers. If `node_weights != nothing`, then the size of the nodes will be scaled by the `node_weights` vector.",
-        "Names of the nodes given by a list of objects that can be parsed into strings. If the list is smaller than the number of nodes, then GraphRecipes will cycle around the list.",
-        "Font size for the node labels and the edge labels.",
-        "Shape of the nodes, choose from `:hexagon`, `:circle`, `:ellipse`, `:rect` or `:rectangle`.",
-        "The size of nodes in the plot coordinates. Note that if `names` is not empty, then nodes will be scaled to fit the labels inside them.",
-        "The color of the nodes. If `nodecolor` is an integer, then it will be taken from the current color pallette. Otherwise, the user can pass any color that would be recognised by the Plots `color` attribute.",
-        "The coordinates of the nodes.",
-        "The method that GraphRecipes uses to produce an optimal layout, choose from `:spectral`, `:sfdp`, `:circular`, `:shell`, `:stress`, `:spring`, `:tree`, `:buchheim`, `:arcdiagram` or `:chorddiagram`. See [NetworkLayout](https://github.com/JuliaGraphs/NetworkLayout.jl) for further details.",
-        "A layout algorithm that can be passed in by the user.",
-        "An amount to shorten edges by.",
-        "Increase the `xlims` and `ylims`/`zlims` of the plot. Can be useful if part of the graph sits outside of the default view.",
-        "A list of keywords to be passed to the layout algorithm, see [NetworkLayout](https://github.com/JuliaGraphs/NetworkLayout.jl) for a list of keyword arguments for each algorithm.",
-        "The width of the edge going from \$s\$ to node \$d\$ with weight \$w\$.",
-        "A dictionary of `(s, d) => label`, where `s` is an integer for the source node, `d` is an integer for the destiny node and `label` is the desired label for the given edge. Alternatively the user can pass a vector or a matrix describing the edge labels. If you use a vector or matrix, then either `missing`, `false`, `nothing`, `NaN` or `\"\"` values will not be displayed. In the case of multigraphs, triples can be used to define edges.",
-        "The distance between edge labels and edges.",
-        "The size of self edges.",
-        "A box around edge labels that avoids intersections between edge labels and the edges that they are labeling.",
+            "The number of dimensions in the visualization.",
+            "The data type for the coordinates of the graph nodes.",
+            "Whether or not edges are curved. If `curves == true`, then the edge going from node \$s\$ to node \$d\$ will be defined by a cubic spline passing through three points: (i) node \$s\$, (ii) a point `p` that is distance `curvature_scalar` from the average of node \$s\$ and node \$d\$ and (iii) node \$d\$.",
+            "A scalar that defines how much edges curve, see `curves` for more explanation.",
+            "For displaying trees, choose from `:top`, `:bottom`, `:left`, `:right`. If you choose `:top`, then the tree will be plotted from the top down.",
+            "The weight of the nodes given by a list of numbers. If `node_weights != nothing`, then the size of the nodes will be scaled by the `node_weights` vector.",
+            "Names of the nodes given by a list of objects that can be parsed into strings. If the list is smaller than the number of nodes, then GraphRecipes will cycle around the list.",
+            "Font size for the node labels and the edge labels.",
+            "Shape of the nodes, choose from `:hexagon`, `:circle`, `:ellipse`, `:rect` or `:rectangle`.",
+            "The size of nodes in the plot coordinates. Note that if `names` is not empty, then nodes will be scaled to fit the labels inside them.",
+            "The color of the nodes. If `nodecolor` is an integer, then it will be taken from the current color pallette. Otherwise, the user can pass any color that would be recognised by the Plots `color` attribute.",
+            "The coordinates of the nodes.",
+            "The method that GraphRecipes uses to produce an optimal layout, choose from `:spectral`, `:sfdp`, `:circular`, `:shell`, `:stress`, `:spring`, `:tree`, `:buchheim`, `:arcdiagram` or `:chorddiagram`. See [NetworkLayout](https://github.com/JuliaGraphs/NetworkLayout.jl) for further details.",
+            "A layout algorithm that can be passed in by the user.",
+            "An amount to shorten edges by.",
+            "Increase the `xlims` and `ylims`/`zlims` of the plot. Can be useful if part of the graph sits outside of the default view.",
+            "A list of keywords to be passed to the layout algorithm, see [NetworkLayout](https://github.com/JuliaGraphs/NetworkLayout.jl) for a list of keyword arguments for each algorithm.",
+            "The width of the edge going from \$s\$ to node \$d\$ with weight \$w\$.",
+            "A dictionary of `(s, d) => label`, where `s` is an integer for the source node, `d` is an integer for the destiny node and `label` is the desired label for the given edge. Alternatively the user can pass a vector or a matrix describing the edge labels. If you use a vector or matrix, then either `missing`, `false`, `nothing`, `NaN` or `\"\"` values will not be displayed. In the case of multigraphs, triples can be used to define edges.",
+            "The distance between edge labels and edges.",
+            "The size of self edges.",
+            "A box around edge labels that avoids intersections between edge labels and the edges that they are labeling.",
         ]
     )
 
-    write(md, string(mdtable(df, latex=false)))
+    write(md, "```@raw html\n")
+    write(md, to_html(df))
+    write(md, "\n```\n\n")
+
     write(md, """
     ## Aliases
     Certain keyword arguments have aliases, so GraphRecipes "does what you mean, not
@@ -334,6 +370,37 @@ function generate_graph_attr_markdown()
 
     write(md, "\n(Automatically generated: $(now()))")
     close(md)
+end
+
+
+# ----------------------------------------------------------------------
+
+function to_html(df::DataFrames.AbstractDataFrame)
+    cnames = DataFrames._names(df)
+    html = "<head><link type=\"text/css\" rel=\"stylesheet\" href=\"../assets/tables.css\" /></head><body><table><tr class=\"headerrow\">"
+    for column_name in cnames
+        html *= "<th>$column_name</th>"
+    end
+    html *= "</tr>"
+    attrstr = " class=\"attr\""
+    for row in 1:size(df,1)
+        html *= "<tr>"
+        for (i,column_name) in enumerate(cnames)
+            data = df[row, i]
+            cell = data == nothing ? "" : string(data)
+            attrstr = if i == 1
+                " class=\"attr\""
+            elseif i == length(cnames)
+                " class=\"desc\""
+            else
+                ""
+            end
+            html *= "<td$attrstr>$(DataFrames.html_escape(cell))</td>"
+        end
+        html *= "</tr>"
+    end
+    html *= "</table></body>"
+    return html
 end
 
 end # module
