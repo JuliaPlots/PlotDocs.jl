@@ -38,9 +38,9 @@ const PAGES = Any[
     "Ecosystem" => [
         "Overview" => "ecosystem.md",
         "GraphRecipes" => [
-        "Introduction" => "graphrecipes/introduction.md",
-        "Examples" => "graphrecipes/examples.md",
-        "Attributes" => "generated/graph_attributes.md",
+            "Introduction" => "graphrecipes/introduction.md",
+            "Examples" => "graphrecipes/examples.md",
+            "Attributes" => "generated/graph_attributes.md",
         ],
     ],
     "Advanced Topics" => [
@@ -61,6 +61,7 @@ function builddocs(; examples=true)
     generate_attr_markdown()
     generate_supported_markdown()
     generate_graph_attr_markdown()
+    # save_html(PlotDocs.GRAPH_ATTR_DF, "graph_attr.html")
     for be in (:gr, :plotly, :pyplot, :pgfplots)
         if examples
             generate_markdown(be)
@@ -77,6 +78,6 @@ function builddocs(; examples=true)
     )
 end
 
-builddocs()
+builddocs(examples = false)
 
 deploydocs(repo = "github.com/JuliaPlots/PlotDocs.jl.git")
