@@ -78,6 +78,6 @@ function builddocs(; examples=true)
     )
 end
 
-builddocs(examples = false)
+builddocs()
 
 deploydocs(repo = "github.com/JuliaPlots/PlotDocs.jl.git")

@@ -2,7 +2,7 @@
 module PlotDocs
 
 
-using Plots, DataFrames, MacroTools, OrderedCollections, Dates
+using Plots, DataFrames, OrderedCollections, Dates
 import Plots: _examples
 
 export
@@ -17,9 +17,26 @@ mkpath(GENDIR)
 
 # ----------------------------------------------------------------------
 
-# TODO: Make this work now on julia 1.0:
+function filter_linenumbernodes!(x) end
+function filter_linenumbernodes!(x::Expr)
+    # Do not strip the first argument to a macrocall, which is required.
+    skiptwo = x.head == :macrocall && length(x.args) >= 2
+    if skiptwo
+        arg = x.args[1]
+        x.args[1] = nothing
+        x.args[2] = nothing
+    end
+    filter!(!isline, x.args)
+    if skiptwo
+        x.args[1] = arg
+    end
+    foreach(filter_linenumbernodes!, x.args)
+end
+
 function pretty_print_expr(io::IO, expr::Expr)
-    for arg in rmlines(expr).args
+    expr = deepcopy(expr)
+    filter_linenumbernodes!(expr)
+    for arg in expr.args
         println(io, arg)
     end
 end
@@ -49,7 +66,8 @@ function generate_markdown(pkgname::Symbol; skip = get(Plots._backend_skips, pkg
 
     for (i,example) in enumerate(_examples)
         i in skip && continue
-
+        # generate animations only for GR
+        i in (2, 31) && pkgname != :gr && continue
         # write out the header, description, code block, and image link
         if !isempty(example.header)
             write(md, """
@@ -65,6 +83,9 @@ function generate_markdown(pkgname::Symbol; skip = get(Plots._backend_skips, pkg
         """)
         for expr in example.exprs
             pretty_print_expr(md, expr)
+        end
+        if i in (2, 31)
+            write(md, "gif(anim, \"anim_$(pkgname)_ex$i.gif\") # hide\n")
         end
         if pkgname ∈ (:plotly, :plotlyjs)
             write(md, "png(\"$(pkgname)_ex$i\") # hide\n")
