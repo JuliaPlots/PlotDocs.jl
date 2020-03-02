@@ -387,7 +387,8 @@ end
 
 function to_html(df::DataFrames.AbstractDataFrame)
     cnames = DataFrames._names(df)
-    html = "<head><link type=\"text/css\" rel=\"stylesheet\" href=\"../assets/tables.css\" /></head><body><table><tr class=\"headerrow\">"
+    extra_dir = get(ENV, "CI", "false") == "true" ? "../" : ""
+    html = "<head><link type=\"text/css\" rel=\"stylesheet\" href=\"$(extra_dir)../assets/tables.css\" /></head><body><table><tr class=\"headerrow\">"
     for column_name in cnames
         html *= "<th>$column_name</th>"
     end
