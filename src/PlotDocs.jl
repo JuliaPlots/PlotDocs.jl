@@ -2,7 +2,7 @@
 module PlotDocs
 
 
-using Plots, DataFrames, OrderedCollections, Dates
+using Plots, DataFrames, MacroTools, OrderedCollections, Dates
 import Plots: _examples
 
 export
@@ -17,27 +17,15 @@ mkpath(GENDIR)
 
 # ----------------------------------------------------------------------
 
-isline(ex) = isexpr(ex, :line) || isa(ex, LineNumberNode)
-function filter_linenumbernodes!(x) end
-function filter_linenumbernodes!(x::Expr)
-    # Do not strip the first argument to a macrocall, which is required.
-    skiptwo = x.head == :macrocall && length(x.args) >= 2
-    if skiptwo
-        arg = x.args[1]
-        x.args[1] = nothing
-        x.args[2] = nothing
-    end
-    filter!(!isline, x.args)
-    if skiptwo
-        x.args[1] = arg
-    end
-    foreach(filter_linenumbernodes!, x.args)
+recursive_rmlines(x) = x
+function recursive_rmlines(x::Expr)
+    x = rmlines(x)
+    x.args .= recursive_rmlines.(x.args)
+    return x
 end
 
 function pretty_print_expr(io::IO, expr::Expr)
-    expr = deepcopy(expr)
-    filter_linenumbernodes!(expr)
-    for arg in expr.args
+    for arg in recursive_rmlines(expr).args
         println(io, arg)
     end
 end
