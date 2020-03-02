@@ -1,3 +1,13 @@
+```@setup ecosystem
+using StatsPlots, Plots, RDatasets, Distributions; gr()
+Plots.reset_defaults()
+
+iris = dataset("datasets", "iris")
+singers = dataset("lattice","singer")
+dist = Gamma(2)
+a = [randn(100); randn(100) .+ 3; randn(100) ./ 2 .+ 3]
+```
+
 Plots is great on its own, but the real power comes from the ecosystem surrounding it.  The design of Plots (and more specifically [RecipesBase](https://github.com/JuliaPlots/RecipesBase.jl)) is to bind together disparate functionality into a cohesive and consistent user experience.  Some packages may choose to implement recipes to visualize their custom types.  Others may extend the functionality of Plots for Base types.  On this page I'll attempt to collect and display some of the many things you can do using the ecosystem which has developed around the Plots core.
 
 ---
@@ -20,26 +30,42 @@ Much of this functionality once existed in core Plots, but has been moved out to
     - marginalhist
     - corrplot/cornerplot
 
+```@example ecosystem
+@df iris marginalhist(:PetalLength, :PetalWidth, bins = 20) # hide
+```
 
-![](https://cloud.githubusercontent.com/assets/933338/16709018/81c4da34-45d2-11e6-9e08-bb557541e144.png)
+```@example ecosystem
+@df iris corrplot(cols(1:4), bins = 20) # hide
+```
 
+```@example ecosystem
+@df singers violin(:VoicePart, :Height, marker = (0.2, :blue, stroke(0)), legend = false) # hide
+@df singers boxplot!(:VoicePart, :Height, marker = (0.3, :orange, stroke(2)), alpha = 0.75) # hide
+@df singers dotplot!(:VoicePart, :Height, marker = (:black, stroke(0))) # hide
+```
 
+```@example ecosystem
+@df iris andrewsplot(:Species, cols(1:4), legend = :topleft) # hide
+```
 
-![](https://cloud.githubusercontent.com/assets/933338/16030833/3c84e6bc-31c3-11e6-9a04-4cee531440a4.png)
+```@example ecosystem
+ea_histogram(a, bins = :scott, fillalpha = 0.4) # hide
+```
 
+```@example ecosystem
+plot(Normal(3, 5), fill = (0, 0.5, :orange)) # hide
+```
 
-![](https://cloud.githubusercontent.com/assets/933338/17787917/3af9b0e2-6559-11e6-8613-c177efb0b038.png)
+```@example ecosystem
+scatter(dist, leg=false) # hide
+bar!(dist, func=cdf, alpha=0.3) # hide
+```
 
+```@example ecosystem
+groupedbar(rand(10, 3), bar_position = :stack, bar_width = 0.7) # hide
+```
 
-![](examples/img/pyplot/pyplot_example_30.png)
-
-
-![](https://cloud.githubusercontent.com/assets/933338/16718702/561510f6-46f0-11e6-834a-3cf17a5b77d6.png)
-
-
-
-![](https://cloud.githubusercontent.com/assets/933338/16718720/729b6fea-46f0-11e6-9bff-fdf2541ce305.png)
-
+## [GraphRecipes](https://github.com/JuliaPlots/GraphRecipes.jl)
 
 ---
 

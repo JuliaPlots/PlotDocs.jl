@@ -1,6 +1,11 @@
+```@setup graphexamples
+using Plots, GraphRecipes, LightGraphs, LinearAlgebra, SparseArrays, AbstractTrees; gr()
+Plots.reset_defaults()
+```
+# [Examples](@id graph_examples)
 ### Undirected graph
 Plot an undirected graph with labeled nodes and individual node sizes/colors.
-```julia
+```@example graphexamples
 using GraphRecipes
 using Plots
 
@@ -21,10 +26,8 @@ graphplot(A,
           )
 ```
 
-![](https://user-images.githubusercontent.com/8610352/74630965-9abefd00-51c0-11ea-921d-f0dc3e8f8651.png)
-
 Now plot the graph in three dimensions.
-```julia
+```@example graphexamples
 graphplot(A,
            node_weights = 1:n,
            markercolor = :darkgray,
@@ -35,8 +38,6 @@ graphplot(A,
        )
 
 ```
-
-![](https://user-images.githubusercontent.com/8610352/74630887-7105d600-51c0-11ea-9d1c-3c3c65d728e7.png)
 
 ### LightGraphs.jl
 You can visualize a `LightGraphs.AbstractGraph` by passing it to `graphplot`.
@@ -65,7 +66,7 @@ graphplot(g, names=1:3, curvature_scalar=0.1)
 Edge labels can be passed via the `edgelabel` keyword argument. You can pass edge labels
 as a dictionary of `(si::Int, di::Int) => label`, where `si`, `di` are the indices of the source and destiny nodes for the edge being labeled. Alternatively, you can pass a matrix or a vector of labels. `graphplot` will try to convert any label you pass it into a string unless you pass one of `missing`, `NaN`, `nothing`, `false` or `""`, in which case, `graphplot` will skip the label.
 
-```julia
+```@example graphexamples
 using GraphRecipes, Plots
 using LightGraphs
 
@@ -83,9 +84,8 @@ edgelabel_vec = edgelabel_mat[:]
 graphplot(g, names=1:n, edgelabel=edgelabel_dict, curves=false, nodeshape=:rect)  # Or edgelabel=edgelabel_mat, or edgelabel=edgelabel_vec.
 ```
 
-![](https://user-images.githubusercontent.com/8610352/74631218-4b2d0100-51c1-11ea-8cd0-ecb7daac4ebb.png)
 #### Self edges
-```julia
+```@example graphexamples
 using LightGraphs, Plots, GraphRecipes
 
 g = [1 1 1;
@@ -94,15 +94,15 @@ g = [1 1 1;
 
 graphplot(DiGraph(g), self_edge_size=0.2)
 ```
-![](https://user-images.githubusercontent.com/8610352/74634698-44a28780-51c9-11ea-849a-bd2d675bea73.png)
+
 #### Multigraphs
-```julia
+```@example graphexamples
 graphplot([[1,1,2,2],[1,1,1],[1]], names="node_".*string.(1:3), nodeshape=:circle, self_edge_size=0.25)
 ```
-![](https://user-images.githubusercontent.com/8610352/74631260-67c93900-51c1-11ea-8f78-057be37388be.png)
+
 #### Arc and chord diagrams
 
-```julia
+```@example graphexamples
 using LinearAlgebra
 using SparseArrays
 using GraphRecipes
@@ -125,12 +125,11 @@ plot(
     )
 
 ```
-![](https://user-images.githubusercontent.com/8610352/74631298-82031700-51c1-11ea-8149-c304ac667cea.png)
 
 
 #### Julia code -- AST
 
-```julia
+```@example graphexamples
 using GraphRecipes
 using Plots
 default(size=(1000, 1000))
@@ -149,11 +148,9 @@ plot(code, fontsize=12, shorten=0.01, axis_buffer=0.15, nodeshape=:rect)
 
 ```
 
-![](https://user-images.githubusercontent.com/8610352/74631335-96471400-51c1-11ea-9721-c1167d565417.png)
-
 #### Julia Type Trees
 
-```julia
+```@example graphexamples
 using GraphRecipes
 using Plots
 default(size=(1000, 1000))
@@ -161,12 +158,11 @@ default(size=(1000, 1000))
 plot(AbstractFloat, method=:tree, fontsize=10, nodeshape=:ellipse)
 
 ```
-![](https://user-images.githubusercontent.com/8610352/74631370-ae1e9800-51c1-11ea-9871-99a618e7ba34.png)
 
 
 #### `AbstractTrees` Trees
 
-```julia
+```@example graphexamples
 using AbstractTrees
 
 AbstractTrees.children(d::Dict) = [p for p in d]
@@ -185,4 +181,3 @@ default(size=(1000, 1000))
 plot(TreePlot(d), method=:tree, fontsize=10, nodeshape=:ellipse)
 
 ```
-![](https://user-images.githubusercontent.com/8610352/74631477-f1790680-51c1-11ea-878b-b4c92cbf6f85.png)
