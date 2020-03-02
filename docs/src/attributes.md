@@ -34,12 +34,14 @@ of `xlabel`, `xlims`, `xticks`, `xscale`, `xflip`, and `xtickfont`.  The followi
 ```julia
 plot(y, xaxis = ("my label", (0,10), 0:0.5:10, :log, :flip, font(20, "Courier")))
 
-plot(y, xlabel = "my label",
+plot(y,
+    xlabel = "my label",
     xlims = (0,10),
     xticks = 0:0.5:10,
     xscale = :log,
     xflip = true,
-    xtickfont = font(20, "Courier"))
+    xtickfont = font(20, "Courier")
+)
 ```
 
 Note that `yaxis` and `zaxis` work similarly, and `axis` will apply to all.
@@ -59,12 +61,14 @@ Set attributes corresponding to a series line.  Aliases: `l`.  The following are
 ```julia
 plot(y, line = (:steppre, :dot, :arrow, 0.5, 4, :red))
 
-plot(y, seriestype = :steppre,
+plot(y,
+    seriestype = :steppre,
     linestyle = :dot,
     arrow = :arrow,
     linealpha = 0.5,
     linewidth = 4,
-    linecolor = :red)
+    linecolor = :red
+)
 ```
 
 ##### fill
@@ -74,9 +78,11 @@ Set attributes corresponding to a series fill area.  Aliases: `f`, `area`.  The 
 ```julia
 plot(y, fill = (0, 0.5, :red))
 
-plot(y, fillrange = 0,
+plot(y,
+    fillrange = 0,
     fillalpha = 0.5,
-    fillcolor = :red)
+    fillcolor = :red
+)
 ```
 
 ##### marker
@@ -86,51 +92,14 @@ Set attributes corresponding to a series marker.  Aliases: `m`, `mark`.  The fol
 ```julia
 scatter(y, marker = (:hexagon, 20, 0.6, :green, stroke(3, 0.2, :black, :dot)))
 
-scatter(y, markershape = :hexagon,
+scatter(y,
+    markershape = :hexagon,
     markersize = 20,
     markeralpha = 0.6,
     markercolor = :green,
     markerstrokewidth = 3,
     markerstrokealpha = 0.2,
     markerstrokecolor = :black,
-    markerstrokestyle = :dot)
-```
-
----
-
-### Series
-
-These attributes apply to individual series (lines, scatters, heatmaps, etc)
-
-```@raw html
-<iframe src="../series_attr.html" name="series attributes" height="700" width="700", id="seriesframe" marginheight="0" frameborder="0" onLoad="autoResize('seriesframe');">You need a Frames Capable browser to view this content.</iframe>
-```
----
-
-### Plot
-
-These attributes apply to the full Plot.  (A Plot contains a tree-like layout of Subplots)
-
-```@raw html
-<iframe src="../plot_attr.html" name="plot attributes" height="700" width="700", id="plotframe" marginheight="0" frameborder="0" onLoad="autoResize('plotframe');">You need a Frames Capable browser to view this content.</iframe>
-```
-
----
-
-### Subplot
-
-These attributes apply to settings for individual Subplots.
-
-```@raw html
-<iframe src="../subplot_attr.html" name="subplot attributes" height="700" width="700", id="subplotframe" marginheight="0" frameborder="0" onLoad="autoResize('subplotframe');">You need a Frames Capable browser to view this content.</iframe>
-```
-
----
-
-### Axis
-
-These attributes apply to an individual Axis in a Subplot (for example the `subplot[:xaxis]`)
-
-```@raw html
-<iframe src="../axis_attr.html" name="axis attributes" height="700" width="700", id="axisframe" marginheight="0" frameborder="0" onLoad="autoResize('axisframe');">You need a Frames Capable browser to view this content.</iframe>
+    markerstrokestyle = :dot
+)
 ```

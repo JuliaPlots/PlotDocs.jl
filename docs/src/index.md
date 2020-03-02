@@ -1,3 +1,7 @@
+```@setup index
+using Plots; gr()
+Plots.reset_defaults()
+```
 
 # Plots - powerful convenience for visualization in Julia
 
@@ -36,25 +40,37 @@ Please add wishlist items, bugs, or any other comments/questions to the [issues 
 
 Lorenz Attractor
 
-```julia
+```@example index
 using Plots
 # define the Lorenz attractor
-mutable struct Lorenz
-    dt; σ; ρ; β; x; y; z
+Base.@kwdef mutable struct Lorenz
+    dt::Float64 = 0.02
+    σ::Float64 = 10
+    ρ::Float64 = 28
+    β::Float64 = 8/3
+    x::Float64 = 1
+    y::Float64 = 1
+    z::Float64 = 1
 end
 
 function step!(l::Lorenz)
-    dx = l.σ*(l.y - l.x)       ; l.x += l.dt * dx
-    dy = l.x*(l.ρ - l.z) - l.y ; l.y += l.dt * dy
-    dz = l.x*l.y - l.β*l.z     ; l.z += l.dt * dz
+    dx = l.σ * (l.y - l.x);         l.x += l.dt * dx
+    dy = l.x * (l.ρ - l.z) - l.y;   l.y += l.dt * dy
+    dz = l.x * l.y - l.β * l.z;     l.z += l.dt * dz
 end
 
-attractor = Lorenz((dt = 0.02, σ = 10., ρ = 28., β = 8//3, x = 1., y = 1., z = 1.)...)
+attractor = Lorenz()
 
 
 # initialize a 3D plot with 1 empty series
-plt = plot3d(1, xlim=(-25,25), ylim=(-25,25), zlim=(0,50),
-                title = "Lorenz Attractor", marker = 2)
+plt = plot3d(
+    1,
+    xlim = (-30, 30),
+    ylim = (-30, 30),
+    zlim = (0, 60),
+    title = "Lorenz Attractor",
+    marker = 2,
+)
 
 # build an animated gif by pushing new points to the plot, saving every 10th frame
 @gif for i=1:1500
@@ -63,29 +79,24 @@ plt = plot3d(1, xlim=(-25,25), ylim=(-25,25), zlim=(0,50),
 end every 10
 ```
 
-![](examples/img/index/lorenz_attractor.gif)
-
 Make some waves
 
-```julia
-using Plots, ProgressMeter
-pyplot(leg=false, ticks=nothing) #change to the pyplot backend and define some defaults
-x = y = range(-5, stop = 5, length = 40)
-zs = zeros(0,40)
+```@example index
+using Plots
+default(legend = false)
+x = y = range(-5, 5, length = 40)
+zs = zeros(0, 40)
 n = 100
 
-# create a progress bar for tracking the animation generation
-prog = Progress(n,1)
-
 @gif for i in range(0, stop = 2π, length = n)
-    f(x,y) = sin(x + 10sin(i)) + cos(y)
+    f(x, y) = sin(x + 10sin(i)) + cos(y)
 
     # create a plot with 3 subplots and a custom layout
     l = @layout [a{0.7w} b; c{0.2h}]
-    p = plot(x, y, f, st = [:surface, :contourf], layout=l)
+    p = plot(x, y, f, st = [:surface, :contourf], layout = l)
 
     # induce a slight oscillating camera angle sweep, in degrees (azimuth, altitude)
-    plot!(p[1], camera=(15*cos(i), 40))
+    plot!(p[1], camera = (10 * (1 + cos(i)), 40))
 
     # add a tracking line
     fixed_x = zeros(40)
@@ -96,45 +107,13 @@ prog = Progress(n,1)
     # add to and show the tracked values over time
     global zs = vcat(zs, z')
     plot!(p[3], zs, alpha = 0.2, palette = cgrad(:blues).colors)
-
-    # increment the progress bar
-    next!(prog)
 end
 ```
 
-![waves](examples/img/index/waves.gif)
-
-Decision boundary
-
-```julia
-P = 40;  R = 50;  N = P*R;  r = 0:0.004:1
-points = rand(ComplexF64, P, R)
-
-mp4(@animate(for t = 0:0.03:13
-    # create a simple classifier to return the region for any point (x, y)
-    midpoints = vec(sum(points; dims=1)) / P
-    classify(x, y) = argmin(abs.(x + y*im .- midpoints))
-
-    # draw decision boundary and points
-    contour(r, r, classify, c=:cyclic2, fill=true, nlev=R, leg=:none)
-    scatter!(reim(points)..., c=cvec(:cyclic2, R)', lims=(0,1))
-
-    # update position of points
-    target(d) = 0.65*cis(4*sin(t/2+d)+d) + 0.5 + 0.5im
-    points[:] .+= 0.01*(target.(0:2π/(N-1):2π) .- points[:])
-end), "decision.mp4", fps = 30)
-```
-
-```@raw html
-<video width="600" height="400" controls loop poster="https://raw.githubusercontent.com/JuliaPlots/PlotReferenceImages.jl/master/PlotDocs/index/decision-poster.png">
-  <source src="https://raw.githubusercontent.com/JuliaPlots/PlotReferenceImages.jl/master/PlotDocs/index/decision.mp4" type="video/mp4">
-  Your browser does not support the video tag.
-</video>
-```
 
 Iris Dataset
 
-```julia
+```@example index
 # load a dataset
 using RDatasets
 iris = dataset("datasets", "iris");
@@ -144,16 +123,14 @@ iris = dataset("datasets", "iris");
 using StatsPlots
 
 # Scatter plot with some custom settings
-@df iris scatter(:SepalLength, :SepalWidth, group=:Species,
-        title = "My awesome plot",
-        xlabel = "Length", ylabel = "Width",
-        m=(0.5, [:cross :hex :star7], 12),
-        bg=RGB(.2,.2,.2))
-
-# save a png
-png("iris")
+@df iris scatter(
+    :SepalLength,
+    :SepalWidth,
+    group = :Species,
+    title = "My awesome plot",
+    xlabel = "Length",
+    ylabel = "Width",
+    m = (0.5, [:cross :hex :star7], 12),
+    bg = RGB(0.2, 0.2, 0.2)
+)
 ```
-
-![iris_plt](examples/img/index/iris.png)
-
----

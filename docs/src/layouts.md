@@ -1,3 +1,7 @@
+```@setup layouts
+using Plots; gr()
+Plots.reset_defaults()
+```
 
 # [Layouts](@id layouts)
 
@@ -17,30 +21,23 @@ It's helpful at this point to review terminology:
 
 Pass an integer to `layout` to allow it to automatically compute a grid size for that many subplots:
 
-```julia
+```@example layouts
 # create a 2x2 grid, and map each of the 4 series to one of the subplots
-plot(rand(100,4), layout = 4)
+plot(rand(100, 4), layout = 4)
 ```
-
-![](examples/img/layout/layout_1.png)
 
 Pass a tuple to `layout` to create a grid of that size:
 
-```julia
+```@example layouts
 # create a 4x1 grid, and map each of the 4 series to one of the subplots
-plot(rand(100,4), layout = (4,1))
+plot(rand(100, 4), layout = (4, 1))
 ```
-
-![](examples/img/layout/layout_2.png)
-
 
 More complex grid layouts can be created with the `grid(...)` constructor:
 
-```julia
-plot(rand(100,4), layout = grid(4,1,heights=[0.1,0.4,0.4,0.1]))
+```@example layouts
+plot(rand(100, 4), layout = grid(4, 1, heights=[0.1 ,0.4, 0.4, 0.1]))
 ```
-
-![](examples/img/layout/layout_3.png)
 
 ---
 
@@ -49,17 +46,17 @@ plot(rand(100,4), layout = grid(4,1,heights=[0.1,0.4,0.4,0.1]))
 The `@layout` macro is the easiest way to define complex layouts, using Julia's [multidimensional Array construction](https://docs.julialang.org/en/latest/manual/arrays/#Concatenation-1) as the basis for a custom layout syntax.  Precise sizing can be achieved with curly brackets, otherwise the free space is equally split between the **plot areas** of subplots.
 
 
-```julia
-l = @layout [  a{0.3w} [grid(3,3)
-                         b{0.2h} ]]
+```@example layouts
+l = @layout [
+    a{0.3w} [grid(3,3)
+             b{0.2h}  ]
+]
 plot(
-    rand(10,11),
+    rand(10, 11),
     layout = l, legend = false, seriestype = [:bar :scatter :path],
-    title = ["($i)" for j = 1:1, i=1:11], titleloc = :right, titlefont = font(8)
+    title = ["($i)" for j in 1:1, i in 1:11], titleloc = :right, titlefont = font(8)
 )
 ```
-
-![](examples/img/layout/layout_4.png)
 
 ---
 
@@ -67,24 +64,35 @@ Create inset (floating) subplots using the `inset_subplots` attribute. `inset_su
 
 Use `px`/`mm`/`inch` for absolute coords, `w`/`h` for percentage relative to the parent. Origin is top-left. `h_anchor`/`v_anchor` define what the `x`/`y` inputs of the bounding box refer to.
 
-```julia
+```@example layouts_2
 # boxplot is defined in StatsPlots
-using StatsPlots
-gr(leg=false, bg=:lightgrey)
+using StatsPlots, StatsPlots.PlotMeasures
+gr(leg = false, bg = :lightgrey)
 
 # Create a filled contour and boxplot side by side.
-plot(contourf(randn(10,20)), boxplot(rand(1:4,1000),randn(1000)))
+plot(contourf(randn(10, 20)), boxplot(rand(1:4, 1000), randn(1000)))
 
 # Add a histogram inset on the heatmap.
 # We set the (optional) position relative to bottom-right of the 1st subplot.
-# The call is `bbox(x, y, width, height, origin...)`, where numbers are treated as "percent of parent"
-histogram!(randn(1000), inset = (1, bbox(0.05,0.05,0.5,0.25,:bottom,:right)), ticks=nothing, subplot=3, bg_inside=nothing)
+# The call is `bbox(x, y, width, height, origin...)`, where numbers are treated as
+# "percent of parent".
+histogram!(
+    randn(1000),
+    inset = (1, bbox(0.05, 0.05, 0.5, 0.25, :bottom, :right)),
+    ticks = nothing,
+    subplot = 3,
+    bg_inside = nothing
+)
 
-# Add sticks floating in the window (inset relative to the window, as opposed to being relative to a subplot)
-sticks!(randn(100), inset = bbox(0,-0.2,200px,100px,:center), ticks=nothing, subplot=4)
+# Add sticks floating in the window (inset relative to the window, as opposed to being
+# relative to a subplot)
+sticks!(
+    randn(100),
+    inset = bbox(0, -0.2, 200px, 100px, :center),
+    ticks = nothing,
+    subplot = 4
+)
 ```
-
-![](examples/img/layout/layout_5.png)
 
 ### Adding Subplots incrementally
 You can also combine multiple plots to a single plot. To do this, simply pass the variables holding the previous plots to the `plot` function:

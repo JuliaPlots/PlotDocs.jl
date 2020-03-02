@@ -1,3 +1,8 @@
+```@setup pipeline
+using Plots; gr()
+Plots.reset_defaults()
+```
+
 # [Processing Pipeline](@id pipeline)
 
 Plotting commands will send inputs through a series of preprocessing steps, in order to convert, simplify, and generalize. The idea is that end-users need incredible flexibility in what (and how) they are able to make calls.  They may want total control over plot attributes, or none at all.  There may be 8 attributes that are constant, but one that varies by data series.  We need to be able to easily layer complex plots on top of each other, and easily define what they should look like.  Input data might come in any form.
@@ -8,21 +13,28 @@ I'll go through the steps that occur after a call to `plot()` or `plot!()`, and 
 
 Suppose we have data:
 
-```julia
+```@example pipeline; continued = true
 n = 100
-x, y = range(0, stop=1, length=n), randn(n, 3)
+x, y = range(0, 1, length = n), randn(n, 3)
 ```
 
 and we'd like to visualize `x` against each column of `y`.  Here's a sample command in Plots:
 
-```julia
-using Plots; pyplot()
-plot(x, y, line = (0.5, [4 1 0], [:path :scatter :density]),
-    marker=(10, 0.5, [:none :+ :none]), fill=0.5,
-    orientation = :h, title = "My title")
+```@example pipeline
+using Plots; pyplot(size = (400, 300))
+plot(
+    x, y,
+    line = (0.5, [4 1 0], [:path :scatter :histogram]),
+    normalize = true,
+    bins = 30,
+    marker = (10, 0.5, [:none :+ :none]),
+    markerstrokewidth = 0,
+    color = [:steelblue :orangered :green],
+    fill = 0.5,
+    orientation = [:v :v :h],
+    title = "My title",
+)
 ```
-
-![pipeline_img](examples/img/pipeline/pipeline_1.png)
 
 In this example, we have an input matrix, and we'd like to plot three series on top of each other, one for each column of data.
 We create a row vector (1x3 matrix) of symbols to assign different visualization types for each series, set the orientation of the histogram, and set
@@ -30,26 +42,33 @@ alpha values.
 
 For comparison's sake, this is somewhat similar to the following calls in PyPlot:
 
-```julia
+```@example pipeline
 import PyPlot
 fig = PyPlot.gcf()
-fig[:set_size_inches](4,3,forward=true)
-fig[:set_dpi](100)
+fig.set_size_inches(4, 3, forward = true)
+fig.set_dpi(100)
 PyPlot.clf()
 
 PyPlot.plot(x, y[:,1], alpha = 0.5, "steelblue", linewidth = 4)
 PyPlot.scatter(x, y[:,2], alpha = 0.5, marker = "+", s = 100, c="orangered")
-PyPlot.plt[:hist](y[:,3], orientation = "horizontal", alpha = 0.5,
-                          normed = true, bins=30, color="green",
-                          linewidth = 0)
+PyPlot.plt.hist(
+    y[:,3],
+    orientation = "horizontal",
+    alpha = 0.5,
+    normed = true,
+    bins=30,
+    color="green",
+    linewidth = 0
+)
 
 ax = PyPlot.gca()
-ax[:xaxis][:grid](true)
-ax[:yaxis][:grid](true)
+ax.xaxis.grid(true)
+ax.yaxis.grid(true)
 PyPlot.title("My title")
 PyPlot.legend(["y1","y2"])
-PyPlot.show()
+PyPlot.savefig("pyplot.svg"); nothing # hide
 ```
+![](pyplot.svg)
 
 ---
 
@@ -74,15 +93,16 @@ where each item represents the data for one plot series.  Under the hood, it mak
 
 Inputs are recursively processed until a matching recipe is found.  This means you can make modular and hierarchical recipes which are processed just like anything built into Plots.
 
-```julia
+```@example pipeline
+Plots.reset_defaults() # hide
 mutable struct MyVecWrapper
   v::Vector{Float64}
 end
-mv = MyVecWrapper(rand(100))
+mv = MyVecWrapper(rand(10))
 
 @recipe function f(mv::MyVecWrapper)
     markershape --> :circle
-    markersize  --> 30
+    markersize  --> 8
     mv.v
 end
 
@@ -92,8 +112,6 @@ plot(
 )
 ```
 
-![pipeline_img](examples/img/pipeline/pipeline_2.png)
-
 Note that if dispatch does not find a recipe for the full combination of inputs, it will then try to apply [type recipes](@ref type-recipes) to each individual argument.
 
 This hook gave us a nice way to swap out the input data and add custom visualization attributes for a user type.  Things like error bars, regression lines, ribbons, and group filtering are also handled during this recursive pass.
@@ -102,11 +120,9 @@ Groups: When you'd like to split a data series into multiple plot series, you ca
 
 In this example, we split the data points into 3 groups randomly, and give them different marker shapes (`[:s :o :x]` are aliases for `:star5`, `:octagon`, and `:xcross`). The other attibutes (`:markersize` and `:markeralpha`) are shared.
 
-```julia
-scatter(rand(100), group = rand(1:3, 100), marker = (10,0.3,[:s :o :x]))
+```@example pipeline
+scatter(rand(100), group = rand(1:3, 100), marker = (10,0.3, [:s :o :x]))
 ```
-
-![pipeline_img](examples/img/pipeline/pipeline_3.png)
 
 ---
 

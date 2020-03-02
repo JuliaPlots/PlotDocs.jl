@@ -2,53 +2,30 @@
 module PlotDocs
 
 
-using Plots, Dates
+using Plots, DataFrames, MacroTools, OrderedCollections, Dates
 import Plots: _examples
-
-using DataStructures, Random
-using StatsPlots, RDatasets, ProgressMeter, DataFrames, Distributions, StatsBase
-# For Plots' Examples
-using Statistics, FileIO, ImageMagick, SparseArrays
-
-# import plotting backends
-import PyPlot, PlotlyJS, ORCA, PGFPlots
-PyPlot.ioff()
 
 export
     generate_markdown,
-    save_attr_html_files,
-    make_support_df_args,
-    make_support_df_types,
-    make_support_df_styles,
-    make_support_df_markers,
-    make_support_df_scales,
-    create_support_tables,
-    generate_reference_images,
-    generate_doc_images
+    generate_supported_markdown,
+    generate_attr_markdown,
+    generate_graph_attr_markdown,
+    GENDIR
 
-const BASEDIR = normpath(@__DIR__, "..", "docs", "src")
-const DOCDIR = joinpath(BASEDIR, "examples")
-const IMGDIR = joinpath(DOCDIR, "img")
-
-include("doc_image_constants.jl")
-include("generate_images.jl")
+const GENDIR = normpath(@__DIR__, "..", "docs", "src", "generated")
+mkpath(GENDIR)
 
 # ----------------------------------------------------------------------
 
-# TODO: Make this work now on julia 1.0:
-isnotlinenumber(e::LineNumberNode) = false
-isnotlinenumber(e) = true
-function filter_out_line_numbers!(expr::Expr)
-    expr.args = filter(isnotlinenumber, expr.args)
-    map(filter_out_line_numbers!, expr.args)
+recursive_rmlines(x) = x
+function recursive_rmlines(x::Expr)
+    x = rmlines(x)
+    x.args .= recursive_rmlines.(x.args)
+    return x
 end
-filter_out_line_numbers!(v) = nothing
-
 
 function pretty_print_expr(io::IO, expr::Expr)
-    e2 = copy(expr)
-    filter_out_line_numbers!(e2)
-    for arg in e2.args
+    for arg in recursive_rmlines(expr).args
         println(io, arg)
     end
 end
@@ -64,26 +41,48 @@ function generate_markdown(pkgname::Symbol; skip = get(Plots._backend_skips, pkg
     pkg = Plots._backend_instance(pkgname)
 
     # open the markdown file
-    md = open("$DOCDIR/$(pkgname).md", "w")
+    md = open(joinpath(GENDIR, "$(pkgname).md"), "w")
 
-    write(md, "### [Initialize](@id $pkgname-examples)\n\n```julia\nusing Plots\n$(pkgname)()\n```\n\n")
+    write(md, """
+    ### [Initialize](@id $pkgname-examples)
+
+    ```@example $pkgname
+    using Plots
+    Plots.reset_defaults() # hide
+    $(pkgname)()
+    ```
+    """)
 
     for (i,example) in enumerate(_examples)
         i in skip && continue
-
+        # generate animations only for GR
+        i in (2, 31) && pkgname != :gr && continue
         # write out the header, description, code block, and image link
         if !isempty(example.header)
-            write(md, "### [$(example.header)](@id $pkgname-ref$i)\n\n")
+            write(md, """
+            ### [$(example.header)](@id $pkgname-ref$i)
+            """)
         end
-        write(md, "$(example.desc)\n\n")
+        write(md, """
+        $(example.desc)
+        """)
         # write(md, "```julia\n$(join(map(string, example.exprs), "\n"))\n```\n\n")
-        write(md, "```julia\n")
+        write(md, """
+        ```@example $pkgname
+        """)
         for expr in example.exprs
             pretty_print_expr(md, expr)
         end
-        write(md, "```\n\n")
-        imgpath = joinpath("img", string(pkgname), filename(i))
-        write(md, "![]($imgpath)\n\n")
+        if i in (2, 31)
+            write(md, "gif(anim, \"anim_$(pkgname)_ex$i.gif\") # hide\n")
+        end
+        if pkgname ∈ (:plotly, :plotlyjs)
+            write(md, "png(\"$(pkgname)_ex$i\") # hide\n")
+        end
+        write(md, "```\n")
+        if pkgname ∈ (:plotly, :plotlyjs)
+            write(md, "![]($(pkgname)_ex$i.png)\n")
+        end
     end
 
     write(md, "- Supported arguments: $(markdown_code_to_string(collect(Plots.supported_attrs(pkg))))\n")
@@ -111,134 +110,307 @@ function make_support_df(allvals, func)
         for (i, val) in enumerate(vals)
             if func == Plots.supported_seriestypes
                 stype = Plots.seriestype_supported(Plots._backend_instance(b), val)
-                b_supported_vals[i] = stype == :native ? "native" : (stype == :no ? "" : "recipe")
+                b_supported_vals[i] = stype == :native ? "✅" : (stype == :no ? "" : "🔼")
             else
                 supported = func(Plots._backend_instance(b))
 
-                b_supported_vals[i] = val in supported ? "native" : ""
+                b_supported_vals[i] = val in supported ? "✅" : ""
             end
         end
-        df[b] = b_supported_vals
+        df[!, b] = b_supported_vals
     end
     df
 end
 
-make_support_df_args()    = make_support_df(Plots._all_args,   Plots.supported_attrs)
-# make_support_df_types()   = make_support_df(Plots._allTypes,   Plots.supported_types)
-make_support_df_types()   = make_support_df(Plots.all_seriestypes(),   Plots.supported_seriestypes)
-make_support_df_styles()  = make_support_df(Plots._allStyles,  Plots.supported_styles)
-make_support_df_markers() = make_support_df(Plots._allMarkers, Plots.supported_markers)
-make_support_df_scales()  = make_support_df(Plots._allScales,  Plots.supported_scales)
+function generate_supported_markdown()
+    md = open(joinpath(GENDIR, "supported.md"), "w")
 
-function create_support_tables()
-    funcs = Dict(
-        "args" => make_support_df_args, "types" => make_support_df_types,
-        "styles" => make_support_df_styles, "markers" => make_support_df_markers,
-        "scales" => make_support_df_scales,
+    write(md, """
+    ## [Series Types](@id supported)
+
+    Key:
+
+    - ✅ the series type is natively supported by the backend.
+    - 🔼 the series type is supported through series recipes.
+
+
+    """)
+
+    write(md, "```@raw html\n")
+    write(md,
+        to_html(
+            make_support_df(
+                Plots.all_seriestypes(),
+                Plots.supported_seriestypes,
+            )
+        )
     )
-    for (s, func) in funcs
-       save_html(func(), joinpath(BASEDIR, "supported_$s.html"), :supported)
+    write(md, "\n```\n\n")
+
+    supported_args =OrderedDict(
+        "Keyword Arguments" => (Plots._all_args, Plots.supported_attrs),
+        "Markers" => (Plots._allMarkers, Plots.supported_markers),
+        "Line Styles" => (Plots._allStyles,  Plots.supported_styles),
+        "Scales" => (Plots._allScales,  Plots.supported_scales)
+    )
+
+    for (header, args) in supported_args
+        write(md, """
+
+        ## $header
+
+        """)
+
+        write(md, "```@raw html\n")
+        write(md, to_html(make_support_df(args...)))
+        write(md, "\n```\n\n")
     end
+
+    write(md, "\n(Automatically generated: $(now()))")
+    close(md)
 end
 
 
 # ----------------------------------------------------------------------
 
 
-# need dataframes to make html tables, etc easily
-# if is_installed("DataFrames")
-#     @eval begin
-import DataFrames
-
-function save_html(df::DataFrames.AbstractDataFrame, fn = "/tmp/tmp.html", table_style = :attr)
-    f = open(fn, "w")
-    cnames = DataFrames._names(df)
-    write(f, "<head><link type=\"text/css\" rel=\"stylesheet\" href=\"tables.css\" /></head><body><table><tr class=\"headerrow\">")
-    for column_name in cnames
-        write(f, "<th>$column_name</th>")
-    end
-    write(f, "</tr>")
-    attrstr = " class=\"attr\""
-    for row in 1:size(df,1)
-        write(f, "<tr>")
-        for (i,column_name) in enumerate(cnames)
-            data = df[row, i]
-            cell = data == nothing ? "" : string(data)
-            if table_style == :attr
-                attrstr = if i == 1
-                    " class=\"attr\""
-                elseif i == length(cnames)
-                    " class=\"desc\""
-                else
-                    ""
-                end
-            elseif table_style == :supported
-                attrstr = if i == 1
-                    " class=\"attr\""
-                elseif cell == "native"
-                    " class=\"supported_native\""
-                elseif cell == "recipe"
-                    " class=\"supported_recipe\""
-                else
-                    " class=\"supported_not\""
-                end
-            end
-            write(f, "<td$attrstr>$(DataFrames.html_escape(cell))</td>")
-        end
-        write(f, "</tr>")
-    end
-    write(f, "</table></body>")
-    close(f)
-end
-
-function attr_dataframe_from_defaults(ktype::Symbol, defs::KW)
-    df = DataFrames.DataFrame(
-        [Symbol,Any,Any,Any,Any],
-        [:Attribute, :Default, :Aliases, :Type, :Description],
-        length(defs)
+function make_attr_df(ktype::Symbol, defs::KW)
+    n = length(defs)
+    df = DataFrame(
+        Attribute = fill("", n),
+        Aliases = fill("", n),
+        Default = fill("", n),
+        Type = fill("", n),
+        Description = fill("", n),
     )
-    for (i,(k,def)) in enumerate(defs)
+    for (i, (k, def)) in enumerate(defs)
         desc = get(Plots._arg_desc, k, "")
         first_period_idx = findfirst(isequal('.'), desc)
 
-        df[i,1] = k
-        if first_period_idx == nothing
-            df[i,2] = ""
-            df[i,3] = ""
-            df[i,4] = ""
-            df[i,5] = ""
-        else
+        aliases = sort(collect(keys(filter(p -> p.second == k, Plots._keyAliases))))
+        df.Attribute[i] = string(k)
+        df.Aliases[i] = join(aliases, ", ")
+        if first_period_idx !== nothing
             typedesc = desc[1:first_period_idx-1]
             desc = strip(desc[first_period_idx+1:end])
-            aliases = keys(filter(p->p.second==k, Plots._keyAliases)) |> collect |> sort
-            aliases = join(map(string,aliases), ", ")
-
-            df[i,2] = def
-            df[i,3] = aliases
-            df[i,4] = typedesc
-            df[i,5] = desc
+            df.Default[i] = string("`", def, "`")
+            df.Type[i] = string(typedesc)
+            df.Description[i] = string(desc)
         end
     end
     sort!(df, [:Attribute])
-    df
+    return df
 end
 
-# for each default dict, save an html file with the attributes table
-function save_attr_html_files()
-    for (ktype, defs) in [(:Series, Plots._series_defaults),
-                          (:Subplot, Plots._subplot_defaults),
-                          (:Plot, Plots._plot_defaults),
-                          (:Axis, Plots._axis_defaults)]
-        fn = joinpath(BASEDIR, "$(lowercase(string(ktype)))_attr.html")
-        df = attr_dataframe_from_defaults(ktype, defs)
-        save_html(df, fn)
-        @info("Wrote html file for $ktype: $fn")
+const ATTRIBUTE_TEXTS = Dict(
+    :Series => "These attributes apply to individual series (lines, scatters, heatmaps, etc)",
+    :Plot => "These attributes apply to the full Plot. (A Plot contains a tree-like layout of Subplots)",
+    :Subplot => "These attributes apply to settings for individual Subplots.",
+    :Axis => "These attributes apply to an individual Axis in a Subplot (for example the `subplot[:xaxis]`)",
+)
+
+const ATTRIBUTE_DEFAULTS = Dict(
+    :Series => Plots._series_defaults,
+    :Plot => Plots._plot_defaults,
+    :Subplot => Plots._subplot_defaults,
+    :Axis => Plots._axis_defaults,
+)
+
+function generate_attr_markdown(c)
+    # open the markdown file
+    cstr = lowercase(string(c))
+    attr_text = ATTRIBUTE_TEXTS[c]
+    md = open(joinpath(GENDIR, "attributes_$cstr.md"), "w")
+
+    write(md, """
+    ### $c
+
+    $attr_text
+
+    """)
+
+    write(md, "```@raw html\n")
+    write(md, to_html(make_attr_df(c, ATTRIBUTE_DEFAULTS[c])))
+    write(md, "\n```\n\n")
+
+    write(md, "\n(Automatically generated: $(now()))")
+    close(md)
+end
+
+function generate_attr_markdown()
+    for c in (:Series, :Plot, :Subplot, :Axis)
+        generate_attr_markdown(c)
     end
 end
 
-#     end
-# end
+function generate_graph_attr_markdown()
+    md = open(joinpath(GENDIR, "graph_attributes.md"), "w")
+
+    write(md, """
+    # [Graph Attributes](@id graph_attributes)
+
+    Where possible, GraphRecipes will adopt attributes from Plots.jl to format visualizations.
+    For example, the `linewidth` attribute from Plots.jl has the same effect in GraphRecipes.
+    In order to give the user control over the layout of the graph visualization, GraphRecipes
+    provides a number of keyword arguments (attributes). Here we describe those attributes
+    alongside their default values.
+
+    """)
+
+    df = DataFrame(
+        Attribute = [
+            "dim",
+            "T",
+            "curves",
+            "curvature_scalar",
+            "root",
+            "node_weights",
+            "names",
+            "fontsize",
+            "nodeshape",
+            "nodesize",
+            "nodecolor",
+            "x, y, z",
+            "method",
+            "func",
+            "shorten",
+            "axis_buffer",
+            "layout_kw",
+            "edgewidth",
+            "edgelabel",
+            "edgelabel_offset",
+            "self_edge_size",
+            "edge_label_box",
+        ],
+        Aliases = [
+            "",
+            "",
+            "",
+            "curvaturescalar, curvature",
+            "",
+            "nodeweights",
+            "",
+            "",
+            "node_shape",
+            "node_size",
+            "marker_color",
+            "x",
+            "",
+            "",
+            "shorten_edge",
+            "axisbuffer",
+            "",
+            "edge_width, ew",
+            "edge_label, el",
+            "edgelabeloffset, elo",
+            "selfedgesize, ses",
+            "edgelabelbox, edgelabel_box, elb",
+        ],
+        Default = [
+            "2",
+            "Float64",
+            "true",
+            "0.05",
+            ":top",
+            "nothing",
+            "[]",
+            "7",
+            ":hexagon",
+            "0.1",
+            "1",
+            "nothing",
+            ":stress",
+            "get(_graph_funcs, method, by_axis_local_stress_graph)",
+            "0.0",
+            "0.2",
+            "Dict{Symbol,Any}()",
+            "(s, d, w) -> 1",
+            "nothing",
+            "0.0",
+            "0.1",
+            "true",
+        ],
+        Description = [
+            "The number of dimensions in the visualization.",
+            "The data type for the coordinates of the graph nodes.",
+            "Whether or not edges are curved. If `curves == true`, then the edge going from node \$s\$ to node \$d\$ will be defined by a cubic spline passing through three points: (i) node \$s\$, (ii) a point `p` that is distance `curvature_scalar` from the average of node \$s\$ and node \$d\$ and (iii) node \$d\$.",
+            "A scalar that defines how much edges curve, see `curves` for more explanation.",
+            "For displaying trees, choose from `:top`, `:bottom`, `:left`, `:right`. If you choose `:top`, then the tree will be plotted from the top down.",
+            "The weight of the nodes given by a list of numbers. If `node_weights != nothing`, then the size of the nodes will be scaled by the `node_weights` vector.",
+            "Names of the nodes given by a list of objects that can be parsed into strings. If the list is smaller than the number of nodes, then GraphRecipes will cycle around the list.",
+            "Font size for the node labels and the edge labels.",
+            "Shape of the nodes, choose from `:hexagon`, `:circle`, `:ellipse`, `:rect` or `:rectangle`.",
+            "The size of nodes in the plot coordinates. Note that if `names` is not empty, then nodes will be scaled to fit the labels inside them.",
+            "The color of the nodes. If `nodecolor` is an integer, then it will be taken from the current color pallette. Otherwise, the user can pass any color that would be recognised by the Plots `color` attribute.",
+            "The coordinates of the nodes.",
+            "The method that GraphRecipes uses to produce an optimal layout, choose from `:spectral`, `:sfdp`, `:circular`, `:shell`, `:stress`, `:spring`, `:tree`, `:buchheim`, `:arcdiagram` or `:chorddiagram`. See [NetworkLayout](https://github.com/JuliaGraphs/NetworkLayout.jl) for further details.",
+            "A layout algorithm that can be passed in by the user.",
+            "An amount to shorten edges by.",
+            "Increase the `xlims` and `ylims`/`zlims` of the plot. Can be useful if part of the graph sits outside of the default view.",
+            "A list of keywords to be passed to the layout algorithm, see [NetworkLayout](https://github.com/JuliaGraphs/NetworkLayout.jl) for a list of keyword arguments for each algorithm.",
+            "The width of the edge going from \$s\$ to node \$d\$ with weight \$w\$.",
+            "A dictionary of `(s, d) => label`, where `s` is an integer for the source node, `d` is an integer for the destiny node and `label` is the desired label for the given edge. Alternatively the user can pass a vector or a matrix describing the edge labels. If you use a vector or matrix, then either `missing`, `false`, `nothing`, `NaN` or `\"\"` values will not be displayed. In the case of multigraphs, triples can be used to define edges.",
+            "The distance between edge labels and edges.",
+            "The size of self edges.",
+            "A box around edge labels that avoids intersections between edge labels and the edges that they are labeling.",
+        ]
+    )
+
+    write(md, "```@raw html\n")
+    write(md, to_html(df))
+    write(md, "\n```\n\n")
+
+    write(md, """
+    ## Aliases
+    Certain keyword arguments have aliases, so GraphRecipes "does what you mean, not
+    what you say".
+
+    So for example, `nodeshape=:rect` and `node_shape=:rect` are equivalent. To see the
+    available aliases, type `GraphRecipes.graph_aliases`. If you are unhappy with the provided
+    aliases, then you can add your own:
+    ```julia
+    using GraphRecipes, Plots
+
+    push!(GraphRecipes.graph_aliases[:nodecolor],:nc)
+
+    # These two calls produce the same plot, modulo some randomness in the layout.
+    plot(graphplot([0 1; 0 0], nodecolor=:red), graphplot([0 1; 0 0], nc=:red))
+    ```
+    """)
+
+    write(md, "\n(Automatically generated: $(now()))")
+    close(md)
+end
+
 
 # ----------------------------------------------------------------------
+
+function to_html(df::DataFrames.AbstractDataFrame)
+    cnames = DataFrames._names(df)
+    html = "<head><link type=\"text/css\" rel=\"stylesheet\" href=\"../assets/tables.css\" /></head><body><table><tr class=\"headerrow\">"
+    for column_name in cnames
+        html *= "<th>$column_name</th>"
+    end
+    html *= "</tr>"
+    attrstr = " class=\"attr\""
+    for row in 1:size(df,1)
+        html *= "<tr>"
+        for (i,column_name) in enumerate(cnames)
+            data = df[row, i]
+            cell = data == nothing ? "" : string(data)
+            attrstr = if i == 1
+                " class=\"attr\""
+            elseif i == length(cnames)
+                " class=\"desc\""
+            else
+                ""
+            end
+            html *= "<td$attrstr>$(DataFrames.html_escape(cell))</td>"
+        end
+        html *= "</tr>"
+    end
+    html *= "</table></body>"
+    return html
+end
 
 end # module
