@@ -17,6 +17,7 @@ mkpath(GENDIR)
 
 # ----------------------------------------------------------------------
 
+isline(ex) = isexpr(ex, :line) || isa(ex, LineNumberNode)
 function filter_linenumbernodes!(x) end
 function filter_linenumbernodes!(x::Expr)
     # Do not strip the first argument to a macrocall, which is required.
