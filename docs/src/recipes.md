@@ -174,10 +174,14 @@ The example above is an example of a "user recipe", in which you define the full
 
 ```julia
 @recipe f(mt::MyType, n::Integer = 10) = (mt, rand(n))
-@recipe f(mt::MyType, v::AbstractVector) = hist(v)
+@recipe f(mt::MyType, v::AbstractVector) = (seriestype := histogram; v)
 ```
 
-Here a call to `plot(MyType())` will apply these recipes in order; first mapping `mt` to `(mt, rand(10))` and then subsequently mapping to `hist(rand(10))`.
+Here a call to `plot(MyType())` will apply these recipes in order; first mapping `mt` to `(mt, rand(10))` and then subsequently setting the seriestype to `:histogram`.
+
+```@example recipes
+plot(MyType())
+```
 
 ---
 
