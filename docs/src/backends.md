@@ -59,7 +59,7 @@ If you require... | ... then use...
 features         | PyPlot, Plotly(JS), GR
 speed            | GR, InspectDR
 interactivity    | Plotly(JS), PyPlot, InspectDR
-beauty           | Plotly(JS), PGFPlots
+beauty           | Plotly(JS), PGFPlots/ PGFPlotsX
 REPL Plotting    | UnicodePlots
 3D plots         | PyPlot, GR, Plotly(JS)
 a GUI Window     | GR, PyPlot, PlotlyJS, InspectDR
@@ -192,6 +192,18 @@ Authors:
 - PGFPlots: Christian Feuersanger
 - PGFPlots.jl: Mykel Kochenderfer (@mykelk),  Louis Dressel (@dressel), and others
 - Plots <--> PGFPlots link code: Patrick Kofod Mogensen (@pkofod)
+
+### [PGFPlotsX](https://github.com/KristofferC/PGFPlotsX.jl)
+
+Successor backend of PGFPlots-backend.
+
+Has more features and is still in development otherwise the same.
+
+Authors:
+
+- PGFPlots: Christian Feuersanger
+- PGFPlotsX.jl: Kristoffer Carlsson (@KristofferC89), Tamas K. Papp (@tpapp)
+- Plots <--> PGFPlotsX link code: Simon Christ (@BeastyBlacksmith), based on the code of Patrick Kofod Mogensen (@pkofod)
 
 ### [InspectDR](https://github.com/ma-laforge/InspectDR.jl)
 
