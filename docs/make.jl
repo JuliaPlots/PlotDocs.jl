@@ -6,6 +6,7 @@ ENV["MPLBACKEND"]="agg"
 # Initialize backends
 pyplot()
 pgfplots()
+pgfplotsx()
 plotly()
 gr()
 
@@ -53,6 +54,7 @@ const EXAMPLES = "Examples" => [
     "Plotly" => "generated/plotly.md",
     "PyPlot" => "generated/pyplot.md",
     "PGFPlots" => "generated/pgfplots.md",
+    "PGFPlotsX" => "generated/pgfplotsx.md",
     "UnicodePlots" => "examples/unicodeplots.md",
     "InspectDR" => "examples/inspectdr.md",
 ]
