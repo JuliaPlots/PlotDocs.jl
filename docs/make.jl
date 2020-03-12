@@ -64,7 +64,7 @@ function builddocs(; examples=true)
     generate_supported_markdown()
     generate_graph_attr_markdown()
     # save_html(PlotDocs.GRAPH_ATTR_DF, "graph_attr.html")
-    for be in (:gr, :plotly, :pyplot, :pgfplots)
+    for be in (:gr, :plotly, :pyplot, :pgfplots, :pgfplotsx)
         if examples
             generate_markdown(be)
         else
