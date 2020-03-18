@@ -82,4 +82,7 @@ end
 
 builddocs()
 
-deploydocs(repo = "github.com/JuliaPlots/PlotDocs.jl.git")
+deploydocs(
+    repo = "github.com/JuliaPlots/PlotDocs.jl.git",
+    push_preview = true,
+)
