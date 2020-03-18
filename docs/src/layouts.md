@@ -39,6 +39,13 @@ More complex grid layouts can be created with the `grid(...)` constructor:
 plot(rand(100, 4), layout = grid(4, 1, heights=[0.1 ,0.4, 0.4, 0.1]))
 ```
 
+Titles and labels can be easily added:
+
+```@example layouts
+plot(rand(100,4), layout = 4, label=["a" "b" "c" "d"],
+    title=["1" "2" "3" "4"])
+```
+
 ---
 
 #### Advanced Layouts
