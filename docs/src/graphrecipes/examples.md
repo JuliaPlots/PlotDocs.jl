@@ -51,7 +51,7 @@ graphplot(g, curves=false)
 
 ![](https://user-images.githubusercontent.com/8610352/74631053-de196b80-51c0-11ea-8cba-ddbdc2c6312f.png)
 #### Directed Graphs
-I you pass `graphplot` a `LightGraphs.DiGraph` or an asymmetric adjacency matrix, then `graphplot` will use arrows to indicate the direction of the edges. Note that using the `arrow` attribute with the `pyplot` backend will allow you to control the aesthetics of the arrows.
+If you pass `graphplot` a `LightGraphs.DiGraph` or an asymmetric adjacency matrix, then `graphplot` will use arrows to indicate the direction of the edges. Note that using the `arrow` attribute with the `pyplot` backend will allow you to control the aesthetics of the arrows.
 ```julia
 using GraphRecipes, Plots
 g = [0 1 1;
