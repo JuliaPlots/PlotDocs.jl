@@ -117,9 +117,10 @@ There are a few important things to know, after which recipes boil down to updat
     - The function `f` is unused/meaningless... call it whatever you want.
 - The special operator `-->` turns `linecolor --> :blue` into `get!(plotattributes, :linecolor, :blue)`, setting the attribute only when it doesn't already exist.  (Tip: Wrap the right hand side in parentheses for complex expressions.)
 - The special operator `:=` turns `seriestype := :path` into `plotattributes[:seriestype] = :path`, forcing that attribute value.  (Tip: Wrap the right hand side in parentheses for complex expressions.)
+- One cannot use aliases (such as `colour` or `alpha`) in a recipe, only the full attribute name.
 - The return value of the recipe is the `args` of a `RecipeData` object, which also has a reference to the attribute dictionary.
 - A recipe returns a Vector{RecipeData}.  We'll see how to add to this list later with the `@series` macro.
-- One cannot use aliases (such as `colour` or `alpha`) in a recipe, only the full attribute name.
+- One cannot use the `return` keyword in a recipe.
 
 Breaking down the example:
 
@@ -147,7 +148,7 @@ The `markershape` is a little more complex; it checks the `add_marker` custom ke
     markershape --> (add_marker ? :circle : :none)
 ```
 
-then return the data to be plotted:
+then return the data to be plotted. Note that we are not using the `return` keyword here.:
 
 ```julia
     rand(n)
@@ -459,3 +460,14 @@ ERROR: MethodError: `start` has no method matching start(::Void)
 ```
 
 This error is commonly encountered when a series type expects data for `x`, `y`, or `z`, but instead was passed `nothing` (which is of type `Void`).  Check that you have a `z` value defined for 3D plots, and likewise that you have valid values for `x` and `y`.  This could also apply to attributes like `fillrange`, `marker_z`, or `line_z` if they are expected to have non-void values.
+
+#### MethodError: Cannot `convert` an object of type Float64 to an object of type RecipeData
+
+```
+ERROR: MethodError: Cannot `convert` an object of type Float64 to an object of type RecipeData
+Closest candidates are:
+  convert(::Type{T}, ::T) where T at essentials.jl:171
+  RecipeData(::Any, ::Any) at ~/.julia/packages/RecipesBase/G4s6f/src/RecipesBase.jl:57
+```
+This error is encountered if you use the `return` keyword in a recipe, which is currently not supported. 
+
