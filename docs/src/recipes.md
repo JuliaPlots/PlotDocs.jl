@@ -120,7 +120,9 @@ There are a few important things to know, after which recipes boil down to updat
 - One cannot use aliases (such as `colour` or `alpha`) in a recipe, only the full attribute name.
 - The return value of the recipe is the `args` of a `RecipeData` object, which also has a reference to the attribute dictionary.
 - A recipe returns a Vector{RecipeData}.  We'll see how to add to this list later with the `@series` macro.
-- One cannot use the `return` keyword in a recipe.
+
+!!! compat "RecipesBase 0.9"
+    Use of the `return` keyword in a recipe requires at least  RecipesBase 0.9.
 
 Breaking down the example:
 
@@ -148,8 +150,7 @@ The `markershape` is a little more complex; it checks the `add_marker` custom ke
     markershape --> (add_marker ? :circle : :none)
 ```
 
-then return the data to be plotted. Note that we are not using the `return` keyword here.:
-
+then return the data to be plotted.
 ```julia
     rand(n)
 end
@@ -469,5 +470,7 @@ Closest candidates are:
   convert(::Type{T}, ::T) where T at essentials.jl:171
   RecipeData(::Any, ::Any) at ~/.julia/packages/RecipesBase/G4s6f/src/RecipesBase.jl:57
 ```
-This error is encountered if you use the `return` keyword in a recipe, which is currently not supported. 
+!!! tip "Use of the `return` keyword in recipes requires RecipesBase 0.9"
+This error is encountered if you use the `return` keyword in a recipe, which is not supported in RecipesBase up to v0.8. 
+
 
