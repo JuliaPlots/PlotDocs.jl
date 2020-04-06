@@ -35,7 +35,7 @@ const PAGES = Any[
         "Recipes" => "recipes.md",
         "Colors" => "colors.md",
         "Animations" => "animations.md",
-        "Themes" => "plotthemes.md"
+        "Themes" => "plotthemes.md",
         "Backends" => "backends.md",
         "Supported Attributes" => "generated/supported.md",
     ],
