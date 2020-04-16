@@ -1,4 +1,4 @@
-using Documenter, PlotDocs, Plots
+using Documenter, PlotDocs, Plots, PlotThemes
 
 # Set matplotlib gui backend
 ENV["MPLBACKEND"]="agg"
@@ -9,6 +9,10 @@ pgfplots()
 pgfplotsx()
 plotly()
 gr()
+
+plotthemes_path = dirname(dirname(pathof(PlotThemes)))
+
+cp(joinpath(plotthemes_path, "README.md"), joinpath(@__DIR__, "src", "plotthemes.md"))
 
 const PAGES = Any[
     "Home" => "index.md",
@@ -31,6 +35,7 @@ const PAGES = Any[
         "Recipes" => "recipes.md",
         "Colors" => "colors.md",
         "Animations" => "animations.md",
+        "Themes" => "plotthemes.md",
         "Backends" => "backends.md",
         "Supported Attributes" => "generated/supported.md",
     ],
