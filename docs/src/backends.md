@@ -326,7 +326,7 @@ Functionality incomplete... I never finished wrapping it, and I don't think it o
 
 ## LaTeX workflow
 
-To use the native LaTeX output of the `pgfplotsx` backend you can save you plot as a `.tex` or `.tikz` file.
+To use the native LaTeX output of the `pgfplotsx` backend you can save your plot as a `.tex` or `.tikz` file.
 ```julia
 using Plots; pgfplotsx()
 pl  = plot(1:5)
