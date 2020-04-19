@@ -78,7 +78,7 @@ end
     pages = PAGES,
 )
 
-# deploydocs(
-#     repo = "github.com/JuliaPlots/PlotDocs.jl.git",
-#     push_preview = true,
-# )
+deploydocs(
+    repo = "github.com/JuliaPlots/PlotDocs.jl.git",
+    push_preview = true,
+)
