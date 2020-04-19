@@ -193,7 +193,7 @@ function make_attr_df(ktype::Symbol, defs::KW)
         if first_period_idx !== nothing
             typedesc = desc[1:first_period_idx-1]
             desc = strip(desc[first_period_idx+1:end])
-            df.Default[i] = string("`", def, "`")
+            df.Default[i] = show_default(def)
             df.Type[i] = string(typedesc)
             df.Description[i] = string(desc)
         end
@@ -201,6 +201,9 @@ function make_attr_df(ktype::Symbol, defs::KW)
     sort!(df, [:Attribute])
     return df
 end
+
+show_default(x) = string("`", x, "`")
+show_default(::Nothing) = "`nothing`"
 
 const ATTRIBUTE_TEXTS = Dict(
     :Series => "These attributes apply to individual series (lines, scatters, heatmaps, etc)",
