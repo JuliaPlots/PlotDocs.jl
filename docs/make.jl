@@ -1,7 +1,7 @@
 using Documenter, PlotDocs, Plots, PlotThemes
 
 # Set matplotlib gui backend
-ENV["MPLBACKEND"]="agg"
+ENV["MPLBACKEND"] = "agg"
 
 # Initialize backends
 pyplot()
@@ -12,7 +12,11 @@ gr()
 
 plotthemes_path = dirname(dirname(pathof(PlotThemes)))
 
-cp(joinpath(plotthemes_path, "README.md"), joinpath(@__DIR__, "src", "plotthemes.md"))
+cp(
+    joinpath(plotthemes_path, "README.md"),
+    joinpath(@__DIR__, "src", "plotthemes.md"),
+    force = true,
+)
 
 const PAGES = Any[
     "Home" => "index.md",
@@ -49,45 +53,32 @@ const PAGES = Any[
             "Attributes" => "generated/graph_attributes.md",
         ],
     ],
-    "Advanced Topics" => [
-        "Internals" => "pipeline.md",
+    "Advanced Topics" => ["Internals" => "pipeline.md"],
+    "Examples" => [
+        "GR" => "generated/gr.md",
+        "Plotly" => "generated/plotly.md",
+        "PyPlot" => "generated/pyplot.md",
+        "PGFPlots" => "generated/pgfplots.md",
+        "PGFPlotsX" => "generated/pgfplotsx.md",
+        "UnicodePlots" => "examples/unicodeplots.md",
+        "InspectDR" => "examples/inspectdr.md",
     ],
 ]
 
-const EXAMPLES = "Examples" => [
-    "GR" => "generated/gr.md",
-    "Plotly" => "generated/plotly.md",
-    "PyPlot" => "generated/pyplot.md",
-    "PGFPlots" => "generated/pgfplots.md",
-    "PGFPlotsX" => "generated/pgfplotsx.md",
-    "UnicodePlots" => "examples/unicodeplots.md",
-    "InspectDR" => "examples/inspectdr.md",
-]
-
-function builddocs(; examples=true)
-    generate_attr_markdown()
-    generate_supported_markdown()
-    generate_graph_attr_markdown()
-    # save_html(PlotDocs.GRAPH_ATTR_DF, "graph_attr.html")
-    for be in (:gr, :plotly, :pyplot, :pgfplots, :pgfplotsx)
-        if examples
-            generate_markdown(be)
-        else
-            rm(joinpath(GENDIR, "$be.md"), force=true)
-        end
-    end
-    pages = examples ? [PAGES; EXAMPLES] : PAGES
-    makedocs(
-        format = Documenter.HTML(prettyurls = get(ENV, "CI", nothing) == "true"),
-        sitename = "Plots",
-        authors = "Thomas Breloff",
-        pages = pages,
-    )
+generate_attr_markdown()
+generate_supported_markdown()
+generate_graph_attr_markdown()
+for be in (:gr, :plotly, :pyplot, :pgfplots, :pgfplotsx)
+    generate_markdown(be)
 end
-
-builddocs()
-
-deploydocs(
-    repo = "github.com/JuliaPlots/PlotDocs.jl.git",
-    push_preview = true,
+@time makedocs(
+    format = Documenter.HTML(prettyurls = get(ENV, "CI", nothing) == "true"),
+    sitename = "Plots",
+    authors = "Thomas Breloff",
+    pages = PAGES,
 )
+
+# deploydocs(
+#     repo = "github.com/JuliaPlots/PlotDocs.jl.git",
+#     push_preview = true,
+# )
