@@ -320,3 +320,21 @@ Unfinished, but very similar to PlotlyJS... use that instead.
 ### [Winston](https://github.com/nolta/Winston.jl)
 
 Functionality incomplete... I never finished wrapping it, and I don't think it offers anything beyond other backends.  However, the plots are clean looking and it's relatively fast.
+---
+
+# PGFPlotsX
+
+## LaTeX workflow
+
+To use the native LaTeX output of the `pgfplotsx` backend you can save your plot as a `.tex` or `.tikz` file.
+```julia
+using Plots; pgfplotsx()
+pl  = plot(1:5)
+pl2 = plot((1:5).^2, tex_output_standalone = true)
+savefig(pl,  "myline.tikz")    # produces a tikzpicture environment that can be included in other documents
+savefig(pl2, "myparabola.tex") # produces a standalone document that compiles by itself including preamble
+```
+Saving as `.tikz` file has the advantage, that you can use `\includegraphics` to rescale your plot without changing the size of the fonts.
+The default LaTeX ouput is intended to be included as a figure in another document and will not compile by itself.
+If you include these figures in another LaTeX document you need to have the correct preamble.
+The preamble of a plot can be shown using `Plots.pgfx_preamble(pl)` or copied from the standalone output.
