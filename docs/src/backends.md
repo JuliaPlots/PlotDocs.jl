@@ -320,11 +320,12 @@ Unfinished, but very similar to PlotlyJS... use that instead.
 ### [Winston](https://github.com/nolta/Winston.jl)
 
 Functionality incomplete... I never finished wrapping it, and I don't think it offers anything beyond other backends.  However, the plots are clean looking and it's relatively fast.
+
 ---
 
 # PGFPlotsX
 
-## LaTeX workflow
+### LaTeX workflow
 
 To use the native LaTeX output of the `pgfplotsx` backend you can save your plot as a `.tex` or `.tikz` file.
 ```julia
