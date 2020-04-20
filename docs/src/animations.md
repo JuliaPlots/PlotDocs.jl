@@ -33,7 +33,7 @@ using Plots
     n = length(x)
     inds = circshift(1:n, 1 - i)
     linewidth --> range(0, 10, length = n)
-    alpha --> range(0, 1, length = n)
+    seriesalpha --> range(0, 1, length = n)
     aspect_ratio --> 1
     label --> false
     x[inds], y[inds]
