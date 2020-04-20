@@ -325,7 +325,7 @@ Functionality incomplete... I never finished wrapping it, and I don't think it o
 
 # PGFPlotsX
 
-## LaTeX workflow
+### LaTeX workflow
 
 To use the native LaTeX output of the `pgfplotsx` backend you can save your plot as a `.tex` or `.tikz` file.
 ```julia
