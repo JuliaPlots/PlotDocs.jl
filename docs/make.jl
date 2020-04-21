@@ -5,7 +5,6 @@ ENV["MPLBACKEND"] = "agg"
 
 # Initialize backends
 pyplot()
-pgfplots()
 pgfplotsx()
 plotly()
 gr()
@@ -58,7 +57,6 @@ const PAGES = Any[
         "GR" => "generated/gr.md",
         "Plotly" => "generated/plotly.md",
         "PyPlot" => "generated/pyplot.md",
-        "PGFPlots" => "generated/pgfplots.md",
         "PGFPlotsX" => "generated/pgfplotsx.md",
         "UnicodePlots" => "examples/unicodeplots.md",
         "InspectDR" => "examples/inspectdr.md",
@@ -68,7 +66,7 @@ const PAGES = Any[
 generate_attr_markdown()
 generate_supported_markdown()
 generate_graph_attr_markdown()
-for be in (:gr, :plotly, :pyplot, :pgfplots, :pgfplotsx)
+for be in (:gr, :plotly, :pyplot, :pgfplotsx)
     generate_markdown(be)
 end
 @time makedocs(

@@ -165,34 +165,6 @@ Cons:
 
 Primary author: Christof Stocker (@Evizero)
 
-
-### [PGFPlots](https://github.com/sisl/PGFPlots.jl)
-
-LaTeX plotting, based on PGF/TikZ.
-
-```@example backends
-pgfplots(); backendplot(n = 2) # hide
-```
-
-!!! tip
-    To add save a standalone .tex file including a preamble use attribute `tex_output_standalone = true` in your `plot` command.
-
-Pros:
-
-- Nice looking plots
-- Lots of functionality (though the code is still WIP)
-
-Cons:
-
-- Tricky to install
-- Heavy-weight dependencies
-
-Authors:
-
-- PGFPlots: Christian Feuersanger
-- PGFPlots.jl: Mykel Kochenderfer (@mykelk),  Louis Dressel (@dressel), and others
-- Plots <--> PGFPlots link code: Patrick Kofod Mogensen (@pkofod)
-
 ### [PGFPlotsX](https://github.com/KristofferC/PGFPlotsX.jl)
 
 Successor backend of PGFPlots-backend.
@@ -269,6 +241,30 @@ Primary author: MA Laforge (@ma-laforge)
 ---
 
 # Deprecated backends
+
+
+### [PGFPlots](https://github.com/sisl/PGFPlots.jl)
+
+LaTeX plotting, based on PGF/TikZ.
+
+!!! tip
+    To add save a standalone .tex file including a preamble use attribute `tex_output_standalone = true` in your `plot` command.
+
+Pros:
+
+- Nice looking plots
+- Lots of functionality (though the code is still WIP)
+
+Cons:
+
+- Tricky to install
+- Heavy-weight dependencies
+
+Authors:
+
+- PGFPlots: Christian Feuersanger
+- PGFPlots.jl: Mykel Kochenderfer (@mykelk),  Louis Dressel (@dressel), and others
+- Plots <--> PGFPlots link code: Patrick Kofod Mogensen (@pkofod)
 
 
 ### [Gadfly](https://github.com/dcjones/Gadfly.jl)
