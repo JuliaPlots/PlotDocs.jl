@@ -14,7 +14,7 @@ plotthemes_path = dirname(dirname(pathof(PlotThemes)))
 
 cp(
     joinpath(plotthemes_path, "README.md"),
-    joinpath(@__DIR__, "src", "plotthemes.md"),
+    joinpath(@__DIR__, "src", "generated", "plotthemes.md"),
     force = true,
 )
 
@@ -39,7 +39,7 @@ const PAGES = Any[
         "Recipes" => "recipes.md",
         "Colors" => "colors.md",
         "Animations" => "animations.md",
-        "Themes" => "plotthemes.md",
+        "Themes" => "generated/plotthemes.md",
         "Backends" => "backends.md",
         "Supported Attributes" => "generated/supported.md",
     ],
