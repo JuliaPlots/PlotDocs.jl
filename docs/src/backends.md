@@ -167,9 +167,24 @@ Primary author: Christof Stocker (@Evizero)
 
 ### [PGFPlotsX](https://github.com/KristofferC/PGFPlotsX.jl)
 
+LaTeX plotting, based on PGF/TikZ.
+
 Successor backend of PGFPlots-backend.
 
 Has more features and is still in development otherwise the same.
+
+!!! tip
+    To add save a standalone .tex file including a preamble use attribute `tex_output_standalone = true` in your `plot` command.
+
+Pros:
+
+- Nice looking plots
+- Lots of functionality (though the code is still WIP)
+
+Cons:
+
+- Tricky to install
+- Heavy-weight dependencies
 
 Authors:
 
