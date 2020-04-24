@@ -25,7 +25,7 @@ Pkg.add("PlotlyJS")
     ```julia
     Pkg.add("ORCA")
     ```
-    
+
 Finally, you may wish to add some extensions from the [Plots ecosystem](@ref ecosystem):
 
 ```julia
@@ -59,5 +59,7 @@ pyplot(size = (300, 300), legend = false)
 !!! tip
     You can override standard default values in your `~/.juliarc.jl` file: `PLOTS_DEFAULTS = Dict(:markersize => 10, :legend => false)`
 
+!!! tip
+    To suppress warnings on unsupported attributes, series types, marker shapes or scales for different backends either set`default(warn_on_unsupported = false)` or add `:warn_on_unsupported => false` to `PLOTS_DEFAULTS::Dict{Symbol, Any}` in `~/.julia/config/startup.jl`.
 
 ---
