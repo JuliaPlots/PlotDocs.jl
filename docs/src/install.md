@@ -57,7 +57,7 @@ pyplot(size = (300, 300), legend = false)
     Plots will pick a default backend for you automatically based on what backends are installed. You can override this choice by setting an environment variable in your `~/.juliarc.jl` file: `ENV["PLOTS_DEFAULT_BACKEND"] = "PlotlyJS"`
 
 !!! tip
-    You can override standard default values in your `~/.juliarc.jl` file: `PLOTS_DEFAULTS = Dict(:markersize => 10, :legend => false)`
+    You can override standard default values in your `~/.julia/config/startup.jl` file: `PLOTS_DEFAULTS = Dict(:markersize => 10, :legend => false)`
 
 !!! tip
     To suppress warnings on unsupported attributes, series types, marker shapes or scales for different backends either set`default(warn_on_unsupported = false)` or add `:warn_on_unsupported => false` to `PLOTS_DEFAULTS::Dict{Symbol, Any}` in `~/.julia/config/startup.jl`.
