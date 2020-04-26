@@ -398,7 +398,8 @@ function generate_colorschemes_markdown()
 
     ## misc
 
-    These colorschemes are not defined or registered under a different name in ColorSchemes.jl
+    These colorschemes are not defined or provide different colors in ColorSchemes.jl
+    They are kept for compatibility with Plots behavior before v1.1.0.
 
     """)
     write(md, "```@raw html\n")
