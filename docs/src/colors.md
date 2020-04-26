@@ -1,8 +1,3 @@
-```@setup colors
-using Plots; gr()
-Plots.reset_defaults()
-```
-
 ## Colors
 
 There are many color attributes, for lines, fills, markers, backgrounds, and foregrounds.  Many colors follow a hierarchy... `linecolor` gets its value from `seriescolor`, for example, unless you override the value.  This allows for you to simply set precisely what you want, without lots of boilerplate.
@@ -84,47 +79,7 @@ foreground\_color\_text    | foreground\_color\_subplot
 #### Misc
 
 - the `linecolor` under the default theme is not CSS-defined, but close to `:steelblue`.
-- `line_z` and `marker_z` parameters will map data values into a ColorGradient value
+- `line_z` and `marker_z` parameters will map data values into a `ColorGradient` value
 - `color_palette` determines the colors assigned when `seriescolor == :auto`:
     - If passed a vector of colors, it will force cycling of those colors
     - If passed a gradient, it will infinitely draw unique colors from that gradient, attempting to spread them out
-
----
-
-#### Colorschemes
-Color gradients are arranged into color libraries. To get a list of color libraries, use the `clibraries` function. To get a list of color gradients in each library, call `cgradients(library)`. `showlibrary(library)` creates a visual representation of color schemes. To change the active library, use `clibrary(library)`. This is only necessary in the case of namespace clashes, e.g. there are multiple `:blues`. The gradients can be reversed by appending `_r`, e.g. `:magma_r`. The `clims::NTuple{2,Number}` attribute can be used to define the data values that correspond with the ends of the schemes.
-
-The following libraries and gradients are included in Plots:
-
-##### Plots
-*Created by Nathaniel J. Smith, Stefan van der Walt, and (in the case of viridis) Eric Firing. Released under CC0 license / public domain dedication. Full license info available [here](https://github.com/JuliaPlots/PlotUtils.jl/blob/master/LICENSE.md#matplotlib).*
-
-```@example colors
-using Plots; showlibrary(:Plots) # hide
-```
-
-##### cmocean
-*Released under The MIT License (MIT) Copyright (c) 2015 Kristen M. Thyng. RGB values were taken from https://github.com/matplotlib/cmocean/tree/master/cmocean/rgb*
-
-```@example colors
-using Plots; showlibrary(:cmocean) # hide
-```
-
-##### misc
-```@example colors
-using Plots; showlibrary(:misc, titlefontsize = 8) # hide
-```
-
-##### colorcet
-*Released under The MIT License (MIT) Copyright (c) 2015 Peter Kovesi. These are the perceptually correct color maps designed by Peter Kovesi and described in Peter Kovesi. Good Colour Maps: How to Design Them. arXiv:1509.03700 [cs.GR] 2015*
-
-```@example colors
-using Plots; showlibrary(:colorcet) # hide
-```
-
-##### colorbrewer
-*Created by Cynthia Brewer, Mark Harrower, and The Pennsylvania State University. Released under the Apache License, Version 2.0. Full license info available [here](https://github.com/JuliaPlots/PlotUtils.jl/blob/master/LICENSE.md#colorbrewer).*
-
-```@example colors
-using Plots; showlibrary(:colorbrewer) # hide
-```

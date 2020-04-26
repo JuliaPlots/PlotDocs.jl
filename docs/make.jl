@@ -37,6 +37,7 @@ const PAGES = Any[
         "Layouts" => "layouts.md",
         "Recipes" => "recipes.md",
         "Colors" => "colors.md",
+        "ColorSchemes" => "generated/colorschemes.md",
         "Animations" => "animations.md",
         "Themes" => "generated/plotthemes.md",
         "Backends" => "backends.md",
@@ -66,6 +67,7 @@ const PAGES = Any[
 generate_attr_markdown()
 generate_supported_markdown()
 generate_graph_attr_markdown()
+generate_colorschemes_markdown()
 for be in (:gr, :plotly, :pyplot, :pgfplotsx)
     generate_markdown(be)
 end
