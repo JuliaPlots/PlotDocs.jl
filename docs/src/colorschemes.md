@@ -74,9 +74,11 @@ cgrad(:matter, [0.1, 0.3, 0.8], rev = true, categorical = true)
 ```
 The distribution of color selection can be scaled with the `scale` keyword argument which accepts `:log`, `:log10`, `:ln`, `:log2`, `:exp` or a function to be applied on the color position values between 0 and 1.
 ```@example colors
-cgrad(:davos, scale = :log)
+cgrad(:roma, scale = :log)
 ```
 Categorical gradients can also be scaled.
 ```@example colors
-cgrad(:davos, 10, categorical = true, scale = :exp)
+cgrad(:roma, 10, categorical = true, scale = :exp)
 ```
+
+# Pre-defined ColorSchemes
