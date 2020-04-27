@@ -410,7 +410,7 @@ function generate_colorschemes_markdown()
         )
     )
     write(md, "\n```\n\nThe following colorschemes are defined by ColorSchemes.jl.\n\n")
-    for cs in ["cmocean", "scientific", "matplotlib", "colorbrewer", "gnuplot", "colorcet", "general"]
+    for cs in ["cmocean", "scientific", "matplotlib", "colorbrewer", "gnuplot", "colorcet", "seaborn", "general"]
         ks = sort([k for (k, v) in PlotUtils.ColorSchemes.colorschemes if occursin(cs, v.category)])
         write(md, "\n\n## $cs\n\n```@raw html\n")
         write(md, generate_colorschemes_table(ks))
