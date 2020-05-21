@@ -1,10 +1,33 @@
 
 # [Attributes](@id attributes)
 
-In Plots, input data is passed positionally (for example, the `y` in `plot(y)`), and attributes are passed as keywords (for example, `plot(y, color = :blue)`).
+### Introduction to Attributes
 
-!!! tip
-    Most of the information on this page is available from your Julia session with the function `plotattr`, e.g. `plotattr(:Series)` to print a list of all series attributes, or `plotattr("ms")` to print the aliases and descriptions of `markersize`.
+In Plots, input data is passed positionally (for example, the `y` in `plot(y)`), and attributes are passed as keywords (for example, `plot(y, color = :blue)`). Most of the information on this page is available from your Julia REPL. After one executes, `using Plots` in their REPL, one can use the function `plotattr()` to print a list of all attributes for either series, plots, subplots, or axes.
+
+```julia
+# Valid Operations
+plotattr(:Plot)
+plotattr(:Series)
+plotattr(:Subplot)
+plotattr(:Axis)
+```
+
+Once you acquire the list of attributes, you can either use the aliases of a specific attribute or investigate a specific attribut to print that attribute's aliases and its description.
+
+```sh
+# Specific Attribute Example
+julia> plotattr("size")
+
+size {NTuple{2,Int}}
+windowsize, wsize
+
+(width_px, height_px) of the whole Plot
+Plot attribute,  default: (600, 400)
+```
+
+!!! note
+    Do not forget to enclose the attribute you are attempting to use with double quotes! 
 
 ---
 
@@ -50,7 +73,7 @@ Passing a tuple to `xticks` (and similarly to `yticks` and `zticks`) changes
 the position of the ticks and the labels:
 
 ```julia
-plot!(xticks = ([0:π:3*π;], ["0", "\\pi", "2\\pi"]))
+plot!(xticks = ([0:π:3*π;], ["0", "\pi", "2\pi"]))
 yticks!([-1:1:1;], ["min", "zero", "max"])
 ```
 
@@ -103,3 +126,4 @@ scatter(y,
     markerstrokestyle = :dot
 )
 ```
+
