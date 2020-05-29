@@ -169,6 +169,10 @@ Primary author: Christof Stocker (@Evizero)
 
 LaTeX plotting, based on PGF/TikZ.
 
+```@example backends
+pgfplotsx(); backendplot() # hide
+
+
 Successor backend of PGFPlots-backend.
 
 Has more features and is still in development otherwise the same.
@@ -351,15 +355,13 @@ The default LaTeX ouput is intended to be included as a figure in another docume
 If you include these figures in another LaTeX document you need to have the correct preamble.
 The preamble of a plot can be shown using `Plots.pgfx_preamble(pl)` or copied from the standalone output.
 
-Using more features of PGFPlotsX is possible by providing the `extra_kwargs`.
-For example changing the ticks of a colormap to be the same as the z axis labels would be possible with
-```julia
+Using more features of PGFPlotsX is possible by providing the [`extra_kwargs`](@id extra_kwargs).
+For example changing the colormap to one that is native to pgfplots can be achieved with the following.
+Like this it is possible to keep the preamble of latex documents clean.
+
+```@example backends
 using Plots; pgfplotsx()
-zticks=(π/4*(0:4), [raw"0", raw"\frac{\pi}{4}", raw"\frac{\pi}{2}", raw"\frac{3\pi}{4}", raw"\pi"])
-surface(range(0,5, length=20), range(0,3, length=20), (x, y)->(tmp = atan(- x*y/(1-x^2)); tmp > 0 ? tmp : tmp+π),
-           zticks=zticks, # zaxis labels (same as colormap)
-           extra_kwargs =Dict(:subplot=>Dict( # use extra_kwargs to give arguments directly to PGFPlotsX
-               "colorbar style" => PGFPlotsX.Options( # provide the labels of the colormap
-               "ytick" => "{"*prod(["$(tick)," for tick in zticks[1]])[1:end-1]*"}",
-               "yticklabels" => "{"*prod("\$".*zticks[2].*"\$,")[1:end-1]*"}"),
-               "colormap name" => "viridis"))) # use a colormap supported by pgfplots
+pl = surface(range(-3,3, length=30), range(-3,3, length=30),
+        (x, y)->exp(-x^2-y^2), label="",
+        colormap_name = "viridis", extra_kwargs =:subplot)
+        savefig(pl,  "mysurface.tikz")
