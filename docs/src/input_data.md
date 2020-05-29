@@ -240,7 +240,7 @@ If arguments should be passed at multiple layers in the same call or the keyword
 plot(1:5, series_keyword = 5)
 # results in extra_kwargs = Dict( :series => Dict( series_keyword => 5 ) )
 plot(1:5, colormap_width = 6, extra_kwargs = :subplot)
-# results in extra_kwargs = Dict( :subplot => Dict( series_keyword => 5 ) )
+# results in extra_kwargs = Dict( :subplot => Dict( colormap_width = 6 ) )
 plot(1:5, extra_kwargs = Dict( :series => Dict( series_keyword => 5 ), :subplot => Dict( colormap_width => 6 ) ) )
 ```
 
