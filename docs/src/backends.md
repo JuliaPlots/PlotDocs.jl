@@ -350,3 +350,16 @@ Saving as `.tikz` file has the advantage, that you can use `\includegraphics` to
 The default LaTeX ouput is intended to be included as a figure in another document and will not compile by itself.
 If you include these figures in another LaTeX document you need to have the correct preamble.
 The preamble of a plot can be shown using `Plots.pgfx_preamble(pl)` or copied from the standalone output.
+
+Using more features of PGFPlotsX is possible by providing the `extra_kwargs`.
+For example changing the ticks of a colormap to be the same as the z axis labels would be possible with
+```julia
+using Plots; pgfplotsx()
+zticks=(π/4*(0:4), [raw"0", raw"\frac{\pi}{4}", raw"\frac{\pi}{2}", raw"\frac{3\pi}{4}", raw"\pi"])
+surface(range(0,5, length=20), range(0,3, length=20), (x, y)->(tmp = atan(- x*y/(1-x^2)); tmp > 0 ? tmp : tmp+π),
+           zticks=zticks, # zaxis labels (same as colormap)
+           extra_kwargs =Dict(:subplot=>Dict( # use extra_kwargs to give arguments directly to PGFPlotsX
+               "colorbar style" => PGFPlotsX.Options( # provide the labels of the colormap
+               "ytick" => "{"*prod(["$(tick)," for tick in zticks[1]])[1:end-1]*"}",
+               "yticklabels" => "{"*prod("\$".*zticks[2].*"\$,")[1:end-1]*"}"),
+               "colormap name" => "viridis"))) # use a colormap supported by pgfplots
