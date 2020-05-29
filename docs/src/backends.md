@@ -384,8 +384,9 @@ plot(1:5, add = raw"\draw (1,2) rectangle (2,3);", extra_kwargs = :subplot)
 
 Plotly needs to load mathjax to render LaTeX strings, therefore passing extra keywords with `extra_kwargs = :plot` is implemented.
 With that it is possible to pass a header to the extra `include_mathjax` keyword.
+It has the following options:
 
-- `include_mathjax = ""` (default): no mathjax header)
+- `include_mathjax = ""` (default): no mathjax header
 - `include_mathjax = "cdn"` include the standard online version of the header
 - `include_mathjax = "<filename?config=xyz>"` include a user-defined file
 
