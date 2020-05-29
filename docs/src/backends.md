@@ -27,7 +27,7 @@ Plots.reset_defaults()
             subplot := 2
             line_z := t
             label := false
-            c := :viridis
+            seriescolor := :viridis
             seriestype := surface
             t, t, (x, y) -> x * sin(x) - y * cos(y)
         end
