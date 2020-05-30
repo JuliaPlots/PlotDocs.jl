@@ -171,7 +171,9 @@ LaTeX plotting, based on PGF/TikZ.
 
 ```@example backends
 pgfplotsx(); backendplot() # hide
+png("pgfx_backends") # hide
 ```
+![](pgfx_backends.svg)
 
 Successor backend of PGFPlots-backend.
 
@@ -340,7 +342,7 @@ Functionality incomplete... I never finished wrapping it, and I don't think it o
 
 # LaTeX workflow
 
-## PGFPlotsX
+### PGFPlotsX
 
 To use the native LaTeX output of the `pgfplotsx` backend you can save your plot as a `.tex` or `.tikz` file.
 ```julia
@@ -355,7 +357,7 @@ The default LaTeX ouput is intended to be included as a figure in another docume
 If you include these figures in another LaTeX document you need to have the correct preamble.
 The preamble of a plot can be shown using `Plots.pgfx_preamble(pl)` or copied from the standalone output.
 
-### Fine tuning
+#### Fine tuning
 
 It is possible to use more features of PGFPlotsX via the [`extra_kwargs`](@ref extra_kwargs) mechanism.
 By default it interprets every extra keyword as an option to the `plot` command.
@@ -380,7 +382,7 @@ This adds a square to a normal line plot:
 plot(1:5, add = raw"\draw (1,2) rectangle (2,3);", extra_kwargs = :subplot)
 ```
 
-## Plotly
+### Plotly
 
 Plotly needs to load mathjax to render LaTeX strings, therefore passing extra keywords with `extra_kwargs = :plot` is implemented.
 With that it is possible to pass a header to the extra `include_mathjax` keyword.
@@ -393,6 +395,7 @@ It has the following options:
 These can also be passed using the `extra_plot_kwargs` keyword.
 
 ```@example backends
+using LaTeXStrings
 plotly()
 plot(1:4, [[1,4,9,16]*10000, [0.5, 2, 4.5, 8]],
            labels = [L"\alpha_{1c} = 352 \pm 11 \text{ km s}^{-1}";
@@ -406,6 +409,8 @@ plot(1:4, [[1,4,9,16]*10000, [0.5, 2, 4.5, 8]],
                :xaxis => KW(:domain => "auto")
                ),
        )
-png("mathjax_plotly") # hide
+Plots.html("plotly_mathjax") # hide
 ```
-![](mathjax_plotly.png)
+```@raw html
+<object type="text/html" data="./plotly_mathjax.html" style="width:100%;height:450px;"></object>
+```
