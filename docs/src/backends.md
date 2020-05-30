@@ -171,7 +171,9 @@ LaTeX plotting, based on PGF/TikZ.
 
 ```@example backends
 pgfplotsx(); backendplot() # hide
+png("backends_pgfplotsx") # hide
 ```
+![](backends_pgfplotsx.png)
 
 Successor backend of PGFPlots-backend.
 
@@ -371,14 +373,18 @@ surface(range(-3,3, length=30), range(-3,3, length=30),
         label="",
         colormap_name = "viridis",
         extra_kwargs =:subplot)
+png("latex_pgfplotsx") #hide
 ```
+![](latex_pgfplotsx.png)
 
 Further more additional commands or strings can be added via the special `add` keyword.
 This adds a square to a normal line plot:
 
 ```@example backends
 plot(1:5, add = raw"\draw (1,2) rectangle (2,3);", extra_kwargs = :subplot)
+png("latex_add_pgfplotsx") #hide
 ```
+![](latex_add_pgfplotsx.png)
 
 ## Plotly
 
