@@ -173,7 +173,7 @@ LaTeX plotting, based on PGF/TikZ.
 pgfplotsx(); backendplot() # hide
 png("pgfx_backends") # hide
 ```
-![](pgfx_backends.svg)
+![](pgfx_backends.png)
 
 Successor backend of PGFPlots-backend.
 
@@ -412,5 +412,5 @@ plot(1:4, [[1,4,9,16]*10000, [0.5, 2, 4.5, 8]],
 Plots.html("plotly_mathjax") # hide
 ```
 ```@raw html
-<object type="text/html" data="./plotly_mathjax.html" style="width:100%;height:450px;"></object>
+<object type="text/html" data="plotly_mathjax.html" style="width:100%;height:450px;"></object>
 ```
