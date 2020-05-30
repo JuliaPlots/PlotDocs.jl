@@ -226,3 +226,27 @@ batman = Plots.scale(make_batman(), 0.07, 0.07, (0, 0))
 batman = translate(batman, 0.7, 1.23)
 plot!(batman, fillcolor = :black)
 ```
+
+## [Extra keywords](@id extra_kwargs)
+
+There are some features that are very specific to a certain backend or not yet implemented in Plots.
+For these cases it is possible to forward extra keywords to the backend.
+Every keyword that is not a Plots keyword will then be collected in a `extra_kwargs` dictionary.
+
+This dictionary has three layers: `:plot`, `:subplot` and `:series` (default).
+To which layer the keywords get collected can be specified by the `extra_kwargs` keyword.
+If arguments should be passed at multiple layers in the same call or the keyword is already a valid Plots keyword, the `extra_kwargs` dictionary has to be constructed at the call site.
+```julia
+plot(1:5, series_keyword = 5)
+# results in extra_kwargs = Dict( :series => Dict( series_keyword => 5 ) )
+plot(1:5, colormap_width = 6, extra_kwargs = :subplot)
+# results in extra_kwargs = Dict( :subplot => Dict( colormap_width = 6 ) )
+plot(1:5, extra_kwargs = Dict( :series => Dict( series_keyword => 5 ), :subplot => Dict( colormap_width => 6 ) ) )
+```
+
+Refer to the [tracking issue](https://github.com/JuliaPlots/Plots.jl/issues/2648) to see for which backends this feature is implemented.
+Which extra keywords the backend actually handles should be documented in the backend documentation.
+
+!!! warning
+    Using the extra keywords machinery will make your code backend dependent.
+    Only use it for final tweaks. It is clearly a bad idea to use it in recipes.
