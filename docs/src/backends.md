@@ -211,7 +211,7 @@ Pros:
 - Relatively short load times / time to first plot.
 - Interactive mouse/keybindings.
   - Fast & simple way to pan/zoom into data.
-- Drag & drop &Delta;-markers (Measure/display &Delta;x, &Delta;y & slope).
+- Drag & drop &Delta;-markers (measure/display &Delta;x, &Delta;y & slope).
 - Designed with larger datasets in mind.
   - Responsive even with moderate (>200k points) datasets.
   - Confirmed to handle 2GB datsets with reasonable speed on older desktop running Windows 7 (drag+pan of data area highly discouraged).
@@ -245,7 +245,7 @@ display(pread)
 Pros:
 
 - Open, standard file format for complex datasets.
-- Human readble (using [HDF5view](https://support.hdfgroup.org/products/java/hdfview/)).
+- Human readable (using [HDF5view](https://support.hdfgroup.org/products/java/hdfview/)).
 - Save plot + data to a single binary file.
 - (Re)-render plots at a later time using your favourite backend(s).
 
@@ -253,7 +253,7 @@ Cons:
 
 - Currently missing support for `SeriesAnnotations` & `GridLayout`.
   - (Please open an "issue" if you have a need).
-- Not yet designed for backwards compatibility (no proper versionning).
+- Not yet designed for backwards compatibility (no proper versioning).
   - Therefore not truly adequate for archival purposes at the moment.
 - Currently implemented as a "backend" to avoid adding dependencies to `Plots.jl`.
 
@@ -296,11 +296,11 @@ Pros:
 
 - Clean look
 - Lots of features
-- Flexible when combined with Compose.jl (inset plots, etc)
+- Flexible when combined with Compose.jl (inset plots, etc.)
 
 Cons:
 
-- Do not support 3D
+- Does not support 3D
 - Slow time-to-first-plot
 - Lots of dependencies
 - No interactivity
