@@ -70,7 +70,7 @@ Of course nothing in life is that simple.  Likely there are subtle tradeoffs bet
 
 ---
 
-### [GR](https://github.com/jheinen/GR.jl)
+## [GR](https://github.com/jheinen/GR.jl)
 
 Super fast with lots of plot types. Still actively developed and improving daily.
 
@@ -90,7 +90,7 @@ Cons:
 
 Primary author: Josef Heinen (@jheinen)
 
-### [Plotly / PlotlyJS](https://github.com/spencerlyon2/PlotlyJS.jl)
+## [Plotly / PlotlyJS](https://github.com/spencerlyon2/PlotlyJS.jl)
 
 These are treated as separate backends, though they share much of the code and use the Plotly javascript API.  `plotly()` is the only dependency-free plotting option,
 as the required javascript is bundled with Plots.  It can create inline plots in IJulia, or open standalone browser windows when run from the Julia REPL.
@@ -119,7 +119,40 @@ Cons:
 
 Primary PlotlyJS.jl author: Spencer Lyon (@spencerlyon2)
 
-### [PyPlot](https://github.com/stevengj/PyPlot.jl)
+### Mathjax
+
+Plotly needs to load mathjax to render LaTeX strings, therefore passing extra keywords with `extra_kwargs = :plot` is implemented.
+With that it is possible to pass a header to the extra `include_mathjax` keyword.
+It has the following options:
+
+- `include_mathjax = ""` (default): no mathjax header
+- `include_mathjax = "cdn"` include the standard online version of the header
+- `include_mathjax = "<filename?config=xyz>"` include a user-defined file
+
+These can also be passed using the `extra_plot_kwargs` keyword.
+
+```@example backends
+using LaTeXStrings
+plotly()
+plot(1:4, [[1,4,9,16]*10000, [0.5, 2, 4.5, 8]],
+           labels = [L"\alpha_{1c} = 352 \pm 11 \text{ km s}^{-1}";
+                     L"\beta_{1c} = 25 \pm 11 \text{ km s}^{-1}"] |> permutedims,
+           xlabel = L"\sqrt{(n_\text{c}(t|{T_\text{early}}))}",
+           ylabel = L"d, r \text{ (solar radius)}",
+           yformatter = :plain,
+           extra_plot_kwargs = KW(
+               :include_mathjax => "cdn", 
+               :yaxis => KW(:automargin => true),
+               :xaxis => KW(:domain => "auto")
+               ),
+       )
+Plots.html("plotly_mathjax") # hide
+```
+```@raw html
+<object type="text/html" data="plotly_mathjax.html" style="width:100%;height:450px;"></object>
+```
+
+## [PyPlot](https://github.com/stevengj/PyPlot.jl)
 
 A Julia wrapper around the popular python package PyPlot (Matplotlib).  It uses PyCall.jl to pass data with minimal overhead.
 
@@ -139,33 +172,10 @@ Cons:
 
 - Uses python
 - Dependencies frequently cause setup issues
-- Inconsistent output depending on Matplotlib version
 
 Primary author: Steven G Johnson (@stevengj)
 
-### [UnicodePlots](https://github.com/Evizero/UnicodePlots.jl)
-
-Simple and lightweight.  Plot directly in your terminal.  You won't produce anything publication quality, but for a quick look at your data it is awesome.
-
-```@example backends
-unicodeplots()
-plot([sin cos])
-```
-
-Pros:
-
-- Minimal dependencies
-- Lightweight
-- Fast
-- REPL plotting
-
-Cons:
-
-- Limited functionality
-
-Primary author: Christof Stocker (@Evizero)
-
-### [PGFPlotsX](https://github.com/KristofferC/PGFPlotsX.jl)
+## [PGFPlotsX](https://github.com/KristofferC/PGFPlotsX.jl)
 
 LaTeX plotting, based on PGF/TikZ.
 
@@ -198,7 +208,69 @@ Authors:
 - PGFPlotsX.jl: Kristoffer Carlsson (@KristofferC89), Tamas K. Papp (@tpapp)
 - Plots <--> PGFPlotsX link code: Simon Christ (@BeastyBlacksmith), based on the code of Patrick Kofod Mogensen (@pkofod)
 
-### [InspectDR](https://github.com/ma-laforge/InspectDR.jl)
+### LaTeX workflow
+
+To use the native LaTeX output of the `pgfplotsx` backend you can save your plot as a `.tex` or `.tikz` file.
+```julia
+using Plots; pgfplotsx()
+pl  = plot(1:5)
+pl2 = plot((1:5).^2, tex_output_standalone = true)
+savefig(pl,  "myline.tikz")    # produces a tikzpicture environment that can be included in other documents
+savefig(pl2, "myparabola.tex") # produces a standalone document that compiles by itself including preamble
+```
+Saving as `.tikz` file has the advantage, that you can use `\includegraphics` to rescale your plot without changing the size of the fonts.
+The default LaTeX ouput is intended to be included as a figure in another document and will not compile by itself.
+If you include these figures in another LaTeX document you need to have the correct preamble.
+The preamble of a plot can be shown using `Plots.pgfx_preamble(pl)` or copied from the standalone output.
+
+#### Fine tuning
+
+It is possible to use more features of PGFPlotsX via the [`extra_kwargs`](@ref extra_kwargs) mechanism.
+By default it interprets every extra keyword as an option to the `plot` command.
+Setting `extra_kwargs = :subplot` will treat them as an option to the `axis` command and `extra_kwargs = :plot` will be treated as an option to the `tikzpicture` environment.
+
+For example changing the colormap to one that is native to pgfplots can be achieved with the following.
+Like this it is possible to keep the preamble of latex documents clean.
+
+```@example backends
+using Plots; pgfplotsx()
+surface(range(-3,3, length=30), range(-3,3, length=30),
+        (x, y)->exp(-x^2-y^2),
+        label="",
+        colormap_name = "viridis",
+        extra_kwargs =:subplot)
+```
+
+Further more additional commands or strings can be added via the special `add` keyword.
+This adds a square to a normal line plot:
+
+```@example backends
+plot(1:5, add = raw"\draw (1,2) rectangle (2,3);", extra_kwargs = :subplot)
+```
+
+## [UnicodePlots](https://github.com/Evizero/UnicodePlots.jl)
+
+Simple and lightweight.  Plot directly in your terminal.  You won't produce anything publication quality, but for a quick look at your data it is awesome.
+
+```@example backends
+unicodeplots()
+plot([sin cos])
+```
+
+Pros:
+
+- Minimal dependencies
+- Lightweight
+- Fast
+- REPL plotting
+
+Cons:
+
+- Limited functionality
+
+Primary author: Christof Stocker (@Evizero)
+
+## [InspectDR](https://github.com/ma-laforge/InspectDR.jl)
 
 Fast plotting with a responsive GUI (optional).  Target: Quickly identify design/simulation issues & glitches in order to shorten design iterations.
 
@@ -222,7 +294,7 @@ Cons:
 
 Primary author: MA Laforge (@ma-laforge)
 
-### [HDF5](https://github.com/JuliaIO/HDF5.jl) (HDF5-Plots)
+## [HDF5](https://github.com/JuliaIO/HDF5.jl) (HDF5-Plots)
 
 Write plot + data to a *single* `HDF5` file using a human-readable structure that can easily be reverse-engineered.
 
@@ -340,77 +412,3 @@ Functionality incomplete... I never finished wrapping it, and I don't think it o
 
 ---
 
-# LaTeX workflow
-
-### PGFPlotsX
-
-To use the native LaTeX output of the `pgfplotsx` backend you can save your plot as a `.tex` or `.tikz` file.
-```julia
-using Plots; pgfplotsx()
-pl  = plot(1:5)
-pl2 = plot((1:5).^2, tex_output_standalone = true)
-savefig(pl,  "myline.tikz")    # produces a tikzpicture environment that can be included in other documents
-savefig(pl2, "myparabola.tex") # produces a standalone document that compiles by itself including preamble
-```
-Saving as `.tikz` file has the advantage, that you can use `\includegraphics` to rescale your plot without changing the size of the fonts.
-The default LaTeX ouput is intended to be included as a figure in another document and will not compile by itself.
-If you include these figures in another LaTeX document you need to have the correct preamble.
-The preamble of a plot can be shown using `Plots.pgfx_preamble(pl)` or copied from the standalone output.
-
-#### Fine tuning
-
-It is possible to use more features of PGFPlotsX via the [`extra_kwargs`](@ref extra_kwargs) mechanism.
-By default it interprets every extra keyword as an option to the `plot` command.
-Setting `extra_kwargs = :subplot` will treat them as an option to the `axis` command and `extra_kwargs = :plot` will be treated as an option to the `tikzpicture` environment.
-
-For example changing the colormap to one that is native to pgfplots can be achieved with the following.
-Like this it is possible to keep the preamble of latex documents clean.
-
-```@example backends
-using Plots; pgfplotsx()
-surface(range(-3,3, length=30), range(-3,3, length=30),
-        (x, y)->exp(-x^2-y^2),
-        label="",
-        colormap_name = "viridis",
-        extra_kwargs =:subplot)
-```
-
-Further more additional commands or strings can be added via the special `add` keyword.
-This adds a square to a normal line plot:
-
-```@example backends
-plot(1:5, add = raw"\draw (1,2) rectangle (2,3);", extra_kwargs = :subplot)
-```
-
-### Plotly
-
-Plotly needs to load mathjax to render LaTeX strings, therefore passing extra keywords with `extra_kwargs = :plot` is implemented.
-With that it is possible to pass a header to the extra `include_mathjax` keyword.
-It has the following options:
-
-- `include_mathjax = ""` (default): no mathjax header
-- `include_mathjax = "cdn"` include the standard online version of the header
-- `include_mathjax = "<filename?config=xyz>"` include a user-defined file
-
-These can also be passed using the `extra_plot_kwargs` keyword.
-
-```@example backends
-using LaTeXStrings
-plotly()
-plot(1:4, [[1,4,9,16]*10000, [0.5, 2, 4.5, 8]],
-           labels = [L"\alpha_{1c} = 352 \pm 11 \text{ km s}^{-1}";
-                     L"\beta_{1c} = 25 \pm 11 \text{ km s}^{-1}"] |> permutedims,
-           xlabel = L"\sqrt{(n_\text{c}(t|{T_\text{early}}))}",
-           ylabel = L"d, r \text{ (solar radius)}",
-           yformatter = :plain,
-           extra_plot_kwargs = KW(
-               :include_mathjax => "cdn", 
-               :yaxis => KW(:automargin => true),
-               :xaxis => KW(:domain => "auto")
-               ),
-       )
-Plots.html("plotly_mathjax") # hide
-```
-```@raw html
-<object type="text/html" data="plotly_mathjax.html" style="width:100%;height:450px;"></object>
-```
