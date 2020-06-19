@@ -18,7 +18,7 @@ Tap into the extensive visualization functionality enabled by the [Plots ecosyst
 
 Data visualization has a complicated history.  Plotting software makes trade-offs between features and simplicity, speed and beauty, and a static and dynamic interface. Some packages make a display and never change it, while others make updates in real-time.
 
-Plots is a visualization interface and toolset. It sits above other backends, like GR, PyPlot, PgfPlotsX, or Plotly, connecting commands with implementation. If one backend does not support your desired features or make the right trade-offs, you can just switch to another backend with one command. No need to change your code. No need to learn a new syntax. Plots might be the last plotting package you ever learn.
+Plots is a visualization interface and toolset. It sits above other backends, like GR, PyPlot, PGFPlotsX, or Plotly, connecting commands with implementation. If one backend does not support your desired features or make the right trade-offs, you can just switch to another backend with one command. No need to change your code. No need to learn a new syntax. Plots might be the last plotting package you ever learn.
 
 The goals with the package are:
 
@@ -35,7 +35,7 @@ Use the [preprocessing pipeline](@ref pipeline) in Plots to describe your visual
 
 Please add wishlist items, bugs, or any other comments/questions to the [issues list](https://github.com/tbreloff/Plots.jl/issues), and [join the conversation on gitter](https://gitter.im/tbreloff/Plots.jl) or [zulip](https://julialang.zulipchat.com/#narrow/stream/236493-plots).
 
-Nevertheless, extreme configurability is not a goal of Plots. If you require a rather specific plotting feature, feel free to [request it](https://github.com/JuliaPlots/Plots.jl/issues?q=is%3Aissue+is%3Aopen+label%3Aextension). However, do understand that Plots has to implement the feature across all backends which might be challenging due some backends' limitations.
+Nevertheless, extreme configurability is not a goal of Plots. If you require a rather specific plotting feature, feel free to [request it](https://github.com/JuliaPlots/Plots.jl/issues?q=is%3Aissue+is%3Aopen+label%3Aextension). However, do understand that Plots has to implement the feature across all backends which might be challenging due some backends' limitations. 
 
 ---
 
