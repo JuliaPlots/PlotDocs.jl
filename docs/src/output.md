@@ -23,9 +23,8 @@ plot(rand(10), fmt = :png)
 
 ### Juno / Atom
 
-Plots are shown in the Atom PlotPane when possible, either when returned to the console or to an inline code block. At any time, the plot can be opened in a standalone window using the `gui()` command. The default behavior can be switched to match the REPL behavior (i.e. opening a standalone window) by setting `ENV["PLOTS_USE_ATOM_PLOTPANE"] = "false"` before loading Plots.
-
-Note that javascript-based libraries (for example: PlotlyJS) cannot be shown in the PlotPane due to issues within Atom's internals.
+Plots are shown in the Atom PlotPane when possible, either when returned to the console or to an inline code block. At any time, the plot can be opened in a standalone window using the `gui()` command. 
+The PlotPane can be disabled in Juno's settings.
 
 ### savefig / format
 
