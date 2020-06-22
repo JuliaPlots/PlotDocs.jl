@@ -45,7 +45,7 @@ Finally, you may wish to add some extensions from the [Plots ecosystem](@ref eco
 
 ```julia
 Pkg.add("StatsPlots")
-Pkg.add("PlotRecipes")
+Pkg.add("GraphRecipes")
 ```
 
 ---
@@ -53,7 +53,8 @@ Pkg.add("PlotRecipes")
 ### Initialize
 
 ```julia
-using Plots # and StatsPlots, and PlotRecipes
+using Plots # or StatsPlots 
+# using GraphRecipes  # if you wish to use GraphRecipes package too
 ```
 
 [Choose a backend](@ref backends), and optionally override default settings at the same time:
@@ -69,5 +70,5 @@ pyplot()                               # backends are selected with lowercase na
     Plots will pick a default backend for you automatically based on what backends are installed. You can override this choice by setting an environment variable in your `~/.juliarc.jl` file: `ENV["PLOTS_DEFAULT_BACKEND"] = "PlotlyJS"`
 
 !!! tip
-    You can override standard default values in your `~/.julia/config/startup.jl` file: `PLOTS_DEFAULTS = Dict(:markersize => 10, :legend => false)`
+    You can override standard default values in your `~/.julia/config/startup.jl` file: `PLOTS_DEFAULTS = Dict(:markersize => 10, :legend => false, warn_on_unsupported = false)`
 ---
