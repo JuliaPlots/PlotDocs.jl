@@ -1,4 +1,4 @@
-using Documenter, Plots, PlotThemes
+using Documenter, PlotDocs, Plots, PlotThemes
 
 # Set matplotlib gui backend
 ENV["MPLBACKEND"] = "agg"
