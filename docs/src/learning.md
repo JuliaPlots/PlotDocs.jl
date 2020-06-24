@@ -5,6 +5,7 @@
 - [Machine Learning and Visualization in Julia](http://www.breloff.com/JuliaML-and-Plots/)
 - [Quant Econ tutorial](https://lectures.quantecon.org/jl/julia_plots.html#plotsjl-jl)
 - [Plotting section of a Julia wiki](https://en.wikibooks.org/wiki/Introducing_Julia/Plotting)
+- [How do Recipes actually work?](https://daschw.github.io/recipes/)
 
 # Demos, Examples and Notebooks
 
