@@ -126,3 +126,19 @@ scatter(y,
     markerstrokestyle = :dot
 )
 ```
+
+### [Notable Arguments](@id notable-arguments)
+This is a collection of some notable arguments that are not well-known:
+
+```julia
+scatter(y, thickness_scaling = 2)  # increases fontsizes and linewidth by factor 2
+# good for presentations and posters
+# If backend does not support this, use the function `scalefontsizes(2)` that scales
+# the default fontsizes.
+
+
+scatter(y, ticks=:native)  # Tells backends to calculate ticks by itself.
+# Good idea if you use interactive backends where you perform mouse zooming
+
+scatter(rand(100), smooth=true)  # Adds a regression line to your plots
+```
