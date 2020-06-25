@@ -72,7 +72,10 @@ for be in (:gr, :plotly, :pyplot, :pgfplotsx)
     generate_markdown(be)
 end
 @time makedocs(
-    format = Documenter.HTML(prettyurls = get(ENV, "CI", nothing) == "true"),
+    format = Documenter.HTML(
+        prettyurls = get(ENV, "CI", nothing) == "true",
+        assets = ["assets/favicon.ico"]
+    ),
     sitename = "Plots",
     authors = "Thomas Breloff",
     pages = PAGES,
