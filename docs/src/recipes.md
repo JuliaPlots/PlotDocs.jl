@@ -342,11 +342,11 @@ Some error checking.  Note that we're extracting the real inputs (like in a call
 
 Next we build the subplot layout and define some attributes.  A few things to note:
 
-    - The layout creates three subplots (`_` is left blank)
-    - Attributes are mapped to each subplot when passed in as a matrix (row-vector)
-    - The attribute `link := :both` means that the y-axes of each row (and x-axes of
-        each column) will share data extrema.  Other values include `:x`, `:y`,
-        `:all`, and `:none`.
+- The layout creates three subplots (`_` is left blank)
+- Attributes are mapped to each subplot when passed in as a matrix (row-vector)
+- The attribute `link := :both` means that the y-axes of each row (and x-axes of
+  each column) will share data extrema.  Other values include `:x`, `:y`,
+  `:all`, and `:none`.
 
 ```julia
     # set up the subplots
