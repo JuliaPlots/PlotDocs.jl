@@ -13,6 +13,7 @@ Color attributes will accept many different types:
 In addition, there is an extensive facility for selecting and generating color maps/gradients.
 
 - A valid Symbol: `:inferno` (the default), `:heat`, `:blues`, etc
+- Color gradients can be reversed by appending `_r`, e.g `:inferno_r`
 - A list of colors (or anything that can be converted to a color)
 - A pre-built `ColorGradient`, which can be constructed with the `cgrad` helper function.  See [this short tutorial](https://github.com/tbreloff/ExamplePlots.jl/blob/master/notebooks/cgrad.ipynb) for example usage.
 
