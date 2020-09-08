@@ -169,7 +169,7 @@ LazySets.jl is a Julia package for calculus with convex sets. The principle behi
 
 Reachability plot of a [two-mode hybrid system](https://juliareach.github.io/LazySets.jl/dev/man/reach_zonotopes_hybrid/#Example):
 
-<img src="https://raw.githubusercontent.com/JuliaReach/JuliaReach-website/master/src/images/hybrid2d.png" height="330">
+![](https://raw.githubusercontent.com/JuliaReach/JuliaReach-website/master/src/images/hybrid2d.png)
 
 ---
 
