@@ -173,7 +173,7 @@ Reachability plot of a [two-mode hybrid system](https://juliareach.github.io/Laz
 
 ---
 
-And many more... :
+And many more:
 
 - Losses.jl
 - IterativeSolvers.jl
@@ -185,3 +185,4 @@ And many more... :
 - Reinforce.jl
 - Optim.jl
 - Transformations.jl / Flow.jl
+- ...
