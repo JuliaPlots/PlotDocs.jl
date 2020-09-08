@@ -50,8 +50,9 @@ plot(rand(100,4), layout = 4, label=["a" "b" "c" "d"],
 
 #### Advanced Layouts
 
-The `@layout` macro is the easiest way to define complex layouts, using Julia's [multidimensional Array construction](https://docs.julialang.org/en/latest/manual/arrays/#Concatenation-1) as the basis for a custom layout syntax.  Precise sizing can be achieved with curly brackets, otherwise the free space is equally split between the **plot areas** of subplots.
+The `@layout` macro is the easiest way to define complex layouts, using Julia's [multidimensional Array construction](https://docs.julialang.org/en/latest/manual/arrays/#man-array-concatenation-1) as the basis for a custom layout syntax.  Precise sizing can be achieved with curly brackets, otherwise the free space is equally split between the **plot areas** of subplots.
 
+The symbols themselves (`a` and `b` in the example below) can be any valid identifier and don't have any special meaning.
 
 ```@example layouts
 l = @layout [
