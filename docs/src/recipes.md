@@ -404,12 +404,6 @@ It's important to note: normally we would return arguments from a recipe, and th
 
 ---
 
-### Series Recipe - Notched Box Plots
-
-TODO
-
----
-
 ### Documenting plot functions
 
 A documentation string added above the recipe definition will have no effect, just like the function name is meaningless. Since everything in Julia can be associated with a doc-string, the documentation can be added to the name of the plot function like this
