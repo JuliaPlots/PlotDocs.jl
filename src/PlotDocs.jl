@@ -70,6 +70,7 @@ function generate_markdown(pkgname::Symbol; skip = get(Plots._backend_skips, pkg
         # write(md, "```julia\n$(join(map(string, example.exprs), "\n"))\n```\n\n")
         write(md, """
         ```@example $pkgname
+        Plots.reset_defaults() # hide
         """)
         for expr in example.exprs
             pretty_print_expr(md, expr)
