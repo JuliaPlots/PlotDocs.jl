@@ -46,9 +46,11 @@ png(plot_ref, fn) # save the fig referenced by plot_ref as png with filename fn
 
 #### File formats supported by most graphical backends
 
- - png (default output format)
+ - png (default output format for `savefig`)
  - svg
  - PDF
+ 
+When not using `savefig`, the default output format depends on the environment (e.g., when using IJulia/Jupyter, the output when using the default GR backend is svg).
 
 #### Supported output file formats
 
