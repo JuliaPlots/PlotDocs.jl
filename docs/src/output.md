@@ -15,7 +15,8 @@ Calling `gui(plt)` will open a standalone window.  `gui()`, like `plot!(...)`, a
 
 ### Jupyter / IJulia
 
-Plots are shown inline when returned to a cell.  The default output format can be changed by the `html_output_format` attribute, with alias `fmt`:
+Plots are shown inline when returned to a cell.  The default output format is `svg` for backends that support it.
+This can be changed by the `html_output_format` attribute, with alias `fmt`:
 
 ```julia
 plot(rand(10), fmt = :png)
@@ -46,11 +47,11 @@ png(plot_ref, fn) # save the fig referenced by plot_ref as png with filename fn
 
 #### File formats supported by most graphical backends
 
- - png (default output format for `savefig`)
+ - png (default output format for `savefig`, if no file extension is given)
  - svg
  - PDF
  
-When not using `savefig`, the default output format depends on the environment (e.g., when using IJulia/Jupyter, the output when using the default GR backend is svg).
+When not using `savefig`, the default output format depends on the environment (e.g., when using IJulia/Jupyter).
 
 #### Supported output file formats
 
@@ -59,11 +60,11 @@ A simple table showing which format is supported by which backend
 
 | format | backends |
 |--------|----------|
-| eps | inspectdr, plotlyjs, pyplot |
+| eps  | inspectdr, plotlyjs, pyplot |
 | html | plotly,  plotlyjs |
-| pdf | gr, inspectdr, pgfplots, plotlyjs, pyplot |
-| png | glvisualize, gr, inspectdr, plotly, plotlyjs, pyplot |
-| ps | gr, pyplot |
-| svg | gr, inspectdr, pgfplots, plotly, plotlyjs, pyplot |
-| tex | pgfplots |
+| pdf  | gr, inspectdr, pgfplotsx, plotlyjs, pyplot |
+| png  | gr, inspectdr, pgfplotsx, plotly, plotlyjs, pyplot |
+| ps   | gr, pyplot |
+| svg  | gr, inspectdr, pgfplotsx, plotly, plotlyjs, pyplot |
+| tex  | pgfplotsx |
 | text | hdf5, unicodeplots |
