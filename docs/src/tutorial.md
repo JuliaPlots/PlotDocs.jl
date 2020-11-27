@@ -322,13 +322,13 @@ use the Violin plot on some random data:
 
 ```@example tutorial
 y = rand(100, 4) # Four series of 100 points each
-violin(["Series 1" "Series 2" "Series 3" "Series 4"], y, leg = false)
+violin(repeat(["Series 1" "Series 2" "Series 3" "Series 4"], 100), y, leg = false)
 ```
 
 and we can add a `boxplot` on top using the same mutation commands as before:
 
 ```@example tutorial
-boxplot!(["Series 1" "Series 2" "Series 3" "Series 4"], y, leg = false)
+boxplot!(repeat(["Series 1" "Series 2" "Series 3" "Series 4"], 100), y, leg = false)
 ```
 
 ## Additional Addons To Try
