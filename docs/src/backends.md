@@ -50,7 +50,7 @@ For those who haven't had the pleasure of hacking on 15 different plotting APIs:
 you will probably have a hard time choosing the right backend for your task at hand.  This document is meant to be a guide and
 introduction to making that choice.
 
-# For the impatient
+# At a glance
 
 My favorites: GR for speed, Plotly(JS) for interactivity, PyPlot otherwise.
 
