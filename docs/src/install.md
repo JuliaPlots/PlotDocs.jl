@@ -70,5 +70,5 @@ pyplot()                               # backends are selected with lowercase na
     Plots will pick a default backend for you automatically based on what backends are installed. You can override this choice by setting an environment variable in your `~/.julia/config/startup.jl` file (if the file does not exist, create it). To do this, add e.g. the following line of code: `ENV["PLOTS_DEFAULT_BACKEND"] = "PlotlyJS"`
 
 !!! tip
-    You can override standard default values in your `~/.julia/config/startup.jl` file, for example: `PLOTS_DEFAULTS = Dict(:markersize => 10, :legend => false, warn_on_unsupported = false)`
+    You can override standard default values in your `~/.julia/config/startup.jl` file: `PLOTS_DEFAULTS = Dict(:markersize => 10, :legend => false, :warn_on_unsupported => false)`
 ---
