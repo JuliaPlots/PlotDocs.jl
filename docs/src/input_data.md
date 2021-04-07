@@ -30,7 +30,7 @@ The flexibility and power of this can be illustrated by the following piece of c
 using Plots
 
 # 10 data points in 4 series
-xs = range(0, 2π, length = 10)
+xs = range(0, stop = 2π, length = 10)
 data = [sin.(xs) cos.(xs) 2sin.(xs) 2cos.(xs)]
 
 # We put labels in a row vector: applies to each series
