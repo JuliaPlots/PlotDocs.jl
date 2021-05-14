@@ -26,8 +26,12 @@ function recursive_rmlines(x::Expr)
 end
 
 function pretty_print_expr(io::IO, expr::Expr)
-    for arg in recursive_rmlines(expr).args
-        println(io, arg)
+    if expr.head == :block
+        for arg in recursive_rmlines(expr).args
+            println(io, arg)
+        end
+    else
+        println(io, recursive_rmlines(expr))
     end
 end
 
