@@ -13,10 +13,10 @@ There are a few rules to remember, and you'll be a power user in no time.
 
 ## Inputs are arguments, not keywords
 
-While `plot(x = 1:10, y = rand(10))` will work as expected, it is not the preferred method.  In fact,
-this method will simply call `plot(1:10, rand(10))`.  Instead,
-use `plot(rand(10))`.  In this case, a single input will be mapped to the `:y` keyword, and a missing
-value for `:x` will impute a unit range `1:10`.
+The `plot` function has several methods:
+`plot(y)`: treats the input as values for the `y`-axis and yields a unit-range as `x`-values.
+`plot(x, y)`: creates a 2D plot
+`plot(x, y, z)`: creates a 3D plot
 
 The reason lies in the flexibility of Julia's multiple dispatch, where every combination of input types
 can have unique behavior, when desired.
