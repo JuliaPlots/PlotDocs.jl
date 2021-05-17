@@ -33,7 +33,7 @@ The goals with the package are:
 
 Use the [preprocessing pipeline](@ref pipeline) in Plots to describe your visualization completely before it calls the backend code.  This preprocessing maintains modularity and allows for efficient separation of front end code, algorithms, and backend graphics.
 
-Please add wishlist items, bugs, or any other comments/questions to the [issues list](https://github.com/tbreloff/Plots.jl/issues), and [join the conversation on gitter](https://gitter.im/tbreloff/Plots.jl) or [zulip](https://julialang.zulipchat.com/#narrow/stream/236493-plots).
+Please add wishlist items, bugs, or any other comments/questions to the [issues list](https://github.com/tbreloff/Plots.jl/issues), and [join the conversation on zulip](https://julialang.zulipchat.com/#streams/236493/plots.jl).
 
 Nevertheless, extreme configurability is not a goal of Plots. If you require a rather specific plotting feature, feel free to [request it](https://github.com/JuliaPlots/Plots.jl/issues?q=is%3Aissue+is%3Aopen+label%3Aextension). However, do understand that Plots has to implement the feature across all backends which might be challenging due some backends' limitations. 
 
