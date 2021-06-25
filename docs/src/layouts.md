@@ -112,3 +112,9 @@ p2 = plot(...)
 p3 = plot(...)
 plot(p1, p2, p3, layout = l)
 ```
+
+### Ignore plots in layout
+You can use the `_` character to ignore plots in the layout (blank plots):
+```julia
+plot((plot() for i in 1:7)..., layout=(@layout [_ ° _; ° ° °; ° ° °]))
+```
