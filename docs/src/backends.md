@@ -105,6 +105,15 @@ surface(
 )
 ```
 
+Supported GR `extra_kwargs` :
+
+| Keyword | Description |
+| ------- | ----------- |
+| nx | Number of interpolation points in the x direction |
+| ny | Number of interpolation points in the y direction |
+| display_option | surface(...) options, see [GR doc](https://gr-framework.org/julia-gr.html#GR.surface-e3e6f234cc6cd4713b8727c874a5f331) |
+
+
 ## [Plotly / PlotlyJS](https://github.com/spencerlyon2/PlotlyJS.jl)
 
 These are treated as separate backends, though they share much of the code and use the Plotly javascript API.  `plotly()` is the only dependency-free plotting option,
