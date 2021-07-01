@@ -90,6 +90,21 @@ Cons:
 
 Primary author: Josef Heinen (@jheinen)
 
+### Fine tuning
+It is possible to use more features of GR via the [`extra_kwargs`](@ref extra_kwargs) mechanism.
+
+```@example backends
+using Plots; gr()
+import GR
+x = range(-3, 3, length=30)
+surface(
+  x, x, (x, y)->exp(-x^2 - y^2),
+  c=:viridis, legend=:none,
+  # vvvvvvvvvvvv series[:extra_kwargs] vvvvvvvvvvvvv
+  nx=50, ny=50, display_option=GR.OPTION_SHADED_MESH,
+)
+```
+
 ## [Plotly / PlotlyJS](https://github.com/spencerlyon2/PlotlyJS.jl)
 
 These are treated as separate backends, though they share much of the code and use the Plotly javascript API.  `plotly()` is the only dependency-free plotting option,
