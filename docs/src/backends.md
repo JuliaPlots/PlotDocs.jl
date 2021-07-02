@@ -105,7 +105,13 @@ surface(
 )
 ```
 
-Supported GR `extra_kwargs` :
+#### Supported `:subplot` `:extra_kwargs`
+
+| Keyword        | Description                         |
+| -------        | -----------                         |
+| legend_hfactor | Vertical spacing factor for legends |
+
+#### Supported `:series` `:extra_kwargs`
 
 | Series Type              | Keyword        | Description                                       |
 | -----------              | -------        | -----------                                       |
