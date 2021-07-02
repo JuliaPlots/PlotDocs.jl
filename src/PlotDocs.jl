@@ -49,6 +49,10 @@ function generate_markdown(pkgname::Symbol; skip = get(Plots._backend_skips, pkg
     md = open(joinpath(GENDIR, "$(pkgname).md"), "w")
 
     write(md, """
+    ```@meta
+    EditURL = "https://github.com/JuliaPlots/PlotDocs.jl/blob/master/src/PlotDocs.jl"
+    ```
+
     ### [Initialize](@id $pkgname-examples)
 
     ```@example $pkgname
