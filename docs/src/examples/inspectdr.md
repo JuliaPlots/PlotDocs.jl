@@ -191,17 +191,25 @@ ohlc(y)
 
 ### Annotations
 
-The `annotations` keyword is used for text annotations in data-coordinates.  Pass in a
-tuple (x,y,text) or a vector of annotations.  `annotate!(ann)` is shorthand for `plot!(;
-annotation=ann)`.  Series annotations are used for annotating individual data points.
-They require only the annotation... x/y values are computed.  A `PlotText` object can be
-build with the method `text(string, attr...)`, which wraps font and color attributes.
+The `annotations` keyword is used for text annotations in data-coordinates. 
+Pass in a tuple `(x, y, text)`, or a vector of annotations, each of which is a
+tuple of `x`, `y` and `text`. `text` may be a simple `String`, or a `PlotText`
+object, which can be built with the method `text(string, attrs...)`.
+This wraps font and color attributes and allows you to set text styling.
+`text` may also be a tuple `(string, attrs...)` of arguments which are passed
+to `Plots.text`.
+
+`annotate!(ann)` is shorthand for `plot!(; annotation=ann)`.
+
+Series annotations are used for annotating individual data points.
+They require only the annotation; x/y values are computed.  Series annotations
+require either plain `String`s or `PlotText` objects.
 
 ```julia
 y = rand(10)
-plot(y,annotations=(3,y[3],text("this is #3",:left)),leg=false)
-annotate!([(5,y[5],text("this is #5",16,:red,:center)),
-          (10,y[10],text("this is #10",:right,20,"courier"))])
+plot(y, annotations=(3,y[3],text("this is #3",:left)),leg=false)
+annotate!([(5,y[5],("this is #5",16,:red,:center)),
+          (10,y[10],("this is #10",:right,20,"courier"))])
 scatter!(range(2, stop=8, length=6),rand(6),marker=(50,0.2,:orange),
          series_annotations=["series","annotations","map","to","series",
                              text("data",:green)])
