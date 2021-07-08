@@ -249,7 +249,7 @@ savefig(pl,  "myline.tikz")    # produces a tikzpicture environment that can be 
 savefig(pl2, "myparabola.tex") # produces a standalone document that compiles by itself including preamble
 ```
 Saving as `.tikz` file has the advantage, that you can use `\includegraphics` to rescale your plot without changing the size of the fonts.
-The default LaTeX ouput is intended to be included as a figure in another document and will not compile by itself.
+The default LaTeX output is intended to be included as a figure in another document and will not compile by itself.
 If you include these figures in another LaTeX document you need to have the correct preamble.
 The preamble of a plot can be shown using `Plots.pgfx_preamble(pl)` or copied from the standalone output.
 
