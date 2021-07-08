@@ -16,6 +16,8 @@ export
 const GENDIR = normpath(@__DIR__, "..", "docs", "src", "generated")
 mkpath(GENDIR)
 
+const PLOT_DOCS_URL = "https://github.com/JuliaPlots/PlotDocs.jl/blob/master/src/PlotDocs.jl"
+
 # ----------------------------------------------------------------------
 
 recursive_rmlines(x) = x
@@ -50,7 +52,7 @@ function generate_markdown(pkgname::Symbol; skip = get(Plots._backend_skips, pkg
 
     write(md, """
     ```@meta
-    EditURL = "https://github.com/JuliaPlots/PlotDocs.jl/blob/master/src/PlotDocs.jl"
+    EditURL = "$PLOT_DOCS_URL"
     ```
 
     ### [Initialize](@id $pkgname-examples)
@@ -136,6 +138,10 @@ function generate_supported_markdown()
     md = open(joinpath(GENDIR, "supported.md"), "w")
 
     write(md, """
+    ```@meta
+    EditURL = "$PLOT_DOCS_URL"
+    ```
+
     ## [Series Types](@id supported)
 
     Key:
@@ -241,6 +247,9 @@ function generate_attr_markdown(c)
     md = open(joinpath(GENDIR, "attributes_$cstr.md"), "w")
 
     write(md, """
+    ```@meta
+    EditURL = "$PLOT_DOCS_URL"
+    ```
     ### $c
 
     $attr_text
@@ -265,6 +274,9 @@ function generate_graph_attr_markdown()
     md = open(joinpath(GENDIR, "graph_attributes.md"), "w")
 
     write(md, """
+    ```@meta
+    EditURL = "$PLOT_DOCS_URL"
+    ```
     # [Graph Attributes](@id graph_attributes)
 
     Where possible, GraphRecipes will adopt attributes from Plots.jl to format visualizations.
@@ -403,13 +415,18 @@ end
 function generate_colorschemes_markdown()
     md = open(joinpath(GENDIR, "colorschemes.md"), "w")
 
+    write(md, """
+    ```@meta
+    EditURL = "$PLOT_DOCS_URL"
+    ```
+    """)
+
     for line in readlines(normpath(@__DIR__, "..", "docs", "src", "colorschemes.md"))
         write(md, line)
         write(md, "\n")
     end
 
     write(md, """
-
     ## misc
 
     These colorschemes are not defined or provide different colors in ColorSchemes.jl
