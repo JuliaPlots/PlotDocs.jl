@@ -82,8 +82,19 @@ function generate_markdown(pkgname::Symbol; skip = get(Plots._backend_skips, pkg
         ```@example $pkgname
         Plots.reset_defaults() # hide
         """)
+        if pkgname == :unicodeplots
+            write(md, """
+            using Logging # hide
+            Logging.disable_logging(Logging.Warn) # hide
+            """)
+        end
         for expr in example.exprs
             pretty_print_expr(md, expr)
+        end
+        if pkgname == :unicodeplots
+            write(md, """
+            Plots._show(stdout, MIME("text/plain"), current())  # hide
+            """)
         end
         if i in (2, 31)
             write(md, "gif(anim, \"anim_$(pkgname)_ex$i.gif\") # hide\n")

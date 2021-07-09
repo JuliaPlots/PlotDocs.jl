@@ -76,7 +76,8 @@ end
 @time makedocs(
     format = Documenter.HTML(
         prettyurls = get(ENV, "CI", nothing) == "true",
-        assets = ["assets/favicon.ico"]
+        assets = ["assets/favicon.ico"],
+        ansicolor = true
     ),
     sitename = "Plots",
     authors = "Thomas Breloff",
