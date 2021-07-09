@@ -4,6 +4,8 @@ using Documenter, PlotDocs, Plots, PlotThemes
 ENV["MPLBACKEND"] = "agg"
 
 # Initialize backends
+inspectdr()
+unicodeplots()
 pyplot()
 pgfplotsx()
 plotly()
@@ -59,8 +61,8 @@ const PAGES = Any[
         "Plotly" => "generated/plotly.md",
         "PyPlot" => "generated/pyplot.md",
         "PGFPlotsX" => "generated/pgfplotsx.md",
-        "UnicodePlots" => "examples/unicodeplots.md",
-        "InspectDR" => "examples/inspectdr.md",
+        "UnicodePlots" => "generated/unicodeplots.md",
+        "InspectDR" => "generated/inspectdr.md",
     ],
 ]
 
@@ -68,7 +70,7 @@ generate_attr_markdown()
 generate_supported_markdown()
 generate_graph_attr_markdown()
 generate_colorschemes_markdown()
-for be in (:gr, :plotly, :pyplot, :pgfplotsx)
+for be in (:gr, :plotly, :pyplot, :pgfplotsx, :unicodeplots, :inspectdr)
     generate_markdown(be)
 end
 @time makedocs(
