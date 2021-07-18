@@ -14,7 +14,8 @@ the manual.
 
 The most basic plots are line plots. Assuming you have installed Plots.jl via
 `Pkg.add("Plots")`, you can plot a line by calling `plot` on two vectors of
-numbers. For example:
+numbers (currenlty, in 32-bit, e.g. with snap installation, some backends, such
+as the default GR, do not work, e.g. Plotly and UnicodePlots do work). For example:
 
 ```@example tutorial
 using Plots
