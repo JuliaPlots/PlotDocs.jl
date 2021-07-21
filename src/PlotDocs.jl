@@ -99,11 +99,11 @@ function generate_markdown(pkgname::Symbol; skip = get(Plots._backend_skips, pkg
         if i in (2, 31)
             write(md, "gif(anim, \"anim_$(pkgname)_ex$i.gif\") # hide\n")
         end
-        if pkgname ∈ (:plotly, :plotlyjs, :inspectdr)
+        if pkgname ∈ (:plotly, :plotlyjs, :inspectdr, :gaston)
             write(md, "png(\"$(pkgname)_ex$i\") # hide\n")
         end
         write(md, "```\n")
-        if pkgname ∈ (:plotly, :plotlyjs, :inspectdr)
+        if pkgname ∈ (:plotly, :plotlyjs, :inspectdr, :gaston)
             write(md, "![]($(pkgname)_ex$i.png)\n")
         end
     end
