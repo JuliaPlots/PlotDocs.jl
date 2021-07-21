@@ -25,6 +25,7 @@ Use `@gif` for simple, one-off animations that you want to view immediately.  Us
 Examples:
 
 ```@example animations
+using Logging; Logging.disable_logging(Logging.Warn) # hide
 using Plots
 
 @userplot CirclePlot
