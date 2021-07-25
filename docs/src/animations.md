@@ -45,13 +45,10 @@ t = range(0, 2π, length = n)
 x = sin.(t)
 y = cos.(t)
 
-#=
 anim = @animate for i ∈ 1:n
     circleplot(x, y, i)
 end
 gif(anim, "anim_fps15.gif", fps = 15)
-=#
-nothing # hide
 ```
 
 ```@example animations
