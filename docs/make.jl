@@ -79,7 +79,7 @@ end
     format = Documenter.HTML(
         prettyurls = get(ENV, "CI", nothing) == "true",
         assets = ["assets/favicon.ico"],
-        ansicolor = true
+        ansicolor = get(ENV, "PLOTDOCS_ANSICOLOR", "true") == "true",
     ),
     sitename = "Plots",
     authors = "Thomas Breloff",
