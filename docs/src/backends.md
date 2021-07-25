@@ -100,8 +100,7 @@ x = range(-3, 3, length=30)
 surface(
   x, x, (x, y)->exp(-x^2 - y^2),
   c=:viridis, legend=:none,
-  # vvvvvvvvvvvv series[:extra_kwargs] vvvvvvvvvvvvv
-  nx=50, ny=50, display_option=Plots.GR.OPTION_SHADED_MESH,
+  nx=50, ny=50, display_option=Plots.GR.OPTION_SHADED_MESH,  # <-- series[:extra_kwargs]
 )
 ```
 
@@ -129,7 +128,7 @@ as the required javascript is bundled with Plots.  It can create inline plots in
 makes this backend stand out.  From the Julia REPL, it taps into Blink.jl and Electron to plot within a standalone GUI window... also very cool. Also, PlotlyJS supports saving the output to more formats than Plotly, such as EPS and PDF, and thus is the recommended version of Plotly for developing publication-quality figures.
 
 ```@example backends
-plotly(); backendplot(n = 2) # hide # hide
+plotly(); backendplot(n = 2) # hide
 png("backends_plotly") # hide
 ```
 ![](backends_plotly.png)
