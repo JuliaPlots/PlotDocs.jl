@@ -75,11 +75,13 @@ generate_colorschemes_markdown()
 for be in (:gr, :plotly, :pyplot, :pgfplotsx, :unicodeplots, :inspectdr, :gaston)
     generate_markdown(be)
 end
+ansicolor = get(ENV, "PLOTDOCS_ANSICOLOR", "true") == "true"
+@show ansicolor
 @time makedocs(
     format = Documenter.HTML(
         prettyurls = get(ENV, "CI", nothing) == "true",
         assets = ["assets/favicon.ico"],
-        ansicolor = get(ENV, "PLOTDOCS_ANSICOLOR", "true") == "true",
+        ansicolor = ansicolor,
     ),
     sitename = "Plots",
     authors = "Thomas Breloff",
