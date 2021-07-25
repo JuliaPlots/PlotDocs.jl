@@ -98,10 +98,8 @@ using Plots; gr()
 
 x = range(-3, 3, length=30)
 surface(
-  x, x, (x, y)->exp(-x^2 - y^2),
-  c=:viridis, legend=:none,
-  # vvvvvvvvvvvv series[:extra_kwargs] vvvvvvvvvvvvv
-  nx=50, ny=50, display_option=Plots.GR.OPTION_SHADED_MESH,
+  x, x, (x, y)->exp(-x^2 - y^2), c=:viridis, legend=:none,
+  nx=50, ny=50, display_option=Plots.GR.OPTION_SHADED_MESH,  # <-- series[:extra_kwargs]
 )
 ```
 
@@ -129,7 +127,7 @@ as the required javascript is bundled with Plots.  It can create inline plots in
 makes this backend stand out.  From the Julia REPL, it taps into Blink.jl and Electron to plot within a standalone GUI window... also very cool. Also, PlotlyJS supports saving the output to more formats than Plotly, such as EPS and PDF, and thus is the recommended version of Plotly for developing publication-quality figures.
 
 ```@example backends
-plotly(); backendplot(n = 2) # hide # hide
+plotly(); backendplot(n = 2) # hide
 png("backends_plotly") # hide
 ```
 ![](backends_plotly.png)
@@ -285,6 +283,7 @@ Simple and lightweight.  Plot directly in your terminal.  You won't produce anyt
 ```@example backends
 unicodeplots()
 plot([sin cos])
+Plots._show(stdout, MIME("text/plain"), current()) # hide
 ```
 
 Pros:
@@ -323,6 +322,16 @@ Cons:
 - Mostly limited to 2D line/scatter plots
 
 Primary author: MA Laforge (@ma-laforge)
+
+## [Gaston](https://github.com/mbaz/Gaston.jl)
+
+Gaston is a direct interface to [gnuplot](http://gnuplot.info), a cross platform command line driven plotting utility. The support is however experimental (help is welcome).
+
+```@example backends
+plotly(); backendplot() # hide
+png("backends_gaston") # hide
+```
+![](backends_gaston.png)
 
 ## [HDF5](https://github.com/JuliaIO/HDF5.jl) (HDF5-Plots)
 
