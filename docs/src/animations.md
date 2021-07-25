@@ -25,7 +25,6 @@ Use `@gif` for simple, one-off animations that you want to view immediately.  Us
 Examples:
 
 ```@example animations
-using Logging; Logging.disable_logging(Logging.Warn) # hide
 using Plots
 
 @userplot CirclePlot
@@ -62,9 +61,12 @@ nothing # hide
 The `every` flag will only save a frame "every N iterations":
 
 ```@example animations
+#=
 @gif for i ∈ 1:n
     circleplot(x, y, i, line_z = 1:n, cbar = false, framestyle = :zerolines)
 end every 5
+=#
+nothing # hide
 ```
 
 The `when` flag will only save a frame "when the expression is true"
