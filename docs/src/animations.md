@@ -51,19 +51,15 @@ gif(anim, "anim_fps15.gif", fps = 15)
 ```
 
 ```@example animations
-# gif(anim, "anim_fps30.gif", fps = 30)
-nothing # hide
+gif(anim, "anim_fps30.gif", fps = 30)
 ```
 
 The `every` flag will only save a frame "every N iterations":
 
 ```@example animations
-#=
 @gif for i ∈ 1:n
     circleplot(x, y, i, line_z = 1:n, cbar = false, framestyle = :zerolines)
 end every 5
-=#
-nothing # hide
 ```
 
 The `when` flag will only save a frame "when the expression is true"
@@ -73,10 +69,8 @@ n = 400
 t = range(0, 2π, length = n)
 x = 16sin.(t).^3
 y = 13cos.(t) .- 5cos.(2t) .- 2cos.(3t) .- cos.(4t)
-#=
+
 @gif for i ∈ 1:n
     circleplot(x, y, i, line_z = 1:n, cbar = false, c = :reds, framestyle = :none)
 end when i > 40 && mod1(i, 10) == 5
-=#
-nothing # hide
 ```
