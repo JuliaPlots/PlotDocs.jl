@@ -116,7 +116,7 @@ done `Pkg.add("GR")`!):
 
 ```@example tutorial
 x = 1:10; y = rand(10, 2) # 2 columns means two lines
-plotly() # Set the backend to Plotly
+plotlyjs() # Set the backend to Plotly
 # This plots into the web browser via Plotly
 plot(x, y, title = "This is Plotted using Plotly")
 png("tutorial_1") # hide

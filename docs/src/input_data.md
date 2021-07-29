@@ -66,7 +66,7 @@ To adress this, you can use `NaN` as a path separator. A call to `plot` would th
 
 ```@example input_data
 using Plots
-plotly()
+plotlyjs()
 
 function rectangle_from_coords(xb,yb,xt,yt)
     [
