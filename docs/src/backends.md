@@ -127,7 +127,7 @@ as the required javascript is bundled with Plots.  It can create inline plots in
 makes this backend stand out.  From the Julia REPL, it taps into Blink.jl and Electron to plot within a standalone GUI window... also very cool. Also, PlotlyJS supports saving the output to more formats than Plotly, such as EPS and PDF, and thus is the recommended version of Plotly for developing publication-quality figures.
 
 ```@example backends
-plotly(); backendplot(n = 2) # hide
+plotlyjs(); backendplot(n = 2) # hide
 png("backends_plotly") # hide
 ```
 ![](backends_plotly.png)
@@ -161,7 +161,7 @@ These can also be passed using the `extra_plot_kwargs` keyword.
 
 ```@example backends
 using LaTeXStrings
-plotly()
+plotlyjs()
 plot(1:4, [[1,4,9,16]*10000, [0.5, 2, 4.5, 8]],
            labels = [L"\alpha_{1c} = 352 \pm 11 \text{ km s}^{-1}";
                      L"\beta_{1c} = 25 \pm 11 \text{ km s}^{-1}"] |> permutedims,

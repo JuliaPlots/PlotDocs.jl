@@ -5,7 +5,7 @@ ENV["MPLBACKEND"] = "agg"
 
 # Initialize backends
 gr()
-plotly()
+plotlyjs()
 pyplot()
 pgfplotsx()
 unicodeplots()
@@ -59,7 +59,7 @@ const PAGES = Any[
     "Advanced Topics" => ["Internals" => "pipeline.md"],
     "Examples" => [
         "GR" => "generated/gr.md",
-        "Plotly" => "generated/plotly.md",
+        "PlotlyJS" => "generated/plotlyjs.md",
         "PyPlot" => "generated/pyplot.md",
         "PGFPlotsX" => "generated/pgfplotsx.md",
         "UnicodePlots" => "generated/unicodeplots.md",
@@ -72,7 +72,7 @@ generate_attr_markdown()
 generate_supported_markdown()
 generate_graph_attr_markdown()
 generate_colorschemes_markdown()
-for be in (:gr, :plotly, :pyplot, :pgfplotsx, :unicodeplots, :inspectdr, :gaston)
+for be in (:gr, :plotlyjs, :pyplot, :pgfplotsx, :unicodeplots, :inspectdr, :gaston)
     generate_markdown(be)
 end
 ansicolor = get(ENV, "PLOTDOCS_ANSICOLOR", "true") == "true"
