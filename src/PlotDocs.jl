@@ -82,10 +82,15 @@ function generate_markdown(pkgname::Symbol; skip = get(Plots._backend_skips, pkg
         ```@example $pkgname
         Plots.reset_defaults() # hide
         """)
-        if pkgname ∈ (:unicodeplots, :inspectdr)
+        if pkgname ∈ (:unicodeplots, :inspectdr, :gaston)
             write(md, """
             using Logging # hide
             Logging.disable_logging(Logging.Warn) # hide
+            """)
+        end
+        if pkgname == :gaston
+            write(md, """
+            Plots.Gaston.set(term="dumb")
             """)
         end
         for expr in example.exprs
