@@ -90,7 +90,7 @@ function generate_markdown(pkgname::Symbol; skip = get(Plots._backend_skips, pkg
         end
         if pkgname == :gaston
             write(md, """
-            Plots.Gaston.set(term="dumb")
+            Plots.Gaston.set(term="dumb") # hide
             """)
         end
         for expr in example.exprs
