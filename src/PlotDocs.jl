@@ -70,14 +70,9 @@ function generate_markdown(pkgname::Symbol; skip = get(Plots._backend_skips, pkg
         i in (2, 31) && pkgname != :gr && continue
         # write out the header, description, code block, and image link
         if !isempty(example.header)
-            write(md, """
-            ### [$(example.header)](@id $pkgname-ref$i)
-            """)
+            write(md, "### [$(example.header)](@id $pkgname-ref$i)\n")
         end
-        write(md, """
-        $(example.desc)
-        """)
-        # write(md, "```julia\n$(join(map(string, example.exprs), "\n"))\n```\n\n")
+        write(md, "$(example.desc)\n")
         write(md, """
         ```@example $pkgname
         Plots.reset_defaults() # hide
@@ -89,17 +84,13 @@ function generate_markdown(pkgname::Symbol; skip = get(Plots._backend_skips, pkg
             """)
         end
         if pkgname == :gaston
-            write(md, """
-            Plots.Gaston.set(term="dumb") # hide
-            """)
+            write(md, "Plots.Gaston.set(term=\"dumb\") # hide\n")
         end
         for expr in example.exprs
             pretty_print_expr(md, expr)
         end
         if pkgname == :unicodeplots
-            write(md, """
-            Plots._show(stdout, MIME("text/plain"), current())  # hide
-            """)
+            write(md, "Plots._show(stdout, MIME(\"text/plain\"), current()) # hide\n")
         end
         if i in (2, 31)
             write(md, "gif(anim, \"anim_$(pkgname)_ex$i.gif\") # hide\n")
