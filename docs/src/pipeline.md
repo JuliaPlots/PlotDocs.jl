@@ -49,13 +49,16 @@ fig.set_size_inches(4, 3, forward = true)
 fig.set_dpi(100)
 PyPlot.clf()
 
+n = 100
+x, y = range(0, 1, length = n), randn(n, 3)
+
 PyPlot.plot(x, y[:,1], alpha = 0.5, "steelblue", linewidth = 4)
 PyPlot.scatter(x, y[:,2], alpha = 0.5, marker = "+", s = 100, c="orangered")
 PyPlot.plt.hist(
     y[:,3],
     orientation = "horizontal",
     alpha = 0.5,
-    normed = true,
+    density = true,
     bins=30,
     color="green",
     linewidth = 0
