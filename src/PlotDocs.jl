@@ -78,10 +78,7 @@ function generate_markdown(pkgname::Symbol; skip = get(Plots._backend_skips, pkg
         Plots.reset_defaults() # hide
         """)
         if pkgname ∈ (:unicodeplots, :inspectdr, :gaston)
-            write(md, """
-            using Logging # hide
-            Logging.disable_logging(Logging.Warn) # hide
-            """)
+            write(md, "using Logging; Logging.disable_logging(Logging.Warn) # hide\n")
         end
         for expr in example.exprs
             pretty_print_expr(md, expr)
