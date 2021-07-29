@@ -83,9 +83,6 @@ function generate_markdown(pkgname::Symbol; skip = get(Plots._backend_skips, pkg
             Logging.disable_logging(Logging.Warn) # hide
             """)
         end
-        if pkgname == :gaston
-            write(md, "Plots.Gaston.set(term=\"dumb\") # hide\n")
-        end
         for expr in example.exprs
             pretty_print_expr(md, expr)
         end
