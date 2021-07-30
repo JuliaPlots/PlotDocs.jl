@@ -328,6 +328,7 @@ Primary author: MA Laforge (@ma-laforge)
 Gaston is a direct interface to [gnuplot](http://gnuplot.info), a cross platform command line driven plotting utility. The support is however experimental (help is welcome).
 
 ```@example backends
+using Logging; Logging.disable_logging(Logging.Warn) # hide
 gaston(); backendplot() # hide
 png("backends_gaston") # hide
 ```
