@@ -55,15 +55,16 @@ introduction to making that choice.
 My favorites: GR for speed, Plotly(JS) for interactivity, PyPlot otherwise.
 
 If you require... | ... then use...
------------ | -----------------
-features         | PyPlot, Plotly(JS), GR
-speed            | GR, InspectDR
-interactivity    | Plotly(JS), PyPlot, InspectDR
-beauty           | Plotly(JS), PGFPlots/ PGFPlotsX
-REPL Plotting    | UnicodePlots
-3D plots         | PyPlot, GR, Plotly(JS)
-a GUI Window     | GR, PyPlot, PlotlyJS, InspectDR
+----------------- | -----------------
+features          | PyPlot, Plotly(JS), GR
+speed             | GR, InspectDR, Gaston
+interactivity     | Plotly(JS), PyPlot, InspectDR
+beauty            | Plotly(JS), PGFPlots/ PGFPlotsX
+REPL Plotting     | UnicodePlots
+3D plots          | PyPlot, GR, Plotly(JS), Gaston
+a GUI Window      | GR, PyPlot, PlotlyJS, InspectDR
 a small footprint | UnicodePlots, Plotly
+backend stability | Gaston
 plot+data -> `.hdf5` file | HDF5
 
 Of course nothing in life is that simple.  Likely there are subtle tradeoffs between backends, long hidden bugs, and more excitement.  Don't be shy to try out something new!
@@ -325,7 +326,7 @@ Primary author: MA Laforge (@ma-laforge)
 
 ## [Gaston](https://github.com/mbaz/Gaston.jl)
 
-Gaston is a direct interface to [gnuplot](http://gnuplot.info), a cross platform command line driven plotting utility. The support is however experimental (help is welcome).
+Gaston is a direct interface to [gnuplot](http://gnuplot.info), a cross platform command line driven plotting utility. The integration of Gaston in Plots is recent (2021), but improving daily.
 
 ```@example backends
 using Logging; Logging.disable_logging(Logging.Warn) # hide
