@@ -237,9 +237,21 @@ git push forked user123-dev
 
 We update our local copy of origin, checkout the dev branch, then attempt to "fast-forward" to the current master.  If successful, we push the branch back to our forked repo.
 
-#### Write code and commit
+#### Write code, format and commit
 
-After powering up your favorite editor (maybe [Juno](http://junolab.org/)?) and making some code changes to the repo, you'll want to "commit" or save a snapshot of all the changes you made.  After committing, you can "push" those changes to your forked repo on Github:
+After powering up your favorite editor (maybe [Juno](http://junolab.org/)?) and making some code changes to the repo, you'll want to "commit" or save a snapshot of all the changes you made.
+
+Plots uses [JuliaFormatter](https://github.com/domluna/JuliaFormatter.jl) for consistent code / format style.
+
+Please run:
+
+```console
+cd Plots.jl
+julia -e 'using JuliaFormatter; [format(["src", "test"]) for _ in 1:2]'
+```
+after your code changes.
+
+After committing, you can "push" those changes to your forked repo on Github:
 
 ```
 git add src/my_new_file.jl
