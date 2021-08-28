@@ -23,7 +23,7 @@ Pkg.add("GR")
 Pkg.add("PGFPlotsX")
 # You need to have latex installed on your system 
 
-Pkg.add("PlotlyJS"); Pkg.add("ORCA")
+Pkg.add("PlotlyJS"); Pkg.add("PlotlyBase")
 # Note that you only need to add this if you need electron windows and
 # additional output formats, otherwise `plotly()` comes shipped with Plots.jl
 # In order to have a good experience with Jupyter, refer to plotly-specific
@@ -37,6 +37,7 @@ Tier 2 support backends:
 ```julia
 Pkg.add("UnicodePlots")
 Pkg.add("InspectDR")
+Pkg.add("Gaston")
 ```
 Learn more about backends [here](http://docs.juliaplots.org/latest/backends/)
 
