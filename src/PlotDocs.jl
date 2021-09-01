@@ -84,7 +84,7 @@ function generate_markdown(pkgname::Symbol; skip = get(Plots._backend_skips, pkg
             pretty_print_expr(md, expr)
         end
         if pkgname == :unicodeplots
-            write(md, "Plots._show(stdout, MIME(\"text/plain\"), current()) # hide\n")
+            write(md, "show(current()) # hide\n")
         end
         if i in (2, 31)
             write(md, "gif(anim, \"anim_$(pkgname)_ex$i.gif\") # hide\n")
