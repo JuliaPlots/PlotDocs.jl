@@ -277,14 +277,14 @@ This adds a square to a normal line plot:
 plot(1:5, add = raw"\draw (1,2) rectangle (2,3);", extra_kwargs = :subplot)
 ```
 
-## [UnicodePlots](https://github.com/Evizero/UnicodePlots.jl)
+## [UnicodePlots](https://github.com/JuliaPlots/UnicodePlots.jl)
 
 Simple and lightweight.  Plot directly in your terminal.  You won't produce anything publication quality, but for a quick look at your data it is awesome.
 
 ```@example backends
 unicodeplots()
 plot([sin cos])
-Plots._show(stdout, MIME("text/plain"), current()) # hide
+show(current())  # hide
 ```
 
 Pros:
