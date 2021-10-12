@@ -286,7 +286,7 @@ The version number (vMAJOR.MINOR.PATCH) should be incremented using [semver](htt
 
 Testing in Plots is done with the help of [VisualRegressionTests](https://github.com/JuliaPlots/VisualRegressionTests.jl).  Reference images are stored in [PlotReferenceImages](https://github.com/JuliaPlots/PlotReferenceImages.jl). Sometimes the reference images need to be updated (if features change, or if the underlying backend changes).  VisualRegressionTests makes it somewhat painless to update the reference images:
 
-From the Julia REPL, run `include(Pkg.dir("Plots","test","runtests.jl"))`.  This will try to plot the tests, and then compare the results to the stored reference images.  If the test output is sufficiently different than the reference output (using Tim Holy's excellent algorithm for the comparison), then a GTK window will pop up with a side-by-side comparison.  You can choose to replace the reference image, or not, depending on whether a real error was discovered.
+From the Julia REPL, run `Pkg.test(name="Plots")`.  This will try to plot the tests, and then compare the results to the stored reference images.  If the test output is sufficiently different than the reference output (using Tim Holy's excellent algorithm for the comparison), then a GTK window will pop up with a side-by-side comparison.  You can choose to replace the reference image, or not, depending on whether a real error was discovered.
 
 After the reference images have been updated, navigate to PlotReferenceImages and push the changes to Github:
 
@@ -299,6 +299,10 @@ git push
 
 If there are mis-matches due to bugs, **don't update the reference image**.
 
-#### Travis
+#### CI
 
-On a `git push`, Travis tests will be triggered.  This runs the same tests as above, downloading and comparing to the reference images, though with a larger tolerance for differences.  When Travis errors, it may be due to timeouts, stale reference images, or a host of other reasons.  Check the [Travis logs](https://travis-ci.org/JuliaPlots/Plots.jl) to determine the reason.  If the tests are broken because of a new commit, consider rolling back.
+On a `git push` the tests will be run automatically as part of our continuous integration setup.
+This runs the same tests as above, downloading and comparing to the reference images, though with a larger tolerance for differences.
+When these error, it may be due to timeouts, stale reference images, or a host of other reasons.
+Check the logs to determine the reason.
+If the tests are broken because of a new commit, consider rolling back.
