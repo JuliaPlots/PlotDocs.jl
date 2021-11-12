@@ -401,7 +401,28 @@ end
 
 It's important to note: normally we would return arguments from a recipe, and those arguments would be added to a `RecipeData` object and pushed onto our `Vector{RecipeData}`.  However, when creating series using the `@series` macro, you have the option of returning `nothing`, which will bypass that last step.
 
+One can also have multiple series in a single subplot and repeat the same for multiple subplots if needed. This would require one to supply the correct subplot id/number. 
 
+```julia
+mutable struct SeriesRange
+    range::UnitRange{Int64}
+end
+@recipe function f(m::SeriesRange)
+    range = m.range
+    for i in range 
+        layout := length(range)
+        @series begin
+            subplot := i
+            seriestype := scatter
+            rand(10)
+        end
+        @series begin
+            subplot := i
+            rand(10)
+        end 
+    end
+end
+```
 ---
 
 ### Documenting plot functions
