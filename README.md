@@ -9,4 +9,4 @@ The new documentation files will be pushed to the [`gh-pages`](https://github.co
 
 ## Building the docs
 
-With proper dependencies installed, run `julia --project=docs/ docs/make.jl`.
+With proper dependencies installed, run `GKSwstype=nul julia --project=docs/ docs/make.jl`.
