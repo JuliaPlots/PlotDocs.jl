@@ -464,7 +464,9 @@ Closest candidates are:
   convert(::Type{T}, ::T) where T at essentials.jl:171
   RecipeData(::Any, ::Any) at ~/.julia/packages/RecipesBase/G4s6f/src/RecipesBase.jl:57
 ```
-!!! tip "Use of the `return` keyword in recipes requires RecipesBase 0.9"
+!!! compat "RecipesBase 0.9"
+    Use of the `return` keyword in recipes requires RecipesBase 0.9
+
 This error is encountered if you use the `return` keyword in a recipe, which is not supported in RecipesBase up to v0.8. 
 
 
