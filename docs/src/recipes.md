@@ -409,8 +409,8 @@ mutable struct SeriesRange
 end
 @recipe function f(m::SeriesRange)
     range = m.range
+    layout := length(range)
     for i in range 
-        layout := length(range)
         @series begin
             subplot := i
             seriestype := scatter
