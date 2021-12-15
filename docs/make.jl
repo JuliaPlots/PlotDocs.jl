@@ -16,11 +16,11 @@ plotthemes_path = dirname(dirname(pathof(PlotThemes)))
 
 cp(
     joinpath(plotthemes_path, "README.md"),
-    joinpath(@__DIR__, "src", "generated", "plotthemes.md"),
+    joinpath(mkpath(joinpath(@__DIR__, "src", "generated")), "plotthemes.md"),
     force = true,
 )
 
-generate_markdown(:gr)
+generate_cards(:gr)
 gallery, postprocess_cb, gallery_assets = makedemos("gallery")
 
 const PAGES = Any[
@@ -61,24 +61,24 @@ const PAGES = Any[
     ],
     "Advanced Topics" => ["Internals" => "pipeline.md"],
     gallery,
-    "Examples" => [
-        "GR" => "generated/gr.md",
-        "PlotlyJS" => "generated/plotlyjs.md",
-        "PyPlot" => "generated/pyplot.md",
-        "PGFPlotsX" => "generated/pgfplotsx.md",
-        "UnicodePlots" => "generated/unicodeplots.md",
-        "InspectDR" => "generated/inspectdr.md",
-        "Gaston" => "generated/gaston.md",
-    ],
+    # "Examples" => [
+    #     "GR" => "gallery/index.md#Gr",
+        # "PlotlyJS" => "generated/plotlyjs.md",
+        # "PyPlot" => "generated/pyplot.md",
+        # "PGFPlotsX" => "generated/pgfplotsx.md",
+        # "UnicodePlots" => "generated/unicodeplots.md",
+        # "InspectDR" => "generated/inspectdr.md",
+        # "Gaston" => "generated/gaston.md",
+    # ],
 ]
 
 generate_attr_markdown()
 generate_supported_markdown()
 generate_graph_attr_markdown()
 generate_colorschemes_markdown()
-for be in (:gr, :plotlyjs, :pyplot, :pgfplotsx, :unicodeplots, :inspectdr, :gaston)
-    generate_markdown(be)
-end
+# for be in (:gr, :plotlyjs, :pyplot, :pgfplotsx, :unicodeplots, :inspectdr, :gaston)
+#     generate_markdown(be)
+# end
 ansicolor = get(ENV, "PLOTDOCS_ANSICOLOR", "true") == "true"
 @show ansicolor
 @time makedocs(
@@ -98,4 +98,5 @@ postprocess_cb() # URL redirection for DemoCards-generated gallery
 deploydocs(
     repo = "github.com/JuliaPlots/PlotDocs.jl.git",
     push_preview = true,
+    forcepush = true
 )

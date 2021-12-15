@@ -7,6 +7,7 @@ import Plots: _examples
 
 export
     generate_markdown,
+    generate_cards,
     generate_supported_markdown,
     generate_attr_markdown,
     generate_graph_attr_markdown,
@@ -45,7 +46,6 @@ markdown_symbols_to_string(arr) = isempty(arr) ? "" : markdown_code_to_string(ar
 # ----------------------------------------------------------------------
 
 function generate_cards(pkgname::Symbol; skip = get(Plots._backend_skips, pkgname, Int[]), gendir = "gallery/generated")
-    pkg = Plots._backend_instance(pkgname)
 
     # create folder
     cardspath = mkpath(joinpath("docs", gendir, string(pkgname)))
@@ -54,10 +54,10 @@ function generate_cards(pkgname::Symbol; skip = get(Plots._backend_skips, pkgnam
         i in skip && continue
         # generate animations only for GR
         i in (2, 31) && pkgname != :gr && continue
-        # open the julia file
-        jl = open(joinpath(cardspath, "$(pkgname)-ref$i.jl"), "w")
         # write out the header, description, code block, and image link
         if !isempty(example.header)
+            # open the julia file
+            jl = open(joinpath(cardspath, "$(pkgname)-ref$i.jl"), "w")
             write(jl, """
             # ---
             # title: $(example.header)
@@ -66,13 +66,16 @@ function generate_cards(pkgname::Symbol; skip = get(Plots._backend_skips, pkgnam
             # date: $(Date(now()))
             # ---
             """)
+            write(jl, """
+            using Plots
+            $(pkgname)()
+            Plots.reset_defaults() #hide
+            """)
+        else
+            # append to old file
+            jl = open(joinpath(cardspath, "$(pkgname)-ref$(i-1).jl"), "a")
         end
         write(jl, "# $(replace(example.desc, "\n" => "\n # "))\n")
-        write(jl, """
-        using Plots
-        $(pkgname)()
-        Plots.reset_defaults() #hide
-        """)
         if pkgname ∈ (:unicodeplots, :inspectdr, :gaston)
             write(jl, "using Logging; Logging.disable_logging(Logging.Warn) # src\n")
         end
