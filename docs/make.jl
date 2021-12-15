@@ -1,4 +1,4 @@
-using Documenter, PlotDocs, Plots, PlotThemes
+using Documenter, PlotDocs, Plots, PlotThemes, DemoCards
 
 # Set matplotlib gui backend
 ENV["MPLBACKEND"] = "agg"
@@ -19,6 +19,9 @@ cp(
     joinpath(@__DIR__, "src", "generated", "plotthemes.md"),
     force = true,
 )
+
+generate_markdown(:gr)
+gallery, postprocess_cb, gallery_assets = makedemos("gallery")
 
 const PAGES = Any[
     "Home" => "index.md",
@@ -57,6 +60,7 @@ const PAGES = Any[
         ],
     ],
     "Advanced Topics" => ["Internals" => "pipeline.md"],
+    gallery,
     "Examples" => [
         "GR" => "generated/gr.md",
         "PlotlyJS" => "generated/plotlyjs.md",
@@ -80,13 +84,16 @@ ansicolor = get(ENV, "PLOTDOCS_ANSICOLOR", "true") == "true"
 @time makedocs(
     format = Documenter.HTML(
         prettyurls = get(ENV, "CI", nothing) == "true",
-        assets = ["assets/favicon.ico"],
+        assets = ["assets/favicon.ico",
+            # gallery_assets...
+            ],
         ansicolor = ansicolor,
     ),
     sitename = "Plots",
     authors = "Thomas Breloff",
     pages = PAGES,
 )
+postprocess_cb() # URL redirection for DemoCards-generated gallery
 
 deploydocs(
     repo = "github.com/JuliaPlots/PlotDocs.jl.git",
