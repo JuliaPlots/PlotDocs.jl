@@ -66,9 +66,9 @@ function generate_cards(pkgname::Symbol; skip = get(Plots._backend_skips, pkgnam
             write(jl, """
             # ---
             # title: $(example.header)
-            # cover: assets/$(pkgname)_ex$i.png
-            # author: PlotDocs.jl
-            # date: $(Date(now()))
+            # cover: assets/$(i in (2, 31) ? string("anim_", pkgname, "_ex", i, ".gif") : string(pkgname, "_ex", i, ".png"))
+            # author: "[PlotDocs.jl](https://github.com/JuliaPlots/PlotDocs.jl/)"
+            # date: $(now())
             # ---
             """)
             write(jl, """
@@ -92,10 +92,11 @@ function generate_cards(pkgname::Symbol; skip = get(Plots._backend_skips, pkgnam
             write(jl, "show(current()) #src\n")
         end
         if i in (2, 31)
-            write(jl, "gif(anim, \"assets/anim_$(pkgname)_ex$i.gif\") #src\n")
+            write(jl, "gif(anim, \"assets/anim_$(pkgname)_ex$i.gif\")\n")
+        else
+            write(jl, "png(\"assets/$(pkgname)_ex$i\") #src\n")
         end
         # if pkgname ∈ (:plotly, :plotlyjs, :inspectdr, :gaston)
-            write(jl, "png(\"assets/$(pkgname)_ex$i\") #src\n")
         # end
         # if pkgname ∈ (:plotly, :plotlyjs, :inspectdr, :gaston)
         #     write(jl, "![]($(pkgname)_ex$i.png)\n")
