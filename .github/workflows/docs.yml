@@ -4,8 +4,8 @@ on:
  push:
   branches:
     - democards
-  tags: '*'
- 
+  workflow_dispatch:
+
 jobs:
   Build_docs:
     runs-on: ubuntu-18.04
@@ -19,7 +19,7 @@ jobs:
         env:
           cache-name: cache-artifacts
         with:
-          path: ~/.julia/artifacts 
+          path: ~/.julia/artifacts
           key: ${{ runner.os }}-test-${{ env.cache-name }}-${{ hashFiles('**/Project.toml') }}
           restore-keys: |
             ${{ runner.os }}-test-${{ env.cache-name }}-
@@ -41,9 +41,9 @@ jobs:
             libgconf2-4 \
             gnuplot
           sudo fc-cache -vr
-            
+
       - name: build documentation
-        env: 
+        env:
           PYTHON: ""
           DOCUMENTER_KEY: ${{ secrets.DOCUMENTER_KEY }}
         run: |

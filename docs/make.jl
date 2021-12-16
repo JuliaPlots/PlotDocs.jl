@@ -98,5 +98,6 @@ postprocess_cb() # URL redirection for DemoCards-generated gallery
 deploydocs(
     repo = "github.com/JuliaPlots/PlotDocs.jl.git",
     push_preview = true,
-    forcepush = true
+    forcepush = true,
+    devbranch = "democards"
 )
