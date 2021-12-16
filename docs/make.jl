@@ -99,5 +99,4 @@ deploydocs(
     repo = "github.com/JuliaPlots/PlotDocs.jl.git",
     push_preview = true,
     forcepush = true,
-    devbranch = "democards"
 )
