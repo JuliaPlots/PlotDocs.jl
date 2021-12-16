@@ -77,20 +77,20 @@ function generate_cards(pkgname::Symbol; skip = get(Plots._backend_skips, pkgnam
         end
         write(jl, "# $(replace(example.desc, "\n" => "\n # "))\n")
         if pkgname ∈ (:unicodeplots, :inspectdr, :gaston)
-            write(jl, "using Logging; Logging.disable_logging(Logging.Warn) # src\n")
+            write(jl, "using Logging; Logging.disable_logging(Logging.Warn) #src\n")
         end
         for expr in example.exprs
             pretty_print_expr(jl, expr)
         end
-        write(jl, "\nmkpath(\"assets\") # src\n")
+        write(jl, "\nmkpath(\"assets\") #src\n")
         if pkgname == :unicodeplots
-            write(jl, "show(current()) # src\n")
+            write(jl, "show(current()) #src\n")
         end
         if i in (2, 31)
-            write(jl, "gif(anim, \"assets/anim_$(pkgname)_ex$i.gif\") # src\n")
+            write(jl, "gif(anim, \"assets/anim_$(pkgname)_ex$i.gif\") #src\n")
         end
         # if pkgname ∈ (:plotly, :plotlyjs, :inspectdr, :gaston)
-            write(jl, "png(\"assets/$(pkgname)_ex$i\") # src\n")
+            write(jl, "png(\"assets/$(pkgname)_ex$i\") #src\n")
         # end
         # if pkgname ∈ (:plotly, :plotlyjs, :inspectdr, :gaston)
         #     write(jl, "![]($(pkgname)_ex$i.png)\n")
