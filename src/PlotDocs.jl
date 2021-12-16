@@ -53,15 +53,12 @@ function generate_cards(pkgname::Symbol; skip = get(Plots._backend_skips, pkgnam
     write(config, "{\n    \"order\": [\n")
 
     for (i,example) in enumerate(_examples)
-        i in skip && continue
-        # generate animations only for GR
-        i in (2, 31) && pkgname != :gr && continue
         # write out the header, description, code block, and image link
         if !isempty(example.header)
             # open the julia file
             jlname = "$(pkgname)-ref$i.jl"
             write(config, string(" "^8, "\"", jlname, "\""))
-            i != length(_examples) && write(config, ",\n")
+            write(config, ",\n")
             jl = open(joinpath(cardspath, jlname), "w")
             write(jl, """
             # ---
@@ -71,6 +68,9 @@ function generate_cards(pkgname::Symbol; skip = get(Plots._backend_skips, pkgnam
             # date: $(now())
             # ---
             """)
+            i in skip && continue
+            # generate animations only for GR
+            i in (2, 31) && pkgname != :gr && continue
             write(jl, """
             using Plots
             $(pkgname)()
@@ -96,14 +96,24 @@ function generate_cards(pkgname::Symbol; skip = get(Plots._backend_skips, pkgnam
         else
             write(jl, "png(\"assets/$(pkgname)_ex$i\") #src\n")
         end
-        # if pkgname ∈ (:plotly, :plotlyjs, :inspectdr, :gaston)
-        # end
-        # if pkgname ∈ (:plotly, :plotlyjs, :inspectdr, :gaston)
-        #     write(jl, "![]($(pkgname)_ex$i.png)\n")
-        # end
         close(jl)
     end
-    write(config, "\n    ]\n}")
+    attr_name = string(pkgname, ".jl")
+    open(joinpath(cardspath, attr_name), "w") do jl
+        pkg = Plots._backend_instance(pkgname)
+            write(jl, """
+            # ---
+            # title: Supported attribute values
+            # author: "[PlotDocs.jl](https://github.com/JuliaPlots/PlotDocs.jl/)"
+            # date: $(now())
+            # ---
+            """)
+        write(jl, "# - Supported arguments: $(markdown_code_to_string(collect(Plots.supported_attrs(pkg))))\n")
+        write(jl, "# - Supported values for linetype: $(markdown_symbols_to_string(Plots.supported_seriestypes(pkg)))\n")
+        write(jl, "# - Supported values for linestyle: $(markdown_symbols_to_string(Plots.supported_styles(pkg)))\n")
+        write(jl, "# - Supported values for marker: $(markdown_symbols_to_string(Plots.supported_markers(pkg)))\n")
+    end
+    write(config, "        \"$(attr_name)\"\n    ]\n}")
     close(config)
 end
 

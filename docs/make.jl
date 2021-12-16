@@ -20,7 +20,10 @@ cp(
     force = true,
 )
 
-generate_cards(:gr)
+# for be in (:gr, :plotlyjs, :pyplot, :pgfplotsx, :unicodeplots, :inspectdr, :gaston)
+be = :gr
+    generate_cards(be)
+# end
 gallery, postprocess_cb, gallery_assets = makedemos("gallery")
 
 const PAGES = Any[
@@ -61,31 +64,20 @@ const PAGES = Any[
     ],
     "Advanced Topics" => ["Internals" => "pipeline.md"],
     gallery,
-    # "Examples" => [
-    #     "GR" => "gallery/index.md#Gr",
-        # "PlotlyJS" => "generated/plotlyjs.md",
-        # "PyPlot" => "generated/pyplot.md",
-        # "PGFPlotsX" => "generated/pgfplotsx.md",
-        # "UnicodePlots" => "generated/unicodeplots.md",
-        # "InspectDR" => "generated/inspectdr.md",
-        # "Gaston" => "generated/gaston.md",
-    # ],
 ]
 
 generate_attr_markdown()
 generate_supported_markdown()
 generate_graph_attr_markdown()
 generate_colorschemes_markdown()
-# for be in (:gr, :plotlyjs, :pyplot, :pgfplotsx, :unicodeplots, :inspectdr, :gaston)
-#     generate_markdown(be)
-# end
+
 ansicolor = get(ENV, "PLOTDOCS_ANSICOLOR", "true") == "true"
 @show ansicolor
 @time makedocs(
     format = Documenter.HTML(
         prettyurls = get(ENV, "CI", nothing) == "true",
         assets = ["assets/favicon.ico",
-            # gallery_assets...
+            gallery_assets
             ],
         ansicolor = ansicolor,
     ),
