@@ -49,6 +49,8 @@ function generate_cards(pkgname::Symbol; skip = get(Plots._backend_skips, pkgnam
 
     # create folder
     cardspath = mkpath(joinpath("docs", gendir, string(pkgname)))
+    config = open(joinpath(cardspath, "config.json"), "w")
+    write(config, "{\n    \"order\": [\n")
 
     for (i,example) in enumerate(_examples)
         i in skip && continue
@@ -57,7 +59,10 @@ function generate_cards(pkgname::Symbol; skip = get(Plots._backend_skips, pkgnam
         # write out the header, description, code block, and image link
         if !isempty(example.header)
             # open the julia file
-            jl = open(joinpath(cardspath, "$(pkgname)-ref$i.jl"), "w")
+            jlname = "$(pkgname)-ref$i.jl"
+            write(config, string(" "^8, "\"", jlname, "\""))
+            i != length(_examples) && write(config, ",\n")
+            jl = open(joinpath(cardspath, jlname), "w")
             write(jl, """
             # ---
             # title: $(example.header)
@@ -97,6 +102,8 @@ function generate_cards(pkgname::Symbol; skip = get(Plots._backend_skips, pkgnam
         # end
         close(jl)
     end
+    write(config, "\n    ]\n}")
+    close(config)
 end
 
 function generate_markdown(pkgname::Symbol; skip = get(Plots._backend_skips, pkgname, Int[]), gendir = GENDIR)
