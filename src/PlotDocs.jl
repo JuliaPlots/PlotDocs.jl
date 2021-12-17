@@ -90,8 +90,7 @@ function generate_cards(pkgname::Symbol; skip = get(Plots._backend_skips, pkgnam
         write(jl, "\nmkpath(\"assets\") #src\n")
         if pkgname == :unicodeplots
             write(jl, "show(current()) #src\n")
-        end
-        if i in (2, 31)
+        elseif i in (2, 31)
             write(jl, "gif(anim, \"assets/anim_$(pkgname)_ex$i.gif\")\n")
         else
             write(jl, "png(\"assets/$(pkgname)_ex$i\") #src\n")
