@@ -204,6 +204,29 @@ Cons:
 
 Primary author: Steven G Johnson (@stevengj)
 
+### Fine tuning
+It is possible to use more features of PyPlot/matplotlib via the [`extra_kwargs`](@ref extra_kwargs) mechanism.
+For example, for a 3D plot, the following example should generate a colorbar at a proper location; without the `extra_kwargs` below, the colorbar is displayed too far right to see its ticks and numbers. The four coordinates in the example below, i.e., `[0.9, 0.05, 0.05, 0.9]` specify the colorbar location `[ left, bottom, width, height ]`. Note that for 2D plots, this fine tuning is not necessary.
+
+```@example backends
+using Plots; pyplot()
+
+x = y = collect(range(-π, π, length = 100))
+fn(x, y) = begin
+    3 * exp(-(3x^2 + y^2)/5) * (sin(x+2y))+0.1*randn(1)[1]
+end
+surface(x, y, fn, c=:viridis, extra_kwargs=Dict(:subplot=>Dict("3d_colorbar_axis" => [0.9, 0.05, 0.05, 0.9])))
+```
+
+#### Supported `:subplot` `:extra_kwargs`
+
+| Keyword          | Description                                                                         |
+| -------          | -----------                                                                         |
+| 3d_colorbar_axis | Specifying the colorbar location `[ left, bottom, width, height ]` for a 3D plot    |
+
+
+
+
 ## [PGFPlotsX](https://github.com/KristofferC/PGFPlotsX.jl)
 
 LaTeX plotting, based on PGF/TikZ.
