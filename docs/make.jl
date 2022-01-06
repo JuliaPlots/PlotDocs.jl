@@ -20,20 +20,23 @@ cp(
     force = true,
 )
 
-# for be in (:gr, :plotlyjs, :pyplot, :pgfplotsx, :unicodeplots, :inspectdr, :gaston)
-be = :gr
+for be in (:gr, :plotlyjs, :pyplot, :inspectdr, :gaston,
+    :pgfplotsx,
+    # :unicodeplots,
+    )
+    # be = :gr
     generate_cards(be)
-# end
+end
 gallery, postprocess_cb, gallery_assets = makedemos("gallery")
 
 const PAGES = Any[
-    "Home" => "index.md",
-    "Getting Started" => [
+    "Home"=>"index.md",
+    "Getting Started"=>[
         "Installation" => "install.md",
         "Basics" => "basics.md",
         "Tutorial" => "tutorial.md",
     ],
-    "Manual" => [
+    "Manual"=>[
         "Input Data" => "input_data.md",
         "Output" => "output.md",
         "Attributes" => [
@@ -52,9 +55,9 @@ const PAGES = Any[
         "Backends" => "backends.md",
         "Supported Attributes" => "generated/supported.md",
     ],
-    "Learning" => "learning.md",
-    "Contributing" => "contributing.md", # TODO: testing
-    "Ecosystem" => [
+    "Learning"=>"learning.md",
+    "Contributing"=>"contributing.md", # TODO: testing
+    "Ecosystem"=>[
         "Overview" => "ecosystem.md",
         "GraphRecipes" => [
             "Introduction" => "graphrecipes/introduction.md",
@@ -62,23 +65,27 @@ const PAGES = Any[
             "Attributes" => "generated/graph_attributes.md",
         ],
     ],
-    "Advanced Topics" => ["Internals" => "pipeline.md"],
+    "Advanced Topics"=>["Internals" => "pipeline.md"],
     gallery,
+    "Examples (old)" => [
+        "UnicodePlots" => "generated/unicodeplots.md",
+    ],
 ]
 
 generate_attr_markdown()
 generate_supported_markdown()
 generate_graph_attr_markdown()
 generate_colorschemes_markdown()
+for be in (:unicodeplots,)
+    generate_markdown(be)
+end
 
 ansicolor = get(ENV, "PLOTDOCS_ANSICOLOR", "true") == "true"
 @show ansicolor
 @time makedocs(
     format = Documenter.HTML(
         prettyurls = get(ENV, "CI", nothing) == "true",
-        assets = ["assets/favicon.ico",
-            gallery_assets
-            ],
+        assets = ["assets/favicon.ico", gallery_assets],
         ansicolor = ansicolor,
     ),
     sitename = "Plots",
