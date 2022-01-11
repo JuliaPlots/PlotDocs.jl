@@ -125,7 +125,7 @@ gr() # Set the backend to GR
 plot(x, y, title = "This is Plotted using GR")
 ```
 
-If you're in VS Code, the first plot command will cause the plot to open in the
+If you're in VS Code or Juno, the first plot command will cause the plot to open in the
 plot pane. If you're in the REPL, the plot command will open in a browser window. You can always
 open a GUI anyways by using the `gui()` command.
 
