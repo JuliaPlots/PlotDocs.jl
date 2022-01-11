@@ -46,34 +46,34 @@ end
 Backends are the lifeblood of Plots, and the diversity between features, approaches, and strengths/weaknesses was
 one of the primary reasons that I started this package.
 
-For those who haven't had the pleasure of hacking on 15 different plotting APIs:  First, consider yourself lucky.  However,
-you will probably have a hard time choosing the right backend for your task at hand.  This document is meant to be a guide and
-introduction to making that choice.
+For those who haven't had the pleasure of hacking on 15 different plotting APIs: First, consider yourself lucky.  However,
+you will probably have a hard time choosing the right backend for your task at hand. This document is meant to be a guide and
+introduction to make that choice.
 
 # At a glance
 
-My favorites: GR for speed, Plotly(JS) for interactivity, PyPlot otherwise.
+My favorites: GR for speed, Plotly(JS) for interactivity, and PyPlot otherwise.
 
-If you require... | ... then use...
+If you require... | then use...
 ----------------- | -----------------
 features          | PyPlot, Plotly(JS), GR
 speed             | GR, InspectDR, Gaston
 interactivity     | Plotly(JS), PyPlot, InspectDR
 beauty            | Plotly(JS), PGFPlots/ PGFPlotsX
-REPL Plotting     | UnicodePlots
+REPL plotting     | UnicodePlots
 3D plots          | PyPlot, GR, Plotly(JS), Gaston
-a GUI Window      | GR, PyPlot, PlotlyJS, InspectDR
+a GUI window      | GR, PyPlot, PlotlyJS, InspectDR
 a small footprint | UnicodePlots, Plotly
 backend stability | Gaston
 plot+data -> `.hdf5` file | HDF5
 
-Of course nothing in life is that simple.  Likely there are subtle tradeoffs between backends, long hidden bugs, and more excitement.  Don't be shy to try out something new!
+Of course this list is rather subjective and nothing in life is that simple. Likely there are subtle tradeoffs between backends, long hidden bugs, and more excitement. Don't be shy to try out something new!
 
 ---
 
 ## [GR](https://github.com/jheinen/GR.jl)
 
-Super fast with lots of plot types. Still actively developed and improving daily.
+The default backend. Super fast with lots of plot types. Still actively developed and improving daily.
 
 ```@example backends
 gr(); backendplot() # hide
@@ -121,8 +121,8 @@ surface(
 
 ## [Plotly / PlotlyJS](https://github.com/spencerlyon2/PlotlyJS.jl)
 
-These are treated as separate backends, though they share much of the code and use the Plotly javascript API.  `plotly()` is the only dependency-free plotting option,
-as the required javascript is bundled with Plots.  It can create inline plots in IJulia, or open standalone browser windows when run from the Julia REPL.
+These are treated as separate backends, though they share much of the code and use the Plotly JavaScript API.  `plotly()` is the only dependency-free plotting option,
+as the required JavaScript is bundled with Plots.  It can create inline plots in IJulia, or open standalone browser windows when run from the Julia REPL.
 
 `plotlyjs()` is the preferred option, and taps into the great functionality of Spencer Lyon's PlotlyJS.jl.  Inline IJulia plots can be updated from any cell... something that
 makes this backend stand out.  From the Julia REPL, it taps into Blink.jl and Electron to plot within a standalone GUI window... also very cool. Also, PlotlyJS supports saving the output to more formats than Plotly, such as EPS and PDF, and thus is the recommended version of Plotly for developing publication-quality figures.
@@ -148,9 +148,9 @@ Cons:
 
 Primary PlotlyJS.jl author: Spencer Lyon (@spencerlyon2)
 
-### Mathjax
+### MathJax
 
-Plotly needs to load mathjax to render LaTeX strings, therefore passing extra keywords with `extra_kwargs = :plot` is implemented.
+Plotly needs to load MathJax to render LaTeX strings, therefore passing extra keywords with `extra_kwargs = :plot` is implemented.
 With that it is possible to pass a header to the extra `include_mathjax` keyword.
 It has the following options:
 
@@ -170,7 +170,7 @@ plot(1:4, [[1,4,9,16]*10000, [0.5, 2, 4.5, 8]],
            ylabel = L"d, r \text{ (solar radius)}",
            yformatter = :plain,
            extra_plot_kwargs = KW(
-               :include_mathjax => "cdn", 
+               :include_mathjax => "cdn",
                :yaxis => KW(:automargin => true),
                :xaxis => KW(:domain => "auto")
                ),
@@ -199,7 +199,7 @@ Pros:
 
 Cons:
 
-- Uses python
+- Uses Python
 - Dependencies frequently cause setup issues
 
 Primary author: Steven G Johnson (@stevengj)
@@ -237,7 +237,7 @@ png("pgfx_backends") # hide
 ```
 ![](pgfx_backends.png)
 
-Successor backend of PGFPlots-backend.
+Successor backend of PGFPlots backend.
 
 Has more features and is still in development otherwise the same.
 
