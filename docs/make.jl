@@ -91,4 +91,6 @@ ansicolor = get(ENV, "PLOTDOCS_ANSICOLOR", "true") == "true"
 deploydocs(
     repo = "github.com/JuliaPlots/PlotDocs.jl.git",
     push_preview = true,
+    versions = ["stable" => "v^", "v#.#", "dev" => "dev", "latest" => "dev"],
+    forcepush = true
 )
