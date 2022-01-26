@@ -46,9 +46,9 @@ end
 Backends are the lifeblood of Plots, and the diversity between features, approaches, and strengths/weaknesses was
 one of the primary reasons that I started this package.
 
-For those who haven't had the pleasure of hacking on 15 different plotting APIs: First, consider yourself lucky.  However,
-you will probably have a hard time choosing the right backend for your task at hand. This document is meant to be a guide and
-introduction to make that choice.
+For those who haven't had the pleasure of hacking on 15 different plotting APIs: first, consider yourself lucky.
+However, you will probably have a hard time choosing the right backend for your task at hand.
+This document is meant to be a guide and introduction to make that choice.
 
 # At a glance
 
@@ -57,7 +57,7 @@ My favorites: GR for speed, Plotly(JS) for interactivity, and PyPlot otherwise.
 If you require... | then use...
 ----------------- | -----------------
 features          | PyPlot, Plotly(JS), GR
-speed             | GR, InspectDR, Gaston
+speed             | GR, UnicodePlots, InspectDR, Gaston
 interactivity     | Plotly(JS), PyPlot, InspectDR
 beauty            | Plotly(JS), PGFPlots/ PGFPlotsX
 REPL plotting     | UnicodePlots
@@ -67,13 +67,13 @@ a small footprint | UnicodePlots, Plotly
 backend stability | Gaston
 plot+data -> `.hdf5` file | HDF5
 
-Of course this list is rather subjective and nothing in life is that simple. Likely there are subtle tradeoffs between backends, long hidden bugs, and more excitement. Don't be shy to try out something new!
+Of course this list is rather subjective and nothing in life is that simple. Likely there are subtle tradeoffs between backends, long hidden bugs, and more excitement. Don't be shy to try out something new !
 
 ---
 
 ## [GR](https://github.com/jheinen/GR.jl)
 
-The default backend. Super fast with lots of plot types. Still actively developed and improving daily.
+The default backend. Very fast with lots of plot types. Still actively developed and improving daily.
 
 ```@example backends
 gr(); backendplot() # hide
@@ -121,11 +121,14 @@ surface(
 
 ## [Plotly / PlotlyJS](https://github.com/spencerlyon2/PlotlyJS.jl)
 
-These are treated as separate backends, though they share much of the code and use the Plotly JavaScript API.  `plotly()` is the only dependency-free plotting option,
-as the required JavaScript is bundled with Plots.  It can create inline plots in IJulia, or open standalone browser windows when run from the Julia REPL.
+These are treated as separate backends, though they share much of the code and use the Plotly JavaScript API.
+`plotly()` is the only dependency-free plotting option, as the required JavaScript is bundled with Plots.
+It can create inline plots in IJulia, or open standalone browser windows when run from the Julia REPL.
 
-`plotlyjs()` is the preferred option, and taps into the great functionality of Spencer Lyon's PlotlyJS.jl.  Inline IJulia plots can be updated from any cell... something that
-makes this backend stand out.  From the Julia REPL, it taps into Blink.jl and Electron to plot within a standalone GUI window... also very cool. Also, PlotlyJS supports saving the output to more formats than Plotly, such as EPS and PDF, and thus is the recommended version of Plotly for developing publication-quality figures.
+`plotlyjs()` is the preferred option, and taps into the great functionality of Spencer Lyon's PlotlyJS.jl.
+Inline IJulia plots can be updated from any cell... something that makes this backend stand out.
+From the Julia REPL, it taps into Blink.jl and Electron to plot within a standalone GUI window... also very cool.
+Also, PlotlyJS supports saving the output to more formats than Plotly, such as EPS and PDF, and thus is the recommended version of Plotly for developing publication-quality figures.
 
 ```@example backends
 plotlyjs(); backendplot(n = 2) # hide
@@ -183,7 +186,7 @@ Plots.html("plotly_mathjax") # hide
 
 ## [PyPlot](https://github.com/stevengj/PyPlot.jl)
 
-A Julia wrapper around the popular python package PyPlot (Matplotlib).  It uses PyCall.jl to pass data with minimal overhead.
+A Julia wrapper around the popular python package `PyPlot` (Matplotlib).  It uses `PyCall.jl` to pass data with minimal overhead.
 
 ```@example backends
 pyplot(); backendplot() # hide
@@ -229,7 +232,7 @@ surface(x, y, fn, c=:viridis, extra_kwargs=Dict(:subplot=>Dict("3d_colorbar_axis
 
 ## [PGFPlotsX](https://github.com/KristofferC/PGFPlotsX.jl)
 
-LaTeX plotting, based on PGF/TikZ.
+LaTeX plotting, based on `PGF/TikZ`.
 
 ```@example backends
 pgfplotsx(); backendplot() # hide
@@ -307,7 +310,7 @@ Simple and lightweight.  Plot directly in your terminal.  You won't produce anyt
 ```@example backends
 unicodeplots()
 plot([sin cos])
-show(current())  # hide
+current() |> display  # hide
 ```
 
 Pros:
@@ -325,7 +328,7 @@ Primary author: Christof Stocker (@Evizero)
 
 ## [InspectDR](https://github.com/ma-laforge/InspectDR.jl)
 
-Fast plotting with a responsive GUI (optional).  Target: Quickly identify design/simulation issues & glitches in order to shorten design iterations.
+Fast plotting with a responsive GUI (optional).  Target: quickly identify design/simulation issues & glitches in order to shorten design iterations.
 
 ```@example backends
 inspectdr(); backendplot(n = 2) # hide
@@ -349,7 +352,7 @@ Primary author: MA Laforge (@ma-laforge)
 
 ## [Gaston](https://github.com/mbaz/Gaston.jl)
 
-Gaston is a direct interface to [gnuplot](http://gnuplot.info), a cross platform command line driven plotting utility. The integration of Gaston in Plots is recent (2021), but improving daily.
+`Gaston` is a direct interface to [gnuplot](http://gnuplot.info), a cross platform command line driven plotting utility. The integration of `Gaston` in `Plots` is recent (2021).
 
 ```@example backends
 using Logging; Logging.disable_logging(Logging.Warn) # hide
@@ -366,14 +369,14 @@ Write plot + data to a *single* `HDF5` file using a human-readable structure tha
 
 **Write to .hdf5 file**
 ```julia
-hdf5() #Select HDF5-Plots "backend"
-p = plot(...) #Construct plot as usual
+hdf5() # Select HDF5-Plots "backend"
+p = plot(...) # Construct plot as usual
 Plots.hdf5plot_write(p, "plotsave.hdf5")
 ```
 
 **Read from .hdf5 file**
 ```julia
-pyplot() #Must first select some backend
+pyplot() # Must first select some backend
 pread = Plots.hdf5plot_read("plotsave.hdf5")
 display(pread)
 ```
@@ -475,4 +478,3 @@ Unfinished, but very similar to PlotlyJS... use that instead.
 Functionality incomplete... I never finished wrapping it, and I don't think it offers anything beyond other backends.  However, the plots are clean looking and it's relatively fast.
 
 ---
-
