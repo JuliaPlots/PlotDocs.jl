@@ -92,7 +92,7 @@ Cons:
 Primary author: Josef Heinen (@jheinen)
 
 ### Fine tuning
-It is possible to use more features of GR via the [`extra_kwargs`](@ref extra_kwargs) mechanism.
+It is possible to use more features of `GR` via the [`extra_kwargs`](@ref extra_kwargs) mechanism.
 
 ```@example backends
 using Plots; gr()
@@ -208,7 +208,7 @@ Cons:
 Primary author: Steven G Johnson (@stevengj)
 
 ### Fine tuning
-It is possible to use more features of PyPlot/matplotlib via the [`extra_kwargs`](@ref extra_kwargs) mechanism.
+It is possible to use more features of `PyPlot/matplotlib` via the [`extra_kwargs`](@ref extra_kwargs) mechanism.
 For example, for a 3D plot, the following example should generate a colorbar at a proper location; without the `extra_kwargs` below, the colorbar is displayed too far right to see its ticks and numbers. The four coordinates in the example below, i.e., `[0.9, 0.05, 0.05, 0.9]` specify the colorbar location `[ left, bottom, width, height ]`. Note that for 2D plots, this fine tuning is not necessary.
 
 ```@example backends
@@ -226,8 +226,6 @@ surface(x, y, fn, c=:viridis, extra_kwargs=Dict(:subplot=>Dict("3d_colorbar_axis
 | Keyword          | Description                                                                         |
 | -------          | -----------                                                                         |
 | 3d_colorbar_axis | Specifying the colorbar location `[ left, bottom, width, height ]` for a 3D plot    |
-
-
 
 
 ## [PGFPlotsX](https://github.com/KristofferC/PGFPlotsX.jl)
@@ -280,7 +278,7 @@ The preamble of a plot can be shown using `Plots.pgfx_preamble(pl)` or copied fr
 
 #### Fine tuning
 
-It is possible to use more features of PGFPlotsX via the [`extra_kwargs`](@ref extra_kwargs) mechanism.
+It is possible to use more features of `PGFPlotsX` via the [`extra_kwargs`](@ref extra_kwargs) mechanism.
 By default it interprets every extra keyword as an option to the `plot` command.
 Setting `extra_kwargs = :subplot` will treat them as an option to the `axis` command and `extra_kwargs = :plot` will be treated as an option to the `tikzpicture` environment.
 
@@ -325,6 +323,31 @@ Cons:
 - Limited functionality
 
 Primary author: Christof Stocker (@Evizero)
+
+### Fine tuning
+It is possible to use more features of `UnicodePlots` via the [`extra_kwargs`](@ref extra_kwargs) mechanism.
+
+```@example backends
+using Plots; unicodeplots()
+
+extra_kwargs = Dict(:subplot=>(; border = :bold, blend = false))
+p = plot(1:4, 1:4, c = :yellow, extra_kwargs = extra_kwargs)
+plot!(p, 2:3, 2:3, c = :red)
+```
+
+#### Supported `:subplot` `:extra_kwargs`
+
+| Keyword        | Description                                                              |
+| -------        | -----------                                                              |
+| canvas         | Canvas type (see [Low-level Interface](https://github.com/JuliaPlots/UnicodePlots.jl#low-level-interface)) | 
+| border         | Border type (`:solid`, `:bold`, `:dashed`, `:dotted`, `:ascii`, `:none`) |
+| blend          | Toggle canvas color blending (`true` / `false`)                          |
+
+#### Supported `:series` `:extra_kwargs`
+
+| Series Type       | Keyword        | Description                                             |
+| -----------       | -------        | -----------                                             |
+| `heatmap`, `spy`  | fix_ar         | Toggle fixing terminal aspect ratio (`true` / `false`) |
 
 ## [InspectDR](https://github.com/ma-laforge/InspectDR.jl)
 
