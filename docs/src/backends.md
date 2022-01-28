@@ -347,7 +347,7 @@ plot!(p, 2:3, 2:3, c = :red)
 
 | Series Type       | Keyword        | Description                                             |
 | -----------       | -------        | -----------                                             |
-| `heatmap`, `spy`  | fix_ar         | Torggle fixing terminal aspect ratio (`true` / `false`) |
+| `heatmap`, `spy`  | fix_ar         | Toggle fixing terminal aspect ratio (`true` / `false`) |
 
 ## [InspectDR](https://github.com/ma-laforge/InspectDR.jl)
 
