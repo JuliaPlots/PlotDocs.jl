@@ -337,17 +337,25 @@ plot!(p, 2:3, 2:3, c = :red)
 
 #### Supported `:subplot` `:extra_kwargs`
 
-| Keyword        | Description                                                              |
-| -------        | -----------                                                              |
+| Keyword        | Description                                                                     |
+| -------        | -----------                                                                     |
+| width          | Plot width                                                                      |
+| height         | Plot height                                                                     |
+| projection     | 3D projection (`:orthographic`, `perspective`)                                  |
+| zoom           | 3D zoom level                                                                   |
+| up             | 3D up vector (azimuth and elevation are controlled using `Plots.jl`'s `camera`) |
 | canvas         | Canvas type (see [Low-level Interface](https://github.com/JuliaPlots/UnicodePlots.jl#low-level-interface)) | 
-| border         | Border type (`:solid`, `:bold`, `:dashed`, `:dotted`, `:ascii`, `:none`) |
-| blend          | Toggle canvas color blending (`true` / `false`)                          |
+| border         | Border type (`:solid`, `:bold`, `:dashed`, `:dotted`, `:ascii`, `:none`)        |
+| blend          | Toggle canvas color blending (`true` / `false`)                                 |
 
 #### Supported `:series` `:extra_kwargs`
 
-| Series Type       | Keyword        | Description                                             |
-| -----------       | -------        | -----------                                             |
-| `heatmap`, `spy`  | fix_ar         | Toggle fixing terminal aspect ratio (`true` / `false`) |
+| Series Type       | Keyword        | Description                                              |
+| -----------       | -------        | -----------                                              |
+| `all`             | colormap       | Colormap (see [Options](https://github.com/JuliaPlots/UnicodePlots.jl#options)) |
+| `heatmap`, `spy`  | fix_ar         | Toggle fixing terminal aspect ratio (`true` / `false`)   |
+| `surfaceplot`     | zscale         | `z` axis scaling                                         |
+| `surfaceplot`     | lines          | Use `lineplot` instead of `scatterplot` (monotonic data) |
 
 ## [InspectDR](https://github.com/ma-laforge/InspectDR.jl)
 
