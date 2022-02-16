@@ -20,14 +20,20 @@ cp(
     force = true,
 )
 
+galleries = Pair{String,String}[]
+galleries_cb = []
+galleries_assets = String[]
 for be in (:gr, :plotlyjs, :pyplot, :inspectdr, :gaston,
     :pgfplotsx,
     # :unicodeplots,
     )
-    # be = :gr
     generate_cards(be)
+    gallery_path, postprocess_cb, assets = makedemos("galleries/generated_$be")
+    push!(galleries, titlecase(string(be)) => gallery_path)
+    push!(galleries_cb, postprocess_cb)
+    push!(galleries_assets, assets)
 end
-gallery, postprocess_cb, gallery_assets = makedemos("gallery")
+unique!(galleries_assets)
 
 const PAGES = Any[
     "Home"=>"index.md",
@@ -66,7 +72,7 @@ const PAGES = Any[
         ],
     ],
     "Advanced Topics"=>["Internals" => "pipeline.md"],
-    gallery,
+    "Gallery" => galleries,
     "Examples (old)" => [
         "UnicodePlots" => "generated/unicodeplots.md",
     ],
@@ -85,14 +91,17 @@ ansicolor = get(ENV, "PLOTDOCS_ANSICOLOR", "true") == "true"
 @time makedocs(
     format = Documenter.HTML(
         prettyurls = get(ENV, "CI", nothing) == "true",
-        assets = ["assets/favicon.ico", gallery_assets],
+        assets = ["assets/favicon.ico", galleries_assets...],
         ansicolor = ansicolor,
     ),
     sitename = "Plots",
     authors = "Thomas Breloff",
     pages = PAGES,
 )
-postprocess_cb() # URL redirection for DemoCards-generated gallery
+foreach(galleries_cb) do cb
+    # URL redirection for DemoCards-generated gallery
+    cb()
+end
 
 deploydocs(
     repo = "github.com/JuliaPlots/PlotDocs.jl.git",
