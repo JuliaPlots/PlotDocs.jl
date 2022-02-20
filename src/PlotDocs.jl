@@ -54,7 +54,7 @@ function generate_cards(pkgname::Symbol; skip = get(Plots._backend_skips, pkgnam
 
     for (i,example) in enumerate(_examples)
         # write out the header, description, code block, and image link
-        i in skip && continue
+
         if !isempty(example.header)
             # open the julia file
             jlname = "$(pkgname)-ref$i.jl"
@@ -69,6 +69,7 @@ function generate_cards(pkgname::Symbol; skip = get(Plots._backend_skips, pkgnam
             # date: $(now())
             # ---
             """)
+            i in skip && continue
             # generate animations only for GR
             i in (2, 31) && pkgname != :gr && continue
             write(jl, """
