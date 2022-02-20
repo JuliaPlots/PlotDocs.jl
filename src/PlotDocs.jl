@@ -45,24 +45,25 @@ markdown_symbols_to_string(arr) = isempty(arr) ? "" : markdown_code_to_string(ar
 
 # ----------------------------------------------------------------------
 
-function generate_cards(pkgname::Symbol; skip = get(Plots._backend_skips, pkgname, Int[]), gendir = "gallery/generated")
+function generate_cards(pkgname::Symbol; skip = get(Plots._backend_skips, pkgname, Int[]), gendir = "galleries")
 
-    # create folder
-    cardspath = mkpath(joinpath("docs", gendir, string(pkgname)))
-    config = open(joinpath(cardspath, "config.json"), "w")
-    write(config, "{\n    \"order\": [\n")
+    # create folder: for each backend we generate an independent DemoPage folder under "galleries"
+    pagepath = mkpath(joinpath("docs", gendir, "generated_$pkgname"))
+    cp(joinpath(@__DIR__, "gallery_config.json"), joinpath(pagepath, "config.json"); force=true)
+    cardspath = mkpath(joinpath(pagepath, "gallery"))
 
     for (i,example) in enumerate(_examples)
         # write out the header, description, code block, and image link
+
         if !isempty(example.header)
             # open the julia file
             jlname = "$(pkgname)-ref$i.jl"
-            write(config, string(" "^8, "\"", jlname, "\""))
-            write(config, ",\n")
+            @debug "generate demo" backend=pkgname jlname header=example.header time=now()
             jl = open(joinpath(cardspath, jlname), "w")
             write(jl, """
             # ---
             # title: $(example.header)
+            # id: $(pkgname)_demo_$(i)
             # cover: assets/$(i in (2, 31) ? string("anim_", pkgname, "_ex", i, ".gif") : string(pkgname, "_ex", i, ".png"))
             # author: "[PlotDocs.jl](https://github.com/JuliaPlots/PlotDocs.jl/)"
             # date: $(now())
@@ -100,12 +101,16 @@ function generate_cards(pkgname::Symbol; skip = get(Plots._backend_skips, pkgnam
         end
         close(jl)
     end
+    # insert attributes page
+    # TODO(johnnychen): make this part of the page template
     attr_name = string(pkgname, ".jl")
     open(joinpath(cardspath, attr_name), "w") do jl
         pkg = Plots._backend_instance(pkgname)
             write(jl, """
             # ---
             # title: Supported attribute values
+            # id: $(pkgname)_attributes
+            # hide: true
             # author: "[PlotDocs.jl](https://github.com/JuliaPlots/PlotDocs.jl/)"
             # date: $(now())
             # ---
@@ -115,8 +120,14 @@ function generate_cards(pkgname::Symbol; skip = get(Plots._backend_skips, pkgnam
         write(jl, "# - Supported values for linestyle: $(markdown_symbols_to_string(Plots.supported_styles(pkg)))\n")
         write(jl, "# - Supported values for marker: $(markdown_symbols_to_string(Plots.supported_markers(pkg)))\n")
     end
-    write(config, "        \"$(attr_name)\"\n    ]\n}")
-    close(config)
+    open(joinpath(cardspath, "config.json"), "w") do config
+        write(config, """
+        {
+            "description": "[attributes](@ref $(pkgname)_attributes)"
+        }
+        """
+    )
+    end
 end
 
 function generate_markdown(pkgname::Symbol; skip = get(Plots._backend_skips, pkgname, Int[]), gendir = GENDIR)
