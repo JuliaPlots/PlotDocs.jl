@@ -3,6 +3,7 @@ module PlotDocs
 
 
 using Plots, DataFrames, MacroTools, OrderedCollections, Dates
+using JSON
 import Plots: _examples
 
 export
@@ -49,7 +50,10 @@ function generate_cards(pkgname::Symbol; skip = get(Plots._backend_skips, pkgnam
 
     # create folder: for each backend we generate an independent DemoPage folder under "galleries"
     pagepath = mkpath(joinpath("docs", gendir, "generated_$pkgname"))
-    cp(joinpath(@__DIR__, "gallery_config.json"), joinpath(pagepath, "config.json"); force=true)
+    page_config_path = joinpath(pagepath, "config.json")
+    cp(joinpath(@__DIR__, "gallery_config.json"), page_config_path; force=true)
+    page_config = JSON.Parser.parsefile(page_config_path)
+    page_config["order"] = String[]
     cardspath = mkpath(joinpath(pagepath, "gallery"))
 
     for (i,example) in enumerate(_examples)
@@ -58,23 +62,24 @@ function generate_cards(pkgname::Symbol; skip = get(Plots._backend_skips, pkgnam
         if !isempty(example.header)
             # open the julia file
             jlname = "$(pkgname)-ref$i.jl"
+            push!(page_config["order"], jlname)
             @debug "generate demo" backend=pkgname jlname header=example.header time=now()
             jl = open(joinpath(cardspath, jlname), "w")
             write(jl, """
             # ---
             # title: $(example.header)
             # id: $(pkgname)_demo_$(i)
-            # cover: assets/$(i in (2, 31) ? string("anim_", pkgname, "_ex", i, ".gif") : string(pkgname, "_ex", i, ".png"))
+            # cover: $(i in skip ? "" : "assets/$(i in (2, 31) ? string("anim_", pkgname, "_ex", i, ".gif") : string(pkgname, "_ex", i, ".png"))")
             # author: "[PlotDocs.jl](https://github.com/JuliaPlots/PlotDocs.jl/)"
             # date: $(now())
             # ---
+            using Plots
+            $(pkgname)()
             """)
             i in skip && continue
             # generate animations only for GR
             i in (2, 31) && pkgname != :gr && continue
             write(jl, """
-            using Plots
-            $(pkgname)()
             Plots.reset_defaults() #hide
             """)
         else
@@ -123,10 +128,11 @@ function generate_cards(pkgname::Symbol; skip = get(Plots._backend_skips, pkgnam
     open(joinpath(cardspath, "config.json"), "w") do config
         write(config, """
         {
-            "description": "[attributes](@ref $(pkgname)_attributes)"
+            "description": "[Supported attributes](@ref $(pkgname)_attributes)"
         }
         """
     )
+    JSON.write(page_config_path, page_config)
     end
 end
 
