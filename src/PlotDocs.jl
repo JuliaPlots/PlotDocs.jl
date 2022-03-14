@@ -115,7 +115,7 @@ function generate_cards(pkgname::Symbol; skip = get(Plots._backend_skips, pkgnam
             # ---
             # title: Supported attribute values
             # id: $(pkgname)_attributes
-            # hide: true
+            # hidden: true
             # author: "[PlotDocs.jl](https://github.com/JuliaPlots/PlotDocs.jl/)"
             # date: $(now())
             # ---
