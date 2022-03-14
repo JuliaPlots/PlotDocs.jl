@@ -52,7 +52,8 @@ function generate_cards(pkgname::Symbol; skip = get(Plots._backend_skips, pkgnam
     pagepath = mkpath(joinpath("docs", gendir, "generated_$pkgname"))
     page_config_path = joinpath(pagepath, "config.json")
     cp(joinpath(@__DIR__, "gallery_config.json"), page_config_path; force=true)
-    page_config = JSON.Parser.parsefile(page_config_path)
+    # page_config = JSON.Parser.parsefile(page_config_path)
+    page_config = Dict{String, Any}()
     page_config["order"] = String[]
     cardspath = mkpath(joinpath(pagepath, "gallery"))
 
@@ -68,8 +69,7 @@ function generate_cards(pkgname::Symbol; skip = get(Plots._backend_skips, pkgnam
             write(jl, """
             # ---
             # title: $(example.header)
-            # id: $(pkgname)_demo_$(i)
-            # cover: $(i in skip ? "" : "assets/$(i in (2, 31) ? string("anim_", pkgname, "_ex", i, ".gif") : string(pkgname, "_ex", i, ".png"))")
+            # id: $(pkgname)_demo_$(i) $(i in skip ? "" : "\n# cover: assets/$(i in (2, 31) ? string("anim_", pkgname, "_ex", i, ".gif") : string(pkgname, "_ex", i, ".png"))")
             # author: "[PlotDocs.jl](https://github.com/JuliaPlots/PlotDocs.jl/)"
             # date: $(now())
             # ---
@@ -126,13 +126,10 @@ function generate_cards(pkgname::Symbol; skip = get(Plots._backend_skips, pkgnam
         write(jl, "# - Supported values for marker: $(markdown_symbols_to_string(Plots.supported_markers(pkg)))\n")
     end
     open(joinpath(cardspath, "config.json"), "w") do config
-        write(config, """
-        {
-            "description": "[Supported attributes](@ref $(pkgname)_attributes)"
-        }
-        """
+        page_config["description"] = "[Supported attributes](@ref $(pkgname)_attributes)"
+        push!(page_config["order"], "$pkgname.jl")
+        write(config, json(page_config)
     )
-    JSON.write(page_config_path, page_config)
     end
 end
 
@@ -155,7 +152,7 @@ function generate_markdown(pkgname::Symbol; skip = get(Plots._backend_skips, pkg
     $(pkgname)()
     ```
     """)
-    
+
     up_debug_io = get(ENV, "UP_DEBUG_IO", nothing)
 
     for (i,example) in enumerate(_examples)
