@@ -401,7 +401,28 @@ end
 
 It's important to note: normally we would return arguments from a recipe, and those arguments would be added to a `RecipeData` object and pushed onto our `Vector{RecipeData}`.  However, when creating series using the `@series` macro, you have the option of returning `nothing`, which will bypass that last step.
 
+One can also have multiple series in a single subplot and repeat the same for multiple subplots if needed. This would require one to supply the correct subplot id/number. 
 
+```julia
+mutable struct SeriesRange
+    range::UnitRange{Int64}
+end
+@recipe function f(m::SeriesRange)
+    range = m.range
+    layout := length(range)
+    for i in range 
+        @series begin
+            subplot := i
+            seriestype := scatter
+            rand(10)
+        end
+        @series begin
+            subplot := i
+            rand(10)
+        end 
+    end
+end
+```
 ---
 
 ### Documenting plot functions
@@ -464,7 +485,9 @@ Closest candidates are:
   convert(::Type{T}, ::T) where T at essentials.jl:171
   RecipeData(::Any, ::Any) at ~/.julia/packages/RecipesBase/G4s6f/src/RecipesBase.jl:57
 ```
-!!! tip "Use of the `return` keyword in recipes requires RecipesBase 0.9"
+!!! compat "RecipesBase 0.9"
+    Use of the `return` keyword in recipes requires RecipesBase 0.9
+
 This error is encountered if you use the `return` keyword in a recipe, which is not supported in RecipesBase up to v0.8. 
 
 

@@ -5,11 +5,11 @@ Plots.reset_defaults()
 
 This is a guide to contributing to Plots and the surrounding ecosystem. Plots is a complex and far-reaching suite of software components, and as such will be most effective when the community contributes their own expertise, knowledge, perspective, and effort. The document is roughly broken up into the following categories, and after reading this introduction you should feel comfortable skipping to the section(s) that interest you the most:
 
-- [The JuliaPlots Organization](#the-juliaplots-organization): Packages and dependencies
-- [Choosing a Project](#choosing-a-project): Fix bugs, add features, create recipes
-- [Key Design Principles](#key-design-principles): Design goals and considerations
-- [Code Organization](#code-organization): Where to look when implementing new features
-- [Git-fu (or... the mechanics of contributing)](#git-fu-or-the-mechanics-of-contributing): Git (how to commit/push), Github (how to submit a PR), Testing (VisualRegressionTests, Travis)
+- [The JuliaPlots Organization](#The-JuliaPlots-Organization): Packages and dependencies
+- [Choosing a Project](#Choosing-a-Project): Fix bugs, add features, create recipes
+- [Key Design Principles](#Key-Design-Principles): Design goals and considerations
+- [Code Organization](#Code-Organization): Where to look when implementing new features
+- [Git-fu (or... the mechanics of contributing)](#Git-fu-(or...-the-mechanics-of-contributing)): Git (how to commit/push), Github (how to submit a PR), Testing (VisualRegressionTests, Travis)
 
 When in doubt, use this handy dandy logic designed by a [legendary open source guru](https://github.com/tbreloff)...
 
@@ -237,9 +237,18 @@ git push forked user123-dev
 
 We update our local copy of origin, checkout the dev branch, then attempt to "fast-forward" to the current master.  If successful, we push the branch back to our forked repo.
 
-#### Write code and commit
+#### Write code, and format
 
-After powering up your favorite editor (maybe [Juno](http://junolab.org/)?) and making some code changes to the repo, you'll want to "commit" or save a snapshot of all the changes you made.  After committing, you can "push" those changes to your forked repo on Github:
+Power up your favorite editor (maybe [Juno](http://junolab.org/)?) and make some code changes to the repo.
+
+Format your changes (code style consistency) using:
+```bash
+$ julia -e 'using JuliaFormatter; format(["src", "test"])'
+```
+
+#### Commit
+
+After applying changes, you'll want to "commit" or save a snapshot of all the changes you made.  After committing, you can "push" those changes to your forked repo on Github:
 
 ```
 git add src/my_new_file.jl
@@ -286,7 +295,7 @@ The version number (vMAJOR.MINOR.PATCH) should be incremented using [semver](htt
 
 Testing in Plots is done with the help of [VisualRegressionTests](https://github.com/JuliaPlots/VisualRegressionTests.jl).  Reference images are stored in [PlotReferenceImages](https://github.com/JuliaPlots/PlotReferenceImages.jl). Sometimes the reference images need to be updated (if features change, or if the underlying backend changes).  VisualRegressionTests makes it somewhat painless to update the reference images:
 
-From the Julia REPL, run `include(Pkg.dir("Plots","test","runtests.jl"))`.  This will try to plot the tests, and then compare the results to the stored reference images.  If the test output is sufficiently different than the reference output (using Tim Holy's excellent algorithm for the comparison), then a GTK window will pop up with a side-by-side comparison.  You can choose to replace the reference image, or not, depending on whether a real error was discovered.
+From the Julia REPL, run `Pkg.test(name="Plots")`.  This will try to plot the tests, and then compare the results to the stored reference images.  If the test output is sufficiently different than the reference output (using Tim Holy's excellent algorithm for the comparison), then a GTK window will pop up with a side-by-side comparison.  You can choose to replace the reference image, or not, depending on whether a real error was discovered.
 
 After the reference images have been updated, navigate to PlotReferenceImages and push the changes to Github:
 
@@ -299,6 +308,10 @@ git push
 
 If there are mis-matches due to bugs, **don't update the reference image**.
 
-#### Travis
+#### CI
 
-On a `git push`, Travis tests will be triggered.  This runs the same tests as above, downloading and comparing to the reference images, though with a larger tolerance for differences.  When Travis errors, it may be due to timeouts, stale reference images, or a host of other reasons.  Check the [Travis logs](https://travis-ci.org/JuliaPlots/Plots.jl) to determine the reason.  If the tests are broken because of a new commit, consider rolling back.
+On a `git push` the tests will be run automatically as part of our continuous integration setup.
+This runs the same tests as above, downloading and comparing to the reference images, though with a larger tolerance for differences.
+When these error, it may be due to timeouts, stale reference images, or a host of other reasons.
+Check the logs to determine the reason.
+If the tests are broken because of a new commit, consider rolling back.

@@ -155,6 +155,8 @@ function generate_markdown(pkgname::Symbol; skip = get(Plots._backend_skips, pkg
     $(pkgname)()
     ```
     """)
+    
+    up_debug_io = get(ENV, "UP_DEBUG_IO", nothing)
 
     for (i,example) in enumerate(_examples)
         i in skip && continue
@@ -176,7 +178,8 @@ function generate_markdown(pkgname::Symbol; skip = get(Plots._backend_skips, pkg
             pretty_print_expr(md, expr)
         end
         if pkgname == :unicodeplots
-            write(md, "Plots._show(stdout, MIME(\"text/plain\"), current()) # hide\n")
+            up_debug_io === nothing || write(md, "open(\"$up_debug_io\", \"a\") do io show(io, current()); println(io) end # hide\n")
+            write(md, "current() |> display # hide\n")
         end
         if i in (2, 31)
             write(md, "gif(anim, \"anim_$(pkgname)_ex$i.gif\") # hide\n")
