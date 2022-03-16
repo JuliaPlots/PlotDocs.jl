@@ -61,8 +61,11 @@ function generate_cards(pkgname::Symbol; skip = get(Plots._backend_skips, pkgnam
         jlname = "$(pkgname)-ref$i.jl"
         jl = IOBuffer()
         if !isempty(example.header)
-            # open the julia file
+            # start a new demo file
             @debug "generate demo" backend=pkgname jlname header=example.header time=now()
+
+            # DemoCards YAML frontmatter
+            # https://johnnychen94.github.io/DemoCards.jl/stable/quickstart/usage_example/julia_demos/1.julia_demo/#juliademocard_example
             write(jl, """
             # ---
             # title: $(example.header)
@@ -70,9 +73,15 @@ function generate_cards(pkgname::Symbol; skip = get(Plots._backend_skips, pkgnam
             # author: "[PlotDocs.jl](https://github.com/JuliaPlots/PlotDocs.jl/)"
             # date: $(now())
             # ---
+            """)
+
+            # backend initialization
+            write(jl,
+            """
             using Plots
             $(pkgname)()
             """)
+
             i in skip && continue
             # generate animations only for GR
             i in (2, 31) && pkgname != :gr && continue
@@ -80,7 +89,9 @@ function generate_cards(pkgname::Symbol; skip = get(Plots._backend_skips, pkgnam
             Plots.reset_defaults() #hide
             """)
         end
+        # DemoCards use Literate.jl syntax with extra leading `#` as markdown lines
         write(jl, "# $(replace(example.desc, "\n" => "\n # "))\n")
+
         if pkgname ∈ (:unicodeplots, :inspectdr, :gaston)
             write(jl, "using Logging; Logging.disable_logging(Logging.Warn) #src\n")
         end
