@@ -23,13 +23,18 @@ cp(
 galleries = Pair{String,String}[]
 galleries_cb = []
 galleries_assets = String[]
-for be in (:gr, :plotlyjs, :pyplot, :inspectdr, :gaston,
-    :pgfplotsx,
-    # :unicodeplots,
-    )
+for (bename, be) in [
+        ("GR", :gr),
+        ("PlotlyJS", :plotlyjs),
+        ("PyPlot", :pyplot),
+        ("InspectDR", :inspectdr),
+        ("Gaston", :gaston),
+        ("PGFPlotsX", :pgfplotsx),
+        # ("UnicodePlots", :unicodeplots),
+]
     generate_cards(be)
     gallery_path, postprocess_cb, assets = makedemos("galleries/generated_$be")
-    push!(galleries, titlecase(string(be)) => gallery_path)
+    push!(galleries, bename => gallery_path)
     push!(galleries_cb, postprocess_cb)
     push!(galleries_assets, assets)
 end
