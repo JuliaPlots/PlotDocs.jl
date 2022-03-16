@@ -54,7 +54,6 @@ function generate_cards(pkgname::Symbol; skip = get(Plots._backend_skips, pkgnam
     cp(joinpath(@__DIR__, "gallery_config.json"), page_config_path; force=true)
     # page_config = JSON.Parser.parsefile(page_config_path)
     page_config = Dict{String, Any}()
-    page_config["order"] = String[]
     cardspath = mkpath(joinpath(pagepath, "gallery"))
 
     for (i,example) in enumerate(_examples)
@@ -63,7 +62,6 @@ function generate_cards(pkgname::Symbol; skip = get(Plots._backend_skips, pkgnam
         if !isempty(example.header)
             # open the julia file
             jlname = "$(pkgname)-ref$i.jl"
-            push!(page_config["order"], jlname)
             @debug "generate demo" backend=pkgname jlname header=example.header time=now()
             jl = open(joinpath(cardspath, jlname), "w")
             write(jl, """
@@ -127,7 +125,6 @@ function generate_cards(pkgname::Symbol; skip = get(Plots._backend_skips, pkgnam
     end
     open(joinpath(cardspath, "config.json"), "w") do config
         page_config["description"] = "[Supported attributes](@ref $(pkgname)_attributes)"
-        push!(page_config["order"], "$pkgname.jl")
         write(config, json(page_config)
     )
     end
