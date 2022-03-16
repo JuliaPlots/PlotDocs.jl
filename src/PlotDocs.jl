@@ -58,12 +58,11 @@ function generate_cards(pkgname::Symbol; skip = get(Plots._backend_skips, pkgnam
 
     for (i,example) in enumerate(_examples)
         # write out the header, description, code block, and image link
-
+        jlname = "$(pkgname)-ref$i.jl"
+        jl = IOBuffer()
         if !isempty(example.header)
             # open the julia file
-            jlname = "$(pkgname)-ref$i.jl"
             @debug "generate demo" backend=pkgname jlname header=example.header time=now()
-            jl = open(joinpath(cardspath, jlname), "w")
             write(jl, """
             # ---
             # title: $(example.header)
@@ -80,9 +79,6 @@ function generate_cards(pkgname::Symbol; skip = get(Plots._backend_skips, pkgnam
             write(jl, """
             Plots.reset_defaults() #hide
             """)
-        else
-            # append to old file
-            jl = open(joinpath(cardspath, "$(pkgname)-ref$(i-1).jl"), "a")
         end
         write(jl, "# $(replace(example.desc, "\n" => "\n # "))\n")
         if pkgname ∈ (:unicodeplots, :inspectdr, :gaston)
@@ -102,7 +98,16 @@ function generate_cards(pkgname::Symbol; skip = get(Plots._backend_skips, pkgnam
         else
             write(jl, "png(\"assets/$(pkgname)_ex$i\") #src\n")
         end
-        close(jl)
+
+        if !isempty(example.header)
+            open(joinpath(cardspath, jlname), "w") do io
+                write(io, take!(jl))
+            end
+        else
+            open(joinpath(cardspath, "$(pkgname)-ref$(i-1).jl"), "a") do io
+                write(io, take!(jl))
+            end
+        end
     end
     # insert attributes page
     # TODO(johnnychen): make this part of the page template
