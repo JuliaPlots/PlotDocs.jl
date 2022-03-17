@@ -59,9 +59,9 @@ function generate_cards(pkgname::Symbol; skip = get(Plots._backend_skips, pkgnam
     for (i,example) in enumerate(_examples)
         # write out the header, description, code block, and image link
         jlname = "$(pkgname)-ref$i.jl"
-        push!(page_config["order"], jlname)
         jl = IOBuffer()
         if !isempty(example.header)
+            push!(page_config["order"], jlname)
             # start a new demo file
             @debug "generate demo" backend=pkgname jlname header=example.header time=now()
 
