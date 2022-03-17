@@ -53,7 +53,7 @@ function generate_cards(pkgname::Symbol; skip = get(Plots._backend_skips, pkgnam
     page_config_path = joinpath(pagepath, "config.json")
     cp(joinpath(@__DIR__, "gallery_config.json"), page_config_path; force=true)
     # page_config = JSON.Parser.parsefile(page_config_path)
-    page_config = Dict{String, Any}()
+    page_config = Dict{String, Any}("order" => [])
     cardspath = mkpath(joinpath(pagepath, "gallery"))
 
     for (i,example) in enumerate(_examples)
