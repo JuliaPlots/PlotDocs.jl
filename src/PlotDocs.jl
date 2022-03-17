@@ -84,9 +84,9 @@ function generate_cards(pkgname::Symbol; skip = get(Plots._backend_skips, pkgnam
             $(pkgname)()
             """)
 
-            i in skip && continue
+            i in skip && @goto write_file
             # generate animations only for GR
-            i in (2, 31) && pkgname != :gr && continue
+            i in (2, 31) && pkgname != :gr && @goto write_file
             write(jl, """
             Plots.reset_defaults() #hide
             """)
@@ -112,6 +112,7 @@ function generate_cards(pkgname::Symbol; skip = get(Plots._backend_skips, pkgnam
             write(jl, "png(\"assets/$(pkgname)_ex$i\") #src\n")
         end
 
+        @label write_file
         if !isempty(example.header)
             open(joinpath(cardspath, jlname), "w") do io
                 write(io, take!(jl))
@@ -145,7 +146,7 @@ function generate_cards(pkgname::Symbol; skip = get(Plots._backend_skips, pkgnam
     end
     open(joinpath(cardspath, "config.json"), "w") do config
         page_config["description"] = "[Supported attributes](@ref $(pkgname)_attributes)"
-        push!(page_config["order"], "$pkgname.jl")
+        push!(page_config["order"], attr_name)
         write(config, json(page_config)
     )
     end
