@@ -54,39 +54,46 @@ function generate_cards(pkgname::Symbol; skip = get(Plots._backend_skips, pkgnam
     cp(joinpath(@__DIR__, "gallery_config.json"), page_config_path; force=true)
     # page_config = JSON.Parser.parsefile(page_config_path)
     page_config = Dict{String, Any}()
-    page_config["order"] = String[]
     cardspath = mkpath(joinpath(pagepath, "gallery"))
 
     for (i,example) in enumerate(_examples)
         # write out the header, description, code block, and image link
-
+        jlname = "$(pkgname)-ref$i.jl"
+        push!(page_config["order"], jlname)
+        jl = IOBuffer()
         if !isempty(example.header)
-            # open the julia file
-            jlname = "$(pkgname)-ref$i.jl"
-            push!(page_config["order"], jlname)
+            # start a new demo file
             @debug "generate demo" backend=pkgname jlname header=example.header time=now()
-            jl = open(joinpath(cardspath, jlname), "w")
+
+            # DemoCards YAML frontmatter
+            # https://johnnychen94.github.io/DemoCards.jl/stable/quickstart/usage_example/julia_demos/1.julia_demo/#juliademocard_example
             write(jl, """
             # ---
             # title: $(example.header)
             # id: $(pkgname)_demo_$(i) $(i in skip ? "" : "\n# cover: assets/$(i in (2, 31) ? string("anim_", pkgname, "_ex", i, ".gif") : string(pkgname, "_ex", i, ".png"))")
             # author: "[PlotDocs.jl](https://github.com/JuliaPlots/PlotDocs.jl/)"
+            # description: ""
             # date: $(now())
             # ---
+            """)
+
+            # backend initialization
+            write(jl,
+            """
             using Plots
             $(pkgname)()
             """)
+
             i in skip && continue
             # generate animations only for GR
             i in (2, 31) && pkgname != :gr && continue
             write(jl, """
             Plots.reset_defaults() #hide
             """)
-        else
-            # append to old file
-            jl = open(joinpath(cardspath, "$(pkgname)-ref$(i-1).jl"), "a")
         end
+        # DemoCards use Literate.jl syntax with extra leading `#` as markdown lines
         write(jl, "# $(replace(example.desc, "\n" => "\n # "))\n")
+
         if pkgname ∈ (:unicodeplots, :inspectdr, :gaston)
             write(jl, "using Logging; Logging.disable_logging(Logging.Warn) #src\n")
         end
@@ -104,7 +111,18 @@ function generate_cards(pkgname::Symbol; skip = get(Plots._backend_skips, pkgnam
         else
             write(jl, "png(\"assets/$(pkgname)_ex$i\") #src\n")
         end
-        close(jl)
+
+        if !isempty(example.header)
+            open(joinpath(cardspath, jlname), "w") do io
+                write(io, take!(jl))
+            end
+        else
+            open(joinpath(cardspath, "$(pkgname)-ref$(i-1).jl"), "a") do io
+                write(io, take!(jl))
+            end
+        end
+        # DEBUG: sometimes the generated file is still empty when passing to `DemoCards.makedemos`
+        sleep(0.01)
     end
     # insert attributes page
     # TODO(johnnychen): make this part of the page template
