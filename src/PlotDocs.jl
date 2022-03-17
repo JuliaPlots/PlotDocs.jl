@@ -3,10 +3,12 @@ module PlotDocs
 
 
 using Plots, DataFrames, MacroTools, OrderedCollections, Dates
+using JSON
 import Plots: _examples
 
 export
     generate_markdown,
+    generate_cards,
     generate_supported_markdown,
     generate_attr_markdown,
     generate_graph_attr_markdown,
@@ -44,11 +46,117 @@ markdown_symbols_to_string(arr) = isempty(arr) ? "" : markdown_code_to_string(ar
 
 # ----------------------------------------------------------------------
 
-function generate_markdown(pkgname::Symbol; skip = get(Plots._backend_skips, pkgname, Int[]))
+function generate_cards(pkgname::Symbol; skip = get(Plots._backend_skips, pkgname, Int[]), gendir = "galleries")
+
+    # create folder: for each backend we generate an independent DemoPage folder under "galleries"
+    pagepath = mkpath(joinpath("docs", gendir, "generated_$pkgname"))
+    page_config_path = joinpath(pagepath, "config.json")
+    cp(joinpath(@__DIR__, "gallery_config.json"), page_config_path; force=true)
+    # page_config = JSON.Parser.parsefile(page_config_path)
+    page_config = Dict{String, Any}("order" => [])
+    cardspath = mkpath(joinpath(pagepath, "gallery"))
+
+    for (i,example) in enumerate(_examples)
+        # write out the header, description, code block, and image link
+        jlname = "$(pkgname)-ref$i.jl"
+        jl = IOBuffer()
+        if !isempty(example.header)
+            push!(page_config["order"], jlname)
+            # start a new demo file
+            @debug "generate demo" backend=pkgname jlname header=example.header time=now()
+
+            # DemoCards YAML frontmatter
+            # https://johnnychen94.github.io/DemoCards.jl/stable/quickstart/usage_example/julia_demos/1.julia_demo/#juliademocard_example
+            write(jl, """
+            # ---
+            # title: $(example.header)
+            # id: $(pkgname)_demo_$(i) $(i in skip ? "" : "\n# cover: assets/$(i in (2, 31) ? string("anim_", pkgname, "_ex", i, ".gif") : string(pkgname, "_ex", i, ".png"))")
+            # author: "[PlotDocs.jl](https://github.com/JuliaPlots/PlotDocs.jl/)"
+            # description: ""
+            # date: $(now())
+            # ---
+            """)
+
+            # backend initialization
+            write(jl,
+            """
+            using Plots
+            $(pkgname)()
+            """)
+
+            i in skip && @goto write_file
+            # generate animations only for GR
+            i in (2, 31) && pkgname != :gr && @goto write_file
+            write(jl, """
+            Plots.reset_defaults() #hide
+            """)
+        end
+        # DemoCards use Literate.jl syntax with extra leading `#` as markdown lines
+        write(jl, "# $(replace(example.desc, "\n" => "\n # "))\n")
+
+        if pkgname ∈ (:unicodeplots, :inspectdr, :gaston)
+            write(jl, "using Logging; Logging.disable_logging(Logging.Warn) #src\n")
+        end
+        for expr in example.exprs
+            pretty_print_expr(jl, expr)
+        end
+        write(jl, "\nmkpath(\"assets\") #src\n")
+        if pkgname == :unicodeplots
+            write(jl, "show(current()) #src\n")
+        elseif pkgname == :gaston
+            write(jl, "png(\"assets/$(pkgname)_ex$i\") #hide\n")
+            write(jl, "# ![](assets/$(pkgname)_ex$i.png)\n")
+        elseif i in (2, 31)
+            write(jl, "gif(anim, \"assets/anim_$(pkgname)_ex$i.gif\")\n")
+        else
+            write(jl, "png(\"assets/$(pkgname)_ex$i\") #src\n")
+        end
+
+        @label write_file
+        if !isempty(example.header)
+            open(joinpath(cardspath, jlname), "w") do io
+                write(io, take!(jl))
+            end
+        else
+            open(joinpath(cardspath, "$(pkgname)-ref$(i-1).jl"), "a") do io
+                write(io, take!(jl))
+            end
+        end
+        # DEBUG: sometimes the generated file is still empty when passing to `DemoCards.makedemos`
+        sleep(0.01)
+    end
+    # insert attributes page
+    # TODO(johnnychen): make this part of the page template
+    attr_name = string(pkgname, ".jl")
+    open(joinpath(cardspath, attr_name), "w") do jl
+        pkg = Plots._backend_instance(pkgname)
+            write(jl, """
+            # ---
+            # title: Supported attribute values
+            # id: $(pkgname)_attributes
+            # hidden: true
+            # author: "[PlotDocs.jl](https://github.com/JuliaPlots/PlotDocs.jl/)"
+            # date: $(now())
+            # ---
+            """)
+        write(jl, "# - Supported arguments: $(markdown_code_to_string(collect(Plots.supported_attrs(pkg))))\n")
+        write(jl, "# - Supported values for linetype: $(markdown_symbols_to_string(Plots.supported_seriestypes(pkg)))\n")
+        write(jl, "# - Supported values for linestyle: $(markdown_symbols_to_string(Plots.supported_styles(pkg)))\n")
+        write(jl, "# - Supported values for marker: $(markdown_symbols_to_string(Plots.supported_markers(pkg)))\n")
+    end
+    open(joinpath(cardspath, "config.json"), "w") do config
+        page_config["description"] = "[Supported attributes](@ref $(pkgname)_attributes)"
+        push!(page_config["order"], attr_name)
+        write(config, json(page_config)
+    )
+    end
+end
+
+function generate_markdown(pkgname::Symbol; skip = get(Plots._backend_skips, pkgname, Int[]), gendir = GENDIR)
     pkg = Plots._backend_instance(pkgname)
 
     # open the markdown file
-    md = open(joinpath(GENDIR, "$(pkgname).md"), "w")
+    md = open(joinpath(gendir, "$(pkgname).md"), "w")
 
     write(md, """
     ```@meta
@@ -63,7 +171,7 @@ function generate_markdown(pkgname::Symbol; skip = get(Plots._backend_skips, pkg
     $(pkgname)()
     ```
     """)
-    
+
     up_debug_io = get(ENV, "UP_DEBUG_IO", nothing)
 
     for (i,example) in enumerate(_examples)

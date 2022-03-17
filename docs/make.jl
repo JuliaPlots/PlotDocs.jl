@@ -1,4 +1,4 @@
-using Documenter, PlotDocs, Plots, PlotThemes
+using Documenter, PlotDocs, Plots, PlotThemes, DemoCards
 
 # Set matplotlib gui backend
 ENV["MPLBACKEND"] = "agg"
@@ -16,18 +16,38 @@ plotthemes_path = dirname(dirname(pathof(PlotThemes)))
 
 cp(
     joinpath(plotthemes_path, "README.md"),
-    joinpath(@__DIR__, "src", "generated", "plotthemes.md"),
+    joinpath(mkpath(joinpath(@__DIR__, "src", "generated")), "plotthemes.md"),
     force = true,
 )
 
+galleries = Pair{String,String}[]
+galleries_cb = []
+galleries_assets = String[]
+for (bename, be) in [
+        ("GR", :gr),
+        ("PlotlyJS", :plotlyjs),
+        ("PyPlot", :pyplot),
+        ("InspectDR", :inspectdr),
+        ("Gaston", :gaston),
+        ("PGFPlotsX", :pgfplotsx),
+        # ("UnicodePlots", :unicodeplots),
+]
+    generate_cards(be)
+    gallery_path, postprocess_cb, assets = makedemos("galleries/generated_$be")
+    push!(galleries, bename => gallery_path)
+    push!(galleries_cb, postprocess_cb)
+    push!(galleries_assets, assets)
+end
+unique!(galleries_assets)
+
 const PAGES = Any[
-    "Home" => "index.md",
-    "Getting Started" => [
+    "Home"=>"index.md",
+    "Getting Started"=>[
         "Installation" => "install.md",
         "Basics" => "basics.md",
         "Tutorial" => "tutorial.md",
     ],
-    "Manual" => [
+    "Manual"=>[
         "Input Data" => "input_data.md",
         "Output" => "output.md",
         "Attributes" => [
@@ -46,9 +66,9 @@ const PAGES = Any[
         "Backends" => "backends.md",
         "Supported Attributes" => "generated/supported.md",
     ],
-    "Learning" => "learning.md",
-    "Contributing" => "contributing.md", # TODO: testing
-    "Ecosystem" => [
+    "Learning"=>"learning.md",
+    "Contributing"=>"contributing.md", # TODO: testing
+    "Ecosystem"=>[
         "Overview" => "ecosystem.md",
         "GraphRecipes" => [
             "Introduction" => "graphrecipes/introduction.md",
@@ -56,15 +76,10 @@ const PAGES = Any[
             "Attributes" => "generated/graph_attributes.md",
         ],
     ],
-    "Advanced Topics" => ["Internals" => "pipeline.md"],
-    "Examples" => [
-        "GR" => "generated/gr.md",
-        "PlotlyJS" => "generated/plotlyjs.md",
-        "PyPlot" => "generated/pyplot.md",
-        "PGFPlotsX" => "generated/pgfplotsx.md",
+    "Advanced Topics"=>["Internals" => "pipeline.md"],
+    "Gallery" => galleries,
+    "Examples (old)" => [
         "UnicodePlots" => "generated/unicodeplots.md",
-        "InspectDR" => "generated/inspectdr.md",
-        "Gaston" => "generated/gaston.md",
     ],
 ]
 
@@ -72,21 +87,27 @@ generate_attr_markdown()
 generate_supported_markdown()
 generate_graph_attr_markdown()
 generate_colorschemes_markdown()
-for be in (:gr, :plotlyjs, :pyplot, :pgfplotsx, :unicodeplots, :inspectdr, :gaston)
+for be in (:unicodeplots,)
     generate_markdown(be)
 end
+
 ansicolor = get(ENV, "PLOTDOCS_ANSICOLOR", "true") == "true"
 @show ansicolor
 @time makedocs(
     format = Documenter.HTML(
         prettyurls = get(ENV, "CI", nothing) == "true",
-        assets = ["assets/favicon.ico"],
+        assets = ["assets/favicon.ico", galleries_assets...],
         ansicolor = ansicolor,
     ),
     sitename = "Plots",
     authors = "Thomas Breloff",
     pages = PAGES,
 )
+# currently broken
+# foreach(galleries_cb) do cb
+#     # URL redirection for DemoCards-generated gallery
+#     cb()
+# end
 
 deploydocs(
     repo = "github.com/JuliaPlots/PlotDocs.jl.git",
