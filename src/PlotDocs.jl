@@ -120,6 +120,8 @@ function generate_cards(pkgname::Symbol; skip = get(Plots._backend_skips, pkgnam
                 write(io, take!(jl))
             end
         end
+        # DEBUG: sometimes the generated file is still empty when passing to `DemoCards.makedemos`
+        sleep(0.01)
     end
     # insert attributes page
     # TODO(johnnychen): make this part of the page template
