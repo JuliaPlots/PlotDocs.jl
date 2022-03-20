@@ -33,7 +33,7 @@ for (bename, be) in [
         # ("UnicodePlots", :unicodeplots),
 ]
     generate_cards(be)
-    gallery_path, postprocess_cb, assets = makedemos("galleries/generated_$be")
+    gallery_path, postprocess_cb, assets = makedemos("galleries/$be")
     push!(galleries, bename => gallery_path)
     push!(galleries_cb, postprocess_cb)
     push!(galleries_assets, assets)
