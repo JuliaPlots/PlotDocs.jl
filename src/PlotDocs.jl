@@ -46,9 +46,9 @@ markdown_symbols_to_string(arr) = isempty(arr) ? "" : markdown_code_to_string(ar
 
 # ----------------------------------------------------------------------
 
-function generate_cards(pkgname::Symbol; skip = get(Plots._backend_skips, pkgname, Int[]), gendir = "galleries")
+function generate_cards(pkgname::Symbol; skip = get(Plots._backend_skips, pkgname, Int[]), gendir = "gallery")
 
-    # create folder: for each backend we generate a DemoSection "generated" under "galleries"
+    # create folder: for each backend we generate a DemoSection "generated" under "gallery"
     cardspath = mkpath(joinpath("docs", gendir, "$pkgname", "generated"))
     sec_config = Dict{String, Any}("order" => [])
 

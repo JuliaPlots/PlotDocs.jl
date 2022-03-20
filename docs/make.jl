@@ -33,8 +33,8 @@ for (bename, be) in [
         # ("UnicodePlots", :unicodeplots),
 ]
     generate_cards(be)
-    gallery_path, postprocess_cb, assets = makedemos("galleries/$be")
-    push!(galleries, bename => gallery_path)
+    gallery_path, postprocess_cb, assets = makedemos("gallery/$be"; src="src/gallery")
+    push!(galleries, bename => joinpath("gallery", gallery_path))
     push!(galleries_cb, postprocess_cb)
     push!(galleries_assets, assets)
 end
