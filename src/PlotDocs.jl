@@ -46,22 +46,18 @@ markdown_symbols_to_string(arr) = isempty(arr) ? "" : markdown_code_to_string(ar
 
 # ----------------------------------------------------------------------
 
-function generate_cards(pkgname::Symbol; skip = get(Plots._backend_skips, pkgname, Int[]), gendir = "galleries")
+function generate_cards(pkgname::Symbol; skip = get(Plots._backend_skips, pkgname, Int[]), gendir = "gallery")
 
-    # create folder: for each backend we generate an independent DemoPage folder under "galleries"
-    pagepath = mkpath(joinpath("docs", gendir, "generated_$pkgname"))
-    page_config_path = joinpath(pagepath, "config.json")
-    cp(joinpath(@__DIR__, "gallery_config.json"), page_config_path; force=true)
-    # page_config = JSON.Parser.parsefile(page_config_path)
-    page_config = Dict{String, Any}("order" => [])
-    cardspath = mkpath(joinpath(pagepath, "gallery"))
+    # create folder: for each backend we generate a DemoSection "generated" under "gallery"
+    cardspath = mkpath(joinpath("docs", gendir, "$pkgname", "generated"))
+    sec_config = Dict{String, Any}("order" => [])
 
     for (i,example) in enumerate(_examples)
         # write out the header, description, code block, and image link
         jlname = "$(pkgname)-ref$i.jl"
         jl = IOBuffer()
         if !isempty(example.header)
-            push!(page_config["order"], jlname)
+            push!(sec_config["order"], jlname)
             # start a new demo file
             @debug "generate demo" backend=pkgname jlname header=example.header time=now()
 
@@ -145,9 +141,9 @@ function generate_cards(pkgname::Symbol; skip = get(Plots._backend_skips, pkgnam
         write(jl, "# - Supported values for marker: $(markdown_symbols_to_string(Plots.supported_markers(pkg)))\n")
     end
     open(joinpath(cardspath, "config.json"), "w") do config
-        page_config["description"] = "[Supported attributes](@ref $(pkgname)_attributes)"
-        push!(page_config["order"], attr_name)
-        write(config, json(page_config)
+        sec_config["description"] = "[Supported attributes](@ref $(pkgname)_attributes)"
+        push!(sec_config["order"], attr_name)
+        write(config, json(sec_config)
     )
     end
 end
