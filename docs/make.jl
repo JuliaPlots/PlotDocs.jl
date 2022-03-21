@@ -38,6 +38,10 @@ for (bename, be) in [
     push!(galleries_cb, postprocess_cb)
     push!(galleries_assets, assets)
 end
+user_gallery, postprocess_cb, assets = makedemos("user_gallery"; src="src")
+push!(galleries_cb, postprocess_cb)
+push!(galleries_assets, assets)
+
 unique!(galleries_assets)
 
 const PAGES = Any[
@@ -78,6 +82,7 @@ const PAGES = Any[
     ],
     "Advanced Topics"=>["Internals" => "pipeline.md"],
     "Gallery" => galleries,
+    "User Gallery" => user_gallery,
     "Examples (old)" => [
         "UnicodePlots" => "generated/unicodeplots.md",
     ],

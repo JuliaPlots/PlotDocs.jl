@@ -13,15 +13,24 @@ With proper dependencies installed, run `GKSwstype=nul julia --project=docs/ doc
 
 ## Contributing demos
 
-The demos are julia scripts written with [Literate syntax](https://fredrikekre.github.io/Literate.jl/v2/fileformat/) and managed
-by [DemoCards.jl](https://github.com/johnnychen94/DemoCards.jl). The following steps shows a common workflow to add
-demos, take GR backend as an example:
+The demos are valid julia scripts written with [Literate markup syntax][literate_syntax] and managed
+by [DemoCards.jl][democards_jl]. The following steps shows a common workflow to add demos:
 
-1. create your julia script in any sub-folder in `docs/gallery/gr`. Say the file is `docs/gallery/gr/sec/file.jl`.
-2. configure the demo using YAML frontmatter. You may check how other demos are configured as a reference.
-3. write the demo in Julia using Literate syntax, you can interactively check the execution result using your favorite editor, e.g., VSCode.
-4. preview the demo using `DemoCards.preview_demos("docs/gallery/gr/sec/file.jl")` for single-file, or
-   the entire folder using `DemoCards.preview_demos("docs/gallery/gr/sec")`. This would trigger a [partial building of demos](https://johnnychen94.github.io/DemoCards.jl/stable/preview/).
+1. create your julia script in any sub-folder in `docs/user_gallery/`. For instance,
+   `docs/user_gallery/misc/gr_lorenz_attractor.jl`.
+2. configure the demo using [DemoCards YAML frontmatter][yaml_frontmatter]. You may also check how
+   other demos are configured as a reference.
+3. write the demo in Julia with the Literate markup syntax.
+4. preview the demo using [`DemoCards.preview_demos` feature][democards_preview]. For instance, you
+   can partially build one single file via
+   `preview_demos("docs/user_gallery/misc/gr_lorenz_attractor.jl")`, or the entire section via
+   `preview_demos("docs/user_gallery/misc")`, or even the entire page via
+   `preview_demos("docs/user_gallery")`.
 
-The demo dependencies are managed by `docs/Project.toml`. To ensure reproducibility, you should run the demo in the `docs` environment,
-e.g., start your julia with `julia --project=docs`.
+The demo dependencies are managed by `docs/Project.toml`. To ensure reproducibility, you should run
+the demo in the `docs` environment, e.g., start your julia with `julia --project=docs`.
+
+[literate_syntax]: https://fredrikekre.github.io/Literate.jl/v2/fileformat/
+[yaml_frontmatter]: https://johnnychen94.github.io/DemoCards.jl/stable/quickstart/usage_example/julia_demos/1.julia_demo/#juliademocard_example
+[democards_jl]: https://github.com/johnnychen94/DemoCards.jl
+[democards_preview]: https://johnnychen94.github.io/DemoCards.jl/stable/preview/
