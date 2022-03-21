@@ -103,11 +103,11 @@ ansicolor = get(ENV, "PLOTDOCS_ANSICOLOR", "true") == "true"
     authors = "Thomas Breloff",
     pages = PAGES,
 )
-# currently broken
-# foreach(galleries_cb) do cb
-#     # URL redirection for DemoCards-generated gallery
-#     cb()
-# end
+
+foreach(galleries_cb) do cb
+    # URL redirection for DemoCards-generated gallery
+    cb()
+end
 
 deploydocs(
     repo = "github.com/JuliaPlots/PlotDocs.jl.git",
