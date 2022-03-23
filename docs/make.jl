@@ -30,7 +30,7 @@ for (bename, be) in [
         ("InspectDR", :inspectdr),
         ("Gaston", :gaston),
         ("PGFPlotsX", :pgfplotsx),
-        # ("UnicodePlots", :unicodeplots),
+        ("UnicodePlots", :unicodeplots),
 ]
     generate_cards(be)
     gallery_path, postprocess_cb, assets = makedemos("gallery/$be"; src="src/gallery")
@@ -83,18 +83,12 @@ const PAGES = Any[
     "Advanced Topics"=>["Internals" => "pipeline.md"],
     "Gallery" => galleries,
     "User Gallery" => user_gallery,
-    "Examples (old)" => [
-        "UnicodePlots" => "generated/unicodeplots.md",
-    ],
 ]
 
 generate_attr_markdown()
 generate_supported_markdown()
 generate_graph_attr_markdown()
 generate_colorschemes_markdown()
-for be in (:unicodeplots,)
-    generate_markdown(be)
-end
 
 ansicolor = get(ENV, "PLOTDOCS_ANSICOLOR", "true") == "true"
 @show ansicolor
