@@ -50,9 +50,9 @@ jobs:
           PYTHON: ""
           DOCUMENTER_KEY: ${{ secrets.DOCUMENTER_KEY }}
         run: |
-          export JULIA_DEBUG=Documenter
+          export JULIA_DEBUG=Documenter,DemoCards
           export PLOTDOCS_ANSICOLOR=true
           export GKSwstype=nul  # Plots.jl/issues/3664
-          xvfb-run julia --project=docs/ -e 'using Pkg; Pkg.develop(PackageSpec(path=pwd()));
-                                               Pkg.instantiate()'
+          export DOCUMENTER_DEBUG=true  # Democards.jl
+          xvfb-run julia --project=docs/ -e 'using Pkg; Pkg.develop(PackageSpec(path=pwd())); Pkg.instantiate()'
           xvfb-run julia --project=docs/ docs/make.jl
