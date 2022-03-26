@@ -220,7 +220,7 @@ end
 # tables detailing the features that each backend supports
 
 function make_support_df(allvals, func)
-    vals = sort(allvals) # rows
+    vals = sort(collect(allvals)) # rows
     bs = sort(backends())
     bs = filter(be -> !(be in Plots._deprecated_backends), bs) # cols
     df = DataFrames.DataFrame(keys=vals)
