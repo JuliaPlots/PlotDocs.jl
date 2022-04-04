@@ -27,10 +27,10 @@ for (bename, be) in [
         ("GR", :gr),
         ("PlotlyJS", :plotlyjs),
         ("PyPlot", :pyplot),
-        ("InspectDR", :inspectdr),
-        ("Gaston", :gaston),
         ("PGFPlotsX", :pgfplotsx),
         ("UnicodePlots", :unicodeplots),
+        ("InspectDR", :inspectdr),
+        ("Gaston", :gaston),
 ]
     generate_cards(be)
     gallery_path, postprocess_cb, assets = makedemos("gallery/$be"; src="src/gallery")

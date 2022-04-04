@@ -1,6 +1,6 @@
 # PGFPlotsX
 
-To switch to PGFPlotsX backend, you can use:
+To switch to the `PGFPlotsX` backend, you can use:
 
 ```julia
 using Plots

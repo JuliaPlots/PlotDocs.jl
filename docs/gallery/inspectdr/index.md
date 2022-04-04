@@ -1,6 +1,6 @@
 # InspectDR
 
-To switch to InspectDR backend, you can use:
+To switch to the `InspectDR` backend, you can use:
 
 ```julia
 using Plots

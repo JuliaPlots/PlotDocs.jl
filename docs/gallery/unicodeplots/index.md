@@ -1,6 +1,6 @@
 # UnicodePlots
 
-To switch to the UnicodePlots backend, you can use:
+To switch to the `UnicodePlots` backend, you can use:
 
 ```julia
 using Plots
