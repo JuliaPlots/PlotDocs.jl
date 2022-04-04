@@ -86,6 +86,7 @@ const PAGES = Any[
     "Examples (old)" => [
         "UnicodePlots" => "generated/unicodeplots.md",
     ],
+    "API" => "api.md"
 ]
 
 generate_attr_markdown()
@@ -103,6 +104,7 @@ ansicolor = get(ENV, "PLOTDOCS_ANSICOLOR", "true") == "true"
         prettyurls = get(ENV, "CI", nothing) == "true",
         assets = ["assets/favicon.ico", galleries_assets...],
         ansicolor = ansicolor,
+        collapselevel = 3,
     ),
     sitename = "Plots",
     authors = "Thomas Breloff",
