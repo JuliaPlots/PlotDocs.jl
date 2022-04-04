@@ -71,11 +71,7 @@ function generate_cards(pkgname::Symbol; skip = get(Plots._backend_skips, pkgnam
             # description: ""
             # date: $(now())
             # ---
-            """)
 
-            # backend initialization
-            write(jl,
-            """
             using Plots
             $(pkgname)()
             """)
@@ -83,29 +79,22 @@ function generate_cards(pkgname::Symbol; skip = get(Plots._backend_skips, pkgnam
             i in skip && @goto write_file
             # generate animations only for GR
             i in (2, 31) && pkgname != :gr && @goto write_file
-            write(jl, """
-            Plots.reset_defaults() #hide
-            """)
+            write(jl, "Plots.reset_defaults()  # hide\n")
         end
         # DemoCards use Literate.jl syntax with extra leading `#` as markdown lines
-        write(jl, "# $(replace(example.desc, "\n" => "\n # "))\n")
+        write(jl, "# $(replace(example.desc, "\n" => "\n # hide"))\n")
 
         if pkgname ∈ (:unicodeplots, :inspectdr, :gaston)
-            write(jl, "using Logging; Logging.disable_logging(Logging.Warn) #src\n")
+            write(jl, "using Logging; Logging.disable_logging(Logging.Warn)  # hide\n")
         end
         for expr in example.exprs
             pretty_print_expr(jl, expr)
         end
-        write(jl, "\nmkpath(\"assets\") #src\n")
-        if pkgname == :unicodeplots
-            write(jl, "show(current()) #src\n")
-        elseif pkgname == :gaston
-            write(jl, "png(\"assets/$(pkgname)_ex$i\") #hide\n")
-            write(jl, "# ![](assets/$(pkgname)_ex$i.png)\n")
-        elseif i in (2, 31)
-            write(jl, "gif(anim, \"assets/anim_$(pkgname)_ex$i.gif\")\n")
+        write(jl, "\nmkpath(\"assets\") # hide\n")
+        if i in (2, 31)
+            write(jl, "gif(anim, \"assets/anim_$(pkgname)_ex$i.gif\")  # hide\n")
         else
-            write(jl, "png(\"assets/$(pkgname)_ex$i\") #src\n")
+            write(jl, "png(\"assets/$(pkgname)_ex$i\")  # hide\n")
         end
 
         @label write_file
@@ -135,10 +124,12 @@ function generate_cards(pkgname::Symbol; skip = get(Plots._backend_skips, pkgnam
             # date: $(now())
             # ---
             """)
-        write(jl, "# - Supported arguments: $(markdown_code_to_string(collect(Plots.supported_attrs(pkg))))\n")
-        write(jl, "# - Supported values for linetype: $(markdown_symbols_to_string(Plots.supported_seriestypes(pkg)))\n")
-        write(jl, "# - Supported values for linestyle: $(markdown_symbols_to_string(Plots.supported_styles(pkg)))\n")
-        write(jl, "# - Supported values for marker: $(markdown_symbols_to_string(Plots.supported_markers(pkg)))\n")
+        write(jl, """
+        # - Supported arguments: $(markdown_code_to_string(collect(Plots.supported_attrs(pkg))))
+        # - Supported values for linetype: $(markdown_symbols_to_string(Plots.supported_seriestypes(pkg)))
+        # - Supported values for linestyle: $(markdown_symbols_to_string(Plots.supported_styles(pkg)))
+        # - Supported values for marker: $(markdown_symbols_to_string(Plots.supported_markers(pkg)))
+        """)
     end
     open(joinpath(cardspath, "config.json"), "w") do config
         sec_config["description"] = "[Supported attributes](@ref $(pkgname)_attributes)"
