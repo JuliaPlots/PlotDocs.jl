@@ -132,7 +132,7 @@ Also, PlotlyJS supports saving the output to more formats than Plotly, such as E
 
 ```@example backends
 plotlyjs(); backendplot(n = 2) # hide
-png("backends_plotly") # hide
+png("backends_plotly.png") # hide
 ```
 ![](backends_plotly.png)
 
@@ -234,7 +234,7 @@ LaTeX plotting, based on `PGF/TikZ`.
 
 ```@example backends
 pgfplotsx(); backendplot() # hide
-png("pgfx_backends") # hide
+png("pgfx_backends.png") # hide
 ```
 ![](pgfx_backends.png)
 
@@ -308,8 +308,9 @@ Simple and lightweight.  Plot directly in your terminal.  You won't produce anyt
 ```@example backends
 unicodeplots()
 plot([sin cos])
-current() |> display  # hide
+png("backends_unicodeplots.png") # hide
 ```
+![](backends_unicodeplots.png)
 
 Pros:
 
@@ -388,7 +389,7 @@ Primary author: MA Laforge (@ma-laforge)
 ```@example backends
 using Logging; Logging.disable_logging(Logging.Warn) # hide
 gaston(); backendplot() # hide
-png("backends_gaston") # hide
+png("backends_gaston.png") # hide
 ```
 ![](backends_gaston.png)
 

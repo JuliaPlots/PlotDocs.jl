@@ -43,16 +43,26 @@ jobs:
             ghostscript-x \
             libgconf2-4 \
             gnuplot
+      - name: Install fonts
+        run: |
+          mkdir -p ~/.fonts
+          repo="https://github.com/cormullion/juliamono"
+          ver="$(git -c 'versionsort.suffix=-' ls-remote --tags --sort='v:refname' "$repo.git" | tail -n 1 | awk '{ print $2 }' | sed 's,refs/tags/,,')"
+          url="$repo/releases/download/$ver/JuliaMono-ttf.tar.gz"
+          echo "downloading & extract url=$url"
+          wget -q "$url" -O - | tar -xz -C ~/.fonts
+          ls ~/.fonts
           sudo fc-cache -vr
-
-      - name: build documentation
+          fc-list | grep 'JuliaMono'
+      - name: Build documentation
         env:
           PYTHON: ""
           DOCUMENTER_KEY: ${{ secrets.DOCUMENTER_KEY }}
         run: |
-          export JULIA_DEBUG=Documenter,PlotDocs,DemoCards
+          export JULIA_DEBUG='Documenter,PlotDocs,DemoCards'
           export PLOTDOCS_ANSICOLOR=true
           export GKSwstype=nul  # Plots.jl/issues/3664
           export DOCUMENTER_DEBUG=true  # Democards.jl
+          echo "COLORTERM=$COLORTERM"
           xvfb-run julia --project=docs/ -e 'using Pkg; Pkg.develop(PackageSpec(path=pwd())); Pkg.instantiate()'
           xvfb-run julia --project=docs/ docs/make.jl

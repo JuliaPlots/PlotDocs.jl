@@ -56,7 +56,7 @@ function generate_cards(pkgname::Symbol; skip = get(Plots._backend_skips, pkgnam
         if !isempty(example.header)
             push!(sec_config["order"], jlname)
             # start a new demo file
-            @debug "generate demo" backend=pkgname jlname header=example.header time=now()
+            @debug "generate demo" backend=pkgname jlname header=example.header  # time=now()
 
             # DemoCards YAML frontmatter
             # https://johnnychen94.github.io/DemoCards.jl/stable/quickstart/usage_example/julia_demos/1.julia_demo/#juliademocard_example
@@ -80,10 +80,6 @@ function generate_cards(pkgname::Symbol; skip = get(Plots._backend_skips, pkgnam
         end
         # DemoCards use Literate.jl syntax with extra leading `#` as markdown lines
         write(jl, "# $(replace(example.desc, "\n" => "\n  # hide"))\n")
-
-        if pkgname ∈ (:unicodeplots, :inspectdr, :gaston)
-            write(jl, "using Logging; Logging.disable_logging(Logging.Warn)  # hide\n")
-        end
         for expr in example.exprs
             pretty_print_expr(jl, expr)
         end
