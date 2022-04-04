@@ -1,6 +1,4 @@
-
 module PlotDocs
-
 
 using Plots, DataFrames, MacroTools, OrderedCollections, Dates
 using JSON
@@ -90,11 +88,11 @@ function generate_cards(pkgname::Symbol; skip = get(Plots._backend_skips, pkgnam
             pretty_print_expr(jl, expr)
         end
         write(jl, "\nmkpath(\"assets\")  # hide\n")
-        if i in (2, 31)
-            write(jl, "gif(anim, \"assets/anim_$(pkgname)_ex$i.gif\")  # hide\n")
+        write(jl, if i in (2, 31)
+            "gif(anim, \"assets/anim_$(pkgname)_ex$(i).gif\")  # hide\n"
         else
-            write(jl, "png(\"assets/$(pkgname)_ex$i\")  # hide\n")
-        end
+            "png(\"assets/$(pkgname)_ex$(i).png\")  # hide\n"
+        end)
 
         @label write_file
         if !isempty(example.header)
@@ -148,7 +146,7 @@ function generate_markdown(pkgname::Symbol; skip = get(Plots._backend_skips, pkg
 
     ```@example $pkgname
     using Plots
-    Plots.reset_defaults() # hide
+    Plots.reset_defaults()  # hide
     $(pkgname)()
     ```
     """)
@@ -166,27 +164,27 @@ function generate_markdown(pkgname::Symbol; skip = get(Plots._backend_skips, pkg
         write(md, """
         $(example.desc)
         ```@example $pkgname
-        Plots.reset_defaults() # hide
+        Plots.reset_defaults()  # hide
         """)
         if pkgname ∈ (:unicodeplots, :inspectdr, :gaston)
-            write(md, "using Logging; Logging.disable_logging(Logging.Warn) # hide\n")
+            write(md, "using Logging; Logging.disable_logging(Logging.Warn)  # hide\n")
         end
         for expr in example.exprs
             pretty_print_expr(md, expr)
         end
         if pkgname == :unicodeplots
-            up_debug_io === nothing || write(md, "open(\"$up_debug_io\", \"a\") do io show(io, current()); println(io) end # hide\n")
-            write(md, "current() |> display # hide\n")
+            up_debug_io === nothing || write(md, "open(\"$up_debug_io\", \"a\") do io show(io, current()); println(io) end  # hide\n")
+            write(md, "current() |> display  # hide\n")
         end
         if i in (2, 31)
-            write(md, "gif(anim, \"anim_$(pkgname)_ex$i.gif\") # hide\n")
+            write(md, "gif(anim, \"anim_$(pkgname)_ex$(i).gif\")  # hide\n")
         end
         if pkgname ∈ (:plotly, :plotlyjs, :inspectdr, :gaston)
-            write(md, "png(\"$(pkgname)_ex$i\") # hide\n")
+            write(md, "png(\"$(pkgname)_ex$(i).png\")  # hide\n")
         end
         write(md, "```\n")
         if pkgname ∈ (:plotly, :plotlyjs, :inspectdr, :gaston)
-            write(md, "![]($(pkgname)_ex$i.png)\n")
+            write(md, "![]($(pkgname)_ex$(i).png)\n")
         end
     end
 
@@ -195,6 +193,7 @@ function generate_markdown(pkgname::Symbol; skip = get(Plots._backend_skips, pkg
     - Supported values for linetype: $(markdown_symbols_to_string(Plots.supported_seriestypes(pkg)))
     - Supported values for linestyle: $(markdown_symbols_to_string(Plots.supported_styles(pkg)))
     - Supported values for marker: $(markdown_symbols_to_string(Plots.supported_markers(pkg)))
+
     (Automatically generated: $(now()))
     """)
     close(md)
@@ -243,19 +242,11 @@ function generate_supported_markdown()
     - ✅ the series type is natively supported by the backend.
     - 🔼 the series type is supported through series recipes.
 
-
+    ```@raw html
+    $(to_html(make_support_df(Plots.all_seriestypes(), Plots.supported_seriestypes)))
+    ```
+    \n
     """)
-
-    write(md, "```@raw html\n")
-    write(md,
-        to_html(
-            make_support_df(
-                Plots.all_seriestypes(),
-                Plots.supported_seriestypes,
-            )
-        )
-    )
-    write(md, "\n```\n\n")
 
     supported_args =OrderedDict(
         "Keyword Arguments" => (Plots._all_args, Plots.supported_attrs),
@@ -269,11 +260,11 @@ function generate_supported_markdown()
 
         ## $header
 
+        ```@raw html
+        $(to_html(make_support_df(args...)))
+        ```
+        \n
         """)
-
-        write(md, "```@raw html\n")
-        write(md, to_html(make_support_df(args...)))
-        write(md, "\n```\n\n")
     end
 
     write(md, "\n(Automatically generated: $(now()))")
@@ -348,13 +339,13 @@ function generate_attr_markdown(c)
 
     $attr_text
 
+    ```@raw html
+    $(to_html(make_attr_df(c, ATTRIBUTE_DEFAULTS[c])))
+    ```
+
+    (Automatically generated: $(now()))
     """)
 
-    write(md, "```@raw html\n")
-    write(md, to_html(make_attr_df(c, ATTRIBUTE_DEFAULTS[c])))
-    write(md, "\n```\n\n")
-
-    write(md, "\n(Automatically generated: $(now()))")
     close(md)
 end
 
@@ -480,11 +471,11 @@ function generate_graph_attr_markdown()
         ]
     )
 
-    write(md, "```@raw html\n")
-    write(md, to_html(df))
-    write(md, "\n```\n\n")
-
     write(md, """
+    ```@raw html
+    $(to_html(df))
+    ```
+    \n
     ## Aliases
     Certain keyword arguments have aliases, so GraphRecipes "does what you mean, not
     what you say".
@@ -500,9 +491,10 @@ function generate_graph_attr_markdown()
     # These two calls produce the same plot, modulo some randomness in the layout.
     plot(graphplot([0 1; 0 0], nodecolor=:red), graphplot([0 1; 0 0], nc=:red))
     ```
+
+    (Automatically generated: $(now()))
     """)
 
-    write(md, "\n(Automatically generated: $(now()))")
     close(md)
 end
 
