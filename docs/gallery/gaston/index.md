@@ -1,6 +1,6 @@
 # Gaston
 
-To switch to Gaston backend, you can use:
+To switch to the `Gaston` backend, you can use:
 
 ```julia
 using Plots

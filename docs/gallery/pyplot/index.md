@@ -1,6 +1,6 @@
 # PyPlot
 
-To switch to PyPlot backend, you can use:
+To switch to the `PyPlot` backend, you can use:
 
 ```julia
 using Plots

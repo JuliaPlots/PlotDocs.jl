@@ -1,6 +1,6 @@
 # PlotlyJS
 
-To switch to PlotlyJS backend, you can use:
+To switch to the `PlotlyJS` backend, you can use:
 
 ```julia
 using Plots
