@@ -43,7 +43,18 @@ jobs:
             ghostscript-x \
             libgconf2-4 \
             gnuplot
+          ########################################
+          # install fonts
+          mkdir -p ~/.fonts
+          repo="https://github.com/cormullion/juliamono"
+          ver="$(git -c 'versionsort.suffix=-' ls-remote --tags --sort='v:refname' "$repo.git" | tail -n 1 | awk '{ print $2 }' | sed 's,refs/tags/,,')"
+          url="$repo/releases/download/$ver/JuliaMono-ttf.tar.gz"
+          echo "downloading & extract url=$url"
+          wget "$url" -O - | tar -xz -C ~/.fonts
+          ls ~/.fonts
           sudo fc-cache -vr
+          fc-list | grep 'JuliaMono'
+          ########################################
 
       - name: build documentation
         env:
