@@ -3,7 +3,7 @@ using Documenter, PlotDocs, Plots, PlotThemes, DemoCards
 # Set matplotlib gui backend
 ENV["MPLBACKEND"] = "agg"
 
-# Initialize backends
+# Initialize all backends
 gr()
 plotlyjs()
 pyplot()
@@ -21,8 +21,8 @@ cp(
 )
 
 galleries = Pair{String,String}[]
-galleries_cb = []
 galleries_assets = String[]
+galleries_cb = []
 for (bename, be) in [
         ("GR", :gr),
         ("PlotlyJS", :plotlyjs),
@@ -106,8 +106,7 @@ ansicolor = get(ENV, "PLOTDOCS_ANSICOLOR", "true") == "true"
 )
 
 foreach(galleries_cb) do cb
-    # URL redirection for DemoCards-generated gallery
-    cb()
+    cb()  # URL redirection for DemoCards-generated gallery
 end
 
 deploydocs(

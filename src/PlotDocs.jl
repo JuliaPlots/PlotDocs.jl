@@ -37,9 +37,9 @@ function pretty_print_expr(io::IO, expr::Expr)
     end
 end
 
-function markdown_code_to_string(arr, prefix = "")
+markdown_code_to_string(arr, prefix = "") =
     string("`", prefix, join(sort(map(string, arr)), "`, `$prefix"), "`")
-end
+
 markdown_symbols_to_string(arr) = isempty(arr) ? "" : markdown_code_to_string(arr, ":")
 
 # ----------------------------------------------------------------------
@@ -56,7 +56,7 @@ function generate_cards(pkgname::Symbol; skip = get(Plots._backend_skips, pkgnam
         if !isempty(example.header)
             push!(sec_config["order"], jlname)
             # start a new demo file
-            @debug "generate demo" backend=pkgname jlname header=example.header  # time=now()
+            @debug "generate demo \"$(example.header)\" - writing $jlname"
 
             # DemoCards YAML frontmatter
             # https://johnnychen94.github.io/DemoCards.jl/stable/quickstart/usage_example/julia_demos/1.julia_demo/#juliademocard_example
@@ -76,18 +76,19 @@ function generate_cards(pkgname::Symbol; skip = get(Plots._backend_skips, pkgnam
             i in skip && @goto write_file
             # generate animations only for GR
             i in (2, 31) && pkgname != :gr && @goto write_file
-            write(jl, "Plots.reset_defaults()  # hide\n")
+            write(jl, "Plots.reset_defaults()  #hide\n")
         end
         # DemoCards use Literate.jl syntax with extra leading `#` as markdown lines
-        write(jl, "# $(replace(example.desc, "\n" => "\n  # hide"))\n")
+        write(jl, "# $(replace(example.desc, "\n" => "\n  # "))\n")
         for expr in example.exprs
             pretty_print_expr(jl, expr)
         end
-        write(jl, "\nmkpath(\"assets\")  # hide\n")
+        # NOTE: the supported `Literate.jl` syntax is `#src` and `#hide` NOT `# src` !!
+        write(jl, "\nmkpath(\"assets\")  #src\n")
         write(jl, if i in (2, 31)
-            "gif(anim, \"assets/anim_$(pkgname)_ex$(i).gif\")  # hide\n"
+            "gif(anim, \"assets/anim_$(pkgname)_ex$(i).gif\")\n"  # NOTE: must no be hidden, for appearance in the rendered `html`
         else
-            "png(\"assets/$(pkgname)_ex$(i).png\")  # hide\n"
+            "png(\"assets/$(pkgname)_ex$(i).png\")  #src\n"
         end)
 
         @label write_file
@@ -142,12 +143,10 @@ function generate_markdown(pkgname::Symbol; skip = get(Plots._backend_skips, pkg
 
     ```@example $pkgname
     using Plots
-    Plots.reset_defaults()  # hide
+    Plots.reset_defaults()  #hide
     $(pkgname)()
     ```
     """)
-
-    up_debug_io = get(ENV, "UP_DEBUG_IO", nothing)
 
     for (i,example) in enumerate(_examples)
         i in skip && continue
@@ -160,23 +159,22 @@ function generate_markdown(pkgname::Symbol; skip = get(Plots._backend_skips, pkg
         write(md, """
         $(example.desc)
         ```@example $pkgname
-        Plots.reset_defaults()  # hide
+        Plots.reset_defaults()  #hide
         """)
         if pkgname ∈ (:unicodeplots, :inspectdr, :gaston)
-            write(md, "using Logging; Logging.disable_logging(Logging.Warn)  # hide\n")
+            write(md, "using Logging; Logging.disable_logging(Logging.Warn)  #hide\n")
         end
         for expr in example.exprs
             pretty_print_expr(md, expr)
         end
         if pkgname == :unicodeplots
-            up_debug_io === nothing || write(md, "open(\"$up_debug_io\", \"a\") do io show(io, current()); println(io) end  # hide\n")
-            write(md, "current() |> display  # hide\n")
+            write(md, "current() |> display  #hide\n")
         end
         if i in (2, 31)
-            write(md, "gif(anim, \"anim_$(pkgname)_ex$(i).gif\")  # hide\n")
+            write(md, "gif(anim, \"anim_$(pkgname)_ex$(i).gif\")  #hide\n")
         end
         if pkgname ∈ (:plotly, :plotlyjs, :inspectdr, :gaston)
-            write(md, "png(\"$(pkgname)_ex$(i).png\")  # hide\n")
+            write(md, "png(\"$(pkgname)_ex$(i).png\")  #hide\n")
         end
         write(md, "```\n")
         if pkgname ∈ (:plotly, :plotlyjs, :inspectdr, :gaston)
@@ -241,7 +239,7 @@ function generate_supported_markdown()
     ```@raw html
     $(to_html(make_support_df(Plots.all_seriestypes(), Plots.supported_seriestypes)))
     ```
-    \n
+
     """)
 
     supported_args =OrderedDict(
@@ -259,7 +257,7 @@ function generate_supported_markdown()
         ```@raw html
         $(to_html(make_support_df(args...)))
         ```
-        \n
+
         """)
     end
 
@@ -579,8 +577,6 @@ function generate_colorschemes_table(ks)
     html *= "</table></body>"
     return html
 end
-
-
 
 # ----------------------------------------------------------------------
 
