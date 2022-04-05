@@ -7,7 +7,7 @@ using Plots
 
 ### Introduction to Attributes
 
-In Plots, input data is passed positionally (for example, the `y` in `plot(y)`), and attributes are passed as keywords (for example, `plot(y, color = :blue)`). 
+In Plots, input data is passed positionally (for example, the `y` in `plot(y)`), and attributes are passed as keywords (for example, `plot(y, color = :blue)`).
 Most of the information on this page is available from your Julia REPL.
 After one executes, `using Plots` in the REPL, one can use the function `plotattr()` to print a list of all attributes for either series, plots, subplots, or axes.
 
@@ -27,7 +27,7 @@ plotattr("size")
 ```
 
 !!! note
-    Do not forget to enclose the attribute you are attempting to use with double quotes! 
+    Do not forget to enclose the attribute you are attempting to use with double quotes!
 
 ---
 
@@ -38,9 +38,6 @@ Keywords can take a range of values through the **alias mechanic**.  For example
 
 !!! tip
     Use aliases for one-off analysis and visualization, but use the true keyword name for long-lived library code to avoid confusion.
-
-!!! tip
-    As of this writing, aliases do not work inside recipes!!
 
 ---
 
