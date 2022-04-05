@@ -60,11 +60,8 @@ backend_object
 ```
 
 ### Output
-```@docs
-
-```
 
 ```@autodocs
 Modules = [Plots]
-Pages   = ["output.jl]
+Pages   = ["output.jl"]
 ```
