@@ -1,6 +1,6 @@
 # GR
 
-GR is the default backend for Plots. To explicitly specify the GR backend, you can use:
+`GR` is the default backend for `Plots`. To explicitly specify the `GR` backend, you can use:
 
 ```julia
 using Plots
