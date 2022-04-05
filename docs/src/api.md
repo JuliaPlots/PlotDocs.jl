@@ -60,6 +60,9 @@ plotattr
 ```
 
 ### Output
+```@docs
+display
+```
 
 ```@autodocs
 Modules = [Plots]
