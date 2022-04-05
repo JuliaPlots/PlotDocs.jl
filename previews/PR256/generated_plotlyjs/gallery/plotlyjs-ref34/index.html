@@ -1,0 +1,993 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><title>Framestyle · Plots</title><script data-outdated-warner src="../../../assets/warner.js"></script><link href="https://cdnjs.cloudflare.com/ajax/libs/lato-font/3.0.0/css/lato-font.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/juliamono/0.039/juliamono-regular.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/fontawesome.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/solid.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/brands.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.13.11/katex.min.css" rel="stylesheet" type="text/css"/><script>documenterBaseURL="../../.."</script><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" data-main="../../../assets/documenter.js"></script><script src="../../../siteinfo.js"></script><script src="../../../../versions.js"></script><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../../../assets/themes/documenter-dark.css" data-theme-name="documenter-dark" data-theme-primary-dark/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../../../assets/themes/documenter-light.css" data-theme-name="documenter-light" data-theme-primary/><script src="../../../assets/themeswap.js"></script><link href="../../../assets/favicon.ico" rel="icon" type="image/x-icon"/><link href="../../../democards/bulmagridtheme.css" rel="stylesheet" type="text/css"/></head><body><div id="documenter"><nav class="docs-sidebar"><a class="docs-logo" href="../../../"><img src="../../../assets/logo.png" alt="Plots logo"/></a><div class="docs-package-name"><span class="docs-autofit"><a href="../../../">Plots</a></span></div><form class="docs-search" action="../../../search/"><input class="docs-search-query" id="documenter-search-query" name="q" type="text" placeholder="Search docs"/></form><ul class="docs-menu"><li><a class="tocitem" href="../../../">Home</a></li><li><span class="tocitem">Getting Started</span><ul><li><a class="tocitem" href="../../../install/">Installation</a></li><li><a class="tocitem" href="../../../basics/">Basics</a></li><li><a class="tocitem" href="../../../tutorial/">Tutorial</a></li></ul></li><li><span class="tocitem">Manual</span><ul><li><a class="tocitem" href="../../../input_data/">Input Data</a></li><li><a class="tocitem" href="../../../output/">Output</a></li><li><input class="collapse-toggle" id="menuitem-3-3" type="checkbox"/><label class="tocitem" for="menuitem-3-3"><span class="docs-label">Attributes</span><i class="docs-chevron"></i></label><ul class="collapsed"><li><a class="tocitem" href="../../../attributes/">Overview</a></li><li><a class="tocitem" href="../../../generated/attributes_series/">Series Attributes</a></li><li><a class="tocitem" href="../../../generated/attributes_plot/">Plot Attributes</a></li><li><a class="tocitem" href="../../../generated/attributes_subplot/">Subplot Attributes</a></li><li><a class="tocitem" href="../../../generated/attributes_axis/">Axis Attributes</a></li></ul></li><li><a class="tocitem" href="../../../layouts/">Layouts</a></li><li><a class="tocitem" href="../../../recipes/">Recipes</a></li><li><a class="tocitem" href="../../../colors/">Colors</a></li><li><a class="tocitem" href="../../../generated/colorschemes/">ColorSchemes</a></li><li><a class="tocitem" href="../../../animations/">Animations</a></li><li><a class="tocitem" href="../../../generated/plotthemes/">Themes</a></li><li><a class="tocitem" href="../../../backends/">Backends</a></li><li><a class="tocitem" href="../../../generated/supported/">Supported Attributes</a></li></ul></li><li><a class="tocitem" href="../../../learning/">Learning</a></li><li><a class="tocitem" href="../../../contributing/">Contributing</a></li><li><span class="tocitem">Ecosystem</span><ul><li><a class="tocitem" href="../../../ecosystem/">Overview</a></li><li><input class="collapse-toggle" id="menuitem-6-2" type="checkbox"/><label class="tocitem" for="menuitem-6-2"><span class="docs-label">GraphRecipes</span><i class="docs-chevron"></i></label><ul class="collapsed"><li><a class="tocitem" href="../../../graphrecipes/introduction/">Introduction</a></li><li><a class="tocitem" href="../../../graphrecipes/examples/">Examples</a></li><li><a class="tocitem" href="../../../generated/graph_attributes/">Attributes</a></li></ul></li></ul></li><li><span class="tocitem">Advanced Topics</span><ul><li><a class="tocitem" href="../../../pipeline/">Internals</a></li></ul></li><li><span class="tocitem">Gallery</span><ul><li><a class="tocitem" href="../../../generated_gr/">GR</a></li><li><a class="tocitem" href="../../">PlotlyJS</a></li><li><a class="tocitem" href="../../../generated_pyplot/">PyPlot</a></li><li><a class="tocitem" href="../../../generated_inspectdr/">InspectDR</a></li><li><a class="tocitem" href="../../../generated_gaston/">Gaston</a></li><li><a class="tocitem" href="../../../generated_pgfplotsx/">PGFPlotsX</a></li></ul></li><li><span class="tocitem">Examples (old)</span><ul><li><a class="tocitem" href="../../../generated/unicodeplots/">UnicodePlots</a></li></ul></li></ul><div class="docs-version-selector field has-addons"><div class="control"><span class="docs-label button is-static is-size-7">Version</span></div><div class="docs-selector control is-expanded"><div class="select is-fullwidth is-size-7"><select id="documenter-version-selector"></select></div></div></div></nav><div class="docs-main"><header class="docs-navbar"><nav class="breadcrumb"><ul class="is-hidden-mobile"><li class="is-active"><a href>Framestyle</a></li></ul><ul class="is-hidden-tablet"><li class="is-active"><a href>Framestyle</a></li></ul></nav><div class="docs-right"><a class="docs-edit-link" href="https://github.com/JuliaPlots/PlotDocs.jl/blob/master/docs/src/generated_plotlyjs/gallery/plotlyjs-ref34.md" title="Edit on GitHub"><span class="docs-icon fab"></span><span class="docs-label is-hidden-touch">Edit on GitHub</span></a><a class="docs-settings-button fas fa-cog" id="documenter-settings-button" href="#" title="Settings"></a><a class="docs-sidebar-button fa fa-bars is-hidden-desktop" id="documenter-sidebar-button" href="#"></a></div></header><article class="content" id="documenter-page"><h1 id="plotlyjs_demo_34"><a class="docs-heading-anchor" href="#plotlyjs_demo_34">Framestyle</a><a id="plotlyjs_demo_34-1"></a><a class="docs-heading-anchor-permalink" href="#plotlyjs_demo_34" title="Permalink"></a></h1><p><a href="../plotlyjs-ref34.jl"><img src="https://img.shields.io/badge/download-julia-brightgreen.svg" alt="Source code"/></a> <a href="https://github.com/JuliaPlots/PlotDocs.jl/"><img src="https://img.shields.io/badge/Author-PlotDocs.jl-blue" alt="Author"/></a> <img src="https://img.shields.io/date/1647535665" alt="Update time"/></p><pre><code class="language-julia hljs">using Plots
+plotlyjs()</code></pre><p>The style of the frame/axes of a (sub)plot can be changed with the <code>framestyle</code> attribute. The default framestyle is <code>:axes</code>.</p><pre><code class="language-julia hljs">scatter(fill(randn(10), 6), fill(randn(10), 6), framestyle = [:box :semi :origin :zerolines :grid :none], title = [&quot;:box&quot; &quot;:semi&quot; &quot;:origin&quot; &quot;:zerolines&quot; &quot;:grid&quot; &quot;:none&quot;], color = permutedims(1:6), layout = 6, label = &quot;&quot;, markerstrokewidth = 0, ticks = -2:2)</code></pre><script src="https://cdn.plot.ly/plotly-2.6.3.min.js"></script>    <div id="ecd995a1-ab71-4088-a136-b20c39845479" style="width:600px;height:400px;"></div>
+    <script>
+    
+        Plotly.newPlot('ecd995a1-ab71-4088-a136-b20c39845479', [
+    {
+        "xaxis": "x1",
+        "colorbar": {
+            "title": ""
+        },
+        "yaxis": "y1",
+        "x": [
+            0.6694020375877099,
+            -2.238592897690386,
+            -0.8418684153740336,
+            0.43735038902074264,
+            -0.5827470996325083,
+            0.05044200975083966,
+            -0.6935125505212647,
+            -1.8694360548725337,
+            0.5701118595706187,
+            -1.4095987948131194
+        ],
+        "showlegend": false,
+        "mode": "markers",
+        "name": "",
+        "zmin": null,
+        "legendgroup": "",
+        "marker": {
+            "symbol": "circle",
+            "color": "rgba(0, 154, 250, 1.000)",
+            "line": {
+                "color": "rgba(0, 0, 0, 1.000)",
+                "width": 0
+            },
+            "size": 8
+        },
+        "zmax": null,
+        "y": [
+            -0.48713991681356816,
+            1.2286338288733005,
+            1.3086638311776393,
+            0.22454597192862255,
+            0.4634018597933889,
+            -0.5259406161072161,
+            0.7986741126779502,
+            0.4985807815655133,
+            -0.35317621741263133,
+            -1.1997839723997423
+        ],
+        "type": "scatter"
+    },
+    {
+        "xaxis": "x2",
+        "colorbar": {
+            "title": ""
+        },
+        "yaxis": "y2",
+        "x": [
+            0.6694020375877099,
+            -2.238592897690386,
+            -0.8418684153740336,
+            0.43735038902074264,
+            -0.5827470996325083,
+            0.05044200975083966,
+            -0.6935125505212647,
+            -1.8694360548725337,
+            0.5701118595706187,
+            -1.4095987948131194
+        ],
+        "showlegend": false,
+        "mode": "markers",
+        "name": "",
+        "zmin": null,
+        "legendgroup": "",
+        "marker": {
+            "symbol": "circle",
+            "color": "rgba(227, 111, 71, 1.000)",
+            "line": {
+                "color": "rgba(0, 0, 0, 1.000)",
+                "width": 0
+            },
+            "size": 8
+        },
+        "zmax": null,
+        "y": [
+            -0.48713991681356816,
+            1.2286338288733005,
+            1.3086638311776393,
+            0.22454597192862255,
+            0.4634018597933889,
+            -0.5259406161072161,
+            0.7986741126779502,
+            0.4985807815655133,
+            -0.35317621741263133,
+            -1.1997839723997423
+        ],
+        "type": "scatter"
+    },
+    {
+        "xaxis": "x3",
+        "colorbar": {
+            "title": ""
+        },
+        "yaxis": "y3",
+        "x": [
+            0.6694020375877099,
+            -2.238592897690386,
+            -0.8418684153740336,
+            0.43735038902074264,
+            -0.5827470996325083,
+            0.05044200975083966,
+            -0.6935125505212647,
+            -1.8694360548725337,
+            0.5701118595706187,
+            -1.4095987948131194
+        ],
+        "showlegend": false,
+        "mode": "markers",
+        "name": "",
+        "zmin": null,
+        "legendgroup": "",
+        "marker": {
+            "symbol": "circle",
+            "color": "rgba(62, 164, 78, 1.000)",
+            "line": {
+                "color": "rgba(0, 0, 0, 1.000)",
+                "width": 0
+            },
+            "size": 8
+        },
+        "zmax": null,
+        "y": [
+            -0.48713991681356816,
+            1.2286338288733005,
+            1.3086638311776393,
+            0.22454597192862255,
+            0.4634018597933889,
+            -0.5259406161072161,
+            0.7986741126779502,
+            0.4985807815655133,
+            -0.35317621741263133,
+            -1.1997839723997423
+        ],
+        "type": "scatter"
+    },
+    {
+        "xaxis": "x4",
+        "colorbar": {
+            "title": ""
+        },
+        "yaxis": "y4",
+        "x": [
+            0.6694020375877099,
+            -2.238592897690386,
+            -0.8418684153740336,
+            0.43735038902074264,
+            -0.5827470996325083,
+            0.05044200975083966,
+            -0.6935125505212647,
+            -1.8694360548725337,
+            0.5701118595706187,
+            -1.4095987948131194
+        ],
+        "showlegend": false,
+        "mode": "markers",
+        "name": "",
+        "zmin": null,
+        "legendgroup": "",
+        "marker": {
+            "symbol": "circle",
+            "color": "rgba(195, 113, 210, 1.000)",
+            "line": {
+                "color": "rgba(0, 0, 0, 1.000)",
+                "width": 0
+            },
+            "size": 8
+        },
+        "zmax": null,
+        "y": [
+            -0.48713991681356816,
+            1.2286338288733005,
+            1.3086638311776393,
+            0.22454597192862255,
+            0.4634018597933889,
+            -0.5259406161072161,
+            0.7986741126779502,
+            0.4985807815655133,
+            -0.35317621741263133,
+            -1.1997839723997423
+        ],
+        "type": "scatter"
+    },
+    {
+        "xaxis": "x5",
+        "colorbar": {
+            "title": ""
+        },
+        "yaxis": "y5",
+        "x": [
+            0.6694020375877099,
+            -2.238592897690386,
+            -0.8418684153740336,
+            0.43735038902074264,
+            -0.5827470996325083,
+            0.05044200975083966,
+            -0.6935125505212647,
+            -1.8694360548725337,
+            0.5701118595706187,
+            -1.4095987948131194
+        ],
+        "showlegend": false,
+        "mode": "markers",
+        "name": "",
+        "zmin": null,
+        "legendgroup": "",
+        "marker": {
+            "symbol": "circle",
+            "color": "rgba(172, 142, 24, 1.000)",
+            "line": {
+                "color": "rgba(0, 0, 0, 1.000)",
+                "width": 0
+            },
+            "size": 8
+        },
+        "zmax": null,
+        "y": [
+            -0.48713991681356816,
+            1.2286338288733005,
+            1.3086638311776393,
+            0.22454597192862255,
+            0.4634018597933889,
+            -0.5259406161072161,
+            0.7986741126779502,
+            0.4985807815655133,
+            -0.35317621741263133,
+            -1.1997839723997423
+        ],
+        "type": "scatter"
+    },
+    {
+        "xaxis": "x6",
+        "colorbar": {
+            "title": ""
+        },
+        "yaxis": "y6",
+        "x": [
+            0.6694020375877099,
+            -2.238592897690386,
+            -0.8418684153740336,
+            0.43735038902074264,
+            -0.5827470996325083,
+            0.05044200975083966,
+            -0.6935125505212647,
+            -1.8694360548725337,
+            0.5701118595706187,
+            -1.4095987948131194
+        ],
+        "showlegend": false,
+        "mode": "markers",
+        "name": "",
+        "zmin": null,
+        "legendgroup": "",
+        "marker": {
+            "symbol": "circle",
+            "color": "rgba(0, 170, 174, 1.000)",
+            "line": {
+                "color": "rgba(0, 0, 0, 1.000)",
+                "width": 0
+            },
+            "size": 8
+        },
+        "zmax": null,
+        "y": [
+            -0.48713991681356816,
+            1.2286338288733005,
+            1.3086638311776393,
+            0.22454597192862255,
+            0.4634018597933889,
+            -0.5259406161072161,
+            0.7986741126779502,
+            0.4985807815655133,
+            -0.35317621741263133,
+            -1.1997839723997423
+        ],
+        "type": "scatter"
+    }
+]
+, {
+    "showlegend": true,
+    "paper_bgcolor": "rgba(255, 255, 255, 1.000)",
+    "xaxis1": {
+        "showticklabels": true,
+        "gridwidth": 0.5,
+        "tickvals": [
+            -2.0,
+            -1.0,
+            0.0
+        ],
+        "range": [
+            -2.325832745748729,
+            0.7566418856460527
+        ],
+        "domain": [
+            0.03619130941965587,
+            0.32677165354330706
+        ],
+        "mirror": true,
+        "tickangle": 0,
+        "showline": true,
+        "ticktext": [
+            "-2",
+            "-1",
+            "0"
+        ],
+        "zeroline": false,
+        "tickfont": {
+            "color": "rgba(0, 0, 0, 1.000)",
+            "family": "sans-serif",
+            "size": 11
+        },
+        "zerolinecolor": "rgba(0, 0, 0, 1.000)",
+        "anchor": "y1",
+        "visible": true,
+        "ticks": "inside",
+        "tickmode": "array",
+        "linecolor": "rgba(0, 0, 0, 1.000)",
+        "showgrid": true,
+        "title": "",
+        "gridcolor": "rgba(0, 0, 0, 0.100)",
+        "titlefont": {
+            "color": "rgba(0, 0, 0, 1.000)",
+            "family": "sans-serif",
+            "size": 15
+        },
+        "tickcolor": "rgb(0, 0, 0)",
+        "type": "-"
+    },
+    "yaxis3": {
+        "showticklabels": true,
+        "gridwidth": 0.5,
+        "tickvals": [
+            -1.0,
+            0.0,
+            1.0
+        ],
+        "range": [
+            -1.2750374065070638,
+            1.3839172652849607
+        ],
+        "domain": [
+            0.537620297462817,
+            0.9415463692038495
+        ],
+        "mirror": false,
+        "tickangle": 0,
+        "showline": false,
+        "ticktext": [
+            "-1",
+            "0",
+            "1"
+        ],
+        "zeroline": true,
+        "tickfont": {
+            "color": "rgba(0, 0, 0, 1.000)",
+            "family": "sans-serif",
+            "size": 11
+        },
+        "zerolinecolor": "rgba(0, 0, 0, 1.000)",
+        "anchor": "x3",
+        "visible": true,
+        "ticks": "inside",
+        "tickmode": "array",
+        "linecolor": "rgba(0, 0, 0, 1.000)",
+        "showgrid": true,
+        "title": "",
+        "gridcolor": "rgba(0, 0, 0, 0.100)",
+        "titlefont": {
+            "color": "rgba(0, 0, 0, 1.000)",
+            "family": "sans-serif",
+            "size": 15
+        },
+        "tickcolor": "rgba(0, 0, 0, 0.000)",
+        "type": "-"
+    },
+    "height": 400,
+    "yaxis4": {
+        "showticklabels": true,
+        "gridwidth": 0.5,
+        "tickvals": [
+            -1.0,
+            0.0,
+            1.0
+        ],
+        "range": [
+            -1.2750374065070638,
+            1.3839172652849607
+        ],
+        "domain": [
+            0.03762029746281702,
+            0.44154636920384943
+        ],
+        "mirror": false,
+        "tickangle": 0,
+        "showline": false,
+        "ticktext": [
+            "-1",
+            "0",
+            "1"
+        ],
+        "zeroline": true,
+        "tickfont": {
+            "color": "rgba(0, 0, 0, 1.000)",
+            "family": "sans-serif",
+            "size": 11
+        },
+        "zerolinecolor": "rgba(0, 0, 0, 1.000)",
+        "anchor": "x4",
+        "visible": true,
+        "ticks": "inside",
+        "tickmode": "array",
+        "linecolor": "rgba(0, 0, 0, 1.000)",
+        "showgrid": true,
+        "title": "",
+        "gridcolor": "rgba(0, 0, 0, 0.100)",
+        "titlefont": {
+            "color": "rgba(0, 0, 0, 1.000)",
+            "family": "sans-serif",
+            "size": 15
+        },
+        "tickcolor": "rgba(0, 0, 0, 0.000)",
+        "type": "-"
+    },
+    "yaxis2": {
+        "showticklabels": true,
+        "gridwidth": 0.5,
+        "tickvals": [
+            -1.0,
+            0.0,
+            1.0
+        ],
+        "range": [
+            -1.2750374065070638,
+            1.3839172652849607
+        ],
+        "domain": [
+            0.537620297462817,
+            0.9415463692038495
+        ],
+        "mirror": true,
+        "tickangle": 0,
+        "showline": true,
+        "ticktext": [
+            "-1",
+            "0",
+            "1"
+        ],
+        "zeroline": false,
+        "tickfont": {
+            "color": "rgba(0, 0, 0, 1.000)",
+            "family": "sans-serif",
+            "size": 11
+        },
+        "zerolinecolor": "rgba(0, 0, 0, 1.000)",
+        "anchor": "x2",
+        "visible": true,
+        "ticks": "inside",
+        "tickmode": "array",
+        "linecolor": "rgba(0, 0, 0, 1.000)",
+        "showgrid": true,
+        "title": "",
+        "gridcolor": "rgba(0, 0, 0, 0.100)",
+        "titlefont": {
+            "color": "rgba(0, 0, 0, 1.000)",
+            "family": "sans-serif",
+            "size": 15
+        },
+        "tickcolor": "rgb(0, 0, 0)",
+        "type": "-"
+    },
+    "xaxis3": {
+        "showticklabels": true,
+        "gridwidth": 0.5,
+        "tickvals": [
+            -2.0,
+            -1.0,
+            0.0
+        ],
+        "range": [
+            -2.325832745748729,
+            0.7566418856460527
+        ],
+        "domain": [
+            0.7028579760863225,
+            0.9934383202099737
+        ],
+        "mirror": false,
+        "tickangle": 0,
+        "showline": false,
+        "ticktext": [
+            "-2",
+            "-1",
+            "0"
+        ],
+        "zeroline": true,
+        "tickfont": {
+            "color": "rgba(0, 0, 0, 1.000)",
+            "family": "sans-serif",
+            "size": 11
+        },
+        "zerolinecolor": "rgba(0, 0, 0, 1.000)",
+        "anchor": "y3",
+        "visible": true,
+        "ticks": "inside",
+        "tickmode": "array",
+        "linecolor": "rgba(0, 0, 0, 1.000)",
+        "showgrid": true,
+        "title": "",
+        "gridcolor": "rgba(0, 0, 0, 0.100)",
+        "titlefont": {
+            "color": "rgba(0, 0, 0, 1.000)",
+            "family": "sans-serif",
+            "size": 15
+        },
+        "tickcolor": "rgba(0, 0, 0, 0.000)",
+        "type": "-"
+    },
+    "legend_position": {
+        "yanchor": "auto",
+        "xanchor": "auto",
+        "bordercolor": "rgba(0, 0, 0, 1.000)",
+        "bgcolor": "rgba(255, 255, 255, 1.000)",
+        "borderwidth": 1,
+        "tracegroupgap": 0,
+        "y": 1.0,
+        "font": {
+            "color": "rgba(0, 0, 0, 1.000)",
+            "family": "sans-serif",
+            "size": 11
+        },
+        "title": {
+            "font": {
+                "color": "rgba(0, 0, 0, 1.000)",
+                "family": "sans-serif",
+                "size": 15
+            },
+            "text": ""
+        },
+        "traceorder": "normal",
+        "x": 1.0
+    },
+    "yaxis5": {
+        "showticklabels": true,
+        "gridwidth": 0.5,
+        "tickvals": [
+            -1.0,
+            0.0,
+            1.0
+        ],
+        "range": [
+            -1.2750374065070638,
+            1.3839172652849607
+        ],
+        "domain": [
+            0.03762029746281702,
+            0.44154636920384943
+        ],
+        "mirror": false,
+        "tickangle": 0,
+        "showline": false,
+        "ticktext": [
+            "-1",
+            "0",
+            "1"
+        ],
+        "zeroline": false,
+        "tickfont": {
+            "color": "rgba(0, 0, 0, 1.000)",
+            "family": "sans-serif",
+            "size": 11
+        },
+        "zerolinecolor": "rgba(0, 0, 0, 1.000)",
+        "anchor": "x5",
+        "visible": true,
+        "ticks": "inside",
+        "tickmode": "array",
+        "linecolor": "rgba(0, 0, 0, 1.000)",
+        "showgrid": true,
+        "title": "",
+        "gridcolor": "rgba(0, 0, 0, 0.100)",
+        "titlefont": {
+            "color": "rgba(0, 0, 0, 1.000)",
+            "family": "sans-serif",
+            "size": 15
+        },
+        "tickcolor": "rgba(0, 0, 0, 0.000)",
+        "type": "-"
+    },
+    "xaxis4": {
+        "showticklabels": true,
+        "gridwidth": 0.5,
+        "tickvals": [
+            -2.0,
+            -1.0,
+            0.0
+        ],
+        "range": [
+            -2.325832745748729,
+            0.7566418856460527
+        ],
+        "domain": [
+            0.03619130941965587,
+            0.32677165354330706
+        ],
+        "mirror": false,
+        "tickangle": 0,
+        "showline": false,
+        "ticktext": [
+            "-2",
+            "-1",
+            "0"
+        ],
+        "zeroline": true,
+        "tickfont": {
+            "color": "rgba(0, 0, 0, 1.000)",
+            "family": "sans-serif",
+            "size": 11
+        },
+        "zerolinecolor": "rgba(0, 0, 0, 1.000)",
+        "anchor": "y4",
+        "visible": true,
+        "ticks": "inside",
+        "tickmode": "array",
+        "linecolor": "rgba(0, 0, 0, 1.000)",
+        "showgrid": true,
+        "title": "",
+        "gridcolor": "rgba(0, 0, 0, 0.100)",
+        "titlefont": {
+            "color": "rgba(0, 0, 0, 1.000)",
+            "family": "sans-serif",
+            "size": 15
+        },
+        "tickcolor": "rgba(0, 0, 0, 0.000)",
+        "type": "-"
+    },
+    "yaxis1": {
+        "showticklabels": true,
+        "gridwidth": 0.5,
+        "tickvals": [
+            -1.0,
+            0.0,
+            1.0
+        ],
+        "range": [
+            -1.2750374065070638,
+            1.3839172652849607
+        ],
+        "domain": [
+            0.537620297462817,
+            0.9415463692038495
+        ],
+        "mirror": true,
+        "tickangle": 0,
+        "showline": true,
+        "ticktext": [
+            "-1",
+            "0",
+            "1"
+        ],
+        "zeroline": false,
+        "tickfont": {
+            "color": "rgba(0, 0, 0, 1.000)",
+            "family": "sans-serif",
+            "size": 11
+        },
+        "zerolinecolor": "rgba(0, 0, 0, 1.000)",
+        "anchor": "x1",
+        "visible": true,
+        "ticks": "inside",
+        "tickmode": "array",
+        "linecolor": "rgba(0, 0, 0, 1.000)",
+        "showgrid": true,
+        "title": "",
+        "gridcolor": "rgba(0, 0, 0, 0.100)",
+        "titlefont": {
+            "color": "rgba(0, 0, 0, 1.000)",
+            "family": "sans-serif",
+            "size": 15
+        },
+        "tickcolor": "rgb(0, 0, 0)",
+        "type": "-"
+    },
+    "annotations": [
+        {
+            "yanchor": "top",
+            "xanchor": "center",
+            "rotation": -0.0,
+            "y": 1.0,
+            "font": {
+                "color": "rgba(0, 0, 0, 1.000)",
+                "family": "sans-serif",
+                "size": 20
+            },
+            "yref": "paper",
+            "showarrow": false,
+            "text": ":box",
+            "xref": "paper",
+            "x": 0.1814814814814815
+        },
+        {
+            "yanchor": "top",
+            "xanchor": "center",
+            "rotation": -0.0,
+            "y": 1.0,
+            "font": {
+                "color": "rgba(0, 0, 0, 1.000)",
+                "family": "sans-serif",
+                "size": 20
+            },
+            "yref": "paper",
+            "showarrow": false,
+            "text": ":semi",
+            "xref": "paper",
+            "x": 0.5148148148148148
+        },
+        {
+            "yanchor": "top",
+            "xanchor": "center",
+            "rotation": -0.0,
+            "y": 1.0,
+            "font": {
+                "color": "rgba(0, 0, 0, 1.000)",
+                "family": "sans-serif",
+                "size": 20
+            },
+            "yref": "paper",
+            "showarrow": false,
+            "text": ":origin",
+            "xref": "paper",
+            "x": 0.8481481481481482
+        },
+        {
+            "yanchor": "top",
+            "xanchor": "center",
+            "rotation": -0.0,
+            "y": 0.49999999999999994,
+            "font": {
+                "color": "rgba(0, 0, 0, 1.000)",
+                "family": "sans-serif",
+                "size": 20
+            },
+            "yref": "paper",
+            "showarrow": false,
+            "text": ":zerolines",
+            "xref": "paper",
+            "x": 0.1814814814814815
+        },
+        {
+            "yanchor": "top",
+            "xanchor": "center",
+            "rotation": -0.0,
+            "y": 0.49999999999999994,
+            "font": {
+                "color": "rgba(0, 0, 0, 1.000)",
+                "family": "sans-serif",
+                "size": 20
+            },
+            "yref": "paper",
+            "showarrow": false,
+            "text": ":grid",
+            "xref": "paper",
+            "x": 0.5148148148148148
+        },
+        {
+            "yanchor": "top",
+            "xanchor": "center",
+            "rotation": -0.0,
+            "y": 0.49999999999999994,
+            "font": {
+                "color": "rgba(0, 0, 0, 1.000)",
+                "family": "sans-serif",
+                "size": 20
+            },
+            "yref": "paper",
+            "showarrow": false,
+            "text": ":none",
+            "xref": "paper",
+            "x": 0.8481481481481482
+        }
+    ],
+    "yaxis6": {
+        "showticklabels": true,
+        "gridwidth": 0.5,
+        "tickvals": [
+            -1.0,
+            0.0,
+            1.0
+        ],
+        "range": [
+            -1.2750374065070638,
+            1.3839172652849607
+        ],
+        "domain": [
+            0.03762029746281702,
+            0.44154636920384943
+        ],
+        "mirror": false,
+        "tickangle": 0,
+        "showline": false,
+        "ticktext": [
+            "-1",
+            "0",
+            "1"
+        ],
+        "zeroline": false,
+        "tickfont": {
+            "color": "rgba(0, 0, 0, 1.000)",
+            "family": "sans-serif",
+            "size": 11
+        },
+        "zerolinecolor": "rgba(0, 0, 0, 1.000)",
+        "anchor": "x6",
+        "visible": false,
+        "ticks": "inside",
+        "tickmode": "array",
+        "linecolor": "rgba(0, 0, 0, 1.000)",
+        "showgrid": true,
+        "title": "",
+        "gridcolor": "rgba(0, 0, 0, 0.100)",
+        "titlefont": {
+            "color": "rgba(0, 0, 0, 1.000)",
+            "family": "sans-serif",
+            "size": 15
+        },
+        "tickcolor": "rgb(0, 0, 0)",
+        "type": "-"
+    },
+    "plot_bgcolor": "rgba(255, 255, 255, 1.000)",
+    "xaxis2": {
+        "showticklabels": true,
+        "gridwidth": 0.5,
+        "tickvals": [
+            -2.0,
+            -1.0,
+            0.0
+        ],
+        "range": [
+            -2.325832745748729,
+            0.7566418856460527
+        ],
+        "domain": [
+            0.36952464275298924,
+            0.6601049868766404
+        ],
+        "mirror": true,
+        "tickangle": 0,
+        "showline": true,
+        "ticktext": [
+            "-2",
+            "-1",
+            "0"
+        ],
+        "zeroline": false,
+        "tickfont": {
+            "color": "rgba(0, 0, 0, 1.000)",
+            "family": "sans-serif",
+            "size": 11
+        },
+        "zerolinecolor": "rgba(0, 0, 0, 1.000)",
+        "anchor": "y2",
+        "visible": true,
+        "ticks": "inside",
+        "tickmode": "array",
+        "linecolor": "rgba(0, 0, 0, 1.000)",
+        "showgrid": true,
+        "title": "",
+        "gridcolor": "rgba(0, 0, 0, 0.100)",
+        "titlefont": {
+            "color": "rgba(0, 0, 0, 1.000)",
+            "family": "sans-serif",
+            "size": 15
+        },
+        "tickcolor": "rgb(0, 0, 0)",
+        "type": "-"
+    },
+    "xaxis6": {
+        "showticklabels": true,
+        "gridwidth": 0.5,
+        "tickvals": [
+            -2.0,
+            -1.0,
+            0.0
+        ],
+        "range": [
+            -2.325832745748729,
+            0.7566418856460527
+        ],
+        "domain": [
+            0.7028579760863225,
+            0.9934383202099737
+        ],
+        "mirror": false,
+        "tickangle": 0,
+        "showline": false,
+        "ticktext": [
+            "-2",
+            "-1",
+            "0"
+        ],
+        "zeroline": false,
+        "tickfont": {
+            "color": "rgba(0, 0, 0, 1.000)",
+            "family": "sans-serif",
+            "size": 11
+        },
+        "zerolinecolor": "rgba(0, 0, 0, 1.000)",
+        "anchor": "y6",
+        "visible": false,
+        "ticks": "inside",
+        "tickmode": "array",
+        "linecolor": "rgba(0, 0, 0, 1.000)",
+        "showgrid": true,
+        "title": "",
+        "gridcolor": "rgba(0, 0, 0, 0.100)",
+        "titlefont": {
+            "color": "rgba(0, 0, 0, 1.000)",
+            "family": "sans-serif",
+            "size": 15
+        },
+        "tickcolor": "rgb(0, 0, 0)",
+        "type": "-"
+    },
+    "margin": {
+        "l": 0,
+        "b": 20,
+        "r": 0,
+        "t": 20
+    },
+    "xaxis5": {
+        "showticklabels": true,
+        "gridwidth": 0.5,
+        "tickvals": [
+            -2.0,
+            -1.0,
+            0.0
+        ],
+        "range": [
+            -2.325832745748729,
+            0.7566418856460527
+        ],
+        "domain": [
+            0.36952464275298924,
+            0.6601049868766404
+        ],
+        "mirror": false,
+        "tickangle": 0,
+        "showline": false,
+        "ticktext": [
+            "-2",
+            "-1",
+            "0"
+        ],
+        "zeroline": false,
+        "tickfont": {
+            "color": "rgba(0, 0, 0, 1.000)",
+            "family": "sans-serif",
+            "size": 11
+        },
+        "zerolinecolor": "rgba(0, 0, 0, 1.000)",
+        "anchor": "y5",
+        "visible": true,
+        "ticks": "inside",
+        "tickmode": "array",
+        "linecolor": "rgba(0, 0, 0, 1.000)",
+        "showgrid": true,
+        "title": "",
+        "gridcolor": "rgba(0, 0, 0, 0.100)",
+        "titlefont": {
+            "color": "rgba(0, 0, 0, 1.000)",
+            "family": "sans-serif",
+            "size": 15
+        },
+        "tickcolor": "rgba(0, 0, 0, 0.000)",
+        "type": "-"
+    },
+    "width": 600
+}
+);
+
+    
+    </script>
+<hr/><p><em>This page was generated using <a href="https://github.com/johnnychen94/DemoCards.jl">DemoCards.jl</a> and <a href="https://github.com/fredrikekre/Literate.jl">Literate.jl</a>.</em></p></article><nav class="docs-footer"><p class="footer-message">Powered by <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> and the <a href="https://julialang.org/">Julia Programming Language</a>.</p></nav></div><div class="modal" id="documenter-settings"><div class="modal-background"></div><div class="modal-card"><header class="modal-card-head"><p class="modal-card-title">Settings</p><button class="delete"></button></header><section class="modal-card-body"><p><label class="label">Theme</label><div class="select"><select id="documenter-themepicker"><option value="documenter-light">documenter-light</option><option value="documenter-dark">documenter-dark</option></select></div></p><hr/><p>This document was generated with <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> version 0.27.15 on <span class="colophon-date" title="Thursday 17 March 2022 17:10">Thursday 17 March 2022</span>. Using Julia version 1.7.2.</p></section><footer class="modal-card-foot"></footer></div></div></div></body></html>
