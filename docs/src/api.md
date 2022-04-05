@@ -17,16 +17,19 @@ Pages = ["api.md"]
 ### Plot specification
 ```@docs
 plot
-lens!
-scatterpath
-linearfit
-steppost
-steppre
-stepmid
-barbins
-scatterbins
-stepbins
-spy
+bbox
+grid
+default
+theme
+with
+arrow
+Shape
+translate
+rotate
+center
+scalefontsize
+scalefontsizes
+resetfontsizes
 ```
 
 ```@autodocs
@@ -34,16 +37,34 @@ Modules = [Plots]
 Pages   = ["shorthands.jl"]
 ```
 
-```@autodocs
-Modules = [Plots]
-Pages   = ["recipes.jl"]
+### Animations
+```@docs
+animate
+frame
+gif
+mov
+mp4
+webm
+@animate
+@gif
+```
+
+### Retriever
+
+```@docs
+current
+Plots.xlims
+Plots.ylims
+Plots.zlims
+backend_object
 ```
 
 ### Output
 ```@docs
-display
-current
-gui
-Plots.pdf
-Plots.png
+
+```
+
+```@autodocs
+Modules = [Plots]
+Pages   = ["output.jl]
 ```
