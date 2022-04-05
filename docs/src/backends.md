@@ -52,7 +52,7 @@ This document is meant to be a guide and introduction to make that choice.
 
 # At a glance
 
-My favorites: GR for speed, Plotly(JS) for interactivity, and PyPlot otherwise.
+My favorites: `GR` for speed, `Plotly(JS)` for interactivity, `UnicodePlots` for REPL/SSH and `PyPlot` otherwise.
 
 If you require... | then use...
 ----------------- | -----------------
@@ -76,8 +76,10 @@ Of course this list is rather subjective and nothing in life is that simple. Lik
 The default backend. Very fast with lots of plot types. Still actively developed and improving daily.
 
 ```@example backends
-gr(); backendplot() # hide
+gr(); backendplot()  #hide
+png("backends_gr.png")  #hide
 ```
+![](backends_gr.png)
 
 Pros:
 
@@ -131,10 +133,10 @@ From the Julia REPL, it taps into Blink.jl and Electron to plot within a standal
 Also, PlotlyJS supports saving the output to more formats than Plotly, such as EPS and PDF, and thus is the recommended version of Plotly for developing publication-quality figures.
 
 ```@example backends
-plotlyjs(); backendplot(n = 2) # hide
-png("backends_plotly.png") # hide
+plotlyjs(); backendplot(n = 2)  #hide
+png("backends_plotlyjs.png")  #hide
 ```
-![](backends_plotly.png)
+![](backends_plotlyjs.png)
 
 Pros:
 
@@ -178,7 +180,7 @@ plot(1:4, [[1,4,9,16]*10000, [0.5, 2, 4.5, 8]],
                :xaxis => KW(:domain => "auto")
                ),
        )
-Plots.html("plotly_mathjax") # hide
+Plots.html("plotly_mathjax")  #hide
 ```
 ```@raw html
 <object type="text/html" data="plotly_mathjax.html" style="width:100%;height:450px;"></object>
@@ -189,8 +191,10 @@ Plots.html("plotly_mathjax") # hide
 A Julia wrapper around the popular python package `PyPlot` (Matplotlib).  It uses `PyCall.jl` to pass data with minimal overhead.
 
 ```@example backends
-pyplot(); backendplot() # hide
+pyplot(); backendplot()  #hide
+png("backends_pyplot.png")  #hide
 ```
+![](backends_pyplot.png)
 
 Pros:
 
@@ -233,10 +237,10 @@ surface(x, y, fn, c=:viridis, extra_kwargs=Dict(:subplot=>Dict("3d_colorbar_axis
 LaTeX plotting, based on `PGF/TikZ`.
 
 ```@example backends
-pgfplotsx(); backendplot() # hide
-png("pgfx_backends.png") # hide
+pgfplotsx(); backendplot()  #hide
+png("backends_pgfplotsx.png")  #hide
 ```
-![](pgfx_backends.png)
+![](backends_pgfplotsx.png)
 
 Successor backend of PGFPlots backend.
 
@@ -303,12 +307,11 @@ plot(1:5, add = raw"\draw (1,2) rectangle (2,3);", extra_kwargs = :subplot)
 
 ## [UnicodePlots](https://github.com/JuliaPlots/UnicodePlots.jl)
 
-Simple and lightweight.  Plot directly in your terminal.  You won't produce anything publication quality, but for a quick look at your data it is awesome.
+Simple and lightweight. Plot directly in your terminal. You won't produce anything publication quality, but for a quick look at your data it is awesome. Allows plotting over a headless node (SSH).
 
 ```@example backends
-unicodeplots()
-plot([sin cos])
-png("backends_unicodeplots.png") # hide
+unicodeplots(); backendplot()  #hide
+png("backends_unicodeplots.png")  #hide
 ```
 ![](backends_unicodeplots.png)
 
@@ -363,7 +366,7 @@ plot!(p, 2:3, 2:3, c = :red)
 Fast plotting with a responsive GUI (optional).  Target: quickly identify design/simulation issues & glitches in order to shorten design iterations.
 
 ```@example backends
-inspectdr(); backendplot(n = 2) # hide
+inspectdr(); backendplot(n = 2)  #hide
 ```
 
 Pros:
@@ -387,9 +390,8 @@ Primary author: MA Laforge (@ma-laforge)
 `Gaston` is a direct interface to [gnuplot](http://gnuplot.info), a cross platform command line driven plotting utility. The integration of `Gaston` in `Plots` is recent (2021).
 
 ```@example backends
-using Logging; Logging.disable_logging(Logging.Warn) # hide
-gaston(); backendplot() # hide
-png("backends_gaston.png") # hide
+gaston(); backendplot()  #hide
+png("backends_gaston.png")  #hide
 ```
 ![](backends_gaston.png)
 

@@ -11,7 +11,7 @@ on:
 
 jobs:
   Build_docs:
-    runs-on: ubuntu-18.04
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
         with:
@@ -23,46 +23,14 @@ jobs:
           cache-name: cache-artifacts
         with:
           path: ~/.julia/artifacts
-          key: ${{ runner.os }}-test-${{ env.cache-name }}-${{ hashFiles('**/Project.toml') }}
+          key: ${{runner.os}}-test-${{env.cache-name}}-${{hashFiles('**/Project.toml')}}
           restore-keys: |
-            ${{ runner.os }}-test-${{ env.cache-name }}-
-            ${{ runner.os }}-test-
-            ${{ runner.os }}-
-      - name: Install dependencies
-        run: |
-          sudo apt-get update -y
-          sudo apt-get install -y qt5-default \
-            ttf-mscorefonts-installer \
-            poppler-utils \
-            pdf2svg \
-            texlive-latex-base \
-            texlive-binaries \
-            texlive-pictures \
-            texlive-latex-extra \
-            texlive-luatex \
-            ghostscript-x \
-            libgconf2-4 \
-            gnuplot
-      - name: Install fonts
-        run: |
-          mkdir -p ~/.fonts
-          repo="https://github.com/cormullion/juliamono"
-          ver="$(git -c 'versionsort.suffix=-' ls-remote --tags --sort='v:refname' "$repo.git" | tail -n 1 | awk '{ print $2 }' | sed 's,refs/tags/,,')"
-          url="$repo/releases/download/$ver/JuliaMono-ttf.tar.gz"
-          echo "downloading & extract url=$url"
-          wget -q "$url" -O - | tar -xz -C ~/.fonts
-          ls ~/.fonts
-          sudo fc-cache -vr
-          fc-list | grep 'JuliaMono'
+            ${{runner.os}}-test-${{env.cache-name}}-
+            ${{runner.os}}-test-
+            ${{runner.os}}-
       - name: Build documentation
         env:
           PYTHON: ""
-          DOCUMENTER_KEY: ${{ secrets.DOCUMENTER_KEY }}
-        run: |
-          export JULIA_DEBUG='Documenter,PlotDocs,DemoCards'
-          export PLOTDOCS_ANSICOLOR=true
-          export GKSwstype=nul  # Plots.jl/issues/3664
-          export DOCUMENTER_DEBUG=true  # Democards.jl
-          echo "COLORTERM=$COLORTERM"
-          xvfb-run julia --project=docs/ -e 'using Pkg; Pkg.develop(PackageSpec(path=pwd())); Pkg.instantiate()'
-          xvfb-run julia --project=docs/ docs/make.jl
+          DOCUMENTER_KEY: ${{secrets.DOCUMENTER_KEY}}
+          GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
+        run: bash docs/ci_build.sh
