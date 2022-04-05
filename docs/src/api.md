@@ -19,17 +19,16 @@ Pages = ["api.md"]
 plot
 bbox
 grid
+@layout
 default
 theme
 with
-arrow
-Shape
-translate
-rotate
-center
-scalefontsize
-scalefontsizes
-resetfontsizes
+```
+
+```@autodocs
+Modules = [Plots]
+Pages   = ["components.jl"]
+Order   = [:function]
 ```
 
 ```@autodocs
@@ -57,6 +56,7 @@ Plots.xlims
 Plots.ylims
 Plots.zlims
 backend_object
+plotattr
 ```
 
 ### Output
