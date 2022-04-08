@@ -399,7 +399,7 @@ png("backends_gaston.png")  #hide
 
 Write plot + data to a *single* `HDF5` file using a human-readable structure that can easily be reverse-engineered.
 
-![](examples/img/hdf5_samplestruct.png)
+![](assets/hdf5_samplestruct.png)
 
 **Write to .hdf5 file**
 ```julia

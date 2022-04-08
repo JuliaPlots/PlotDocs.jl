@@ -18,13 +18,12 @@ if $key_unset && $tok_unset; then
 fi
 
 echo '== install dependencies =='
-sudo apt-get update -y
-sudo apt-get install -y \
+sudo apt -y update
+sudo apt -y install \
   texlive-{latex-{base,extra},binaries,pictures,luatex} \
   ttf-mscorefonts-installer \
   poppler-utils \
   ghostscript-x \
-  libgconf-2-4 \
   qt5-default \
   pdf2svg \
   gnuplot
