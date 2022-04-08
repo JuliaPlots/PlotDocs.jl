@@ -12,6 +12,8 @@ unicodeplots()
 inspectdr()
 gaston()
 
+@eval DemoCards.get_logopath() = joinpath(pkgdir(PlotDocs), "docs", "src", "assets", "axis_logo.svg")
+
 plotthemes_path = dirname(dirname(pathof(PlotThemes)))
 
 cp(

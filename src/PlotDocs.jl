@@ -5,7 +5,6 @@ using JSON
 import Plots: _examples
 
 export
-    generate_markdown,
     generate_cards,
     generate_supported_markdown,
     generate_attr_markdown,
@@ -51,12 +50,12 @@ function generate_cards(pkgname::Symbol; skip = get(Plots._backend_skips, pkgnam
 
     for (i, example) in enumerate(_examples)
         # write out the header, description, code block, and image link
-        jlname = "$(pkgname)-ref$i.jl"
+        jlname = "$(pkgname)-ref$(i).jl"
         jl = PipeBuffer()
         if !isempty(example.header)
             push!(sec_config["order"], jlname)
             # start a new demo file
-            @debug "generate demo \"$(example.header)\" - writing $jlname"
+            @debug "generate demo \"$(example.header)\" - writing `$jlname`"
 
             # DemoCards YAML frontmatter
             # https://johnnychen94.github.io/DemoCards.jl/stable/quickstart/usage_example/julia_demos/1.julia_demo/#juliademocard_example
@@ -92,14 +91,13 @@ function generate_cards(pkgname::Symbol; skip = get(Plots._backend_skips, pkgnam
         end)
 
         @label write_file
-        if !isempty(example.header)
-            open(joinpath(cardspath, jlname), "w") do io
-                write(io, read(jl, String))
-            end
+        fn, mode = if isempty(example.header)
+            "$(pkgname)-ref$(i-1).jl", "a"
         else
-            open(joinpath(cardspath, "$(pkgname)-ref$(i-1).jl"), "a") do io
-                write(io, read(jl, String))
-            end
+            jlname, "w"
+        end
+        open(joinpath(cardspath, fn), mode) do io
+            write(io, read(jl, String))
         end
         # DEBUG: sometimes the generated file is still empty when passing to `DemoCards.makedemos`
         sleep(0.01)
@@ -130,71 +128,6 @@ function generate_cards(pkgname::Symbol; skip = get(Plots._backend_skips, pkgnam
         write(config, json(sec_config))
     end
 end
-
-function generate_markdown(pkgname::Symbol; skip = get(Plots._backend_skips, pkgname, Int[]), gendir = GENDIR)
-    pkg = Plots._backend_instance(pkgname)
-    md = open(joinpath(gendir, "$(pkgname).md"), "w")  # open the markdown file
-    write(md, """
-    ```@meta
-    EditURL = "$PLOT_DOCS_URL"
-    ```
-
-    ### [Initialize](@id $pkgname-examples)
-
-    ```@example $pkgname
-    using Plots
-    Plots.reset_defaults()  #hide
-    $(pkgname)()
-    ```
-    """)
-
-    for (i,example) in enumerate(_examples)
-        i in skip && continue
-        # generate animations only for GR
-        i in (2, 31) && pkgname != :gr && continue
-        # write out the header, description, code block, and image link
-        if !isempty(example.header)
-            write(md, "### [$(example.header)](@id $pkgname-ref$i)\n")
-        end
-        write(md, """
-        $(example.desc)
-        ```@example $pkgname
-        Plots.reset_defaults()  #hide
-        """)
-        if pkgname ∈ (:unicodeplots, :inspectdr, :gaston)
-            write(md, "using Logging; Logging.disable_logging(Logging.Warn)  #hide\n")
-        end
-        for expr in example.exprs
-            pretty_print_expr(md, expr)
-        end
-        if pkgname == :unicodeplots
-            write(md, "current() |> display  #hide\n")
-        end
-        if i in (2, 31)
-            write(md, "gif(anim, \"anim_$(pkgname)_ex$(i).gif\")  #hide\n")
-        end
-        if pkgname ∈ (:plotly, :plotlyjs, :inspectdr, :gaston)
-            write(md, "png(\"$(pkgname)_ex$(i).png\")  #hide\n")
-        end
-        write(md, "```\n")
-        if pkgname ∈ (:plotly, :plotlyjs, :inspectdr, :gaston)
-            write(md, "![]($(pkgname)_ex$(i).png)\n")
-        end
-    end
-
-    write(md, """
-    - Supported arguments: $(markdown_code_to_string(collect(Plots.supported_attrs(pkg))))
-    - Supported values for linetype: $(markdown_symbols_to_string(Plots.supported_seriestypes(pkg)))
-    - Supported values for linestyle: $(markdown_symbols_to_string(Plots.supported_styles(pkg)))
-    - Supported values for marker: $(markdown_symbols_to_string(Plots.supported_markers(pkg)))
-
-    (Automatically generated: $(now()))
-    """)
-    close(md)
-end
-
-# ----------------------------------------------------------------------
-
 
 # tables detailing the features that each backend supports
 
