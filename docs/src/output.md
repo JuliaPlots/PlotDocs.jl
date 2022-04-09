@@ -58,14 +58,14 @@ When not using `savefig`, the default output format depends on the environment (
 Note:   not all backends support every output file format !
 A simple table showing which format is supported by which backend
 
-| format | backends |
-|--------|----------|
-| eps  | inspectdr, plotlyjs, pyplot |
-| html | plotly,  plotlyjs |
-| json | plotly, plotlyjs |
-| pdf  | gr, inspectdr, pgfplotsx, plotlyjs, pyplot, gaston |
-| png  | gr, inspectdr, pgfplotsx, plotlyjs, pyplot, gaston |
-| ps   | gr, pyplot |
-| svg  | gr, inspectdr, pgfplotsx, plotlyjs, pyplot, gaston |
-| tex  | pgfplotsx |
-| text | hdf5, unicodeplots |
+| format | backends                                           |
+| :----- | :------------------------------------------------- |
+| eps    | inspectdr, plotlyjs, pyplot                        |
+| html   | plotly,  plotlyjs                                  |
+| json   | plotly, plotlyjs                                   |
+| pdf    | gr, inspectdr, pgfplotsx, plotlyjs, pyplot, gaston |
+| png    | gr, inspectdr, pgfplotsx, plotlyjs, pyplot, gaston |
+| ps     | gr, pyplot                                         |
+| svg    | gr, inspectdr, pgfplotsx, plotlyjs, pyplot, gaston |
+| tex    | pgfplotsx                                          |
+| text   | hdf5, unicodeplots                                 |

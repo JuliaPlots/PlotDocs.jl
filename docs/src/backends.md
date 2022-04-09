@@ -54,18 +54,18 @@ This document is meant to be a guide and introduction to make that choice.
 
 My favorites: `GR` for speed, `Plotly(JS)` for interactivity, `UnicodePlots` for REPL/SSH and `PyPlot` otherwise.
 
-If you require... | then use...
------------------ | -----------------
-features          | PyPlot, Plotly(JS), GR
-speed             | GR, UnicodePlots, InspectDR, Gaston
-interactivity     | Plotly(JS), PyPlot, InspectDR
-beauty            | Plotly(JS), PGFPlots/ PGFPlotsX
-REPL plotting     | UnicodePlots
-3D plots          | PyPlot, GR, Plotly(JS), Gaston
-a GUI window      | GR, PyPlot, PlotlyJS, InspectDR
-a small footprint | UnicodePlots, Plotly
-backend stability | Gaston
-plot+data -> `.hdf5` file | HDF5
+| If you require...         | then use...                         |
+| :------------------------ | :---------------------------------- |
+| features                  | PyPlot, Plotly(JS), GR              |
+| speed                     | GR, UnicodePlots, InspectDR, Gaston |
+| interactivity             | Plotly(JS), PyPlot, InspectDR       |
+| beauty                    | Plotly(JS), PGFPlots/ PGFPlotsX     |
+| REPL plotting             | UnicodePlots                        |
+| 3D plots                  | PyPlot, GR, Plotly(JS), Gaston      |
+| a GUI window              | GR, PyPlot, PlotlyJS, InspectDR     |
+| a small footprint         | UnicodePlots, Plotly                |
+| backend stability         | Gaston                              |
+| plot+data -> `.hdf5` file | HDF5                                |
 
 Of course this list is rather subjective and nothing in life is that simple. Likely there are subtle tradeoffs between backends, long hidden bugs, and more excitement. Don't be shy to try out something new !
 
@@ -109,15 +109,15 @@ surface(
 #### Supported `:subplot` `:extra_kwargs`
 
 | Keyword        | Description                         |
-| -------        | -----------                         |
+| :------------- | :---------------------------------- |
 | legend_hfactor | Vertical spacing factor for legends |
 
 #### Supported `:series` `:extra_kwargs`
 
-| Series Type              | Keyword        | Description                                       |
-| -----------              | -------        | -----------                                       |
-| `:surface`               | nx             | Number of interpolation points in the x direction |
-| `:surface`               | ny             | Number of interpolation points in the y direction |
+| Series Type              | Keyword        | Description                                                                                      |
+| :----------------------- | :------------- | :----------------------------------------------------------------------------------------------- |
+| `:surface`               | nx             | Number of interpolation points in the x direction                                                |
+| `:surface`               | ny             | Number of interpolation points in the y direction                                                |
 | `:surface`, `:wireframe` | display_option | see [GR doc](https://gr-framework.org/julia-gr.html#GR.surface-e3e6f234cc6cd4713b8727c874a5f331) |
 
 
@@ -227,9 +227,9 @@ surface(x, y, fn, c=:viridis, extra_kwargs=Dict(:subplot=>Dict("3d_colorbar_axis
 
 #### Supported `:subplot` `:extra_kwargs`
 
-| Keyword          | Description                                                                         |
-| -------          | -----------                                                                         |
-| 3d_colorbar_axis | Specifying the colorbar location `[ left, bottom, width, height ]` for a 3D plot    |
+| Keyword          | Description                                                                      |
+| :--------------- | :------------------------------------------------------------------------------- |
+| 3d_colorbar_axis | Specifying the colorbar location `[ left, bottom, width, height ]` for a 3D plot |
 
 
 ## [PGFPlotsX](https://github.com/KristofferC/PGFPlotsX.jl)
@@ -341,25 +341,25 @@ plot!(p, 2:3, 2:3, c = :red)
 
 #### Supported `:subplot` `:extra_kwargs`
 
-| Keyword        | Description                                                                     |
-| -------        | -----------                                                                     |
-| width          | Plot width                                                                      |
-| height         | Plot height                                                                     |
-| projection     | 3D projection (`:orthographic`, `perspective`)                                  |
-| zoom           | 3D zoom level                                                                   |
-| up             | 3D up vector (azimuth and elevation are controlled using `Plots.jl`'s `camera`) |
-| canvas         | Canvas type (see [Low-level Interface](https://github.com/JuliaPlots/UnicodePlots.jl#low-level-interface)) | 
-| border         | Border type (`:solid`, `:bold`, `:dashed`, `:dotted`, `:ascii`, `:none`)        |
-| blend          | Toggle canvas color blending (`true` / `false`)                                 |
+| Keyword    | Description                                                                                                |
+| :--------- | :--------------------------------------------------------------------------------------------------------- |
+| width      | Plot width                                                                                                 |
+| height     | Plot height                                                                                                |
+| projection | 3D projection (`:orthographic`, `perspective`)                                                             |
+| zoom       | 3D zoom level                                                                                              |
+| up         | 3D up vector (azimuth and elevation are controlled using `Plots.jl`'s `camera`)                            |
+| canvas     | Canvas type (see [Low-level Interface](https://github.com/JuliaPlots/UnicodePlots.jl#low-level-interface)) |
+| border     | Border type (`:solid`, `:bold`, `:dashed`, `:dotted`, `:ascii`, `:none`)                                   |
+| blend      | Toggle canvas color blending (`true` / `false`)                                                            |
 
 #### Supported `:series` `:extra_kwargs`
 
-| Series Type       | Keyword        | Description                                              |
-| -----------       | -------        | -----------                                              |
-| `all`             | colormap       | Colormap (see [Options](https://github.com/JuliaPlots/UnicodePlots.jl#options)) |
-| `heatmap`, `spy`  | fix_ar         | Toggle fixing terminal aspect ratio (`true` / `false`)   |
-| `surfaceplot`     | zscale         | `z` axis scaling                                         |
-| `surfaceplot`     | lines          | Use `lineplot` instead of `scatterplot` (monotonic data) |
+| Series Type      | Keyword  | Description                                                                     |
+| :--------------- | :------- | :------------------------------------------------------------------------------ |
+| `all`            | colormap | Colormap (see [Options](https://github.com/JuliaPlots/UnicodePlots.jl#options)) |
+| `heatmap`, `spy` | fix_ar   | Toggle fixing terminal aspect ratio (`true` / `false`)                          |
+| `surfaceplot`    | zscale   | `z` axis scaling                                                                |
+| `surfaceplot`    | lines    | Use `lineplot` instead of `scatterplot` (monotonic data)                        |
 
 ## [InspectDR](https://github.com/ma-laforge/InspectDR.jl)
 
