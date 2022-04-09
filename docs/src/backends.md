@@ -318,13 +318,13 @@ png("backends_unicodeplots.png")  #hide
 Pros:
 
 - Minimal dependencies
+- REPL plotting
 - Lightweight
 - Fast
-- REPL plotting
 
 Cons:
 
-- Limited functionality
+- Limited precision, density
 
 Primary author: Christof Stocker (@Evizero)
 
