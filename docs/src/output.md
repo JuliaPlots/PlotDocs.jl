@@ -63,8 +63,8 @@ A simple table showing which format is supported by which backend
 | eps    | inspectdr, plotlyjs, pyplot                        |
 | html   | plotly,  plotlyjs                                  |
 | json   | plotly, plotlyjs                                   |
-| pdf    | gr, inspectdr, pgfplotsx, plotlyjs, pyplot, gaston |
-| png    | gr, inspectdr, pgfplotsx, plotlyjs, pyplot, gaston |
+| pdf    | gr, plotlyjs, pyplot, pgfplotsx, inspectdr, gaston |
+| png    | gr, plotlyjs, pyplot, pgfplotsx, inspectdr, gaston, unicodeplots |
 | ps     | gr, pyplot                                         |
 | svg    | gr, inspectdr, pgfplotsx, plotlyjs, pyplot, gaston |
 | tex    | pgfplotsx                                          |
