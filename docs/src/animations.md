@@ -12,7 +12,7 @@ Animations are created in 3 steps:
 - Convert the frames to an animated gif with `gif(anim, filename, fps=15)`
 
 !!! tip
-    The convenience macros `@gif` and `@animate` simplify this code immensely.  See the [home page](@ref simple-is-beautiful) for examples of the short version, or the [gr example](@ref gr-ref2) for the long version.
+    The convenience macros `@gif` and `@animate` simplify this code immensely.  See the [home page](@ref simple-is-beautiful) for examples of the short version, or the [gr example](@ref gr_demo_2) for the long version.
 
 ---
 
