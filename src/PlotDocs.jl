@@ -74,7 +74,7 @@ function generate_cards(pkgname::Symbol; skip = get(Plots._backend_skips, pkgnam
 
             i in skip && @goto write_file
             # generate animations only for GR
-            i in (2, 31) && pkgname != :gr && @goto write_file
+            # i in (2, 31) && pkgname != :gr && @goto write_file
             write(jl, "Plots.reset_defaults()  #hide\n")
         end
         # DemoCards use Literate.jl syntax with extra leading `#` as markdown lines
