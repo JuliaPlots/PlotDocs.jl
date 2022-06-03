@@ -33,16 +33,16 @@ Plots support 2 different versions per save-command.
 Command `savefig` chooses file type automatically based on the file extension.
 
 ```julia
-savefig(fn) # save the most recent fig as fn
-savefig(plot_ref, fn) # save the fig referenced by plot_ref as fn
+savefig(filename_string) # save the most recent fig as filename_string (such as "output.png")
+savefig(plot_ref, filename_string) # save the fig referenced by plot_ref as filename_string (such as "output.png")
 ```
 
-In addition, Plots offers shorthands like `png(fn)`, etc.
+In addition, Plots offers shorthands like `png(filename_string)`, etc.
 In this case the string fn containing the filename does not need a file extension.
 
 ```julia
-png(fn) # save the current fig as png with filename fn
-png(plot_ref, fn) # save the fig referenced by plot_ref as png with filename fn
+png(filename_string) # save the current fig as png with filename filename_string (such as "output.png")
+png(plot_ref, filename_string) # save the fig referenced by plot_ref as png with filename filename_string (such as "output.png")
 ```
 
 #### File formats supported by most graphical backends
