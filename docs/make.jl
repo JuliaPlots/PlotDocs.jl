@@ -105,6 +105,7 @@ ansicolor = get(ENV, "PLOTDOCS_ANSICOLOR", "true") == "true"
     sitename = "Plots",
     authors = "Thomas Breloff",
     pages = PAGES,
+    strict = [:doctest, :example_block]
 )
 
 foreach(galleries_cb) do cb

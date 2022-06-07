@@ -163,7 +163,7 @@ function make_batman()
             map(BezierCurve(P2[p[i], m[i], p[i + 1]]), range(0, 1, length = 30))
         )
     end
-    x, y = Plots.unzip(pts)
+    x, y = Plots.unzip(Tuple.(pts))
     Shape(vcat(x, -reverse(x)), vcat(y, reverse(y)))
 end
 
@@ -205,7 +205,7 @@ function windowrange(dim, denom)
 end
 
 for k in 1:50
-    w, h, x, y = 0.1rand() + 0.05, 0.8rand() + 0.3, rand(), 0.0
+    local w, h, x, y = 0.1rand() + 0.05, 0.8rand() + 0.3, rand(), 0.0
     shape = rect(w, h, x, y)
     graypct = 0.3rand() + 0.3
     plot!(shape, c = gray(graypct))
@@ -213,7 +213,7 @@ for k in 1:50
     # windows
     I = windowrange(w, 0.015)
     J = windowrange(h, 0.04)
-    pts = vec([(Float64(x + w * i), Float64(y + h * j)) for i in I, j in J])
+    local pts = vec([(Float64(x + w * i), Float64(y + h * j)) for i in I, j in J])
     windowcolors = Symbol[rand() < 0.2 ? :yellow : :black for i in 1:length(pts)]
     scatter!(pts, marker = (stroke(0), :rect, windowcolors))
 end
