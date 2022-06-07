@@ -68,5 +68,5 @@ plot(1:10, Any[rand(10), sin])               # 2 series: rand(10) and map(sin,x)
     Call `gui()` to display the plot in a window. Interactivity depends on backend. Plotting at the REPL (without semicolon) implicitly calls `gui()`.
 
 !!! tip
-    See the [examples](@ref gr-examples) for plotting ideas and features.
+    See the [examples](@ref GR) for plotting ideas and features.
 ---

@@ -101,18 +101,14 @@ is that this means you can use many different plotting libraries all with the
 Plots.jl syntax, and we'll see in a little bit that Plots.jl adds new features
 to each of these libraries!
 
-When we started plotting above, our plot used the default backend. The default
-backend depends on what plotting packages you've installed in Julia. If have not
-previously installed any backend packages, this will plot to the browser using
-Plotly, or into the REPL using UnicodePlots.jl. However, let's say we want a
-standard plotting backend which will plot into a nice GUI or into the plot pane
-of Juno. To do this, we'll need a backend which is compatible with these
-features. Some common backends for this are PyPlot and GR. To install these
+When we started plotting above, our plot used the default backend GR. However, let's say we want a
+different plotting backend which will plot into a nice GUI or into the plot pane
+of VS Code. To do this, we'll need a backend which is compatible with these
+features. Some common backends for this are PyPlot and Plotly. To install these
 backends, simply use the standard Julia installation
 (`Pkg.add("BackendPackage")`). We can specifically choose the backend we are
 plotting into by using the name of the backend in all lower case as a function.
-Let's plot the example from above using Plotly and then GR (this assumes you've
-done `Pkg.add("GR")`!):
+Let's plot the example from above using Plotly and then GR:
 
 ```@example tutorial
 x = 1:10; y = rand(10, 2) # 2 columns means two lines
@@ -129,8 +125,8 @@ gr() # Set the backend to GR
 plot(x, y, title = "This is Plotted using GR")
 ```
 
-If you're in Juno, the second plot command will cause the plot to open in the
-plot pane. If you're in the REPL, GR will open a GUI window. You can always
+If you're in VS Code or Juno, the first plot command will cause the plot to open in the
+plot pane. If you're in the REPL, the plot command will open in a browser window. You can always
 open a GUI anyways by using the `gui()` command.
 
 Each plotting backend has a very different feel. Some have interactivity, some
@@ -142,7 +138,7 @@ savefig("myplot.png") # Saves the CURRENT_PLOT as a .png
 savefig(p, "myplot.pdf") # Saves the plot from p as a .pdf vector graphic
 ```
 
-Some like GR can save to vector graphics and PDFs, while others like Plotly only save to `.png`s. For more information on backends, see the
+Some backends like GR can save to vector graphics and PDFs, while others like Plotly only save to `.png`s. For more information on backends, see the
 [backends page](@ref backends). For examples of plots from the various backends, see
 the Examples section.
 

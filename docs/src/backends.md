@@ -46,38 +46,40 @@ end
 Backends are the lifeblood of Plots, and the diversity between features, approaches, and strengths/weaknesses was
 one of the primary reasons that I started this package.
 
-For those who haven't had the pleasure of hacking on 15 different plotting APIs:  First, consider yourself lucky.  However,
-you will probably have a hard time choosing the right backend for your task at hand.  This document is meant to be a guide and
-introduction to making that choice.
+For those who haven't had the pleasure of hacking on 15 different plotting APIs: first, consider yourself lucky.
+However, you will probably have a hard time choosing the right backend for your task at hand.
+This document is meant to be a guide and introduction to make that choice.
 
 # At a glance
 
-My favorites: GR for speed, Plotly(JS) for interactivity, PyPlot otherwise.
+My favorites: `GR` for speed, `Plotly(JS)` for interactivity, `UnicodePlots` for REPL/SSH and `PyPlot` otherwise.
 
-If you require... | ... then use...
------------------ | -----------------
-features          | PyPlot, Plotly(JS), GR
-speed             | GR, InspectDR, Gaston
-interactivity     | Plotly(JS), PyPlot, InspectDR
-beauty            | Plotly(JS), PGFPlots/ PGFPlotsX
-REPL Plotting     | UnicodePlots
-3D plots          | PyPlot, GR, Plotly(JS), Gaston
-a GUI Window      | GR, PyPlot, PlotlyJS, InspectDR
-a small footprint | UnicodePlots, Plotly
-backend stability | Gaston
-plot+data -> `.hdf5` file | HDF5
+| If you require...         | then use...                         |
+| :------------------------ | :---------------------------------- |
+| features                  | PyPlot, Plotly(JS), GR              |
+| speed                     | GR, UnicodePlots, InspectDR, Gaston |
+| interactivity             | Plotly(JS), PyPlot, InspectDR       |
+| beauty                    | Plotly(JS), PGFPlots/ PGFPlotsX     |
+| REPL plotting             | UnicodePlots                        |
+| 3D plots                  | PyPlot, GR, Plotly(JS), Gaston      |
+| a GUI window              | GR, PyPlot, PlotlyJS, InspectDR     |
+| a small footprint         | UnicodePlots, Plotly                |
+| backend stability         | Gaston                              |
+| plot+data -> `.hdf5` file | HDF5                                |
 
-Of course nothing in life is that simple.  Likely there are subtle tradeoffs between backends, long hidden bugs, and more excitement.  Don't be shy to try out something new!
+Of course this list is rather subjective and nothing in life is that simple. Likely there are subtle tradeoffs between backends, long hidden bugs, and more excitement. Don't be shy to try out something new !
 
 ---
 
 ## [GR](https://github.com/jheinen/GR.jl)
 
-Super fast with lots of plot types. Still actively developed and improving daily.
+The default backend. Very fast with lots of plot types. Still actively developed and improving daily.
 
 ```@example backends
-gr(); backendplot() # hide
+gr(); backendplot()  #hide
+png("backends_gr.png")  #hide
 ```
+![](backends_gr.png)
 
 Pros:
 
@@ -92,7 +94,7 @@ Cons:
 Primary author: Josef Heinen (@jheinen)
 
 ### Fine tuning
-It is possible to use more features of GR via the [`extra_kwargs`](@ref extra_kwargs) mechanism.
+It is possible to use more features of `GR` via the [`extra_kwargs`](@ref extra_kwargs) mechanism.
 
 ```@example backends
 using Plots; gr()
@@ -107,31 +109,34 @@ surface(
 #### Supported `:subplot` `:extra_kwargs`
 
 | Keyword        | Description                         |
-| -------        | -----------                         |
+| :------------- | :---------------------------------- |
 | legend_hfactor | Vertical spacing factor for legends |
 
 #### Supported `:series` `:extra_kwargs`
 
-| Series Type              | Keyword        | Description                                       |
-| -----------              | -------        | -----------                                       |
-| `:surface`               | nx             | Number of interpolation points in the x direction |
-| `:surface`               | ny             | Number of interpolation points in the y direction |
+| Series Type              | Keyword        | Description                                                                                      |
+| :----------------------- | :------------- | :----------------------------------------------------------------------------------------------- |
+| `:surface`               | nx             | Number of interpolation points in the x direction                                                |
+| `:surface`               | ny             | Number of interpolation points in the y direction                                                |
 | `:surface`, `:wireframe` | display_option | see [GR doc](https://gr-framework.org/julia-gr.html#GR.surface-e3e6f234cc6cd4713b8727c874a5f331) |
 
 
 ## [Plotly / PlotlyJS](https://github.com/spencerlyon2/PlotlyJS.jl)
 
-These are treated as separate backends, though they share much of the code and use the Plotly javascript API.  `plotly()` is the only dependency-free plotting option,
-as the required javascript is bundled with Plots.  It can create inline plots in IJulia, or open standalone browser windows when run from the Julia REPL.
+These are treated as separate backends, though they share much of the code and use the Plotly JavaScript API.
+`plotly()` is the only dependency-free plotting option, as the required JavaScript is bundled with Plots.
+It can create inline plots in IJulia, or open standalone browser windows when run from the Julia REPL.
 
-`plotlyjs()` is the preferred option, and taps into the great functionality of Spencer Lyon's PlotlyJS.jl.  Inline IJulia plots can be updated from any cell... something that
-makes this backend stand out.  From the Julia REPL, it taps into Blink.jl and Electron to plot within a standalone GUI window... also very cool. Also, PlotlyJS supports saving the output to more formats than Plotly, such as EPS and PDF, and thus is the recommended version of Plotly for developing publication-quality figures.
+`plotlyjs()` is the preferred option, and taps into the great functionality of Spencer Lyon's PlotlyJS.jl.
+Inline IJulia plots can be updated from any cell... something that makes this backend stand out.
+From the Julia REPL, it taps into Blink.jl and Electron to plot within a standalone GUI window... also very cool.
+Also, PlotlyJS supports saving the output to more formats than Plotly, such as EPS and PDF, and thus is the recommended version of Plotly for developing publication-quality figures.
 
 ```@example backends
-plotlyjs(); backendplot(n = 2) # hide
-png("backends_plotly") # hide
+plotlyjs(); backendplot(n = 2)  #hide
+png("backends_plotlyjs.png")  #hide
 ```
-![](backends_plotly.png)
+![](backends_plotlyjs.png)
 
 Pros:
 
@@ -148,9 +153,9 @@ Cons:
 
 Primary PlotlyJS.jl author: Spencer Lyon (@spencerlyon2)
 
-### Mathjax
+### MathJax
 
-Plotly needs to load mathjax to render LaTeX strings, therefore passing extra keywords with `extra_kwargs = :plot` is implemented.
+Plotly needs to load MathJax to render LaTeX strings, therefore passing extra keywords with `extra_kwargs = :plot` is implemented.
 With that it is possible to pass a header to the extra `include_mathjax` keyword.
 It has the following options:
 
@@ -170,12 +175,12 @@ plot(1:4, [[1,4,9,16]*10000, [0.5, 2, 4.5, 8]],
            ylabel = L"d, r \text{ (solar radius)}",
            yformatter = :plain,
            extra_plot_kwargs = KW(
-               :include_mathjax => "cdn", 
+               :include_mathjax => "cdn",
                :yaxis => KW(:automargin => true),
                :xaxis => KW(:domain => "auto")
                ),
        )
-Plots.html("plotly_mathjax") # hide
+Plots.html("plotly_mathjax")  #hide
 ```
 ```@raw html
 <object type="text/html" data="plotly_mathjax.html" style="width:100%;height:450px;"></object>
@@ -183,11 +188,13 @@ Plots.html("plotly_mathjax") # hide
 
 ## [PyPlot](https://github.com/stevengj/PyPlot.jl)
 
-A Julia wrapper around the popular python package PyPlot (Matplotlib).  It uses PyCall.jl to pass data with minimal overhead.
+A Julia wrapper around the popular python package `PyPlot` (Matplotlib).  It uses `PyCall.jl` to pass data with minimal overhead.
 
 ```@example backends
-pyplot(); backendplot() # hide
+pyplot(); backendplot()  #hide
+png("backends_pyplot.png")  #hide
 ```
+![](backends_pyplot.png)
 
 Pros:
 
@@ -199,13 +206,13 @@ Pros:
 
 Cons:
 
-- Uses python
+- Uses Python
 - Dependencies frequently cause setup issues
 
 Primary author: Steven G Johnson (@stevengj)
 
 ### Fine tuning
-It is possible to use more features of PyPlot/matplotlib via the [`extra_kwargs`](@ref extra_kwargs) mechanism.
+It is possible to use more features of `PyPlot/matplotlib` via the [`extra_kwargs`](@ref extra_kwargs) mechanism.
 For example, for a 3D plot, the following example should generate a colorbar at a proper location; without the `extra_kwargs` below, the colorbar is displayed too far right to see its ticks and numbers. The four coordinates in the example below, i.e., `[0.9, 0.05, 0.05, 0.9]` specify the colorbar location `[ left, bottom, width, height ]`. Note that for 2D plots, this fine tuning is not necessary.
 
 ```@example backends
@@ -220,24 +227,22 @@ surface(x, y, fn, c=:viridis, extra_kwargs=Dict(:subplot=>Dict("3d_colorbar_axis
 
 #### Supported `:subplot` `:extra_kwargs`
 
-| Keyword          | Description                                                                         |
-| -------          | -----------                                                                         |
-| 3d_colorbar_axis | Specifying the colorbar location `[ left, bottom, width, height ]` for a 3D plot    |
-
-
+| Keyword          | Description                                                                      |
+| :--------------- | :------------------------------------------------------------------------------- |
+| 3d_colorbar_axis | Specifying the colorbar location `[ left, bottom, width, height ]` for a 3D plot |
 
 
 ## [PGFPlotsX](https://github.com/KristofferC/PGFPlotsX.jl)
 
-LaTeX plotting, based on PGF/TikZ.
+LaTeX plotting, based on `PGF/TikZ`.
 
 ```@example backends
-pgfplotsx(); backendplot() # hide
-png("pgfx_backends") # hide
+pgfplotsx(); backendplot()  #hide
+png("backends_pgfplotsx.png")  #hide
 ```
-![](pgfx_backends.png)
+![](backends_pgfplotsx.png)
 
-Successor backend of PGFPlots-backend.
+Successor backend of PGFPlots backend.
 
 Has more features and is still in development otherwise the same.
 
@@ -277,7 +282,7 @@ The preamble of a plot can be shown using `Plots.pgfx_preamble(pl)` or copied fr
 
 #### Fine tuning
 
-It is possible to use more features of PGFPlotsX via the [`extra_kwargs`](@ref extra_kwargs) mechanism.
+It is possible to use more features of `PGFPlotsX` via the [`extra_kwargs`](@ref extra_kwargs) mechanism.
 By default it interprets every extra keyword as an option to the `plot` command.
 Setting `extra_kwargs = :subplot` will treat them as an option to the `axis` command and `extra_kwargs = :plot` will be treated as an option to the `tikzpicture` environment.
 
@@ -302,33 +307,66 @@ plot(1:5, add = raw"\draw (1,2) rectangle (2,3);", extra_kwargs = :subplot)
 
 ## [UnicodePlots](https://github.com/JuliaPlots/UnicodePlots.jl)
 
-Simple and lightweight.  Plot directly in your terminal.  You won't produce anything publication quality, but for a quick look at your data it is awesome.
+Simple and lightweight. Plot directly in your terminal. You won't produce anything publication quality, but for a quick look at your data it is awesome. Allows plotting over a headless node (SSH).
 
 ```@example backends
-unicodeplots()
-plot([sin cos])
-show(current())  # hide
+unicodeplots(); backendplot()  #hide
+png("backends_unicodeplots.png")  #hide
 ```
+![](backends_unicodeplots.png)
 
 Pros:
 
 - Minimal dependencies
+- REPL plotting
 - Lightweight
 - Fast
-- REPL plotting
 
 Cons:
 
-- Limited functionality
+- Limited precision, density
 
 Primary author: Christof Stocker (@Evizero)
 
-## [InspectDR](https://github.com/ma-laforge/InspectDR.jl)
-
-Fast plotting with a responsive GUI (optional).  Target: Quickly identify design/simulation issues & glitches in order to shorten design iterations.
+### Fine tuning
+It is possible to use more features of `UnicodePlots` via the [`extra_kwargs`](@ref extra_kwargs) mechanism.
 
 ```@example backends
-inspectdr(); backendplot(n = 2) # hide
+using Plots; unicodeplots()
+
+extra_kwargs = Dict(:subplot=>(; border = :bold, blend = false))
+p = plot(1:4, 1:4, c = :yellow, extra_kwargs = extra_kwargs)
+plot!(p, 2:3, 2:3, c = :red)
+```
+
+#### Supported `:subplot` `:extra_kwargs`
+
+| Keyword    | Description                                                                                                |
+| :--------- | :--------------------------------------------------------------------------------------------------------- |
+| width      | Plot width                                                                                                 |
+| height     | Plot height                                                                                                |
+| projection | 3D projection (`:orthographic`, `perspective`)                                                             |
+| zoom       | 3D zoom level                                                                                              |
+| up         | 3D up vector (azimuth and elevation are controlled using `Plots.jl`'s `camera`)                            |
+| canvas     | Canvas type (see [Low-level Interface](https://github.com/JuliaPlots/UnicodePlots.jl#low-level-interface)) |
+| border     | Border type (`:solid`, `:bold`, `:dashed`, `:dotted`, `:ascii`, `:none`)                                   |
+| blend      | Toggle canvas color blending (`true` / `false`)                                                            |
+
+#### Supported `:series` `:extra_kwargs`
+
+| Series Type      | Keyword  | Description                                                                     |
+| :--------------- | :------- | :------------------------------------------------------------------------------ |
+| `all`            | colormap | Colormap (see [Options](https://github.com/JuliaPlots/UnicodePlots.jl#options)) |
+| `heatmap`, `spy` | fix_ar   | Toggle fixing terminal aspect ratio (`true` / `false`)                          |
+| `surfaceplot`    | zscale   | `z` axis scaling                                                                |
+| `surfaceplot`    | lines    | Use `lineplot` instead of `scatterplot` (monotonic data)                        |
+
+## [InspectDR](https://github.com/ma-laforge/InspectDR.jl)
+
+Fast plotting with a responsive GUI (optional).  Target: quickly identify design/simulation issues & glitches in order to shorten design iterations.
+
+```@example backends
+inspectdr(); backendplot(n = 2)  #hide
 ```
 
 Pros:
@@ -349,12 +387,11 @@ Primary author: MA Laforge (@ma-laforge)
 
 ## [Gaston](https://github.com/mbaz/Gaston.jl)
 
-Gaston is a direct interface to [gnuplot](http://gnuplot.info), a cross platform command line driven plotting utility. The integration of Gaston in Plots is recent (2021), but improving daily.
+`Gaston` is a direct interface to [gnuplot](http://gnuplot.info), a cross platform command line driven plotting utility. The integration of `Gaston` in `Plots` is recent (2021).
 
 ```@example backends
-using Logging; Logging.disable_logging(Logging.Warn) # hide
-gaston(); backendplot() # hide
-png("backends_gaston") # hide
+gaston(); backendplot()  #hide
+png("backends_gaston.png")  #hide
 ```
 ![](backends_gaston.png)
 
@@ -362,18 +399,18 @@ png("backends_gaston") # hide
 
 Write plot + data to a *single* `HDF5` file using a human-readable structure that can easily be reverse-engineered.
 
-![](examples/img/hdf5_samplestruct.png)
+![](assets/hdf5_samplestruct.png)
 
 **Write to .hdf5 file**
 ```julia
-hdf5() #Select HDF5-Plots "backend"
-p = plot(...) #Construct plot as usual
+hdf5() # Select HDF5-Plots "backend"
+p = plot(...) # Construct plot as usual
 Plots.hdf5plot_write(p, "plotsave.hdf5")
 ```
 
 **Read from .hdf5 file**
 ```julia
-pyplot() #Must first select some backend
+pyplot() # Must first select some backend
 pread = Plots.hdf5plot_read("plotsave.hdf5")
 display(pread)
 ```
@@ -475,4 +512,3 @@ Unfinished, but very similar to PlotlyJS... use that instead.
 Functionality incomplete... I never finished wrapping it, and I don't think it offers anything beyond other backends.  However, the plots are clean looking and it's relatively fast.
 
 ---
-

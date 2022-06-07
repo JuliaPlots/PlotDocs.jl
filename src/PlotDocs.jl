@@ -1,12 +1,11 @@
-
 module PlotDocs
 
-
 using Plots, DataFrames, MacroTools, OrderedCollections, Dates
+using JSON
 import Plots: _examples
 
 export
-    generate_markdown,
+    generate_cards,
     generate_supported_markdown,
     generate_attr_markdown,
     generate_graph_attr_markdown,
@@ -37,83 +36,103 @@ function pretty_print_expr(io::IO, expr::Expr)
     end
 end
 
-function markdown_code_to_string(arr, prefix = "")
+markdown_code_to_string(arr, prefix = "") =
     string("`", prefix, join(sort(map(string, arr)), "`, `$prefix"), "`")
-end
+
 markdown_symbols_to_string(arr) = isempty(arr) ? "" : markdown_code_to_string(arr, ":")
 
 # ----------------------------------------------------------------------
 
-function generate_markdown(pkgname::Symbol; skip = get(Plots._backend_skips, pkgname, Int[]))
-    pkg = Plots._backend_instance(pkgname)
+function generate_cards(pkgname::Symbol; skip = get(Plots._backend_skips, pkgname, Int[]), gendir = "gallery")
+    # create folder: for each backend we generate a DemoSection "generated" under "gallery"
+    cardspath = mkpath(joinpath("docs", gendir, "$pkgname", "generated"))
+    sec_config = Dict{String, Any}("order" => [])
 
-    # open the markdown file
-    md = open(joinpath(GENDIR, "$(pkgname).md"), "w")
-
-    write(md, """
-    ```@meta
-    EditURL = "$PLOT_DOCS_URL"
-    ```
-
-    ### [Initialize](@id $pkgname-examples)
-
-    ```@example $pkgname
-    using Plots
-    Plots.reset_defaults() # hide
-    $(pkgname)()
-    ```
-    """)
-
-    for (i,example) in enumerate(_examples)
-        i in skip && continue
-        # generate animations only for GR
-        i in (2, 31) && pkgname != :gr && continue
+    for (i, example) in enumerate(_examples)
         # write out the header, description, code block, and image link
+        jlname = "$(pkgname)-ref$(i).jl"
+        jl = PipeBuffer()
         if !isempty(example.header)
-            write(md, "### [$(example.header)](@id $pkgname-ref$i)\n")
+            push!(sec_config["order"], jlname)
+            # start a new demo file
+            @debug "generate demo \"$(example.header)\" - writing `$jlname`"
+
+            # DemoCards YAML frontmatter
+            # https://johnnychen94.github.io/DemoCards.jl/stable/quickstart/usage_example/julia_demos/1.julia_demo/#juliademocard_example
+            write(jl, """
+            # ---
+            # title: $(example.header)
+            # id: $(pkgname)_demo_$(i) $(i in skip ? "" : "\n# cover: assets/$(i in (2, 31) ? "anim_$(pkgname)_ex$(i).gif" : "$(pkgname)_ex$(i).png")")
+            # author: "[PlotDocs.jl](https://github.com/JuliaPlots/PlotDocs.jl/)"
+            # description: ""
+            # date: $(now())
+            # ---
+
+            using Plots
+            $(pkgname)()
+            """)
+
+            i in skip && @goto write_file
+            # generate animations only for GR
+            # i in (2, 31) && pkgname != :gr && @goto write_file
+            write(jl, "Plots.reset_defaults()  #hide\n")
         end
-        write(md, "$(example.desc)\n")
-        write(md, """
-        ```@example $pkgname
-        Plots.reset_defaults() # hide
-        """)
-        if pkgname ∈ (:unicodeplots, :inspectdr, :gaston)
-            write(md, "using Logging; Logging.disable_logging(Logging.Warn) # hide\n")
-        end
+        # DemoCards use Literate.jl syntax with extra leading `#` as markdown lines
+        write(jl, "# $(replace(example.desc, "\n" => "\n  # "))\n")
         for expr in example.exprs
-            pretty_print_expr(md, expr)
+            pretty_print_expr(jl, expr)
         end
-        if pkgname == :unicodeplots
-            write(md, "show(current()) # hide\n")
+        # NOTE: the supported `Literate.jl` syntax is `#src` and `#hide` NOT `# src` !!
+        write(jl, "\nmkpath(\"assets\")  #src\n")
+        write(jl, if i in (2, 31)
+            "gif(anim, \"assets/anim_$(pkgname)_ex$(i).gif\")\n"  # NOTE: must no be hidden, for appearance in the rendered `html`
+        else
+            "png(\"assets/$(pkgname)_ex$(i).png\")  #src\n"
+        end)
+
+        @label write_file
+        fn, mode = if isempty(example.header)
+            "$(pkgname)-ref$(i-1).jl", "a"
+        else
+            jlname, "w"
         end
-        if i in (2, 31)
-            write(md, "gif(anim, \"anim_$(pkgname)_ex$i.gif\") # hide\n")
+        open(joinpath(cardspath, fn), mode) do io
+            write(io, read(jl, String))
         end
-        if pkgname ∈ (:plotly, :plotlyjs, :inspectdr, :gaston)
-            write(md, "png(\"$(pkgname)_ex$i\") # hide\n")
-        end
-        write(md, "```\n")
-        if pkgname ∈ (:plotly, :plotlyjs, :inspectdr, :gaston)
-            write(md, "![]($(pkgname)_ex$i.png)\n")
-        end
+        # DEBUG: sometimes the generated file is still empty when passing to `DemoCards.makedemos`
+        sleep(0.01)
     end
+    # insert attributes page
+    # TODO(johnnychen): make this part of the page template
+    attr_name = string(pkgname, ".jl")
+    open(joinpath(cardspath, attr_name), "w") do jl
+        pkg = Plots._backend_instance(pkgname)
+        write(jl, """
+        # ---
+        # title: Supported attribute values
+        # id: $(pkgname)_attributes
+        # hidden: true
+        # author: "[PlotDocs.jl](https://github.com/JuliaPlots/PlotDocs.jl/)"
+        # date: $(now())
+        # ---
 
-    write(md, "- Supported arguments: $(markdown_code_to_string(collect(Plots.supported_attrs(pkg))))\n")
-    write(md, "- Supported values for linetype: $(markdown_symbols_to_string(Plots.supported_seriestypes(pkg)))\n")
-    write(md, "- Supported values for linestyle: $(markdown_symbols_to_string(Plots.supported_styles(pkg)))\n")
-    write(md, "- Supported values for marker: $(markdown_symbols_to_string(Plots.supported_markers(pkg)))\n")
-
-    write(md, "(Automatically generated: $(now()))")
-    close(md)
+        # - Supported arguments: $(markdown_code_to_string(collect(Plots.supported_attrs(pkg))))
+        # - Supported values for linetype: $(markdown_symbols_to_string(Plots.supported_seriestypes(pkg)))
+        # - Supported values for linestyle: $(markdown_symbols_to_string(Plots.supported_styles(pkg)))
+        # - Supported values for marker: $(markdown_symbols_to_string(Plots.supported_markers(pkg)))
+        """)
+    end
+    open(joinpath(cardspath, "config.json"), "w") do config
+        sec_config["description"] = "[Supported attributes](@ref $(pkgname)_attributes)"
+        push!(sec_config["order"], attr_name)
+        write(config, json(sec_config))
+    end
 end
-
-# ----------------------------------------------------------------------
-
 
 # tables detailing the features that each backend supports
 
 function make_support_df(allvals, func)
-    vals = sort(allvals) # rows
+    vals = sort(collect(allvals)) # rows
     bs = sort(backends())
     bs = filter(be -> !(be in Plots._deprecated_backends), bs) # cols
     df = DataFrames.DataFrame(keys=vals)
@@ -150,19 +169,11 @@ function generate_supported_markdown()
     - ✅ the series type is natively supported by the backend.
     - 🔼 the series type is supported through series recipes.
 
+    ```@raw html
+    $(to_html(make_support_df(Plots.all_seriestypes(), Plots.supported_seriestypes)))
+    ```
 
     """)
-
-    write(md, "```@raw html\n")
-    write(md,
-        to_html(
-            make_support_df(
-                Plots.all_seriestypes(),
-                Plots.supported_seriestypes,
-            )
-        )
-    )
-    write(md, "\n```\n\n")
 
     supported_args =OrderedDict(
         "Keyword Arguments" => (Plots._all_args, Plots.supported_attrs),
@@ -176,11 +187,11 @@ function generate_supported_markdown()
 
         ## $header
 
-        """)
+        ```@raw html
+        $(to_html(make_support_df(args...)))
+        ```
 
-        write(md, "```@raw html\n")
-        write(md, to_html(make_support_df(args...)))
-        write(md, "\n```\n\n")
+        """)
     end
 
     write(md, "\n(Automatically generated: $(now()))")
@@ -255,13 +266,13 @@ function generate_attr_markdown(c)
 
     $attr_text
 
+    ```@raw html
+    $(to_html(make_attr_df(c, ATTRIBUTE_DEFAULTS[c])))
+    ```
+
+    (Automatically generated: $(now()))
     """)
 
-    write(md, "```@raw html\n")
-    write(md, to_html(make_attr_df(c, ATTRIBUTE_DEFAULTS[c])))
-    write(md, "\n```\n\n")
-
-    write(md, "\n(Automatically generated: $(now()))")
     close(md)
 end
 
@@ -387,11 +398,11 @@ function generate_graph_attr_markdown()
         ]
     )
 
-    write(md, "```@raw html\n")
-    write(md, to_html(df))
-    write(md, "\n```\n\n")
-
     write(md, """
+    ```@raw html
+    $(to_html(df))
+    ```
+    \n
     ## Aliases
     Certain keyword arguments have aliases, so GraphRecipes "does what you mean, not
     what you say".
@@ -407,9 +418,10 @@ function generate_graph_attr_markdown()
     # These two calls produce the same plot, modulo some randomness in the layout.
     plot(graphplot([0 1; 0 0], nodecolor=:red), graphplot([0 1; 0 0], nc=:red))
     ```
+
+    (Automatically generated: $(now()))
     """)
 
-    write(md, "\n(Automatically generated: $(now()))")
     close(md)
 end
 
@@ -498,8 +510,6 @@ function generate_colorschemes_table(ks)
     html *= "</table></body>"
     return html
 end
-
-
 
 # ----------------------------------------------------------------------
 

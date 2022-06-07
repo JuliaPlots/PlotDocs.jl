@@ -33,16 +33,16 @@ Plots support 2 different versions per save-command.
 Command `savefig` chooses file type automatically based on the file extension.
 
 ```julia
-savefig(fn) # save the most recent fig as fn
-savefig(plot_ref, fn) # save the fig referenced by plot_ref as fn
+savefig(filename_string) # save the most recent fig as filename_string (such as "output.png")
+savefig(plot_ref, filename_string) # save the fig referenced by plot_ref as filename_string (such as "output.png")
 ```
 
-In addition, Plots offers shorthands like `png(fn)`, etc.
+In addition, Plots offers shorthands like `png(filename_string)`, etc.
 In this case the string fn containing the filename does not need a file extension.
 
 ```julia
-png(fn) # save the current fig as png with filename fn
-png(plot_ref, fn) # save the fig referenced by plot_ref as png with filename fn
+png(filename_string) # save the current fig as png with filename filename_string (such as "output.png")
+png(plot_ref, filename_string) # save the fig referenced by plot_ref as png with filename filename_string (such as "output.png")
 ```
 
 #### File formats supported by most graphical backends
@@ -58,14 +58,14 @@ When not using `savefig`, the default output format depends on the environment (
 Note:   not all backends support every output file format !
 A simple table showing which format is supported by which backend
 
-| format | backends |
-|--------|----------|
-| eps  | inspectdr, plotlyjs, pyplot |
-| html | plotly,  plotlyjs |
-| json | plotly, plotlyjs |
-| pdf  | gr, inspectdr, pgfplotsx, plotlyjs, pyplot, gaston |
-| png  | gr, inspectdr, pgfplotsx, plotlyjs, pyplot, gaston |
-| ps   | gr, pyplot |
-| svg  | gr, inspectdr, pgfplotsx, plotlyjs, pyplot, gaston |
-| tex  | pgfplotsx |
-| text | hdf5, unicodeplots |
+| format | backends                                           |
+| :----- | :------------------------------------------------- |
+| eps    | inspectdr, plotlyjs, pyplot                        |
+| html   | plotly,  plotlyjs                                  |
+| json   | plotly, plotlyjs                                   |
+| pdf    | gr, plotlyjs, pyplot, pgfplotsx, inspectdr, gaston |
+| png    | gr, plotlyjs, pyplot, pgfplotsx, inspectdr, gaston, unicodeplots |
+| ps     | gr, pyplot                                         |
+| svg    | gr, inspectdr, pgfplotsx, plotlyjs, pyplot, gaston |
+| tex    | pgfplotsx                                          |
+| text   | hdf5, unicodeplots                                 |
