@@ -67,11 +67,11 @@ groupedbar(rand(10, 3), bar_position = :stack, bar_width = 0.7) # hide
 
 ## [GraphRecipes](https://github.com/JuliaPlots/GraphRecipes.jl)
 
-GraphRecipes is a collection of recipes for visualizing graphs. Users specify a graph through an adjacency matrix, an adjacency list, or an AbstractGraph via LightGraphs.
+GraphRecipes is a collection of recipes for visualizing graphs. Users specify a graph through an adjacency matrix, an adjacency list, or an AbstractGraph via Graphs.
 
 ```julia
 julia> using GraphRecipes, Plots
-julia> using LightGraphs
+julia> using Graphs
 
 julia> g = wheel_graph(10)
 julia> graphplot(g, curves=false)

@@ -1,5 +1,5 @@
 ```@setup graphexamples
-using Plots, GraphRecipes, LightGraphs, LinearAlgebra, SparseArrays, AbstractTrees; gr()
+using Plots, GraphRecipes, Graphs, LinearAlgebra, SparseArrays, AbstractTrees; gr()
 Plots.reset_defaults()
 ```
 # [Examples](@id graph_examples)
@@ -39,11 +39,11 @@ graphplot(A,
 
 ```
 
-### LightGraphs.jl
-You can visualize a `LightGraphs.AbstractGraph` by passing it to `graphplot`.
+### Graphs.jl
+You can visualize a `Graphs.AbstractGraph` by passing it to `graphplot`.
 ```julia
 using GraphRecipes, Plots
-using LightGraphs
+using Graphs
 
 g = wheel_graph(10)
 graphplot(g, curves=false)
@@ -51,7 +51,7 @@ graphplot(g, curves=false)
 
 ![](https://user-images.githubusercontent.com/8610352/74631053-de196b80-51c0-11ea-8cba-ddbdc2c6312f.png)
 #### Directed Graphs
-If you pass `graphplot` a `LightGraphs.DiGraph` or an asymmetric adjacency matrix, then `graphplot` will use arrows to indicate the direction of the edges. Note that using the `arrow` attribute with the `pyplot` backend will allow you to control the aesthetics of the arrows.
+If you pass `graphplot` a `Graphs.DiGraph` or an asymmetric adjacency matrix, then `graphplot` will use arrows to indicate the direction of the edges. Note that using the `arrow` attribute with the `pyplot` backend will allow you to control the aesthetics of the arrows.
 ```julia
 using GraphRecipes, Plots
 g = [0 1 1;
@@ -68,7 +68,7 @@ as a dictionary of `(si::Int, di::Int) => label`, where `si`, `di` are the indic
 
 ```@example graphexamples
 using GraphRecipes, Plots
-using LightGraphs
+using Graphs
 
 n = 8
 g = wheel_digraph(n)
@@ -86,7 +86,7 @@ graphplot(g, names=1:n, edgelabel=edgelabel_dict, curves=false, nodeshape=:rect)
 
 #### Self edges
 ```@example graphexamples
-using LightGraphs, Plots, GraphRecipes
+using Graphs, Plots, GraphRecipes
 
 g = [1 1 1;
      0 0 1;
