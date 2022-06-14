@@ -186,6 +186,21 @@ Plots.html("plotly_mathjax")  #hide
 <object type="text/html" data="plotly_mathjax.html" style="width:100%;height:450px;"></object>
 ```
 
+### Fine tuning
+It is possible to add additional arguments to the plotly series and layout dictionaries via the [`extra_kwargs`](@ref extra_kwargs) mechanism.
+Arbitrary arguments are supported but one needs to be careful since no checks are performed and thus it is possible to unintentionally overwrite existing entries.
+
+For example adding [customdata](https://plotly.com/javascript/reference/scatter/#scatter-customdata) can be done the following way `scatter(1:3, customdata=["a", "b", "c"])`.
+One can also pass multiple extra arguments to plotly.
+```
+pl = scatter(1:3, rand(3),
+              extra_kwargs = KW(
+                  :series => KW(:customdata => ["a", "b", "c"]),
+                  :plot => KW(:legend => KW(:itemsizing => "constant"))
+                  )
+            )
+```
+
 ## [PyPlot](https://github.com/stevengj/PyPlot.jl)
 
 A Julia wrapper around the popular python package `PyPlot` (Matplotlib).  It uses `PyCall.jl` to pass data with minimal overhead.
