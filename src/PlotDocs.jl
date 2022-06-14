@@ -89,6 +89,10 @@ function generate_cards(pkgname::Symbol; skip = get(Plots._backend_skips, pkgnam
         else
             "png(\"assets/$(pkgname)_ex$(i).png\")  #src\n"
         end)
+        if pkgname == :plotlyjs
+            write(jl, "nothing#hide\n")
+            write(jl, "# ![plot](assets/$(pkgname)_ex$(i).png)\n")
+        end
 
         @label write_file
         fn, mode = if isempty(example.header)
@@ -127,6 +131,7 @@ function generate_cards(pkgname::Symbol; skip = get(Plots._backend_skips, pkgnam
         push!(sec_config["order"], attr_name)
         write(config, json(sec_config))
     end
+    return cardspath
 end
 
 # tables detailing the features that each backend supports
