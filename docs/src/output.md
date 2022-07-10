@@ -69,3 +69,5 @@ A simple table showing which format is supported by which backend
 | svg    | gr, inspectdr, pgfplotsx, plotlyjs, pyplot, gaston |
 | tex    | pgfplotsx                                          |
 | text   | hdf5, unicodeplots                                 |
+
+The default png format may be written to an IOBuffer so that the output may then be passed in memory rather than as a disk file. This will replace the previous contents, if any, of the IOBuffer.
