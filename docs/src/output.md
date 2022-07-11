@@ -70,4 +70,4 @@ A simple table showing which format is supported by which backend
 | tex    | pgfplotsx                                          |
 | text   | hdf5, unicodeplots                                 |
 
-The default png format may be written to an IOBuffer so that the output may then be passed in memory rather than as a disk file. This will replace the previous contents, if any, of the IOBuffer.
+Supported file formats can be written to an IO stream via, for example, `png(myplot, pipebuffer::IO)`, so the image file can be passed via a PipeBuffer to other functions, eg. `Cairo.read_from_png(pipebuffer::IO)`.
