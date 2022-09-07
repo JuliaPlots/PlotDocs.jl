@@ -6,7 +6,9 @@
 # date: 2022-09-07
 # ---
 
+# This animation illustrates the double pendulum problem.
 
+# Double pendulum formula translated from the [matplotlib gallery](https://matplotlib.org/stable/gallery/animation/double_pendulum.html#sphx-glr-gallery-animation-double-pendulum-py).
 
 
 using OrdinaryDiffEq
@@ -26,7 +28,7 @@ function pendulum!(du, u, p, t)
     du[1] = u[2]
 
     delta = u[3] - u[1]
-    den1 = (M1+M2) * L1 - M2 * L1 * cos(delta) * cos(delta)
+    den1 = (M1 + M2) * L1 - M2 * L1 * cos(delta) * cos(delta)
     du[2] = ((M2 * L1 * u[2] * u[2] * sin(delta) * cos(delta)
                 + M2 * G * sin(u[3]) * cos(delta)
                 + M2 * L2 * u[4] * u[4] * sin(delta)
@@ -35,11 +37,11 @@ function pendulum!(du, u, p, t)
 
     du[3] = u[4]
 
-    den2 = (L2/L1) * den1
+    den2 = (L2 / L1) * den1
     du[4] = ((- M2 * L2 * u[4] * u[4] * sin(delta) * cos(delta)
-                + (M1+M2) * G * sin(u[1]) * cos(delta)
-                - (M1+M2) * L1 * u[2] * u[2] * sin(delta)
-                - (M1+M2) * G * sin(u[3]))
+                + (M1 + M2) * G * sin(u[1]) * cos(delta)
+                - (M1 + M2) * L1 * u[2] * u[2] * sin(delta)
+                - (M1 + M2) * G * sin(u[3]))
                / den2)
     return nothing
 end
@@ -58,31 +60,31 @@ sol = solve(prob, Tsit5())
 
 
 
-x1 = L1*sin.(sol[1, :])
-y1 = -L1*cos.(sol[1, :])
+x1 = +L1 * sin.(sol[1, :])
+y1 = -L1 * cos.(sol[1, :])
 
-x2 = L2*sin.(sol[3, :]) + x1
-y2 = -L2*cos.(sol[3, :]) + y1
+x2 = +L2 * sin.(sol[3, :]) + x1
+y2 = -L2 * cos.(sol[3, :]) + y1
 
 
 
 using Plots
 anim = @animate for i in eachindex(x2)
 
-       x = [0,x1[i],x2[i]]
-       y = [0,y1[i],y2[i]]
+       x = [0, x1[i], x2[i]]
+       y = [0, y1[i], y2[i]]
 
        plot(x, y, legend = false)
-       plot!(xlims=(-2,2),xticks=-2:0.5:2)
-       plot!(ylims=(-2,1),yticks=-2:0.5:1)
+       plot!(xlims=(-2,2), xticks=-2:0.5:2)
+       plot!(ylims=(-2,1), yticks=-2:0.5:1)
        scatter!(x,y)
 
        x = x2[1:i]
        y = y2[1:i]
 
        plot!(x, y, linecolor = :orange)
-       plot!(xlims=(-2,2),xticks=-2:0.5:2)
-       plot!(ylims=(-2,1),yticks=-2:0.5:1)
+       plot!(xlims=(-2,2), xticks=-2:0.5:2)
+       plot!(ylims=(-2,1), yticks=-2:0.5:1)
        scatter!(x, y, color=:orange, markersize=2, markerstrokewidth=0, markerstrokecolor=:orange)
        annotate!(-1.25, 0.5, "time= $(rpad(round(sol.t[i]; digits=2),4,"0")) s")
 end
