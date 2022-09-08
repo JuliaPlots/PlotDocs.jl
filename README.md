@@ -21,7 +21,7 @@ by [DemoCards.jl][democards_jl]. The following steps shows a common workflow to 
 2. configure the demo using [DemoCards YAML frontmatter][yaml_frontmatter]. You may also check how
    other demos are configured as a reference.
 3. write the demo in Julia with the Literate markup syntax.
-3. activate the docs environment and add `PlotDocs.jl` to the environment via `import Pkg; Pkg.activate("docs"); Pkg.dev(".")`
+3. activate the docs environment and add `PlotDocs.jl` to the environment via `import Pkg; Pkg.activate("docs"); Pkg.develop(".")`
 4. preview the demo using [`DemoCards.preview_demos` feature][democards_preview]. For instance, you
    can partially build one single file via
    `preview_demos("docs/user_gallery/misc/gr_lorenz_attractor.jl")`, or the entire section via
