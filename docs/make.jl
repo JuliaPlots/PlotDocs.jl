@@ -24,7 +24,7 @@ cp(
     force = true,
 )
 cp(
-    joinpath(pkgdir(StatsPlots), "README.md")
+    joinpath(pkgdir(StatsPlots), "README.md"),
     joinpath(@__DIR__, "src", "generated", "statsplots.md"),
     force = true,
 )
