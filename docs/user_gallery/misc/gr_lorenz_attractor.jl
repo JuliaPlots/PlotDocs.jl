@@ -14,7 +14,7 @@ Base.@kwdef mutable struct Lorenz
     dt::Float64 = 0.02
     σ::Float64 = 10
     ρ::Float64 = 28
-    β::Float64 = 8/3
+    β::Float64 = 8 / 3
     x::Float64 = 1
     y::Float64 = 1
     z::Float64 = 1
@@ -44,7 +44,7 @@ plt = plot3d(
 
 ## build an animated gif by pushing new points to the plot, saving every 10th frame
 ## equivalently, you can use `@gif` to replace `@animate` and thus no need to explicitly call `gif(anim)`.
-anim = @animate for i=1:1500
+anim = @animate for i = 1:1500
     step!(attractor)
     push!(plt, attractor.x, attractor.y, attractor.z)
 end every 10

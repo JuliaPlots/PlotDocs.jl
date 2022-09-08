@@ -12,7 +12,8 @@ unicodeplots()
 inspectdr()
 gaston()
 
-@eval DemoCards.get_logopath() = joinpath(pkgdir(PlotDocs), "docs", "src", "assets", "axis_logo_600x400.png")
+@eval DemoCards.get_logopath() =
+    joinpath(pkgdir(PlotDocs), "docs", "src", "assets", "axis_logo_600x400.png")
 
 plotthemes_path = dirname(dirname(pathof(PlotThemes)))
 
@@ -26,21 +27,21 @@ galleries = Pair{String,String}[]
 galleries_assets = String[]
 galleries_cb = []
 for (bename, be) in [
-        ("GR", :gr),
-        ("PlotlyJS", :plotlyjs),
-        ("PyPlot", :pyplot),
-        ("PGFPlotsX", :pgfplotsx),
-        ("UnicodePlots", :unicodeplots),
-        ("InspectDR", :inspectdr),
-        ("Gaston", :gaston),
+    ("GR", :gr),
+    ("PlotlyJS", :plotlyjs),
+    ("PyPlot", :pyplot),
+    ("PGFPlotsX", :pgfplotsx),
+    ("UnicodePlots", :unicodeplots),
+    ("InspectDR", :inspectdr),
+    ("Gaston", :gaston),
 ]
     generate_cards(be)
-    gallery_path, postprocess_cb, assets = makedemos("gallery/$be"; src="src/gallery")
+    gallery_path, postprocess_cb, assets = makedemos("gallery/$be"; src = "src/gallery")
     push!(galleries, bename => joinpath("gallery", gallery_path))
     push!(galleries_cb, postprocess_cb)
     push!(galleries_assets, assets)
 end
-user_gallery, postprocess_cb, assets = makedemos("user_gallery"; src="src")
+user_gallery, postprocess_cb, assets = makedemos("user_gallery"; src = "src")
 push!(galleries_cb, postprocess_cb)
 push!(galleries_assets, assets)
 
@@ -83,9 +84,9 @@ const PAGES = Any[
         ],
     ],
     "Advanced Topics"=>["Internals" => "pipeline.md"],
-    "Gallery" => galleries,
-    "User Gallery" => user_gallery,
-    "API" => "api.md",
+    "Gallery"=>galleries,
+    "User Gallery"=>user_gallery,
+    "API"=>"api.md",
 ]
 
 generate_attr_markdown()
@@ -105,7 +106,7 @@ ansicolor = get(ENV, "PLOTDOCS_ANSICOLOR", "true") == "true"
     sitename = "Plots",
     authors = "Thomas Breloff",
     pages = PAGES,
-    strict = [:doctest, :example_block]
+    strict = [:doctest, :example_block],
 )
 
 foreach(galleries_cb) do cb
@@ -116,5 +117,5 @@ deploydocs(
     repo = "github.com/JuliaPlots/PlotDocs.jl.git",
     push_preview = true,
     versions = ["stable" => "v^", "v#.#", "dev" => "dev", "latest" => "dev"],
-    forcepush = true
+    forcepush = true,
 )
