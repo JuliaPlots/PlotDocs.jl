@@ -25,7 +25,8 @@ cp(
 )
 cp(
     joinpath(pkgdir(StatsPlots), "README.md")
-    joinpath(@__DIR__, "src", "generated", "statsplots.md")
+    joinpath(@__DIR__, "src", "generated", "statsplots.md"),
+    force = true,
 )
 
 galleries = Pair{String,String}[]
