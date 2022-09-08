@@ -29,20 +29,24 @@ function pendulum!(du, u, p, t)
 
     delta = u[3] - u[1]
     den1 = (M1 + M2) * L1 - M2 * L1 * cos(delta) * cos(delta)
-    du[2] = ((M2 * L1 * u[2] * u[2] * sin(delta) * cos(delta)
-                + M2 * G * sin(u[3]) * cos(delta)
-                + M2 * L2 * u[4] * u[4] * sin(delta)
-                - (M1+M2) * G * sin(u[1]))
-               / den1)
+    du[2] = (
+        (
+            M2 * L1 * u[2] * u[2] * sin(delta) * cos(delta) +
+            M2 * G * sin(u[3]) * cos(delta) +
+            M2 * L2 * u[4] * u[4] * sin(delta) - (M1 + M2) * G * sin(u[1])
+        ) / den1
+    )
 
     du[3] = u[4]
 
     den2 = (L2 / L1) * den1
-    du[4] = ((- M2 * L2 * u[4] * u[4] * sin(delta) * cos(delta)
-                + (M1 + M2) * G * sin(u[1]) * cos(delta)
-                - (M1 + M2) * L1 * u[2] * u[2] * sin(delta)
-                - (M1 + M2) * G * sin(u[3]))
-               / den2)
+    du[4] = (
+        (
+            -M2 * L2 * u[4] * u[4] * sin(delta) * cos(delta) +
+            (M1 + M2) * G * sin(u[1]) * cos(delta) -
+            (M1 + M2) * L1 * u[2] * u[2] * sin(delta) - (M1 + M2) * G * sin(u[3])
+        ) / den2
+    )
     return nothing
 end
 
@@ -71,25 +75,32 @@ y2 = -L2 * cos.(sol[3, :]) + y1
 using Plots
 anim = @animate for i in eachindex(x2)
 
-       x = [0, x1[i], x2[i]]
-       y = [0, y1[i], y2[i]]
+    x = [0, x1[i], x2[i]]
+    y = [0, y1[i], y2[i]]
 
-       plot(x, y, legend = false)
-       plot!(xlims=(-2,2), xticks=-2:0.5:2)
-       plot!(ylims=(-2,1), yticks=-2:0.5:1)
-       scatter!(x,y)
+    plot(x, y, legend = false)
+    plot!(xlims = (-2, 2), xticks = -2:0.5:2)
+    plot!(ylims = (-2, 1), yticks = -2:0.5:1)
+    scatter!(x, y)
 
-       x = x2[1:i]
-       y = y2[1:i]
+    x = x2[1:i]
+    y = y2[1:i]
 
-       plot!(x, y, linecolor = :orange)
-       plot!(xlims=(-2,2), xticks=-2:0.5:2)
-       plot!(ylims=(-2,1), yticks=-2:0.5:1)
-       scatter!(x, y, color=:orange, markersize=2, markerstrokewidth=0, markerstrokecolor=:orange)
-       annotate!(-1.25, 0.5, "time= $(rpad(round(sol.t[i]; digits=2),4,"0")) s")
+    plot!(x, y, linecolor = :orange)
+    plot!(xlims = (-2, 2), xticks = -2:0.5:2)
+    plot!(ylims = (-2, 1), yticks = -2:0.5:1)
+    scatter!(
+        x,
+        y,
+        color = :orange,
+        markersize = 2,
+        markerstrokewidth = 0,
+        markerstrokecolor = :orange,
+    )
+    annotate!(-1.25, 0.5, "time= $(rpad(round(sol.t[i]; digits=2),4,"0")) s")
 end
-gif(anim, fps=10)
-	   
+gif(anim, fps = 10)
+
 # save cover image #src
 mkpath("assets") #src
-gif(anim, "assets/Pendulum.gif", fps=10) #src
+gif(anim, "assets/Pendulum.gif", fps = 10) #src
