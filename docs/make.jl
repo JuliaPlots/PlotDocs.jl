@@ -1,4 +1,5 @@
 using Documenter, PlotDocs, Plots, PlotThemes, DemoCards
+import StatsPlots
 
 # Set matplotlib gui backend
 ENV["MPLBACKEND"] = "agg"
@@ -15,11 +16,16 @@ gaston()
 @eval DemoCards.get_logopath() =
     joinpath(pkgdir(PlotDocs), "docs", "src", "assets", "axis_logo_600x400.png")
 
-plotthemes_path = dirname(dirname(pathof(PlotThemes)))
+plotthemes_path = pkgdir(PlotThemes)
 
 cp(
     joinpath(plotthemes_path, "README.md"),
     joinpath(mkpath(joinpath(@__DIR__, "src", "generated")), "plotthemes.md"),
+    force = true,
+)
+cp(
+    joinpath(pkgdir(StatsPlots), "README.md"),
+    joinpath(@__DIR__, "src", "generated", "statsplots.md"),
     force = true,
 )
 
@@ -76,11 +82,12 @@ const PAGES = Any[
     "Learning"=>"learning.md",
     "Contributing"=>"contributing.md", # TODO: testing
     "Ecosystem"=>[
-        "Overview" => "ecosystem.md",
+        "StatsPlots" => "generated/statsplots.md",
         "GraphRecipes" => [
             "Introduction" => "graphrecipes/introduction.md",
             "Examples" => "graphrecipes/examples.md",
             "Attributes" => "generated/graph_attributes.md",
+        "Overview" => "ecosystem.md",
         ],
     ],
     "Advanced Topics"=>["Internals" => "pipeline.md"],

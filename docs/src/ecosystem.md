@@ -16,89 +16,11 @@ Plots is great on its own, but the real power comes from the ecosystem surroundi
 
 The [JuliaPlots](https://github.com/JuliaPlots) organization builds and maintains much of the most commonly used functionality external to core Plots, as well as RecipesBase, PlotUtils, the documentation, and more.
 
-## [StatsPlots](https://github.com/JuliaPlots/StatsPlots.jl)
-
-Much of this functionality once existed in core Plots, but has been moved out to facilitate a clean separation between those features that are truly "core" and those which are specific to certain types of workflows and disciplines.
-
-- Types:
-    - DataFrames
-    - Distributions
-- Recipes:
-    - histogram/histogram2d
-    - boxplot
-    - violin
-    - marginalhist
-    - corrplot/cornerplot
-
-```@example ecosystem
-@df iris marginalhist(:PetalLength, :PetalWidth, bins = 20) # hide
-```
-
-```@example ecosystem
-@df iris corrplot(cols(1:4), bins = 20) # hide
-```
-
-```@example ecosystem
-@df singers violin(:VoicePart, :Height, marker = (0.2, :blue, stroke(0)), legend = false) # hide
-@df singers boxplot!(:VoicePart, :Height, marker = (0.3, :orange, stroke(2)), alpha = 0.75) # hide
-@df singers dotplot!(:VoicePart, :Height, marker = (:black, stroke(0))) # hide
-```
-
-```@example ecosystem
-@df iris andrewsplot(:Species, cols(1:4), legend = :topleft) # hide
-```
-
-```@example ecosystem
-ea_histogram(a, bins = :scott, fillalpha = 0.4) # hide
-```
-
-```@example ecosystem
-plot(Normal(3, 5), fill = (0, 0.5, :orange)) # hide
-```
-
-```@example ecosystem
-scatter(dist, leg=false) # hide
-bar!(dist, func=cdf, alpha=0.3) # hide
-```
-
-```@example ecosystem
-groupedbar(rand(10, 3), bar_position = :stack, bar_width = 0.7) # hide
-```
-
-## [GraphRecipes](https://github.com/JuliaPlots/GraphRecipes.jl)
-
-GraphRecipes is a collection of recipes for visualizing graphs. Users specify a graph through an adjacency matrix, an adjacency list, or an AbstractGraph via Graphs.
-
-```julia
-julia> using GraphRecipes, Plots
-julia> using Graphs
-
-julia> g = wheel_graph(10)
-julia> graphplot(g, curves=false)
-```
-
-![WheelGraph](https://user-images.githubusercontent.com/8610352/74631053-de196b80-51c0-11ea-8cba-ddbdc2c6312f.png)
-
-Example of using GraphRecipes to plot a directed graph given an asymmetric adjacency matrix:
-```julia
-using GraphRecipes, Plots
-g = [0 1 1;
-     0 0 1;
-     0 1 0]
-
-graphplot(g, names=1:3, curvature_scalar=0.1)
-```
-
-![](https://user-images.githubusercontent.com/8610352/74631107-04d7a200-51c1-11ea-87c1-be9cbf1b02eb.png)
-
-More examples of using GraphRecipes are here:
-http://docs.juliaplots.org/latest/graphrecipes/examples/
-
 # Community packages
 
 ## [AtariAlgos](https://github.com/tbreloff/AtariAlgos.jl)
 
-AtariAlgos wraps the ArcadeLearningEnvironment as an implementation of an AbstractEnvironment from the Reinforce interface. This allows it to be used as a plug-and-play module with general reinforcement learning agents.
+`AtariAlgos.jl` wraps the ArcadeLearningEnvironment as an implementation of an AbstractEnvironment from the Reinforce interface. This allows it to be used as a plug-and-play module with general reinforcement learning agents.
 
 Games can also be "plotted" using Plots.jl, allowing it to be a component of more complex visualizations for tracking learning progress and more, as well as making it easy to create animations.
 
@@ -106,7 +28,7 @@ Games can also be "plotted" using Plots.jl, allowing it to be a component of mor
 
 ## [Reinforce](https://github.com/tbreloff/Reinforce.jl)
 
-Reinforce.jl is an interface for Reinforcement Learning. It is intended to connect modular environments, policies, and solvers with a simple interface.
+`Reinforce.jl` is an interface for Reinforcement Learning. It is intended to connect modular environments, policies, and solvers with a simple interface.
 
 ![](https://cloud.githubusercontent.com/assets/933338/17703784/f3e18414-63a0-11e6-9f9e-f531278216f9.gif)
 
@@ -119,13 +41,13 @@ Tools, models, and math related to machine learning in Julia.
 
 ## [Augmentor](https://github.com/Evizero/Augmentor.jl)
 
-Augmentor is an image-augmentation library designed to render the process of artificial dataset enlargement more convenient, less error prone, and easier to reproduce. This is achieved using probabilistic transformation pipelines.
+`Augmentor.jl` is an image-augmentation library designed to render the process of artificial dataset enlargement more convenient, less error prone, and easier to reproduce. This is achieved using probabilistic transformation pipelines.
 
 ![](https://cloud.githubusercontent.com/assets/10854026/17645973/3894d2b0-61b6-11e6-8b10-1cb5139bfb6d.gif)
 
 ## [DifferentialEquations](https://github.com/ChrisRackauckas/DifferentialEquations.jl)
 
-DifferentialEquations.jl is a package for solving numerically solving differential equations in Julia by Chris Rackauckas. The purpose of this package is to supply efficient Julia implementations of solvers for various differential equations. Equations within the realm of this package include ordinary differential equations (ODEs), stochastic ordinary differential equations (SODEs or SDEs), stochastic partial differential equations (SPDEs), partial differential equations (with both finite difference and finite element methods), differential algebraic equations, and differential delay equations. It includes well-optimized implementations classic algorithms and ones from recent research, including algorithms optimized for high-precision and HPC applications.
+`DifferentialEquations.jl` is a package for solving numerically solving differential equations in Julia by Chris Rackauckas. The purpose of this package is to supply efficient Julia implementations of solvers for various differential equations. Equations within the realm of this package include ordinary differential equations (ODEs), stochastic ordinary differential equations (SODEs or SDEs), stochastic partial differential equations (SPDEs), partial differential equations (with both finite difference and finite element methods), differential algebraic equations, and differential delay equations. It includes well-optimized implementations classic algorithms and ones from recent research, including algorithms optimized for high-precision and HPC applications.
 
 All of the solvers return solution objects which are set up with plot recipes to give informative default plots.
 
@@ -133,7 +55,7 @@ All of the solvers return solution objects which are set up with plot recipes to
 
 ## [PhyloTrees](https://github.com/jangevaare/PhyloTrees.jl)
 
-The PhyloTrees.jl package provides a type representation of phylogenetic trees. Simulation, inference, and visualization functionality is also provided for phylogenetic trees. A plot recipe allows the structure of phylogenetic trees to be drawn by whichever plotting backend is preferred by the user.
+The `PhyloTrees.jl` package provides a type representation of phylogenetic trees. Simulation, inference, and visualization functionality is also provided for phylogenetic trees. A plot recipe allows the structure of phylogenetic trees to be drawn by whichever plotting backend is preferred by the user.
 
 ![](https://cloud.githubusercontent.com/assets/5422422/17630286/a25374fc-608c-11e6-9160-32466b094f0b.png)
 
@@ -168,7 +90,7 @@ Utility package for efficient tracking of optimization histories, training curve
 
 ## [ApproxFun](https://github.com/ApproxFun/ApproxFun.jl)
 
-ApproxFun is a package for approximating functions. It is heavily influenced by the Matlab package Chebfun and the Mathematica package RHPackage.
+`ApproxFun.jl` is a package for approximating functions. It is heavily influenced by the Matlab package Chebfun and the Mathematica package RHPackage.
 
 ![](https://raw.githubusercontent.com/ApproxFun/ApproxFun.jl/master/images/extrema.png)
 
@@ -190,7 +112,7 @@ Common plotting recipes for statistics and machine learning.
 
 ## [LazySets](https://github.com/JuliaReach/LazySets.jl)
 
-LazySets.jl is a Julia package for calculus with convex sets. The principle behind LazySets is to wrap set computations into specialized types, delaying the evaluation of the result of an expression until it is necessary. Combining lazy operations in high dimensions and explicit computations in low dimensions, the library can be applied to solve complex, high-dimensional problems.
+`LazySets.jl` is a Julia package for calculus with convex sets. The principle behind LazySets is to wrap set computations into specialized types, delaying the evaluation of the result of an expression until it is necessary. Combining lazy operations in high dimensions and explicit computations in low dimensions, the library can be applied to solve complex, high-dimensional problems.
 
 Reachability plot of a [two-mode hybrid system](https://juliareach.github.io/LazySets.jl/dev/man/reach_zonotopes_hybrid/#Example):
 
@@ -200,14 +122,14 @@ Reachability plot of a [two-mode hybrid system](https://juliareach.github.io/Laz
 
 And many more:
 
-- Losses.jl
-- IterativeSolvers.jl
-- SymPy.jl
-- OnlineStats.jl
-- Robotlib.jl
-- JWAS.jl
-- QuantEcon.jl
-- Reinforce.jl
-- Optim.jl
-- Transformations.jl / Flow.jl
+- `Losses.jl`
+- `IterativeSolvers.jl`
+- `SymPy.jl`
+- `OnlineStats.jl`
+- `Robotlib.jl`
+- `JWAS.jl`
+- `QuantEcon.jl`
+- `Reinforce.jl`
+- `Optim.jl`
+- `Transformations.jl` / `Flow.jl`
 - ...
