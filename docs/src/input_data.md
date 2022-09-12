@@ -150,17 +150,17 @@ PDF graphics can also be added to Plots.jl plots using `load("image.pdf")`. Note
 
 ```@example input_data
 using Plots
-P2 = Plots.P2
-function make_batman()
-    p = P2[(0, 0), (0.5, 0.2), (1, 0), (1, 2),  (0.3, 1.2), (0.2, 2), (0, 1.7)]
-    m = P2[(p[i] + p[i + 1]) / 2 for i in 1:length(p) - 1]
-    m += P2[(0.2, 1), (0.4, 1), (2, 0), (0.5, -0.6), (0, 0), (0, -0.15)]
 
-    pts = P2[]
+function make_batman()
+    p = [(0, 0), (0.5, 0.2), (1, 0), (1, 2),  (0.3, 1.2), (0.2, 2), (0, 1.7)]
+    s = [(0.2, 1), (0.4, 1), (2, 0), (0.5, -0.6), (0, 0), (0, -0.15)]
+    m = [(p[i] .+ p[i + 1]) ./ 2 .+ s[i] for i in 1:length(p) - 1]
+
+    pts = similar(m, 0)
     for (i, mi) in enumerate(m)
         append!(
             pts,
-            map(BezierCurve(P2[p[i], m[i], p[i + 1]]), range(0, 1, length = 30))
+            map(BezierCurve([p[i], m[i], p[i + 1]]), range(0, 1, length = 30))
         )
     end
     x, y = Plots.unzip(Tuple.(pts))
