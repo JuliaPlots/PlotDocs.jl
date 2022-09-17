@@ -18,7 +18,7 @@ if $key_unset && $tok_unset; then
   exit 1
 fi
 
-echo '== install dependencies =='
+echo '== install system dependencies =='
 sudo apt -y update
 sudo apt -y install \
   texlive-{latex-{base,extra},binaries,pictures,luatex} \
@@ -39,7 +39,7 @@ wget -q "$url" -O - | tar -xz -C ~/.fonts
 sudo fc-cache -vr
 fc-list | grep 'JuliaMono'
 
-echo "== build documentation for $GITHUB_REPOSITORY@$GITHUB_REF =="
+echo "== install julia dependencies =="
 export JULIA_DEBUG='Documenter,PlotDocs,DemoCards'
 export DOCUMENTER_DEBUG=true  # Democards.jl
 
@@ -47,18 +47,18 @@ export GKSwstype=nul  # Plots.jl/issues/3664
 export COLORTERM='truecolor'  # UnicodePlots.jl
 export PLOTDOCS_ANSICOLOR=true
 
-julia='xvfb-run julia --color=yes --project=docs/'
+julia='xvfb-run julia --color=yes --project=docs'
 
 $julia -e '
   using Pkg
   Pkg.develop(PackageSpec(path=pwd())); Pkg.instantiate()
   Pkg.add("Conda"); Pkg.build("Conda"; verbose=true)
   Pkg.add("PyCall"); Pkg.build("PyCall"; verbose=true)
-  using Conda
-  Conda.add("matplotlib"); Conda.add("libstdcxx-ng")
+  using Conda; Conda.add("matplotlib")
   Conda.list()
 '
 
+echo "== build documentation for $GITHUB_REPOSITORY@$GITHUB_REF =="
 if [ "$GITHUB_REPOSITORY" == 'JuliaPlots/PlotDocs.jl' ]; then
   $julia docs/make.jl
 elif [ "$GITHUB_REPOSITORY" == 'JuliaPlots/Plots.jl' ]; then
