@@ -51,6 +51,7 @@ julia='xvfb-run julia --color=yes --project=docs/'
 
 $julia -e '
   using Pkg
+  Pkg.develop(PackageSpec(path=pwd())); Pkg.instantiate()
   Pkg.add("Conda"); Pkg.build("Conda"; verbose=true)
   Pkg.add("PyCall"); Pkg.build("PyCall"; verbose=true)
   using Conda
@@ -58,13 +59,10 @@ $julia -e '
   Conda.list()
 '
 
-echo '== build docs =='
-
 if [ "$GITHUB_REPOSITORY" == 'JuliaPlots/PlotDocs.jl' ]; then
-  $julia -e 'using Pkg; Pkg.develop(PackageSpec(path=pwd())); Pkg.instantiate()'
   $julia docs/make.jl
 elif [ "$GITHUB_REPOSITORY" == 'JuliaPlots/Plots.jl' ]; then
-  $julia -e 'using Pkg; Pkg.develop(PackageSpec(path=pwd())); Pkg.add(PackageSpec(name="Plots", rev=split(ENV["GITHUB_REF"], "/", limit=3)[3])); Pkg.instantiate()'
+  $julia -e 'using Pkg; Pkg.add(PackageSpec(name="Plots", rev=split(ENV["GITHUB_REF"], "/", limit=3)[3])); Pkg.instantiate()'
   $julia -e 'withenv("GITHUB_REPOSITORY" => "JuliaPlots/PlotDocs.jl") do; include("docs/make.jl"); end'
 else
   echo "something is wrong with $GITHUB_REPOSITORY"
