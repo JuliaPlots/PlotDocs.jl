@@ -46,7 +46,7 @@ export GKSwstype=nul  # Plots.jl/issues/3664
 export COLORTERM='truecolor'  # UnicodePlots.jl
 export PLOTDOCS_ANSICOLOR=true
 
-julia='xvfb-run julia --color=yes --project=docs'
+julia='xvfb-run julia --color=yes --project=docs/'
 
 $julia -e '
   using Pkg
