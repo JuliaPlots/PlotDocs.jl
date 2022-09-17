@@ -48,7 +48,7 @@ export PLOTDOCS_ANSICOLOR=true
 
 julia='xvfb-run julia --color=yes --project=docs'
 
-julia -e '
+$julia -e '
   using Pkg
   Pkg.add("Conda"); Pkg.build("Conda"; verbose=true)
   Pkg.add("PyCall"); Pkg.build("PyCall"; verbose=true)
