@@ -26,8 +26,7 @@ sudo apt -y install \
   ghostscript-x \
   qt5-default \
   pdf2svg \
-  gnuplot \
-  g++
+  gnuplot
 
 echo '== install fonts =='
 mkdir -p ~/.fonts
@@ -47,10 +46,16 @@ export GKSwstype=nul  # Plots.jl/issues/3664
 export COLORTERM='truecolor'  # UnicodePlots.jl
 export PLOTDOCS_ANSICOLOR=true
 
-# workaround for: version `GLIBCXX_3.4.30' not found (required by [...]/contourpy/_contourpy.cpython-310-x86_64-linux-gnu.so)
-export LD_PRELOAD=$(g++ --print-file-name=libstdc++.so)
+julia='xvfb-run julia --color=yes --project=docs'
 
-julia='xvfb-run julia --color=yes --project=docs/'
+julia -e '
+  using Pkg
+  Pkg.add("Conda"); Pkg.build("Conda"; verbose=true)
+  Pkg.add("PyCall"); Pkg.build("PyCall"; verbose=true)
+  using Conda
+  Conda.add("matplotlib"); Conda.add("libstdcxx-ng")
+  Conda.list()
+'
 
 if [ "$GITHUB_REPOSITORY" == 'JuliaPlots/PlotDocs.jl' ]; then
   $julia -e 'using Pkg; Pkg.develop(PackageSpec(path=pwd())); Pkg.instantiate()'
