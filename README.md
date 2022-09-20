@@ -29,6 +29,6 @@ by [DemoCards.jl][democards_jl]. The following steps shows a common workflow to 
    `preview_demos("docs/user_gallery")`.
 
 [literate_syntax]: https://fredrikekre.github.io/Literate.jl/v2/fileformat/
-[yaml_frontmatter]: https://johnnychen94.github.io/DemoCards.jl/stable/quickstart/usage_example/julia_demos/1.julia_demo/#juliademocard_example
+[yaml_frontmatter]: https://juliadocs.github.io/DemoCards.jl/stable/quickstart/usage_example/julia_demos/1.julia_demo/#juliademocard_example
 [democards_jl]: https://github.com/johnnychen94/DemoCards.jl
-[democards_preview]: https://johnnychen94.github.io/DemoCards.jl/stable/preview/
+[democards_preview]: https://juliadocs.github.io/DemoCards.jl/stable/preview/
