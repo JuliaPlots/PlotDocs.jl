@@ -79,9 +79,8 @@ function generate_cards(pkgname::Symbol; skip = get(Plots._backend_skips, pkgnam
         end
         # DemoCards use Literate.jl syntax with extra leading `#` as markdown lines
         write(jl, "# $(replace(example.desc, "\n" => "\n  # "))\n")
-        for expr in example.exprs
-            pretty_print_expr(jl, expr)
-        end
+        isnothing(example.imports) || pretty_print_expr(jl, example.imports)
+        pretty_print_expr(jl, example.exprs)
         # NOTE: the supported `Literate.jl` syntax is `#src` and `#hide` NOT `# src` !!
         write(jl, "\nmkpath(\"assets\")  #src\n")
         write(jl, if i in (2, 31)
