@@ -11,9 +11,9 @@
 
 # These examples show what UnitfulRecipes is all about.
 
-# First we need to tell Julia we are using Plots, Unitful, and UnitfulRecipes
+# First we need to tell Julia we are using Unitful and Plots
 
-using Plots, Unitful
+using Unitful, Plots
 
 # ## Simplest plot
 
