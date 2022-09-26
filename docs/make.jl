@@ -1,4 +1,4 @@
-using Documenter, PlotDocs, Plots, PlotThemes, DemoCards
+using Documenter, PlotDocs, Plots, PlotThemes, DemoCards, Literate
 import StatsPlots
 
 # Set matplotlib gui backend
@@ -53,6 +53,23 @@ push!(galleries_assets, assets)
 
 unique!(galleries_assets)
 
+##################
+# `UnitfulRecipes`
+src = joinpath(@__DIR__, "src/unitfulrecipes")
+lit = joinpath(@__DIR__, "src/unitfulrecipes/lit")
+
+notebooks = joinpath(src, "notebooks")
+execute = true  # set to true for executing notebooks and documenter!
+nb = true       # set to true to generate the notebooks
+for (root, _, files) in walkdir(lit), file in files
+    splitext(file)[2] == ".jl" || continue
+    ipath = joinpath(root, file)
+    opath = splitdir(replace(ipath, lit=>src))[1]
+    Literate.markdown(ipath, opath, documenter = execute)
+    nb && Literate.notebook(ipath, notebooks, execute = execute)
+end
+##################
+
 const PAGES = Any[
     "Home"=>"index.md",
     "Getting Started"=>[
@@ -87,6 +104,7 @@ const PAGES = Any[
             "Introduction" => "graphrecipes/introduction.md",
             "Examples" => "graphrecipes/examples.md",
             "Attributes" => "generated/graph_attributes.md",
+        "UnitfulRecipes" => "unitfulrecipes/unitfulrecipes.md",
         "Overview" => "ecosystem.md",
         ],
     ],
