@@ -60,7 +60,7 @@ lit = joinpath(@__DIR__, "src/unitfulrecipes/lit")
 
 notebooks = joinpath(src, "notebooks")
 execute = true  # set to true for executing notebooks and documenter!
-nb = true       # set to true to generate the notebooks
+nb = false      # set to true to generate the notebooks
 for (root, _, files) in walkdir(lit), file in files
     splitext(file)[2] == ".jl" || continue
     ipath = joinpath(root, file)
