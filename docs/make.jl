@@ -110,7 +110,7 @@ const PAGES = Any[
                 "Simple" => "generated/unitfulrecipes_examples.md",
                 "Plots" => "generated/unitfulrecipes_plots.md",
             ]
-        ]
+        ],
         "Overview" => "ecosystem.md",
     ],
     "Advanced Topics" => ["Internals" => "pipeline.md"],
