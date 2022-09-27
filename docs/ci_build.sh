@@ -53,8 +53,10 @@ $julia -e '
   using Pkg
   Pkg.develop(PackageSpec(path=pwd())); Pkg.instantiate()
   Pkg.add("Conda"); Pkg.build("Conda"; verbose=true)
+  using Conda; env, rc = Conda.ROOTENV, Conda.conda_rc(Conda.ROOTENV)
+  Conda.runconda(`config --set auto_update_conda False --file $rc --force`, env)
   Pkg.add("PyCall"); Pkg.build("PyCall"; verbose=true)
-  using Conda; Conda.add("matplotlib")
+  Conda.add("matplotlib")
   Conda.list()
 '
 
