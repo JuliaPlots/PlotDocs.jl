@@ -1,4 +1,4 @@
-using Documenter, PlotDocs, Plots, PlotThemes, DemoCards
+using Documenter, PlotDocs, Plots, PlotThemes, DemoCards, Literate
 import StatsPlots
 
 # Set matplotlib gui backend
@@ -53,14 +53,30 @@ push!(galleries_assets, assets)
 
 unique!(galleries_assets)
 
+##################
+# `UnitfulRecipes`
+unitfulrecipes_src = joinpath(@__DIR__, "src/unitfulrecipes")
+notebooks = joinpath(unitfulrecipes_src, "notebooks")
+
+execute = true  # set to true for executing notebooks and documenter!
+nb = false      # set to true to generate the notebooks
+for (root, _, files) in walkdir(unitfulrecipes_src), file in files
+    last(splitext(file)) == ".jl" || continue
+    ipath = joinpath(root, file)
+    opath = replace(ipath, "src/unitfulrecipes" => "src/generated") |> splitdir |> first
+    Literate.markdown(ipath, opath, documenter = execute)
+    nb && Literate.notebook(ipath, notebooks, execute = execute)
+end
+##################
+
 const PAGES = Any[
-    "Home"=>"index.md",
-    "Getting Started"=>[
+    "Home" => "index.md",
+    "Getting Started" => [
         "Installation" => "install.md",
         "Basics" => "basics.md",
         "Tutorial" => "tutorial.md",
     ],
-    "Manual"=>[
+    "Manual" => [
         "Input Data" => "input_data.md",
         "Output" => "output.md",
         "Attributes" => [
@@ -79,21 +95,28 @@ const PAGES = Any[
         "Backends" => "backends.md",
         "Supported Attributes" => "generated/supported.md",
     ],
-    "Learning"=>"learning.md",
-    "Contributing"=>"contributing.md", # TODO: testing
-    "Ecosystem"=>[
+    "Learning" => "learning.md",
+    "Contributing" => "contributing.md", # TODO: testing
+    "Ecosystem" => [
         "StatsPlots" => "generated/statsplots.md",
         "GraphRecipes" => [
             "Introduction" => "graphrecipes/introduction.md",
             "Examples" => "graphrecipes/examples.md",
             "Attributes" => "generated/graph_attributes.md",
-        "Overview" => "ecosystem.md",
         ],
+        "UnitfulRecipes" => [
+            "Introduction" => "unitfulrecipes/unitfulrecipes.md",
+            "Examples" => [
+                "Simple" => "generated/unitfulrecipes_examples.md",
+                "Plots" => "generated/unitfulrecipes_plots.md",
+            ]
+        ],
+        "Overview" => "ecosystem.md",
     ],
-    "Advanced Topics"=>["Internals" => "pipeline.md"],
-    "Gallery"=>galleries,
-    "User Gallery"=>user_gallery,
-    "API"=>"api.md",
+    "Advanced Topics" => ["Internals" => "pipeline.md"],
+    "Gallery" => galleries,
+    "User Gallery" => user_gallery,
+    "API" => "api.md",
 ]
 
 generate_attr_markdown()

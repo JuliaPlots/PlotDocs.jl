@@ -1,8 +1,8 @@
 module PlotDocs
 
 using Plots, DataFrames, MacroTools, OrderedCollections, Dates
-using JSON
 import Plots: _examples
+using JSON
 
 export
     generate_cards,
