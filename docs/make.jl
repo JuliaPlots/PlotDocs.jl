@@ -55,15 +55,16 @@ unique!(galleries_assets)
 
 ##################
 # `UnitfulRecipes`
-unitfulrecipes_src = joinpath(@__DIR__, "src/unitfulrecipes")
-notebooks = joinpath(unitfulrecipes_src, "notebooks")
+src_unitfulrecipes = "src/UnitfulRecipes"
+unitfulrecipes = joinpath(@__DIR__, src_unitfulrecipes)
+notebooks = joinpath(unitfulrecipes, "notebooks")
 
 execute = true  # set to true for executing notebooks and documenter!
 nb = false      # set to true to generate the notebooks
-for (root, _, files) in walkdir(unitfulrecipes_src), file in files
+for (root, _, files) in walkdir(unitfulrecipes), file in files
     last(splitext(file)) == ".jl" || continue
     ipath = joinpath(root, file)
-    opath = replace(ipath, "src/unitfulrecipes" => "src/generated") |> splitdir |> first
+    opath = replace(ipath, src_unitfulrecipes => "src/generated") |> splitdir |> first
     Literate.markdown(ipath, opath, documenter = execute)
     nb && Literate.notebook(ipath, notebooks, execute = execute)
 end
@@ -85,7 +86,37 @@ const PAGES = Any[
         "Subplot Attributes" => "generated/attributes_subplot.md",
         "Axis Attributes" => "generated/attributes_axis.md",
         "Layouts" => "layouts.md",
-        "Recipes" => "recipes.md",
+        "Recipes" => [
+            "Overview" => "recipes.md",
+            "RecipesBase" => [
+                "Home" => "RecipesBase/index.md",
+                "Recipes Syntax" => "RecipesBase/syntax.md",
+                "Recipes Types" => "RecipesBase/types.md",
+                "Internals" => "RecipesBase/internals.md",
+                "Public API" => "RecipesBase/api.md",
+            ],
+            "RecipesPipeline" => [
+                "Home" => "RecipesPipeline/index.md",
+                "Developer manual" => [
+                    "Public API" => "RecipesPipeline/api.md",
+                    "Recipes" => "RecipesPipeline/recipes.md",
+                ],
+                "Reference" => "RecipesPipeline/reference.md",
+                # "Source code" => joinpath.("generated", [
+                #     "RecipesPipeline.md",
+                #     "api.md",
+                #     "user_recipe.md",
+                #     "plot_recipe.md",
+                #     "type_recipe.md",
+                #     "series_recipe.md",
+                #     "group.md",
+                #     "recipes.md",
+                #     "series.md",
+                #     "group.md",
+                #     "utils.md"
+                # ])
+            ],
+        ],
         "Colors" => "colors.md",
         "ColorSchemes" => "generated/colorschemes.md",
         "Animations" => "animations.md",
@@ -98,12 +129,12 @@ const PAGES = Any[
     "Ecosystem" => [
         "StatsPlots" => "generated/statsplots.md",
         "GraphRecipes" => [
-            "Introduction" => "graphrecipes/introduction.md",
-            "Examples" => "graphrecipes/examples.md",
+            "Introduction" => "GraphRecipes/introduction.md",
+            "Examples" => "GraphRecipes/examples.md",
             "Attributes" => "generated/graph_attributes.md",
         ],
         "UnitfulRecipes" => [
-            "Introduction" => "unitfulrecipes/unitfulrecipes.md",
+            "Introduction" => "UnitfulRecipes/unitfulrecipes.md",
             "Examples" => [
                 "Simple" => "generated/unitfulrecipes_examples.md",
                 "Plots" => "generated/unitfulrecipes_plots.md",
