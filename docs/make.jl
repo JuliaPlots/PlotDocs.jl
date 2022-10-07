@@ -172,13 +172,8 @@ foreach(galleries_cb) do cb
     cb()  # URL redirection for DemoCards-generated gallery
 end
 
-if haskey(ENV, "DOCUMENTER_KEY")
-    deploydocs(
-        repo = "github.com/JuliaPlots/PlotDocs.jl.git",
-        push_preview = true,
-        versions = ["stable" => "v^", "v#.#", "dev" => "dev", "latest" => "dev"],
-        forcepush = true,
-    )
-else
-    @info "`DOCUMENTER_KEY` is empty, skip `deploydocs`"
-end
+deploydocs(
+    repo = "github.com/JuliaPlots/PlotDocs.jl.git",
+    versions = ["stable" => "v^", "v#.#", "dev" => "dev", "latest" => "dev"],
+    forcepush = true,
+)
