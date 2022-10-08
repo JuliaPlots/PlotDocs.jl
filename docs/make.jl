@@ -97,24 +97,7 @@ const PAGES = Any[
             ],
             "RecipesPipeline" => [
                 "Home" => "RecipesPipeline/index.md",
-                "Developer manual" => [
-                    "Public API" => "RecipesPipeline/api.md",
-                    "Recipes" => "RecipesPipeline/recipes.md",
-                ],
-                "Reference" => "RecipesPipeline/reference.md",
-                # "Source code" => joinpath.("generated", [
-                #     "RecipesPipeline.md",
-                #     "api.md",
-                #     "user_recipe.md",
-                #     "plot_recipe.md",
-                #     "type_recipe.md",
-                #     "series_recipe.md",
-                #     "group.md",
-                #     "recipes.md",
-                #     "series.md",
-                #     "group.md",
-                #     "utils.md"
-                # ])
+                "Public API" => "RecipesPipeline/api.md",
             ],
         ],
         "Colors" => "colors.md",
