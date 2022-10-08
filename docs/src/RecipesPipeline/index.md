@@ -3,5 +3,5 @@
 Documentation for RecipesPipeline.jl
 
 ```@docs
-recipe_pipeline!(plt, plotattributes, args)
+RecipesPipeline.recipe_pipeline!(plt, plotattributes, args)
 ```
