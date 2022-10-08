@@ -175,5 +175,6 @@ end
 deploydocs(
     repo = "github.com/JuliaPlots/PlotDocs.jl.git",
     versions = ["stable" => "v^", "v#.#", "dev" => "dev", "latest" => "dev"],
+    push_preview = true,
     forcepush = true,
 )
