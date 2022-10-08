@@ -1,4 +1,5 @@
-using Documenter, PlotDocs, Plots, PlotThemes, DemoCards, Literate
+using PlotDocs, PlotThemes, Plots, RecipesBase, RecipesPipeline
+using Documenter, DemoCards, Literate
 import StatsPlots
 
 # Set matplotlib gui backend
