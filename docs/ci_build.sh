@@ -60,7 +60,7 @@ $julia -e '
   Conda.list()
 '
 
-echo "== build documentation for $GITHUB_REPOSITORY@$GITHUB_REF =="
+echo "== build documentation for $GITHUB_REPOSITORY@$GITHUB_REF, triggerd by $GITHUB_ACTOR on $GITHUB_EVENT_NAME =="
 if [ "$GITHUB_REPOSITORY" == 'JuliaPlots/PlotDocs.jl' ]; then
   $julia docs/make.jl
 elif [ "$GITHUB_REPOSITORY" == 'JuliaPlots/Plots.jl' ]; then
