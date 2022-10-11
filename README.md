@@ -1,4 +1,4 @@
-# PlotDocs.jl
+# PlotDocs.jl FOO
 
 Documentation for [Plots.jl](https://github.com/JuliaPlots/Plots.jl)
 
