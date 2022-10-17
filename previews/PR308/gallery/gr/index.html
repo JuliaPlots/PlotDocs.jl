@@ -1,0 +1,699 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><title>GR · Plots</title><script data-outdated-warner src="../../assets/warner.js"></script><link href="https://cdnjs.cloudflare.com/ajax/libs/lato-font/3.0.0/css/lato-font.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/juliamono/0.045/juliamono.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/fontawesome.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/solid.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/brands.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.13.24/katex.min.css" rel="stylesheet" type="text/css"/><script>documenterBaseURL="../.."</script><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" data-main="../../assets/documenter.js"></script><script src="../../siteinfo.js"></script><script src="../../../versions.js"></script><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../../assets/themes/documenter-dark.css" data-theme-name="documenter-dark" data-theme-primary-dark/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../../assets/themes/documenter-light.css" data-theme-name="documenter-light" data-theme-primary/><script src="../../assets/themeswap.js"></script><link href="../../assets/favicon.ico" rel="icon" type="image/x-icon"/><link href="../../democards/bulmagridtheme.css" rel="stylesheet" type="text/css"/></head><body><div id="documenter"><nav class="docs-sidebar"><a class="docs-logo" href="../../"><img src="../../assets/logo.png" alt="Plots logo"/></a><div class="docs-package-name"><span class="docs-autofit"><a href="../../">Plots</a></span></div><form class="docs-search" action="../../search/"><input class="docs-search-query" id="documenter-search-query" name="q" type="text" placeholder="Search docs"/></form><ul class="docs-menu"><li><a class="tocitem" href="../../">Home</a></li><li><span class="tocitem">Getting Started</span><ul><li><a class="tocitem" href="../../install/">Installation</a></li><li><a class="tocitem" href="../../basics/">Basics</a></li><li><a class="tocitem" href="../../tutorial/">Tutorial</a></li></ul></li><li><span class="tocitem">Manual</span><ul><li><a class="tocitem" href="../../input_data/">Input Data</a></li><li><a class="tocitem" href="../../output/">Output</a></li><li><a class="tocitem" href="../../attributes/">Attributes</a></li><li><a class="tocitem" href="../../generated/attributes_series/">Series Attributes</a></li><li><a class="tocitem" href="../../generated/attributes_plot/">Plot Attributes</a></li><li><a class="tocitem" href="../../generated/attributes_subplot/">Subplot Attributes</a></li><li><a class="tocitem" href="../../generated/attributes_axis/">Axis Attributes</a></li><li><a class="tocitem" href="../../layouts/">Layouts</a></li><li><input class="collapse-toggle" id="menuitem-3-9" type="checkbox"/><label class="tocitem" for="menuitem-3-9"><span class="docs-label">Recipes</span><i class="docs-chevron"></i></label><ul class="collapsed"><li><a class="tocitem" href="../../recipes/">Overview</a></li><li><input class="collapse-toggle" id="menuitem-3-9-2" type="checkbox"/><label class="tocitem" for="menuitem-3-9-2"><span class="docs-label">RecipesBase</span><i class="docs-chevron"></i></label><ul class="collapsed"><li><a class="tocitem" href="../../RecipesBase/">Home</a></li><li><a class="tocitem" href="../../RecipesBase/syntax/">Recipes Syntax</a></li><li><a class="tocitem" href="../../RecipesBase/types/">Recipes Types</a></li><li><a class="tocitem" href="../../RecipesBase/internals/">Internals</a></li><li><a class="tocitem" href="../../RecipesBase/api/">Public API</a></li></ul></li><li><input class="collapse-toggle" id="menuitem-3-9-3" type="checkbox"/><label class="tocitem" for="menuitem-3-9-3"><span class="docs-label">RecipesPipeline</span><i class="docs-chevron"></i></label><ul class="collapsed"><li><a class="tocitem" href="../../RecipesPipeline/">Home</a></li><li><a class="tocitem" href="../../RecipesPipeline/api/">Public API</a></li></ul></li></ul></li><li><a class="tocitem" href="../../colors/">Colors</a></li><li><a class="tocitem" href="../../generated/colorschemes/">ColorSchemes</a></li><li><a class="tocitem" href="../../animations/">Animations</a></li><li><a class="tocitem" href="../../generated/plotthemes/">Themes</a></li><li><a class="tocitem" href="../../backends/">Backends</a></li><li><a class="tocitem" href="../../generated/supported/">Supported Attributes</a></li></ul></li><li><a class="tocitem" href="../../learning/">Learning</a></li><li><a class="tocitem" href="../../contributing/">Contributing</a></li><li><span class="tocitem">Ecosystem</span><ul><li><a class="tocitem" href="../../generated/statsplots/">StatsPlots</a></li><li><input class="collapse-toggle" id="menuitem-6-2" type="checkbox"/><label class="tocitem" for="menuitem-6-2"><span class="docs-label">GraphRecipes</span><i class="docs-chevron"></i></label><ul class="collapsed"><li><a class="tocitem" href="../../GraphRecipes/introduction/">Introduction</a></li><li><a class="tocitem" href="../../GraphRecipes/examples/">Examples</a></li><li><a class="tocitem" href="../../generated/graph_attributes/">Attributes</a></li></ul></li><li><input class="collapse-toggle" id="menuitem-6-3" type="checkbox"/><label class="tocitem" for="menuitem-6-3"><span class="docs-label">UnitfulRecipes</span><i class="docs-chevron"></i></label><ul class="collapsed"><li><a class="tocitem" href="../../UnitfulRecipes/unitfulrecipes/">Introduction</a></li><li><input class="collapse-toggle" id="menuitem-6-3-2" type="checkbox"/><label class="tocitem" for="menuitem-6-3-2"><span class="docs-label">Examples</span><i class="docs-chevron"></i></label><ul class="collapsed"><li><a class="tocitem" href="../../generated/unitfulrecipes_examples/">Simple</a></li><li><a class="tocitem" href="../../generated/unitfulrecipes_plots/">Plots</a></li></ul></li></ul></li><li><a class="tocitem" href="../../ecosystem/">Overview</a></li></ul></li><li><span class="tocitem">Advanced Topics</span><ul><li><a class="tocitem" href="../../pipeline/">Internals</a></li></ul></li><li><span class="tocitem">Gallery</span><ul><li class="is-active"><a class="tocitem" href>GR</a><ul class="internal"><li class="toplevel"><a class="tocitem" href="#Generated"><span>Generated</span></a></li></ul></li><li><a class="tocitem" href="../plotlyjs/">PlotlyJS</a></li><li><a class="tocitem" href="../pyplot/">PyPlot</a></li><li><a class="tocitem" href="../pgfplotsx/">PGFPlotsX</a></li><li><a class="tocitem" href="../unicodeplots/">UnicodePlots</a></li><li><a class="tocitem" href="../inspectdr/">InspectDR</a></li><li><a class="tocitem" href="../gaston/">Gaston</a></li></ul></li><li><a class="tocitem" href="../../user_gallery/">User Gallery</a></li><li><a class="tocitem" href="../../api/">API</a></li></ul><div class="docs-version-selector field has-addons"><div class="control"><span class="docs-label button is-static is-size-7">Version</span></div><div class="docs-selector control is-expanded"><div class="select is-fullwidth is-size-7"><select id="documenter-version-selector"></select></div></div></div></nav><div class="docs-main"><header class="docs-navbar"><nav class="breadcrumb"><ul class="is-hidden-mobile"><li><a class="is-disabled">Gallery</a></li><li class="is-active"><a href>GR</a></li></ul><ul class="is-hidden-tablet"><li class="is-active"><a href>GR</a></li></ul></nav><div class="docs-right"><a class="docs-edit-link" href="https://github.com/JuliaPlots/PlotDocs.jl/blob/master/docs/src/gallery/gr/index.md" title="Edit on GitHub"><span class="docs-icon fab"></span><span class="docs-label is-hidden-touch">Edit on GitHub</span></a><a class="docs-settings-button fas fa-cog" id="documenter-settings-button" href="#" title="Settings"></a><a class="docs-sidebar-button fa fa-bars is-hidden-desktop" id="documenter-sidebar-button" href="#"></a></div></header><article class="content" id="documenter-page"><h1 id="GR"><a class="docs-heading-anchor" href="#GR">GR</a><a id="GR-1"></a><a class="docs-heading-anchor-permalink" href="#GR" title="Permalink"></a></h1><p><code>GR</code> is the default backend for <code>Plots</code>. To explicitly specify the <code>GR</code> backend, you can use:</p><pre><code class="language-julia hljs">using Plots
+gr()</code></pre><p>The demos are generated from <code>Plots._examples</code>. Empty demos are features that this backend does not support.</p><h1 id="Generated"><a class="docs-heading-anchor" href="#Generated">Generated</a><a id="Generated-1"></a><a class="docs-heading-anchor-permalink" href="#Generated" title="Permalink"></a></h1><p><a href="generated/gr/#gr_attributes">Supported attributes</a></p><div class="columns is-multiline bulma-grid-card-section"><div class="column is-half">
+    <div class="card bulma-grid-card">
+        <div class="card-content">
+            <h3 class="is-size-5 bulma-grid-card-text">
+                Lines
+            </h3>
+            <p class="is-size-6 bulma-grid-card-description">
+                
+            </p>
+        </div>
+        <div class="card-image bulma-grid-card-cover"><p><a href="generated/gr-ref1/#gr_demo_1"><img src="covers/gr-ref1.png" alt="card image"/></a></p>        </div>
+    </div>
+</div><div class="column is-half">
+    <div class="card bulma-grid-card">
+        <div class="card-content">
+            <h3 class="is-size-5 bulma-grid-card-text">
+                Functions, adding data, and animations
+            </h3>
+            <p class="is-size-6 bulma-grid-card-description">
+                
+            </p>
+        </div>
+        <div class="card-image bulma-grid-card-cover"><p><a href="generated/gr-ref2/#gr_demo_2"><img src="covers/gr-ref2.gif" alt="card image"/></a></p>        </div>
+    </div>
+</div><div class="column is-half">
+    <div class="card bulma-grid-card">
+        <div class="card-content">
+            <h3 class="is-size-5 bulma-grid-card-text">
+                Parametric plots
+            </h3>
+            <p class="is-size-6 bulma-grid-card-description">
+                
+            </p>
+        </div>
+        <div class="card-image bulma-grid-card-cover"><p><a href="generated/gr-ref3/#gr_demo_3"><img src="covers/gr-ref3.png" alt="card image"/></a></p>        </div>
+    </div>
+</div><div class="column is-half">
+    <div class="card bulma-grid-card">
+        <div class="card-content">
+            <h3 class="is-size-5 bulma-grid-card-text">
+                Colors
+            </h3>
+            <p class="is-size-6 bulma-grid-card-description">
+                
+            </p>
+        </div>
+        <div class="card-image bulma-grid-card-cover"><p><a href="generated/gr-ref4/#gr_demo_4"><img src="covers/gr-ref4.png" alt="card image"/></a></p>        </div>
+    </div>
+</div><div class="column is-half">
+    <div class="card bulma-grid-card">
+        <div class="card-content">
+            <h3 class="is-size-5 bulma-grid-card-text">
+                Global
+            </h3>
+            <p class="is-size-6 bulma-grid-card-description">
+                
+            </p>
+        </div>
+        <div class="card-image bulma-grid-card-cover"><p><a href="generated/gr-ref5/#gr_demo_5"><img src="covers/gr-ref5.png" alt="card image"/></a></p>        </div>
+    </div>
+</div><div class="column is-half">
+    <div class="card bulma-grid-card">
+        <div class="card-content">
+            <h3 class="is-size-5 bulma-grid-card-text">
+                Images
+            </h3>
+            <p class="is-size-6 bulma-grid-card-description">
+                
+            </p>
+        </div>
+        <div class="card-image bulma-grid-card-cover"><p><a href="generated/gr-ref6/#gr_demo_6"><img src="covers/axis_logo_600x400.png" alt="card image"/></a></p>        </div>
+    </div>
+</div><div class="column is-half">
+    <div class="card bulma-grid-card">
+        <div class="card-content">
+            <h3 class="is-size-5 bulma-grid-card-text">
+                Arguments
+            </h3>
+            <p class="is-size-6 bulma-grid-card-description">
+                
+            </p>
+        </div>
+        <div class="card-image bulma-grid-card-cover"><p><a href="generated/gr-ref7/#gr_demo_7"><img src="covers/gr-ref7.png" alt="card image"/></a></p>        </div>
+    </div>
+</div><div class="column is-half">
+    <div class="card bulma-grid-card">
+        <div class="card-content">
+            <h3 class="is-size-5 bulma-grid-card-text">
+                Build plot in pieces
+            </h3>
+            <p class="is-size-6 bulma-grid-card-description">
+                
+            </p>
+        </div>
+        <div class="card-image bulma-grid-card-cover"><p><a href="generated/gr-ref8/#gr_demo_8"><img src="covers/gr-ref8.png" alt="card image"/></a></p>        </div>
+    </div>
+</div><div class="column is-half">
+    <div class="card bulma-grid-card">
+        <div class="card-content">
+            <h3 class="is-size-5 bulma-grid-card-text">
+                Histogram2D
+            </h3>
+            <p class="is-size-6 bulma-grid-card-description">
+                
+            </p>
+        </div>
+        <div class="card-image bulma-grid-card-cover"><p><a href="generated/gr-ref10/#gr_demo_10"><img src="covers/gr-ref10.png" alt="card image"/></a></p>        </div>
+    </div>
+</div><div class="column is-half">
+    <div class="card bulma-grid-card">
+        <div class="card-content">
+            <h3 class="is-size-5 bulma-grid-card-text">
+                Line types
+            </h3>
+            <p class="is-size-6 bulma-grid-card-description">
+                
+            </p>
+        </div>
+        <div class="card-image bulma-grid-card-cover"><p><a href="generated/gr-ref11/#gr_demo_11"><img src="covers/gr-ref11.png" alt="card image"/></a></p>        </div>
+    </div>
+</div><div class="column is-half">
+    <div class="card bulma-grid-card">
+        <div class="card-content">
+            <h3 class="is-size-5 bulma-grid-card-text">
+                Line styles
+            </h3>
+            <p class="is-size-6 bulma-grid-card-description">
+                
+            </p>
+        </div>
+        <div class="card-image bulma-grid-card-cover"><p><a href="generated/gr-ref12/#gr_demo_12"><img src="covers/gr-ref12.png" alt="card image"/></a></p>        </div>
+    </div>
+</div><div class="column is-half">
+    <div class="card bulma-grid-card">
+        <div class="card-content">
+            <h3 class="is-size-5 bulma-grid-card-text">
+                Marker types
+            </h3>
+            <p class="is-size-6 bulma-grid-card-description">
+                
+            </p>
+        </div>
+        <div class="card-image bulma-grid-card-cover"><p><a href="generated/gr-ref13/#gr_demo_13"><img src="covers/gr-ref13.png" alt="card image"/></a></p>        </div>
+    </div>
+</div><div class="column is-half">
+    <div class="card bulma-grid-card">
+        <div class="card-content">
+            <h3 class="is-size-5 bulma-grid-card-text">
+                Bar
+            </h3>
+            <p class="is-size-6 bulma-grid-card-description">
+                
+            </p>
+        </div>
+        <div class="card-image bulma-grid-card-cover"><p><a href="generated/gr-ref14/#gr_demo_14"><img src="covers/gr-ref14.png" alt="card image"/></a></p>        </div>
+    </div>
+</div><div class="column is-half">
+    <div class="card bulma-grid-card">
+        <div class="card-content">
+            <h3 class="is-size-5 bulma-grid-card-text">
+                Histogram
+            </h3>
+            <p class="is-size-6 bulma-grid-card-description">
+                
+            </p>
+        </div>
+        <div class="card-image bulma-grid-card-cover"><p><a href="generated/gr-ref15/#gr_demo_15"><img src="covers/gr-ref15.png" alt="card image"/></a></p>        </div>
+    </div>
+</div><div class="column is-half">
+    <div class="card bulma-grid-card">
+        <div class="card-content">
+            <h3 class="is-size-5 bulma-grid-card-text">
+                Subplots
+            </h3>
+            <p class="is-size-6 bulma-grid-card-description">
+                
+            </p>
+        </div>
+        <div class="card-image bulma-grid-card-cover"><p><a href="generated/gr-ref16/#gr_demo_16"><img src="covers/gr-ref16.png" alt="card image"/></a></p>        </div>
+    </div>
+</div><div class="column is-half">
+    <div class="card bulma-grid-card">
+        <div class="card-content">
+            <h3 class="is-size-5 bulma-grid-card-text">
+                Adding to subplots
+            </h3>
+            <p class="is-size-6 bulma-grid-card-description">
+                
+            </p>
+        </div>
+        <div class="card-image bulma-grid-card-cover"><p><a href="generated/gr-ref17/#gr_demo_17"><img src="covers/gr-ref17.png" alt="card image"/></a></p>        </div>
+    </div>
+</div><div class="column is-half">
+    <div class="card bulma-grid-card">
+        <div class="card-content">
+            <h3 class="is-size-5 bulma-grid-card-text">
+                Open/High/Low/Close
+            </h3>
+            <p class="is-size-6 bulma-grid-card-description">
+                
+            </p>
+        </div>
+        <div class="card-image bulma-grid-card-cover"><p><a href="generated/gr-ref19/#gr_demo_19"><img src="covers/gr-ref19.png" alt="card image"/></a></p>        </div>
+    </div>
+</div><div class="column is-half">
+    <div class="card bulma-grid-card">
+        <div class="card-content">
+            <h3 class="is-size-5 bulma-grid-card-text">
+                Annotations
+            </h3>
+            <p class="is-size-6 bulma-grid-card-description">
+                
+            </p>
+        </div>
+        <div class="card-image bulma-grid-card-cover"><p><a href="generated/gr-ref20/#gr_demo_20"><img src="covers/gr-ref20.png" alt="card image"/></a></p>        </div>
+    </div>
+</div><div class="column is-half">
+    <div class="card bulma-grid-card">
+        <div class="card-content">
+            <h3 class="is-size-5 bulma-grid-card-text">
+                Custom Markers
+            </h3>
+            <p class="is-size-6 bulma-grid-card-description">
+                
+            </p>
+        </div>
+        <div class="card-image bulma-grid-card-cover"><p><a href="generated/gr-ref21/#gr_demo_21"><img src="covers/gr-ref21.png" alt="card image"/></a></p>        </div>
+    </div>
+</div><div class="column is-half">
+    <div class="card bulma-grid-card">
+        <div class="card-content">
+            <h3 class="is-size-5 bulma-grid-card-text">
+                Contours
+            </h3>
+            <p class="is-size-6 bulma-grid-card-description">
+                
+            </p>
+        </div>
+        <div class="card-image bulma-grid-card-cover"><p><a href="generated/gr-ref22/#gr_demo_22"><img src="covers/gr-ref22.png" alt="card image"/></a></p>        </div>
+    </div>
+</div><div class="column is-half">
+    <div class="card bulma-grid-card">
+        <div class="card-content">
+            <h3 class="is-size-5 bulma-grid-card-text">
+                Pie
+            </h3>
+            <p class="is-size-6 bulma-grid-card-description">
+                
+            </p>
+        </div>
+        <div class="card-image bulma-grid-card-cover"><p><a href="generated/gr-ref23/#gr_demo_23"><img src="covers/gr-ref23.png" alt="card image"/></a></p>        </div>
+    </div>
+</div><div class="column is-half">
+    <div class="card bulma-grid-card">
+        <div class="card-content">
+            <h3 class="is-size-5 bulma-grid-card-text">
+                3D
+            </h3>
+            <p class="is-size-6 bulma-grid-card-description">
+                
+            </p>
+        </div>
+        <div class="card-image bulma-grid-card-cover"><p><a href="generated/gr-ref24/#gr_demo_24"><img src="covers/gr-ref24.png" alt="card image"/></a></p>        </div>
+    </div>
+</div><div class="column is-half">
+    <div class="card bulma-grid-card">
+        <div class="card-content">
+            <h3 class="is-size-5 bulma-grid-card-text">
+                DataFrames
+            </h3>
+            <p class="is-size-6 bulma-grid-card-description">
+                
+            </p>
+        </div>
+        <div class="card-image bulma-grid-card-cover"><p><a href="generated/gr-ref25/#gr_demo_25"><img src="covers/gr-ref25.png" alt="card image"/></a></p>        </div>
+    </div>
+</div><div class="column is-half">
+    <div class="card bulma-grid-card">
+        <div class="card-content">
+            <h3 class="is-size-5 bulma-grid-card-text">
+                Groups and Subplots
+            </h3>
+            <p class="is-size-6 bulma-grid-card-description">
+                
+            </p>
+        </div>
+        <div class="card-image bulma-grid-card-cover"><p><a href="generated/gr-ref26/#gr_demo_26"><img src="covers/gr-ref26.png" alt="card image"/></a></p>        </div>
+    </div>
+</div><div class="column is-half">
+    <div class="card bulma-grid-card">
+        <div class="card-content">
+            <h3 class="is-size-5 bulma-grid-card-text">
+                Polar Plots
+            </h3>
+            <p class="is-size-6 bulma-grid-card-description">
+                
+            </p>
+        </div>
+        <div class="card-image bulma-grid-card-cover"><p><a href="generated/gr-ref27/#gr_demo_27"><img src="covers/gr-ref27.png" alt="card image"/></a></p>        </div>
+    </div>
+</div><div class="column is-half">
+    <div class="card bulma-grid-card">
+        <div class="card-content">
+            <h3 class="is-size-5 bulma-grid-card-text">
+                Heatmap, categorical axes, and aspect_ratio
+            </h3>
+            <p class="is-size-6 bulma-grid-card-description">
+                
+            </p>
+        </div>
+        <div class="card-image bulma-grid-card-cover"><p><a href="generated/gr-ref28/#gr_demo_28"><img src="covers/gr-ref28.png" alt="card image"/></a></p>        </div>
+    </div>
+</div><div class="column is-half">
+    <div class="card bulma-grid-card">
+        <div class="card-content">
+            <h3 class="is-size-5 bulma-grid-card-text">
+                Layouts, margins, label rotation, title location
+            </h3>
+            <p class="is-size-6 bulma-grid-card-description">
+                
+            </p>
+        </div>
+        <div class="card-image bulma-grid-card-cover"><p><a href="generated/gr-ref29/#gr_demo_29"><img src="covers/gr-ref29.png" alt="card image"/></a></p>        </div>
+    </div>
+</div><div class="column is-half">
+    <div class="card bulma-grid-card">
+        <div class="card-content">
+            <h3 class="is-size-5 bulma-grid-card-text">
+                Boxplot and Violin series recipes
+            </h3>
+            <p class="is-size-6 bulma-grid-card-description">
+                
+            </p>
+        </div>
+        <div class="card-image bulma-grid-card-cover"><p><a href="generated/gr-ref30/#gr_demo_30"><img src="covers/axis_logo_600x400.png" alt="card image"/></a></p>        </div>
+    </div>
+</div><div class="column is-half">
+    <div class="card bulma-grid-card">
+        <div class="card-content">
+            <h3 class="is-size-5 bulma-grid-card-text">
+                Animation with subplots
+            </h3>
+            <p class="is-size-6 bulma-grid-card-description">
+                
+            </p>
+        </div>
+        <div class="card-image bulma-grid-card-cover"><p><a href="generated/gr-ref31/#gr_demo_31"><img src="covers/gr-ref31.gif" alt="card image"/></a></p>        </div>
+    </div>
+</div><div class="column is-half">
+    <div class="card bulma-grid-card">
+        <div class="card-content">
+            <h3 class="is-size-5 bulma-grid-card-text">
+                Spy
+            </h3>
+            <p class="is-size-6 bulma-grid-card-description">
+                
+            </p>
+        </div>
+        <div class="card-image bulma-grid-card-cover"><p><a href="generated/gr-ref32/#gr_demo_32"><img src="covers/gr-ref32.png" alt="card image"/></a></p>        </div>
+    </div>
+</div><div class="column is-half">
+    <div class="card bulma-grid-card">
+        <div class="card-content">
+            <h3 class="is-size-5 bulma-grid-card-text">
+                Magic grid argument
+            </h3>
+            <p class="is-size-6 bulma-grid-card-description">
+                
+            </p>
+        </div>
+        <div class="card-image bulma-grid-card-cover"><p><a href="generated/gr-ref33/#gr_demo_33"><img src="covers/gr-ref33.png" alt="card image"/></a></p>        </div>
+    </div>
+</div><div class="column is-half">
+    <div class="card bulma-grid-card">
+        <div class="card-content">
+            <h3 class="is-size-5 bulma-grid-card-text">
+                Framestyle
+            </h3>
+            <p class="is-size-6 bulma-grid-card-description">
+                
+            </p>
+        </div>
+        <div class="card-image bulma-grid-card-cover"><p><a href="generated/gr-ref34/#gr_demo_34"><img src="covers/gr-ref34.png" alt="card image"/></a></p>        </div>
+    </div>
+</div><div class="column is-half">
+    <div class="card bulma-grid-card">
+        <div class="card-content">
+            <h3 class="is-size-5 bulma-grid-card-text">
+                Lines and markers with varying colors
+            </h3>
+            <p class="is-size-6 bulma-grid-card-description">
+                
+            </p>
+        </div>
+        <div class="card-image bulma-grid-card-cover"><p><a href="generated/gr-ref35/#gr_demo_35"><img src="covers/gr-ref35.png" alt="card image"/></a></p>        </div>
+    </div>
+</div><div class="column is-half">
+    <div class="card bulma-grid-card">
+        <div class="card-content">
+            <h3 class="is-size-5 bulma-grid-card-text">
+                Portfolio Composition maps
+            </h3>
+            <p class="is-size-6 bulma-grid-card-description">
+                
+            </p>
+        </div>
+        <div class="card-image bulma-grid-card-cover"><p><a href="generated/gr-ref36/#gr_demo_36"><img src="covers/gr-ref36.png" alt="card image"/></a></p>        </div>
+    </div>
+</div><div class="column is-half">
+    <div class="card bulma-grid-card">
+        <div class="card-content">
+            <h3 class="is-size-5 bulma-grid-card-text">
+                Ribbons
+            </h3>
+            <p class="is-size-6 bulma-grid-card-description">
+                
+            </p>
+        </div>
+        <div class="card-image bulma-grid-card-cover"><p><a href="generated/gr-ref37/#gr_demo_37"><img src="covers/gr-ref37.png" alt="card image"/></a></p>        </div>
+    </div>
+</div><div class="column is-half">
+    <div class="card bulma-grid-card">
+        <div class="card-content">
+            <h3 class="is-size-5 bulma-grid-card-text">
+                Histogram2D (complex values)
+            </h3>
+            <p class="is-size-6 bulma-grid-card-description">
+                
+            </p>
+        </div>
+        <div class="card-image bulma-grid-card-cover"><p><a href="generated/gr-ref38/#gr_demo_38"><img src="covers/gr-ref38.png" alt="card image"/></a></p>        </div>
+    </div>
+</div><div class="column is-half">
+    <div class="card bulma-grid-card">
+        <div class="card-content">
+            <h3 class="is-size-5 bulma-grid-card-text">
+                Unconnected lines using `missing` or `NaN`
+            </h3>
+            <p class="is-size-6 bulma-grid-card-description">
+                
+            </p>
+        </div>
+        <div class="card-image bulma-grid-card-cover"><p><a href="generated/gr-ref39/#gr_demo_39"><img src="covers/gr-ref39.png" alt="card image"/></a></p>        </div>
+    </div>
+</div><div class="column is-half">
+    <div class="card bulma-grid-card">
+        <div class="card-content">
+            <h3 class="is-size-5 bulma-grid-card-text">
+                Lens
+            </h3>
+            <p class="is-size-6 bulma-grid-card-description">
+                
+            </p>
+        </div>
+        <div class="card-image bulma-grid-card-cover"><p><a href="generated/gr-ref40/#gr_demo_40"><img src="covers/gr-ref40.png" alt="card image"/></a></p>        </div>
+    </div>
+</div><div class="column is-half">
+    <div class="card bulma-grid-card">
+        <div class="card-content">
+            <h3 class="is-size-5 bulma-grid-card-text">
+                Array Types
+            </h3>
+            <p class="is-size-6 bulma-grid-card-description">
+                
+            </p>
+        </div>
+        <div class="card-image bulma-grid-card-cover"><p><a href="generated/gr-ref41/#gr_demo_41"><img src="covers/gr-ref41.png" alt="card image"/></a></p>        </div>
+    </div>
+</div><div class="column is-half">
+    <div class="card bulma-grid-card">
+        <div class="card-content">
+            <h3 class="is-size-5 bulma-grid-card-text">
+                Setting defaults and font arguments
+            </h3>
+            <p class="is-size-6 bulma-grid-card-description">
+                
+            </p>
+        </div>
+        <div class="card-image bulma-grid-card-cover"><p><a href="generated/gr-ref42/#gr_demo_42"><img src="covers/gr-ref42.png" alt="card image"/></a></p>        </div>
+    </div>
+</div><div class="column is-half">
+    <div class="card bulma-grid-card">
+        <div class="card-content">
+            <h3 class="is-size-5 bulma-grid-card-text">
+                Heatmap with DateTime axis
+            </h3>
+            <p class="is-size-6 bulma-grid-card-description">
+                
+            </p>
+        </div>
+        <div class="card-image bulma-grid-card-cover"><p><a href="generated/gr-ref43/#gr_demo_43"><img src="covers/gr-ref43.png" alt="card image"/></a></p>        </div>
+    </div>
+</div><div class="column is-half">
+    <div class="card bulma-grid-card">
+        <div class="card-content">
+            <h3 class="is-size-5 bulma-grid-card-text">
+                Linked axes
+            </h3>
+            <p class="is-size-6 bulma-grid-card-description">
+                
+            </p>
+        </div>
+        <div class="card-image bulma-grid-card-cover"><p><a href="generated/gr-ref44/#gr_demo_44"><img src="covers/gr-ref44.png" alt="card image"/></a></p>        </div>
+    </div>
+</div><div class="column is-half">
+    <div class="card bulma-grid-card">
+        <div class="card-content">
+            <h3 class="is-size-5 bulma-grid-card-text">
+                Error bars and array type recipes
+            </h3>
+            <p class="is-size-6 bulma-grid-card-description">
+                
+            </p>
+        </div>
+        <div class="card-image bulma-grid-card-cover"><p><a href="generated/gr-ref45/#gr_demo_45"><img src="covers/gr-ref45.png" alt="card image"/></a></p>        </div>
+    </div>
+</div><div class="column is-half">
+    <div class="card bulma-grid-card">
+        <div class="card-content">
+            <h3 class="is-size-5 bulma-grid-card-text">
+                Tuples and `Point`s as data
+            </h3>
+            <p class="is-size-6 bulma-grid-card-description">
+                
+            </p>
+        </div>
+        <div class="card-image bulma-grid-card-cover"><p><a href="generated/gr-ref46/#gr_demo_46"><img src="covers/gr-ref46.png" alt="card image"/></a></p>        </div>
+    </div>
+</div><div class="column is-half">
+    <div class="card bulma-grid-card">
+        <div class="card-content">
+            <h3 class="is-size-5 bulma-grid-card-text">
+                Mesh3d
+            </h3>
+            <p class="is-size-6 bulma-grid-card-description">
+                
+            </p>
+        </div>
+        <div class="card-image bulma-grid-card-cover"><p><a href="generated/gr-ref47/#gr_demo_47"><img src="covers/gr-ref47.png" alt="card image"/></a></p>        </div>
+    </div>
+</div><div class="column is-half">
+    <div class="card bulma-grid-card">
+        <div class="card-content">
+            <h3 class="is-size-5 bulma-grid-card-text">
+                Vectors of markershapes and segments
+            </h3>
+            <p class="is-size-6 bulma-grid-card-description">
+                
+            </p>
+        </div>
+        <div class="card-image bulma-grid-card-cover"><p><a href="generated/gr-ref48/#gr_demo_48"><img src="covers/gr-ref48.png" alt="card image"/></a></p>        </div>
+    </div>
+</div><div class="column is-half">
+    <div class="card bulma-grid-card">
+        <div class="card-content">
+            <h3 class="is-size-5 bulma-grid-card-text">
+                Polar heatmaps
+            </h3>
+            <p class="is-size-6 bulma-grid-card-description">
+                
+            </p>
+        </div>
+        <div class="card-image bulma-grid-card-cover"><p><a href="generated/gr-ref49/#gr_demo_49"><img src="covers/gr-ref49.png" alt="card image"/></a></p>        </div>
+    </div>
+</div><div class="column is-half">
+    <div class="card bulma-grid-card">
+        <div class="card-content">
+            <h3 class="is-size-5 bulma-grid-card-text">
+                3D surface with axis guides
+            </h3>
+            <p class="is-size-6 bulma-grid-card-description">
+                
+            </p>
+        </div>
+        <div class="card-image bulma-grid-card-cover"><p><a href="generated/gr-ref50/#gr_demo_50"><img src="covers/gr-ref50.png" alt="card image"/></a></p>        </div>
+    </div>
+</div><div class="column is-half">
+    <div class="card bulma-grid-card">
+        <div class="card-content">
+            <h3 class="is-size-5 bulma-grid-card-text">
+                Images with custom axes
+            </h3>
+            <p class="is-size-6 bulma-grid-card-description">
+                
+            </p>
+        </div>
+        <div class="card-image bulma-grid-card-cover"><p><a href="generated/gr-ref51/#gr_demo_51"><img src="covers/gr-ref51.png" alt="card image"/></a></p>        </div>
+    </div>
+</div><div class="column is-half">
+    <div class="card bulma-grid-card">
+        <div class="card-content">
+            <h3 class="is-size-5 bulma-grid-card-text">
+                3d quiver
+            </h3>
+            <p class="is-size-6 bulma-grid-card-description">
+                
+            </p>
+        </div>
+        <div class="card-image bulma-grid-card-cover"><p><a href="generated/gr-ref52/#gr_demo_52"><img src="covers/gr-ref52.png" alt="card image"/></a></p>        </div>
+    </div>
+</div><div class="column is-half">
+    <div class="card bulma-grid-card">
+        <div class="card-content">
+            <h3 class="is-size-5 bulma-grid-card-text">
+                Step Types
+            </h3>
+            <p class="is-size-6 bulma-grid-card-description">
+                
+            </p>
+        </div>
+        <div class="card-image bulma-grid-card-cover"><p><a href="generated/gr-ref53/#gr_demo_53"><img src="covers/gr-ref53.png" alt="card image"/></a></p>        </div>
+    </div>
+</div><div class="column is-half">
+    <div class="card bulma-grid-card">
+        <div class="card-content">
+            <h3 class="is-size-5 bulma-grid-card-text">
+                Guide positions and alignment
+            </h3>
+            <p class="is-size-6 bulma-grid-card-description">
+                
+            </p>
+        </div>
+        <div class="card-image bulma-grid-card-cover"><p><a href="generated/gr-ref54/#gr_demo_54"><img src="covers/gr-ref54.png" alt="card image"/></a></p>        </div>
+    </div>
+</div><div class="column is-half">
+    <div class="card bulma-grid-card">
+        <div class="card-content">
+            <h3 class="is-size-5 bulma-grid-card-text">
+                3D axis flip / mirror
+            </h3>
+            <p class="is-size-6 bulma-grid-card-description">
+                
+            </p>
+        </div>
+        <div class="card-image bulma-grid-card-cover"><p><a href="generated/gr-ref55/#gr_demo_55"><img src="covers/gr-ref55.png" alt="card image"/></a></p>        </div>
+    </div>
+</div><div class="column is-half">
+    <div class="card bulma-grid-card">
+        <div class="card-content">
+            <h3 class="is-size-5 bulma-grid-card-text">
+                Bar plot customizations
+            </h3>
+            <p class="is-size-6 bulma-grid-card-description">
+                
+            </p>
+        </div>
+        <div class="card-image bulma-grid-card-cover"><p><a href="generated/gr-ref56/#gr_demo_56"><img src="covers/gr-ref56.png" alt="card image"/></a></p>        </div>
+    </div>
+</div><div class="column is-half">
+    <div class="card bulma-grid-card">
+        <div class="card-content">
+            <h3 class="is-size-5 bulma-grid-card-text">
+                Vertical and horizonal spans
+            </h3>
+            <p class="is-size-6 bulma-grid-card-description">
+                
+            </p>
+        </div>
+        <div class="card-image bulma-grid-card-cover"><p><a href="generated/gr-ref57/#gr_demo_57"><img src="covers/gr-ref57.png" alt="card image"/></a></p>        </div>
+    </div>
+</div><div class="column is-half">
+    <div class="card bulma-grid-card">
+        <div class="card-content">
+            <h3 class="is-size-5 bulma-grid-card-text">
+                Stacked area chart
+            </h3>
+            <p class="is-size-6 bulma-grid-card-description">
+                
+            </p>
+        </div>
+        <div class="card-image bulma-grid-card-cover"><p><a href="generated/gr-ref58/#gr_demo_58"><img src="covers/gr-ref58.png" alt="card image"/></a></p>        </div>
+    </div>
+</div><div class="column is-half">
+    <div class="card bulma-grid-card">
+        <div class="card-content">
+            <h3 class="is-size-5 bulma-grid-card-text">
+                Annotations at discrete locations
+            </h3>
+            <p class="is-size-6 bulma-grid-card-description">
+                
+            </p>
+        </div>
+        <div class="card-image bulma-grid-card-cover"><p><a href="generated/gr-ref59/#gr_demo_59"><img src="covers/gr-ref59.png" alt="card image"/></a></p>        </div>
+    </div>
+</div><div class="column is-half">
+    <div class="card bulma-grid-card">
+        <div class="card-content">
+            <h3 class="is-size-5 bulma-grid-card-text">
+                3D projection
+            </h3>
+            <p class="is-size-6 bulma-grid-card-description">
+                
+            </p>
+        </div>
+        <div class="card-image bulma-grid-card-cover"><p><a href="generated/gr-ref60/#gr_demo_60"><img src="covers/gr-ref60.png" alt="card image"/></a></p>        </div>
+    </div>
+</div></div></article><nav class="docs-footer"><a class="docs-footer-prevpage" href="../../pipeline/">« Internals</a><a class="docs-footer-nextpage" href="../plotlyjs/">PlotlyJS »</a><div class="flexbox-break"></div><p class="footer-message">Powered by <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> and the <a href="https://julialang.org/">Julia Programming Language</a>.</p></nav></div><div class="modal" id="documenter-settings"><div class="modal-background"></div><div class="modal-card"><header class="modal-card-head"><p class="modal-card-title">Settings</p><button class="delete"></button></header><section class="modal-card-body"><p><label class="label">Theme</label><div class="select"><select id="documenter-themepicker"><option value="documenter-light">documenter-light</option><option value="documenter-dark">documenter-dark</option></select></div></p><hr/><p>This document was generated with <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> version 0.27.23 on <span class="colophon-date" title="Tuesday 11 October 2022 13:53">Tuesday 11 October 2022</span>. Using Julia version 1.8.2.</p></section><footer class="modal-card-foot"></footer></div></div></div></body></html>

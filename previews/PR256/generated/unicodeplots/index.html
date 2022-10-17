@@ -1,0 +1,910 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><title>UnicodePlots · Plots</title><script data-outdated-warner src="../../assets/warner.js"></script><link href="https://cdnjs.cloudflare.com/ajax/libs/lato-font/3.0.0/css/lato-font.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/juliamono/0.039/juliamono-regular.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/fontawesome.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/solid.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/brands.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.13.11/katex.min.css" rel="stylesheet" type="text/css"/><script>documenterBaseURL="../.."</script><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" data-main="../../assets/documenter.js"></script><script src="../../siteinfo.js"></script><script src="../../../versions.js"></script><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../../assets/themes/documenter-dark.css" data-theme-name="documenter-dark" data-theme-primary-dark/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../../assets/themes/documenter-light.css" data-theme-name="documenter-light" data-theme-primary/><script src="../../assets/themeswap.js"></script><link href="../../assets/favicon.ico" rel="icon" type="image/x-icon"/><link href="../../democards/bulmagridtheme.css" rel="stylesheet" type="text/css"/></head><body><div id="documenter"><nav class="docs-sidebar"><a class="docs-logo" href="../../"><img src="../../assets/logo.png" alt="Plots logo"/></a><div class="docs-package-name"><span class="docs-autofit"><a href="../../">Plots</a></span></div><form class="docs-search" action="../../search/"><input class="docs-search-query" id="documenter-search-query" name="q" type="text" placeholder="Search docs"/></form><ul class="docs-menu"><li><a class="tocitem" href="../../">Home</a></li><li><span class="tocitem">Getting Started</span><ul><li><a class="tocitem" href="../../install/">Installation</a></li><li><a class="tocitem" href="../../basics/">Basics</a></li><li><a class="tocitem" href="../../tutorial/">Tutorial</a></li></ul></li><li><span class="tocitem">Manual</span><ul><li><a class="tocitem" href="../../input_data/">Input Data</a></li><li><a class="tocitem" href="../../output/">Output</a></li><li><input class="collapse-toggle" id="menuitem-3-3" type="checkbox"/><label class="tocitem" for="menuitem-3-3"><span class="docs-label">Attributes</span><i class="docs-chevron"></i></label><ul class="collapsed"><li><a class="tocitem" href="../../attributes/">Overview</a></li><li><a class="tocitem" href="../attributes_series/">Series Attributes</a></li><li><a class="tocitem" href="../attributes_plot/">Plot Attributes</a></li><li><a class="tocitem" href="../attributes_subplot/">Subplot Attributes</a></li><li><a class="tocitem" href="../attributes_axis/">Axis Attributes</a></li></ul></li><li><a class="tocitem" href="../../layouts/">Layouts</a></li><li><a class="tocitem" href="../../recipes/">Recipes</a></li><li><a class="tocitem" href="../../colors/">Colors</a></li><li><a class="tocitem" href="../colorschemes/">ColorSchemes</a></li><li><a class="tocitem" href="../../animations/">Animations</a></li><li><a class="tocitem" href="../plotthemes/">Themes</a></li><li><a class="tocitem" href="../../backends/">Backends</a></li><li><a class="tocitem" href="../supported/">Supported Attributes</a></li></ul></li><li><a class="tocitem" href="../../learning/">Learning</a></li><li><a class="tocitem" href="../../contributing/">Contributing</a></li><li><span class="tocitem">Ecosystem</span><ul><li><a class="tocitem" href="../../ecosystem/">Overview</a></li><li><input class="collapse-toggle" id="menuitem-6-2" type="checkbox"/><label class="tocitem" for="menuitem-6-2"><span class="docs-label">GraphRecipes</span><i class="docs-chevron"></i></label><ul class="collapsed"><li><a class="tocitem" href="../../graphrecipes/introduction/">Introduction</a></li><li><a class="tocitem" href="../../graphrecipes/examples/">Examples</a></li><li><a class="tocitem" href="../graph_attributes/">Attributes</a></li></ul></li></ul></li><li><span class="tocitem">Advanced Topics</span><ul><li><a class="tocitem" href="../../pipeline/">Internals</a></li></ul></li><li><span class="tocitem">Gallery</span><ul><li><a class="tocitem" href="../../generated_gr/">GR</a></li><li><a class="tocitem" href="../../generated_plotlyjs/">PlotlyJS</a></li><li><a class="tocitem" href="../../generated_pyplot/">PyPlot</a></li><li><a class="tocitem" href="../../generated_inspectdr/">InspectDR</a></li><li><a class="tocitem" href="../../generated_gaston/">Gaston</a></li><li><a class="tocitem" href="../../generated_pgfplotsx/">PGFPlotsX</a></li></ul></li><li><span class="tocitem">Examples (old)</span><ul><li class="is-active"><a class="tocitem" href>UnicodePlots</a></li></ul></li></ul><div class="docs-version-selector field has-addons"><div class="control"><span class="docs-label button is-static is-size-7">Version</span></div><div class="docs-selector control is-expanded"><div class="select is-fullwidth is-size-7"><select id="documenter-version-selector"></select></div></div></div></nav><div class="docs-main"><header class="docs-navbar"><nav class="breadcrumb"><ul class="is-hidden-mobile"><li><a class="is-disabled">Examples (old)</a></li><li class="is-active"><a href>UnicodePlots</a></li></ul><ul class="is-hidden-tablet"><li class="is-active"><a href>UnicodePlots</a></li></ul></nav><div class="docs-right"><a class="docs-edit-link" href="https://github.com/JuliaPlots/PlotDocs.jl/blob/master/src/PlotDocs.jl" title="Edit on GitHub"><span class="docs-icon fab"></span><span class="docs-label is-hidden-touch">Edit on GitHub</span></a><a class="docs-settings-button fas fa-cog" id="documenter-settings-button" href="#" title="Settings"></a><a class="docs-sidebar-button fa fa-bars is-hidden-desktop" id="documenter-sidebar-button" href="#"></a></div></header><article class="content" id="documenter-page"><h3 id="unicodeplots-examples"><a class="docs-heading-anchor" href="#unicodeplots-examples">Initialize</a><a id="unicodeplots-examples-1"></a><a class="docs-heading-anchor-permalink" href="#unicodeplots-examples" title="Permalink"></a></h3><pre><code class="language-julia hljs">using Plots
+unicodeplots()</code></pre><pre class="documenter-example-output"><code class="nohighlight hljs ansi">Plots.UnicodePlotsBackend()</code></pre><h3 id="unicodeplots-ref1"><a class="docs-heading-anchor" href="#unicodeplots-ref1">Lines</a><a id="unicodeplots-ref1-1"></a><a class="docs-heading-anchor-permalink" href="#unicodeplots-ref1" title="Permalink"></a></h3><p>A simple line plot of the columns.</p><pre><code class="language-julia hljs">plot(Plots.fakedata(50, 5), w = 3)</code></pre><pre class="documenter-example-output"><code class="nohighlight hljs ansi">            ┌────────────────────────────────────────┐
+    13.5611 │⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢰⡄⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀│ y1
+            │⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⡸⢣⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀│ y2
+            │⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢠⠃⠈⡆⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀│ y3
+            │⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⡇⠀⠀⠙⠸⡄⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀│ y4
+            │⡇⠀⠀⠀⠀⠀⠀⠀⠀⢀⠎⠉⠚⠀⠀⠀⠀⠀⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀│ y5
+            │⡇⠀⠀⠀⠀⠀⠀⠀⢰⠁⠀⠀⠀⠀⠀⠀⠀⠀⢸⠀⠀⠀⠀⠀⠀⠀⠀⡔⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀│
+            │⡇⠀⠀⠀⠀⠀⠀⠀⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⠒⡄⠀⠀⢠⢣⠀⢸⠀⠸⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀│
+            │⡇⠀⠀⣄⠀⠀⢠⠋⠀⠀⠀⢀⠀⠀⢀⠤⡀⠀⠀⠀⣌⢆⢰⡕⢆⢇⣧⠀⢀⢣⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀│
+            │⡇⠀⡜⠈⠒⢄⠞⠀⠀⡴⣠⠊⢣⢀⠎⠀⠘⢄⢀⠜⢸⡽⢷⡧⠼⠿⠈⣗⠎⣏⣆⡜⡆⡀⠀⠀⠀⠀⠀⠀│
+            │⡇⢠⢃⠀⢀⠀⣤⠀⡰⠁⠁⣀⠞⡾⠀⠀⡴⠙⠓⢤⢇⠀⠀⠀⠀⠀⠀⠀⢣⠶⡈⠒⠺⡉⡆⠀⠀⠀⠀⠀│
+            │⡧⢾⠵⢯⢥⡽⡼⣤⡿⣶⠿⢤⠤⠬⢦⡼⢤⠶⠶⠮⠤⢧⡤⠤⠤⠤⠤⠤⠤⠤⠼⠤⣤⢧⡼⡼⣶⡴⡷⠤│
+            │⡇⠀⠱⡀⢧⠛⠀⠉⠋⠀⠀⡜⡧⠔⢹⠤⠃⠀⠀⠀⡖⠛⢧⣢⡄⠀⠀⠀⠀⠀⠀⡜⢣⢷⣄⢠⠋⠟⢷⠀│
+            │⡇⠀⠀⠈⠻⡀⠀⠀⢀⢀⠜⠀⠈⠖⠢⡀⢠⢄⢀⠞⠀⠀⠀⠀⢱⡀⡤⣄⡀⠀⡴⡡⠃⠈⢾⡯⡑⢖⣎⠀│
+            │⡇⠀⠀⠀⠀⢱⠀⠀⡸⠉⠀⠀⠀⠀⠀⠈⠁⠈⠉⠀⠀⠀⠀⠀⠈⠳⠋⠈⢞⣤⠃⠀⠀⠀⠀⠀⠈⠁⠱⠀│
+   -5.66941 │⡇⠀⠀⠀⠀⠀⠓⠑⠇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⠙⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀│
+            └────────────────────────────────────────┘
+            ⠀-0.47⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀51.47⠀</code></pre><h3 id="unicodeplots-ref3"><a class="docs-heading-anchor" href="#unicodeplots-ref3">Parametric plots</a><a id="unicodeplots-ref3-1"></a><a class="docs-heading-anchor-permalink" href="#unicodeplots-ref3" title="Permalink"></a></h3><p>Plot function pair (x(u), y(u)).</p><pre><code class="language-julia hljs">plot(sin, (x-&gt;begin
+            sin(2x)
+        end), 0, 2π, line = 4, leg = false, fill = (0, :orange))</code></pre><pre class="documenter-example-output"><code class="nohighlight hljs ansi">            ┌────────────────────────────────────────┐
+    1.05997 │⠀⠀⠀⠀⢠⠴⠒⠢⠤⣀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⡠⠔⠒⠢⣀⠀⠀⠀⠀│
+            │⠀⠀⠀⡜⠁⠀⠀⠀⠀⠀⠑⢄⠀⠀⠀⠀⠀⠀⠀⠀⡇⠀⠀⠀⠀⠀⠀⠀⢀⠔⠁⠀⠀⠀⠀⠈⢢⠀⠀⠀│
+            │⠀⠀⡸⠀⠀⠀⠀⠀⠀⠀⠀⠀⠱⡀⠀⠀⠀⠀⠀⠀⡇⠀⠀⠀⠀⠀⡠⠚⠁⠀⠀⠀⠀⠀⠀⠀⠀⢣⠀⠀│
+            │⠀⢰⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⢦⠀⠀⠀⠀⠀⡇⠀⠀⠀⠀⡔⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠘⡄⠀│
+            │⠀⡸⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠑⡄⠀⠀⠀⡇⠀⠀⢠⠊⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢇⠀│
+            │⠀⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠘⢤⠀⠀⡇⠀⡔⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢸⠀│
+            │⠀⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠱⡀⣇⠜⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢸⠀│
+            │⠤⡧⠤⠤⠤⠤⠤⠤⠤⠤⠤⠤⠤⠤⠤⠤⠤⠤⠤⡵⣯⠤⠤⠤⠤⠤⠤⠤⠤⠤⠤⠤⠤⠤⠤⠤⠤⠤⢼⠤│
+            │⠀⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⡰⠁⡏⢆⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢸⠀│
+            │⠀⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⠞⠀⠀⡇⠀⠱⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢸⠀│
+            │⠀⢱⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⡠⠃⠀⠀⠀⡇⠀⠀⠑⢆⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⡎⠀│
+            │⠀⠘⡄⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⠔⠁⠀⠀⠀⠀⡇⠀⠀⠀⠀⠱⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢠⠃⠀│
+            │⠀⠀⢣⠀⠀⠀⠀⠀⠀⠀⠀⢀⠔⠋⠀⠀⠀⠀⠀⠀⡇⠀⠀⠀⠀⠀⠘⢄⠀⠀⠀⠀⠀⠀⠀⠀⠀⡞⠀⠀│
+            │⠀⠀⠀⠣⡀⠀⠀⠀⠀⢀⠴⠃⠀⠀⠀⠀⠀⠀⠀⠀⡇⠀⠀⠀⠀⠀⠀⠀⠑⢄⠀⠀⠀⠀⠀⢀⡜⠁⠀⠀│
+   -1.05997 │⠀⠀⠀⠀⠉⠢⠤⠔⠊⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠉⠒⠢⠤⠖⠃⠀⠀⠀⠀│
+            └────────────────────────────────────────┘
+            ⠀-1.05997⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀1.05997⠀</code></pre><h3 id="unicodeplots-ref4"><a class="docs-heading-anchor" href="#unicodeplots-ref4">Colors</a><a id="unicodeplots-ref4-1"></a><a class="docs-heading-anchor-permalink" href="#unicodeplots-ref4" title="Permalink"></a></h3><p>Access predefined palettes (or build your own with the <code>colorscheme</code> method). Line/marker colors are auto-generated from the plot&#39;s palette, unless overridden.  Set the <code>z</code> argument to turn on series gradients.</p><pre><code class="language-julia hljs">y = rand(100)
+plot(0:10:100, rand(11, 4), lab = &quot;lines&quot;, w = 3, palette = cgrad(:grays), fill = 0, α = 0.6)
+scatter!(y, zcolor = abs.(y .- 0.5), m = (:heat, 0.8, Plots.stroke(1, :green)), ms = 10 * abs.(y .- 0.5) .+ 4, lab = &quot;grad&quot;)</code></pre><pre class="documenter-example-output"><code class="nohighlight hljs ansi">              ┌────────────────────────────────────────┐
+      1.02387 │⠀⡇⠀⠀⢠⠀⠀⠀⚬⠀⠀⠀⠀⚬⠀⚬⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀│ lines
+              │⠀⡇⠀⢀⠇⡇⠀⠀⠀⚬⠀⚬⣦⠀⠀⠀⠀⚬⠀⠀⠀⚬⠀⚬⠀⠀⚬⣾⠀⠀⠀⚬⠀⠀⠀⠀⠀⠀⠀⠀│ lines
+              │⠀⡇⠀⡜⠀⢣⠀⚬⠀⠀⚬⢠⚬⠀⠀⠀⠀⠀⚬⢀⡀⚬⚬⠀⠀⠀⣸⢾⡆⚬⚬⠀⠀⠀⚬⠀⠀⠀⠀⠀│ lines
+              │⠀⡇⡸⠀⠀⚬⠀⠀⠀⠀⠀⢸⠀⡇⠀⠀⚬⠀⡰⠁⡇⠀⠀⠀⠀⢠⡟⣠⚬⠀⠀⠀⠀⠀⠀⠀⠀⠀⚬⠀│ lines
+              │⠀⣧⠃⚬⠀⠀⚬⠀⚬⚬⠀⡇⠀⢇⠀⠀⡠⠊⠀⚬⢸⠀⠀⠀⢀⡾⚬⚬⣸⚬⠀⠀⚬⠀⠀⠀⠀⠀⠀⠀│ grad
+              │⠀⡏⚬⠀⚬⠀⚬⣸⠁⣇⢰⠁⚬⚬⠀⢠⣧⠀⠀⠀⠈⡆⠀⠀⣼⠁⡸⠀⡇⣇⠀⠀⚬⠀⠀⡀⚬⠀⠀⠀│
+              │⠀⡇⠀⠀⚬⠀⚬⠇⠀⢸⚬⠀⠀⠈⡆⣼⠹⚬⢄⠀⠀⢱⚬⢰⚬⢀⠇⠀⢱⢸⡀⠀⠀⠀⡜⚬⠀⚬⚬⠀│
+              │⠀⚬⢢⠀⚬⢤⡟⡇⠀⠀⣇⠀⠀⠀⢷⡏⚬⢣⠈⠢⣀⣸⣖⠇⠀⡸⠀⠀⠘⡄⣇⠀⢀⠎⠀⠀⢇⠀⠀⠀│
+              │⠀⡧⡀⚬⢅⢾⠑⚬⡀⢰⢹⡄⚬⚬⣿⚬⠀⠈⡆⡰⠁⠀⣯⠉⢒⠗⚬⠲⡀⚬⚬⣀⠎⚬⚬⡀⠈⚬⠀⠀│
+              │⠀⡇⡜⠢⢄⡎⠀⢸⠘⡜⠈⣧⠀⣼⡟⡄⠀⠀⢸⡃⠀⚬⠸⡀⚬⠀⠀⚬⠱⣸⠘⡏⣀⚬⡺⚬⢄⠘⡄⠀│
+              │⠀⡏⚬⠀⠈⠀⠀⠀⡇⡷⚬⢫⣶⣝⚬⡇⠀⠀⚬⢇⡰⠁⠀⡇⡇⠀⠀⠀⠀⠱⡇⠋⢀⢮⠃⠘⣆⠑⢵⠀│
+              │⠀⡇⠀⠀⠀⠀⠀⠀⢻⠀⢣⠸⣡⡻⠀⢸⠀⡜⠀⠘⚬⠀⠀⚬⠀⚬⠀⠀⠀⠀⢳⡤⢣⠃⠀⠀⠹⡄⠀⠀│
+              │⠀⡇⠀⠀⠀⠀⠀⠀⠀⠀⠈⢆⠟⡇⠀⠘⣴⠁⚬⠀⚬⠀⠀⠀⚬⠀⠀⚬⠀⠀⠸⚬⚬⚬⠀⚬⚬⢳⚬⠀│
+              │⠀⚬⠀⠀⠀⚬⠀⠀⠀⠀⠀⠘⣼⠀⚬⠀⠃⠀⠀⠀⚬⠀⠀⠀⠀⚬⠀⠀⠀⠀⚬⠟⠀⠀⠀⠀⠀⠈⣇⠀│
+   -0.0298215 │⠤⡧⠤⠤⠤⠤⠤⠤⠤⠤⠤⚬⠥⠤⠤⠤⚬⠤⠤⠤⠤⠤⠤⚬⠤⠤⠤⠤⚬⠤⠤⠤⠤⠤⠤⠤⠤⠤⠼⠤│
+              └────────────────────────────────────────┘
+              ⠀-3⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀103⠀</code></pre><h3 id="unicodeplots-ref7"><a class="docs-heading-anchor" href="#unicodeplots-ref7">Arguments</a><a id="unicodeplots-ref7-1"></a><a class="docs-heading-anchor-permalink" href="#unicodeplots-ref7" title="Permalink"></a></h3><p>Plot multiple series with different numbers of points.  Mix arguments that apply to all series (marker/markersize) with arguments unique to each series (colors).  Special arguments <code>line</code>, <code>marker</code>, and <code>fill</code> will automatically figure out what arguments to set (for example, we are setting the <code>linestyle</code>, <code>linewidth</code>, and <code>color</code> arguments with <code>line</code>.)  Note that we pass a matrix of colors, and this applies the colors to each series.</p><pre><code class="language-julia hljs">ys = Vector[rand(10), rand(20)]
+plot(ys, color = [:black :orange], line = (:dot, 4), marker = ([:hex :d], 12, 0.8, Plots.stroke(3, :gray)))</code></pre><pre class="documenter-example-output"><code class="nohighlight hljs ansi">              ┌────────────────────────────────────────┐
+      1.01938 │⠀⡆⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⡄⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀│ y1
+              │⠀⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⡜⡇⠀⠀⠀⠀⢸⡆⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⡸⡀⠀⠀⠀⠀│ y2
+              │⠀⣇⠀⠀⠀⠀⠀⠀⠀⠀⣀⡄⠀⠀⠀⢰⠁⡇⠀⠀⠀⠀⢸⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⢠⠃⡇⠀⠀⠀⠀│
+              │⠀⢹⠀⠀⠀⡀⠀⠀⢠⠋⢸⡇⠀⠀⠀⡎⠀⢱⠀⠀⠀⠀⢸⢣⠀⠀⠀⠀⠀⠀⠀⠀⠀⡎⠀⡇⠀⠀⠀⠀│
+              │⠀⢸⡄⠀⢰⡇⢠⡆⢸⠀⡸⡇⠀⠀⢰⠁⠀⢸⢰⠀⠀⠀⡇⢸⠀⠀⠀⠀⠀⠀⠀⠀⢸⠀⠀⢣⠀⠀⠀⠀│
+              │⠀⠸⣇⠀⢸⣳⠁⢇⡜⠀⡇⢻⠀⠀⢸⠀⠀⠸⣸⠀⠀⠀⡇⢸⠀⠀⠀⠀⠀⠀⠀⠀⡜⠀⠀⢸⠀⠀⠀⠀│
+              │⠀⠀⣿⢀⡜⢹⠀⢸⡇⢀⠇⢸⠀⠀⡸⠀⠀⠀⡏⠀⠀⠀⡇⠀⡇⠀⠀⠀⠀⠀⠀⠀⡇⠀⠀⢸⠀⠀⠀⠀│
+              │⠀⠀⡇⠋⡇⠘⡄⢈⡇⢸⠀⢸⡀⠀⡇⠀⠀⠀⡇⠀⠀⢸⠀⠀⡇⠀⢠⠤⠤⡀⠀⢰⠁⠀⠀⠈⡆⠀⠀⠀│
+              │⠀⠀⡇⢀⠇⠀⡇⢸⢇⡸⠀⠘⡇⠀⡇⠀⠀⢸⢣⠀⠀⢸⠀⠀⢣⠀⡜⠀⠀⢣⠀⢸⠀⠀⠀⠀⡇⠀⠀⠀│
+              │⠀⠀⢸⢸⠀⠀⢣⢸⢸⡇⠀⠀⡇⢠⠃⠀⠀⡸⢸⠀⠀⢸⠀⠀⢸⡸⠀⠀⠀⠘⡄⡇⠀⠀⠀⠀⡇⠀⠀⠀│
+              │⠀⠀⢸⢸⠀⠀⢸⡇⠈⠃⠀⠀⣷⢸⠀⠀⠀⡇⢸⠀⠀⡎⠀⠀⠸⠃⠀⠀⠀⠀⢱⠇⠀⠀⠀⠀⢸⠀⠀⠀│
+              │⠀⠀⢸⡇⠀⠀⠸⡇⠀⠀⠀⠀⢻⢸⠀⠀⢀⠇⠈⡆⠀⡇⠀⠀⠀⠀⠀⠀⠀⠀⠈⠀⠀⠀⠀⠀⢸⠀⠀⠀│
+              │⠀⠀⠀⡇⠀⠀⠀⠀⠀⠀⠀⠀⢸⡎⠀⢀⠎⠀⠀⠘⡄⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⢆⠀⠀│
+              │⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢸⡗⠒⠃⠀⠀⠀⠀⠘⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⢆⠀│
+   -0.0188457 │⠤⠤⠤⠤⠤⠤⠤⠤⠤⠤⠤⠤⠬⠧⠤⠤⠤⠤⠤⠤⠤⠤⠤⠤⠤⠤⠤⠤⠤⠤⠤⠤⠤⠤⠤⠤⠤⠤⠬⠤│
+              └────────────────────────────────────────┘
+              ⠀0.43⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀20.57⠀</code></pre><h3 id="unicodeplots-ref8"><a class="docs-heading-anchor" href="#unicodeplots-ref8">Build plot in pieces</a><a id="unicodeplots-ref8-1"></a><a class="docs-heading-anchor-permalink" href="#unicodeplots-ref8" title="Permalink"></a></h3><p>Start with a base plot...</p><pre><code class="language-julia hljs">plot(rand(100) / 3, reg = true, fill = (0, :green))</code></pre><pre class="documenter-example-output"><code class="nohighlight hljs ansi">              ┌────────────────────────────────────────┐
+     0.340951 │⢸⠀⠀⡀⠀⠀⠀⢰⡄⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢠⢠⠀⠀│ y1
+              │⢸⢀⢠⡇⠀⡄⠀⢸⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣸⠀⠀⢠⠀⠀⠀⠀⠀⠀⡀⠀⡀⡆⢰⠀⢸⢸⠀⠀│
+              │⢸⣼⢸⡇⣼⡇⡄⢸⡇⠀⠀⠀⠀⠀⠀⢰⡄⠀⠀⠀⣿⠀⠀⢸⠀⠀⠀⡆⠀⠀⣿⢰⡇⣿⢸⠀⣼⣸⠀⠀│
+              │⢸⡇⣿⡇⣿⡇⣿⡎⢇⠀⠀⠀⠀⡄⠀⢸⣧⠀⠀⠀⡿⣸⠀⢸⠀⠀⢀⡇⠀⠀⣿⢸⡇⣿⢸⡆⣿⣿⠀⠀│
+              │⢸⡇⣿⢇⣿⡇⣿⡇⢸⡇⠀⠀⠀⣇⠀⢸⣿⠀⠀⠀⡇⣿⡄⢸⠀⠀⢸⡇⡄⠀⣿⢸⣧⣿⣼⣿⣿⣿⠀⠀│
+              │⢸⡇⣿⢸⢸⣇⢿⡇⢸⡇⠀⢀⠀⣿⠀⢸⣿⡀⢸⡇⡇⡟⡇⣼⠀⠀⣼⡇⡇⡆⣿⢸⣿⣿⣿⣿⣿⣿⠀⠀│
+              │⢸⡗⣿⠚⢺⢻⢺⡧⢼⢧⠤⢼⣄⣿⣀⣸⣿⡇⢸⣷⠁⡇⡇⣿⢀⠀⣿⢱⡇⡇⡇⣿⣿⣿⣿⣿⣿⣿⠀⠀│
+              │⢸⡇⢹⠀⠈⢸⢸⠇⢸⢸⠀⢸⢣⣿⢀⢸⣿⣿⢹⣿⠉⠓⡗⣿⣾⠒⣿⢼⡧⡧⡧⣿⣿⣿⣿⣿⣿⡇⡇⠀│
+              │⢸⡇⠀⠀⠀⢸⠈⠀⠘⢸⢀⢸⢸⣿⢸⡇⣿⣿⡜⣿⠀⠀⡇⣿⣿⠀⣿⠀⣷⢹⡇⢿⣿⣿⣿⡏⣿⡏⡏⠀│
+              │⢸⡇⠀⠀⠀⢸⠀⠀⠀⢸⣾⢸⢸⣿⢸⡇⡇⣿⡇⣿⠀⠀⡇⣿⡿⡀⣿⠀⣿⢸⡇⠘⠿⠸⣿⡇⢹⠁⣧⠀│
+              │⢸⡇⠀⠀⠀⢸⠀⠀⠀⢸⣿⢸⢸⠙⣼⡇⡇⠈⡇⣿⠀⠀⡇⣿⡇⡇⣿⠀⢿⢸⡇⠀⠀⠀⣿⡇⠀⠀⠟⠀│
+              │⢸⠁⠀⠀⠀⠘⠀⠀⠀⢸⣿⡇⠘⠀⡏⡇⠇⠀⡇⡟⠀⠀⣷⡟⠇⡇⣿⠀⢸⢸⡇⠀⠀⠀⣿⡇⠀⠀⠀⠀│
+              │⢸⠀⠀⠀⠀⠀⠀⠀⠀⢸⠻⡇⠀⠀⠀⡇⠀⠀⠃⠁⠀⠀⣿⡇⠀⣷⢹⠀⠘⢸⡇⠀⠀⠀⠃⡇⠀⠀⠀⠀│
+              │⢸⠀⠀⠀⠀⠀⠀⠀⠀⠸⠀⠃⠀⠀⠀⡇⠀⠀⠀⠀⠀⠀⠟⡇⠀⣿⠀⠀⠀⠈⠇⠀⠀⠀⠀⡇⠀⠀⠀⠀│
+   -0.0099306 │⢼⠤⠤⠤⠤⠤⠤⠤⠤⠤⠤⠤⠤⠤⠤⠧⠤⠤⠤⠤⠤⠤⠤⠥⠤⠼⠤⠤⠤⠤⠤⠤⠤⠤⠤⠤⠤⠤⠤⠤│
+              └────────────────────────────────────────┘
+              ⠀-1.97⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀102.97⠀</code></pre><p>and add to it later.</p><pre><code class="language-julia hljs">scatter!(rand(100), markersize = 6, c = :orange)</code></pre><pre class="documenter-example-output"><code class="nohighlight hljs ansi">              ┌────────────────────────────────────────┐
+      1.02858 │⢸⠀⠀⚬⠀⠀⠀⠀⠀⚬⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⚬⠀⠀⠀⠀⠀⠀⠀⠀⠀│ y1
+              │⢸⠀⠀⠀⠀⠀⠀⠀⠀⠀⚬⠀⚬⠀⚬⠀⠀⠀⠀⠀⠀⚬⠀⠀⠀⠀⚬⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀│ y2
+              │⢸⠀⚬⚬⚬⠀⠀⠀⠀⚬⠀⠀⠀⚬⠀⠀⠀⠀⠀⠀⠀⠀⚬⠀⚬⠀⠀⠀⚬⠀⠀⠀⠀⠀⠀⠀⠀⠀⚬⠀│
+              │⢸⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⚬⠀⠀⠀⠀⠀⚬⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀│
+              │⢸⠀⚬⠀⠀⠀⚬⠀⚬⠀⠀⠀⠀⠀⠀⚬⠀⠀⠀⠀⠀⠀⠀⚬⠀⠀⠀⠀⠀⠀⚬⠀⠀⠀⠀⠀⠀⠀⠀⠀│
+              │⢸⠀⠀⠀⠀⠀⚬⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⚬⚬⠀⠀⚬⠀⠀⠀⚬⚬⠀⠀⠀⠀⠀⠀│
+              │⢸⠀⠀⠀⠀⠀⠀⚬⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⚬⠀⠀⠀⠀⠀⠀⠀⚬⠀⠀⠀⠀⚬⠀⠀⠀⠀⠀⠀⠀│
+              │⢸⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⚬⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⚬⚬⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⚬⠀│
+              │⢸⠀⠀⠀⠀⚬⚬⚬⚬⠀⠀⠀⠀⠀⠀⠀⚬⚬⠀⠀⚬⠀⠀⠀⠀⚬⠀⠀⠀⠀⠀⚬⠀⠀⚬⚬⚬⠀⠀⠀│
+              │⢸⚬⠀⠀⚬⠀⠀⢀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⚬⚬⠀⠀⠀⠀⚬⠀⚬⠀⚬⠀⠀⠀⚬⠀⠀⢀⢀⠀⠀│
+              │⢸⚬⣰⡇⣰⡆⣄⡸⡇⠀⠀⠀⠀⡀⠀⚬⣀⚬⠀⠀⣾⢠⠀⚬⠀⠀⠀⡄⠀⚬⚬⚬⡆⣷⢸⡀⣼⣸⠀⠀│
+              │⢸⣇⣿⣱⣻⚬⣿⣇⣸⣇⚬⣠⚬⣷⠀⢸⚬⡄⚬⣆⚬⡟⡇⣼⠀⠀⣼⢇⡆⡄⡿⣸⚬⣿⚬⚬⣿⚬⠀⠀│
+              │⢸⚬⠘⚬⠈⢸⠘⠁⠸⚬⣠⢸⢹⣿⢹⚬⡿⣿⚬⚬⠉⚬⡏⣿⚬⠉⣿⠙⣷⢳⡗⢻⣿⢿⣿⚬⢿⡗⡗⠀│
+              │⢸⠃⠀⠀⚬⠸⠀⠀⠀⢸⢿⚬⠘⠈⚬⡇⠇⠉⡇⡿⠀⠀⚬⡿⠇⡇⣿⠀⢻⢸⡇⠀⠀⠀⡿⡇⠈⚬⚬⠀│
+   -0.0299586 │⢼⠤⠤⠤⠤⠤⠤⚬⠤⠬⠤⚬⠤⠤⠤⠧⠤⚬⠤⠤⠤⠤⠥⠧⠤⠽⠬⠤⠤⠤⠧⠤⠤⚬⠤⠧⠤⠤⠤⠤│
+              └────────────────────────────────────────┘
+              ⠀-1.97⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀102.97⠀</code></pre><h3 id="unicodeplots-ref10"><a class="docs-heading-anchor" href="#unicodeplots-ref10">Histogram2D</a><a id="unicodeplots-ref10-1"></a><a class="docs-heading-anchor-permalink" href="#unicodeplots-ref10" title="Permalink"></a></h3><pre><code class="language-julia hljs">histogram2d(randn(10000), randn(10000), nbins = 20)</code></pre><pre class="documenter-example-output"><code class="nohighlight hljs ansi">      ┌────────────────────────────────────────┐
+    4 │                                        │
+      │                                        │
+      │                                        │
+      │                   ░░░░░░               │
+      │                ░░░░▒░▒▒░░░░░           │
+      │              ░░░▒▒▓▒▓▒▓▒▒▒░░░          │
+      │             ░░░░▒▒▓█▓██▓▓▒▒░░░░        │
+      │             ░░░░▒▒▒▓▓█▓▓▒▒▒░░░         │
+      │              ░░░░░▒▒▒▒▒▒▒░░░           │
+      │                 ░░░░░░░░░░             │
+      │                                        │
+      │                                        │
+      │                                        │
+      │                                        │
+   -5 │                                        │
+      └────────────────────────────────────────┘
+       -5                                     4</code></pre><h3 id="unicodeplots-ref11"><a class="docs-heading-anchor" href="#unicodeplots-ref11">Line types</a><a id="unicodeplots-ref11-1"></a><a class="docs-heading-anchor-permalink" href="#unicodeplots-ref11" title="Permalink"></a></h3><pre><code class="language-julia hljs">linetypes = [:path :steppre :steppost :sticks :scatter]
+n = length(linetypes)
+x = Vector[sort(rand(20)) for i = 1:n]
+y = rand(20, n)
+plot(x, y, line = (linetypes, 3), lab = map(string, linetypes), ms = 15)</code></pre><pre class="documenter-example-output"><code class="nohighlight hljs ansi">              ┌────────────────────────────────────────┐
+      1.02741 │⠀⣧⚬⡄⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀│ path
+              │⠀⣿⠀⣧⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⡆⡄⠀⣤⠀⠀⠀⚬⠀⠀⠀⠀⠀⠀⠀⠀⢸⠀⠀⠀⠀│ steppre
+              │⠀⣿⠀⣿⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⡀⢀⡀⠀⡇⡇⡜⢸⚬⠀⚬⠀⚬⠀⠀⠀⠀⣀⣀⣀⢸⡇⠀⚬⠀│ steppost
+              │⠀⣿⢸⢸⠀⠀⡇⡆⠀⠀⠀⢠⠓⡄⠀⡇⢸⡇⠀⡇⡟⠀⢸⠀⠀⠀⠀⠀⠀⠀⠀⠀⡇⢸⢸⢸⡇⠀⠀⠀│ sticks
+              │⠀⣿⢸⣿⠤⠤⣷⢹⠀⠀⠀⡎⠀⠈⢾⣿⢹⣿⠔⣏⡇⣀⣸⡀⢠⠤⠤⢤⠀⠀⠀⚬⡇⢸⢸⢸⢱⠀⠀⠀│ scatter
+              │⠀⣿⣸⡿⡀⠀⣿⠘⡄⠀⡜⠀⠀⠀⢸⣿⢹⡿⠤⣿⚬⠇⢸⡇⢸⠀⠀⢸⠀⠀⠀⠀⡇⢸⠘⢺⢸⠀⠀⠀│
+              │⠀⣿⣿⡇⡇⡹⣿⠉⣿⡰⠁⠀⠀⚬⢸⣿⢸⡇⠀⣿⣿⠀⢸⡇⢸⚬⠀⣸⣀⣀⣸⚬⣇⣸⣀⚬⠘⡄⠀⠀│
+              │⠀⣿⣿⡇⣇⠇⣿⡀⢸⠃⠀⢠⠤⠤⢼⣿⠼⡇⠀⣿⣿⠀⠀⡇⣾⡆⠀⣿⠀⠀⢸⠘⡇⢸⠀⢸⠀⡇⠀⠀│
+              │⠀⣿⢿⡇⡿⠀⡟⣷⢸⡀⚬⢸⢠⠤⠼⣿⠀⡇⠀⣿⣿⠀⠀⡇⣿⡇⢰⣿⠀⠀⢸⠀⣿⢸⠀⢸⠀⢇⠀⠀│
+              │⠀⣿⢸⡇⠀⠀⡇⣿⠀⡇⠀⣼⠼⠀⠀⣿⠀⡇⠀⣿⣿⠀⠀⡇⚬⚬⢸⡿⠤⠤⢼⚬⣿⢸⠀⢸⠀⢸⠀⠀│
+              │⠀⣿⢸⡇⠀⠀⡇⣿⠀⡇⠀⣿⠀⢀⠀⣿⚬⢧⠀⣿⣿⠀⠀⣇⣿⡇⢻⡇⠀⠀⢸⡇⡏⣾⠀⣸⠤⢼⢤⠀│
+              │⠀⣿⠼⡇⠀⠀⡇⣿⢠⡧⠤⢿⠀⢸⠀⣿⠀⢸⠀⣿⣿⣀⣀⡇⣿⡇⢸⣧⠀⠀⢸⡇⡇⣿⢠⠻⚬⠀⢸⠀│
+              │⠀⣿⠀⡇⠀⠀⡇⣿⚬⡇⠀⢸⠀⢸⠀⣿⠀⢸⠀⣿⣿⠀⠀⡇⣿⡇⢸⡇⢣⠀⢸⠧⡇⢿⡎⠀⠀⠀⠸⠀│
+              │⠀⣿⠀⡇⠀⠀⡇⡇⠀⢻⠒⠚⠀⢸⠀⣿⠀⢸⣀⣿⣿⠀⠀⠉⡏⢹⢸⡇⠀⢣⡎⠀⡇⢸⠀⠀⠀⠀⠀⠀│
+   -0.0299246 │⠤⡿⠤⠧⠤⠤⠧⠧⠤⠼⠤⠤⠤⠼⠤⠿⠤⠤⠤⠿⠿⠤⠤⠤⠧⠬⚬⠥⠤⠤⠧⠤⠷⠼⠤⠤⠤⠤⠤⠤│
+              └────────────────────────────────────────┘
+              ⠀-0.0270435⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀1.02483⠀</code></pre><h3 id="unicodeplots-ref12"><a class="docs-heading-anchor" href="#unicodeplots-ref12">Line styles</a><a id="unicodeplots-ref12-1"></a><a class="docs-heading-anchor-permalink" href="#unicodeplots-ref12" title="Permalink"></a></h3><pre><code class="language-julia hljs">styles = filter((s-&gt;begin
+                s in Plots.supported_styles()
+            end), [:solid, :dash, :dot, :dashdot, :dashdotdot])
+styles = reshape(styles, 1, length(styles))
+n = length(styles)
+y = cumsum(randn(20, n), dims = 1)
+plot(y, line = (5, styles), label = map(string, styles), legendtitle = &quot;linestyle&quot;)</code></pre><pre class="documenter-example-output"><code class="nohighlight hljs ansi">            ┌────────────────────────────────────────┐
+     6.4505 │⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⡰⡄⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀│ solid
+            │⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⡰⠁⠈⢆⠀⠀⠀⠀⠀⠀⠀⠀⠀│
+            │⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢠⠤⠔⠁⠀⠀⠈⡆⠀⠀⠀⠀⠀⠀⠀⠀│
+            │⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢠⠃⠀⠀⠀⠀⠀⠀⢱⠀⠀⠀⠀⠀⠀⠀⠀│
+            │⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⡰⠁⠀⠀⠀⠀⠀⠀⠀⠀⡇⠀⠀⠀⠀⠀⠀⠀│
+            │⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⡰⡆⠀⠀⠀⡰⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⢸⠀⠀⠀⠀⠀⠀⠀│
+            │⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⡜⠀⠘⡄⢀⠜⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢇⠀⠀⠀⠀⠀⠀│
+            │⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢠⠓⠢⠔⠊⠀⠀⠀⠘⠃⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⡆⠀⠀⠀⠀⠀│
+            │⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⡜⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠘⡄⠀⠀⠀⠀│
+            │⠀⠀⠀⠀⠀⠀⠀⠀⠀⢰⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢱⠀⠀⠀⠀│
+            │⠀⠀⠀⠀⠀⠀⠀⠀⠀⡎⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢇⠀⠀⠀│
+            │⠀⠀⠀⠀⠀⠀⢀⡠⠊⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⠉⠁⠀│
+            │⠀⠀⢀⠤⢄⡠⠊⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀│
+            │⠒⢒⠞⠒⠒⠒⠒⠒⠒⠒⠒⠒⠒⠒⠒⠒⠒⠒⠒⠒⠒⠒⠒⠒⠒⠒⠒⠒⠒⠒⠒⠒⠒⠒⠒⠒⠒⠒⠒⠒│
+   -0.81484 │⠀⠎⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀│
+            └────────────────────────────────────────┘
+            ⠀0.43⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀20.57⠀</code></pre><h3 id="unicodeplots-ref13"><a class="docs-heading-anchor" href="#unicodeplots-ref13">Marker types</a><a id="unicodeplots-ref13-1"></a><a class="docs-heading-anchor-permalink" href="#unicodeplots-ref13" title="Permalink"></a></h3><pre><code class="language-julia hljs">markers = filter((m-&gt;begin
+                m in Plots.supported_markers()
+            end), Plots._shape_keys)
+markers = permutedims(markers)
+n = length(markers)
+x = (range(0, stop = 10, length = n + 2))[2:end - 1]
+y = repeat(reshape(reverse(x), 1, :), n, 1)
+scatter(x, y, m = markers, markersize = 8, lab = map(string, markers), bg = :linen, xlim = (0, 10), ylim = (0, 10))</code></pre><pre class="documenter-example-output"><code class="nohighlight hljs ansi">      ┌────────────────────────────────────────┐
+   10 │⠀⠀⚬⠀⚬⠀⚬⠀⚬⠀⚬⠀⚬⠀⚬⠀⚬⠀⚬⠀⚬⠀⚬⠀⚬⠀⚬⠀⚬⠀⚬⠀⚬⠀⚬⠀⚬⠀⚬⠀│ circle
+      │⠀⠀▫⠀▫⠀▫⠀▫⠀▫⠀▫⠀▫⠀▫⠀▫⠀▫⠀▫⠀▫⠀▫⠀▫⠀▫⠀▫⠀▫⠀▫⠀▫⠀│ rect
+      │⠀⠀★⠀★⠀★⠀★⠀★⠀★⠀★⠀★⠀★⠀★⠀★⠀★⠀★⠀★⠀★⠀★⠀★⠀★⠀★⠀│ star5
+      │⠀⠀⬡⠀⬡⠀⬡⠀⬡⠀⬡⠀⬡⠀⬡⠀⬡⠀⬡⠀⬡⠀⬡⠀⬡⠀⬡⠀⬡⠀⬡⠀⬡⠀⬡⠀⬡⠀⬡⠀│ diamond
+      │⠀⠀✚⠀✚⠀✚⠀✚⠀✚⠀✚⠀✚⠀✚⠀✚⠀✚⠀✚⠀✚⠀✚⠀✚⠀✚⠀✚⠀✚⠀✚⠀✚⠀│ hexagon
+      │⠀⠀✖⠀✖⠀✖⠀✖⠀✖⠀✖⠀✖⠀✖⠀✖⠀✖⠀✖⠀✖⠀✖⠀✖⠀✖⠀✖⠀✖⠀✖⠀✖⠀│ cross
+      │⠀⠀▽⠀▽⠀▽⠀▽⠀▽⠀▽⠀▽⠀▽⠀▽⠀▽⠀▽⠀▽⠀▽⠀▽⠀▽⠀▽⠀▽⠀▽⠀▽⠀│ xcross
+      │⠀⠀▷⠀▷⠀▷⠀▷⠀▷⠀▷⠀▷⠀▷⠀▷⠀▷⠀▷⠀▷⠀▷⠀▷⠀▷⠀▷⠀▷⠀▷⠀▷⠀│ utriangle
+      │⠀⠀◁⠀◁⠀◁⠀◁⠀◁⠀◁⠀◁⠀◁⠀◁⠀◁⠀◁⠀◁⠀◁⠀◁⠀◁⠀◁⠀◁⠀◁⠀◁⠀│ dtriangle
+      │⠀⠀✦⠀✦⠀✦⠀✦⠀✦⠀✦⠀✦⠀✦⠀✦⠀✦⠀✦⠀✦⠀✦⠀✦⠀✦⠀✦⠀✦⠀✦⠀✦⠀│ rtriangle
+      │⠀⠀✶⠀✶⠀✶⠀✶⠀✶⠀✶⠀✶⠀✶⠀✶⠀✶⠀✶⠀✶⠀✶⠀✶⠀✶⠀✶⠀✶⠀✶⠀✶⠀│ ltriangle
+      │⠀⠀✴⠀✴⠀✴⠀✴⠀✴⠀✴⠀✴⠀✴⠀✴⠀✴⠀✴⠀✴⠀✴⠀✴⠀✴⠀✴⠀✴⠀✴⠀✴⠀│ pentagon
+      │⠀⠀―⠀―⠀―⠀―⠀―⠀―⠀―⠀―⠀―⠀―⠀―⠀―⠀―⠀―⠀―⠀―⠀―⠀―⠀―⠀│ star4
+      │⠀⠀+⠀+⠀+⠀+⠀+⠀+⠀+⠀+⠀+⠀+⠀+⠀+⠀+⠀+⠀+⠀+⠀+⠀+⠀+⠀│ star6
+    0 │⠀⠀⨯⠀⨯⠀⨯⠀⨯⠀⨯⠀⨯⠀⨯⠀⨯⠀⨯⠀⨯⠀⨯⠀⨯⠀⨯⠀⨯⠀⨯⠀⨯⠀⨯⠀⨯⠀⨯⠀│ star8
+      └────────────────────────────────────────┘
+      ⠀0⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀10⠀</code></pre><h3 id="unicodeplots-ref14"><a class="docs-heading-anchor" href="#unicodeplots-ref14">Bar</a><a id="unicodeplots-ref14-1"></a><a class="docs-heading-anchor-permalink" href="#unicodeplots-ref14" title="Permalink"></a></h3><p><code>x</code> is the midpoint of the bar. (todo: allow passing of edges instead of midpoints)</p><pre><code class="language-julia hljs">bar(randn(99))</code></pre><pre class="documenter-example-output"><code class="nohighlight hljs ansi">            ┌────────────────────────────────────────┐
+    2.29931 │⠀⢸⠀⠀⠀⠀⢰⚬⠀⚬⡄⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⚬⠀⠀⠀│ y1
+            │⠀⢸⠀⚬⠀⠀⢸⡇⠀⢸⚬⡄⚬⚬⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣿⠀⠀⠀│ y1
+            │⠀⢸⠀⢸⠀⠀⢸⡇⠀⢸⣿⡇⣿⡇⠀⠀⠀⚬⠀⚬⠀⠀⠀⚬⠀⚬⠀⠀⠀⠀⠀⠀⠀⢠⚬⠀⣿⠀⠀⠀│
+            │⠀⢸⢀⚬⠀⠀⢸⡇⠀⢸⣿⚬⣿⡇⠀⠀⠀⣿⚬⚬⠀⠀⠀⡇⠀⣿⠀⚬⚬⠀⠀⠀⚬⣿⡇⠀⣿⠀⠀⠀│
+            │⠀⢸⚬⣿⠀⠀⢸⚬⠀⢸⣿⚬⣿⡇⠀⠀⠀⣿⚬⣿⚬⠀⠀⡇⠀⣿⚬⢸⣿⠀⠀⠀⢸⣿⣷⚬⣿⚬⠀⠀│
+            │⠀⢸⢸⣿⚬⠀⢸⣿⠀⢸⚬⣿⚬⡇⚬⡄⚬⣿⣿⣿⚬⚬⚬⡇⚬⣿⚬⢸⚬⠀⠀⚬⢸⣿⚬⡇⣿⡇⠀⠀│
+            │⠒⢺⡞⣿⣷⣶⚬⚬⣶⣾⡟⠛⠛⚬⚬⣷⣿⚬⣿⚬⡟⣷⚬⣷⡞⚬⠛⣾⠛⚬⣶⣿⣾⣿⣿⣷⚬⣷⠒⠒│
+            │⠀⢸⚬⣿⣿⚬⣿⢸⚬⚬⚬⠀⠀⠀⠀⚬⚬⡇⣿⠀⠀⣿⠀⣿⡇⠀⠀⣿⠀⢸⚬⣿⣿⚬⣿⣿⡇⚬⠀⠀│
+            │⠀⢸⠀⣿⚬⚬⚬⠘⚬⡇⠀⠀⠀⠀⠀⡇⢸⡇⣿⠀⠀⚬⠀⣿⡇⠀⠀⚬⠀⢸⢸⚬⚬⚬⣿⚬⚬⠀⠀⠀│
+            │⠀⢸⠀⣿⚬⚬⠀⠀⣿⚬⠀⠀⠀⠀⠀⚬⢸⚬⚬⠀⠀⣿⠀⚬⚬⠀⠀⡇⠀⢸⢸⚬⠀⠀⣿⣿⠀⠀⠀⠀│
+            │⠀⢸⠀⣿⠀⠀⠀⠀⚬⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣿⠀⠀⠀⠀⠀⚬⠀⚬⚬⠀⠀⠀⣿⣿⠀⠀⠀⠀│
+            │⠀⢸⠀⚬⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⚬⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣿⚬⠀⠀⠀⠀│
+            │⠀⢸⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣿⠀⠀⠀⠀⠀│
+            │⠀⢸⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣿⠀⠀⠀⠀⠀│
+   -3.04399 │⠀⢸⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⚬⠀⠀⠀⠀⠀│
+            └────────────────────────────────────────┘
+            ⠀-5.50584⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀105.506⠀</code></pre><h3 id="unicodeplots-ref15"><a class="docs-heading-anchor" href="#unicodeplots-ref15">Histogram</a><a id="unicodeplots-ref15-1"></a><a class="docs-heading-anchor-permalink" href="#unicodeplots-ref15" title="Permalink"></a></h3><pre><code class="language-julia hljs">histogram(randn(1000), bins = :scott, weights = repeat(1:5, outer = 200))</code></pre><pre class="documenter-example-output"><code class="nohighlight hljs ansi">          ┌────────────────────────────────────────┐
+   663.32 │⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢰⠒⚬⢺⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀│ y1
+          │⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢸⠀⠀⢸⣀⚬⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀│ y1
+          │⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢸⠀⠀⢸⠀⠀⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀│
+          │⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢸⠀⠀⢸⠀⠀⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀│
+          │⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢸⠀⠀⢸⠀⠀⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀│
+          │⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⡏⚬⢹⠀⠀⢸⠀⠀⡏⚬⠉⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀│
+          │⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⡇⠀⢸⠀⠀⢸⠀⠀⡇⠀⠀⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀│
+          │⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⡇⠀⢸⠀⠀⢸⠀⠀⡇⠀⠀⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀│
+          │⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⡤⚬⠤⡇⠀⢸⠀⠀⢸⠀⠀⡇⠀⠀⡏⚬⢹⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀│
+          │⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⡇⠀⠀⡇⠀⢸⠀⠀⢸⠀⠀⡇⠀⠀⡇⠀⢸⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀│
+          │⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⡇⠀⠀⡇⠀⢸⠀⠀⢸⠀⠀⡇⠀⠀⡇⠀⢸⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀│
+          │⠀⠀⠀⠀⠀⠀⠀⢠⠤⚬⡇⠀⠀⡇⠀⢸⠀⠀⢸⠀⠀⡇⠀⠀⡇⠀⢸⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀│
+          │⠀⠀⠀⠀⠀⠀⠀⢸⠀⠀⡇⠀⠀⡇⠀⢸⠀⠀⢸⠀⠀⡇⠀⠀⡇⠀⢸⠤⚬⢤⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀│
+          │⠀⠀⣀⚬⣰⠒⚬⢺⠀⠀⡇⠀⠀⡇⠀⢸⠀⠀⢸⠀⠀⡇⠀⠀⡇⠀⢸⠀⠀⢸⚬⠒⡆⠀⠀⠀⠀⠀⠀⠀│
+   -19.32 │⠤⠤⠧⠤⠼⠤⠤⠼⠤⠤⠧⠤⠤⠧⠤⠼⠤⠤⢼⠤⠤⠧⠤⠤⠧⠤⠼⠤⠤⠼⠤⠤⠷⚬⠶⠦⚬⠤⠤⠤│
+          └────────────────────────────────────────┘
+          ⠀-3.4017⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀3.9017⠀</code></pre><h3 id="unicodeplots-ref17"><a class="docs-heading-anchor" href="#unicodeplots-ref17">Adding to subplots</a><a id="unicodeplots-ref17-1"></a><a class="docs-heading-anchor-permalink" href="#unicodeplots-ref17" title="Permalink"></a></h3><p>Note here the automatic grid layout, as well as the order in which new series are added to the plots.</p><pre><code class="language-julia hljs">plot(Plots.fakedata(100, 10), layout = 4, palette = cgrad.([:grays :blues :heat :lightrainbow]), bg_inside = [:orange :pink :darkblue :black])</code></pre><pre class="documenter-example-output"><code class="nohighlight hljs ansi">             ┌────────────────────────────────────────┐                ┌────────────────────────────────────────┐
+     8.82246 │⢸⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢰⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀│ y1     9.80146 │⢸⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢰⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀│ y2
+             │⢸⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⡸⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀│ y5             │⢸⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⡇⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀│ y6
+             │⢸⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⠇⢧⠿⣴⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀│ y9             │⢸⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⡀⡤⣆⠏⠁⢱⠀⠀⠀⠀⠀⠀⠀⠀⡰⠂⠀│ y10
+             │⢸⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⡸⠀⠘⠀⢻⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀│                │⢸⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⡷⠁⠻⠀⠀⠈⡆⠀⢠⠀⠀⠀⠀⣠⠃⠀⠀│
+             │⢸⠀⠀⢀⠀⡠⡄⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⡇⠀⠀⠀⠈⡆⣄⠀⡄⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀│                │⢸⠀⠀⠀⢀⡆⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⡄⡰⣰⠁⠀⠀⠀⠀⠀⠘⡶⠋⡆⢀⠀⡤⠃⠀⠀⠀│
+             │⢸⠀⠀⡸⡧⠃⢧⠀⠀⠀⠀⡸⡄⠀⠀⠀⠀⠀⠀⠀⢰⠁⠀⠀⠀⠀⢻⠸⣠⠛⢣⠀⠀⢸⡄⣠⠀⢠⠀⠀│                │⢸⠀⠀⢰⠟⢱⠀⢰⣤⡄⠀⠀⠀⠀⠀⠀⠀⠀⠀⢠⠻⠁⠋⠀⠀⠀⠀⠀⠀⠀⠀⠀⠸⠺⡇⡇⠀⠀⠀⠀│
+             │⢸⠀⣄⣿⢣⡠⡄⡇⠀⠀⢰⠁⡇⠀⢀⠀⠀⠀⠀⢀⠇⠀⡀⠀⠀⠀⠈⠀⢹⠀⠸⡀⢰⡉⡇⣿⣿⡞⡄⠀│                │⢸⠀⠀⢸⠀⠈⢣⡸⠁⣇⠴⢇⠀⠀⠀⠀⠀⣴⠀⢸⠀⠀⣆⣰⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⠁⢠⣠⡆⠀│
+             │⢸⣶⠻⠃⢸⠇⢣⠱⣰⢶⣼⣄⣧⣄⡾⡇⠀⠀⢠⣾⡀⢸⡇⠀⡀⠀⠀⠀⡇⡇⢠⢇⡞⢳⢷⡻⠛⢱⣣⠀│                │⢸⠀⢰⠃⢰⣴⠘⠁⠀⣿⠀⢸⣇⠀⠀⢠⣀⠏⡆⣼⣾⣾⣮⡗⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⡎⢹⢣⠀│
+             │⢹⢟⠉⠉⠉⠉⠙⣽⣯⣿⣟⠉⠻⣹⠋⢯⣏⠉⣹⡿⢏⡏⢏⡹⢻⠉⠉⠉⡏⢏⣽⢹⣏⢹⡿⠏⠉⢹⢻⠉│                │⢸⢀⡜⠀⢸⠀⡇⠀⢸⠹⡀⢸⢸⣷⠀⣸⣿⣀⣿⡇⢻⠫⠋⠀⢷⡆⠀⠀⠀⠀⠀⡀⠀⣠⣧⣆⠇⡼⠀⠀│
+             │⢸⠀⠟⢢⠀⠀⠀⣿⡟⠋⠘⡇⢸⡇⡔⠻⣾⢄⡏⠀⡼⠃⢸⠃⠈⡆⠀⡼⠀⠈⣏⠸⣿⡜⡇⣷⡖⠁⠸⠀│                │⢼⡧⡧⣤⢼⠤⢼⢦⡮⠤⢵⣧⣾⢿⣾⣽⣿⣿⡯⣧⢼⠤⠤⠤⠼⣵⢴⡧⠤⠤⠤⣷⡦⢿⠼⢿⢤⠧⠤⠤│
+             │⢸⠀⠀⠸⣾⢀⠾⠀⠀⠀⠀⠸⡇⢇⠇⠀⢸⣾⠇⢸⡇⡗⠚⡄⠀⣿⠢⡏⡇⡠⠛⠼⠃⠃⠈⠙⠀⠀⠀⠀│                │⢸⣿⡼⡿⡇⠀⢸⣾⡇⢀⢸⡿⠀⠸⡹⢻⢿⠙⠸⠘⠊⠀⠀⠀⠀⠿⢇⢸⣾⠀⡄⡟⠃⢸⠀⠀⠋⠀⠀⠀│
+             │⢸⠀⠀⠀⠸⠛⠀⠀⠀⠀⠀⠀⠁⠈⠀⠀⠸⣿⠀⡜⢱⡇⠀⡇⠀⡟⢣⡇⡇⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀│                │⢸⠘⠁⠀⢱⢸⠋⠙⠙⡼⢿⠀⠀⠀⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠛⢹⢸⢸⠀⢀⠇⠀⠀⠀⠀⠀⠀│
+             │⢸⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠸⡀⡇⠘⠀⠀⢱⣷⠃⠀⠁⠸⠃⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀│                │⢸⠀⠀⠀⠘⠇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⡟⡌⠀⣼⠀⠀⠀⠀⠀⠀⠀│
+             │⢸⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣧⠇⠀⠀⠀⢸⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀│                │⢸⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⣶⠁⠀⠀⠀⠀⠀⠀⠀│
+    -7.23403 │⢸⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⠀⠀⠀⠀⠘⠇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀│       -5.36228 │⢸⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠹⠀⠀⠀⠀⠀⠀⠀⠀│
+             └────────────────────────────────────────┘                └────────────────────────────────────────┘
+             ⠀-1.97⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀102.97⠀                ⠀-1.97⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀102.97⠀
+             ┌────────────────────────────────────────┐                ┌────────────────────────────────────────┐
+     6.49951 │⢸⠀⠀⠀⠀⠀⠀⡀⠀⣴⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀│ y3     6.79293 │⢸⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⡴⡀⠀⠀⠀⠀⠀│ y4
+             │⢸⠀⠀⠀⠀⠀⣤⠳⡀⣿⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀│ y7             │⢸⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢸⠁⡇⠀⠀⠀⠀⠀│ y8
+             │⢸⠀⠀⠀⠀⡄⣿⠀⢇⠟⡄⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣄⡄⠀⠀⠀⠀│                │⢸⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⡄⠀⠀⠀⠀⠀⠀⡜⠀⢱⠀⠀⢰⢇⠀│
+             │⢸⠀⠀⠀⡀⣿⠁⡇⢸⠀⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣠⡟⢱⠀⠀⠀⠀│                │⢸⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⡄⢸⠀⠀⢰⢇⠀⠀⠀⠀⠀⢀⡇⣀⠸⣄⠀⡜⠀⠀│
+             │⢸⢀⣶⠋⣷⡏⠀⢱⠀⠀⣧⣦⢀⡆⠀⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢸⠸⠁⢸⠀⠀⠀⠀│                │⢸⠀⢀⢄⡄⠀⠀⠀⠀⠀⣸⠀⠀⠀⠀⠀⠀⠀⢠⠞⢸⡟⡄⠀⡏⢸⡀⠀⢰⠀⠀⢸⡎⢻⠀⠹⡇⡇⠀⠀│
+             │⢸⡏⠀⠀⣿⠃⠀⠈⡆⠀⢹⠋⠙⢹⢳⢱⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣸⠀⠀⢸⠀⠀⠀⠀│                │⢸⡶⡎⠸⠙⠉⢇⠀⢸⢢⣿⠀⠀⠀⠀⠀⣄⣀⠇⠀⠈⠀⢇⢠⠃⠀⠘⣄⣿⠀⡀⣾⡇⢸⢠⡆⢷⠁⠀⠀│
+             │⢸⡇⠀⢸⠘⠀⠀⠀⡇⠀⠀⠀⠀⠀⠀⢸⢀⠀⠀⠀⠀⢀⡆⠀⠀⠀⠀⠀⠀⠀⢠⢿⡏⠀⠀⡔⣧⠀⡇⠀│                │⣸⣇⣦⣻⣀⣀⣸⣀⣸⣀⣀⣻⣀⣀⣀⣀⣟⣛⣀⣀⣀⣀⣸⣁⣀⣀⣠⣻⣟⣴⣇⣇⣀⣈⣞⣣⣈⣀⣀⣀│
+             │⢸⡷⣸⠁⠀⠀⠀⠀⢸⠀⠀⠀⠀⠀⠀⢸⢸⡀⠀⠀⠀⢸⣇⢾⡇⠀⠀⢰⠀⠀⢸⠈⠁⢀⢠⠃⢻⣼⠁⠀│                │⢸⠸⠁⠀⡇⠀⠈⠙⠃⠀⠀⠀⡇⠀⢸⡜⠀⠀⠀⠀⠀⢸⡇⠀⠀⠀⢸⠀⠀⢫⠛⠀⠀⠀⠀⢸⠀⠀⠀⠀│
+             │⢺⠓⠓⠒⠒⠒⠒⠒⠚⡖⠒⢒⡖⠒⠒⠺⡾⢳⠒⠒⠒⢺⠛⠚⡷⣶⡒⡞⡖⡲⠓⠒⠒⡿⣺⠒⠒⢻⠒⠒│                │⢸⠀⠀⠀⡇⠀⠀⠀⢰⢠⠀⠀⢇⢰⠋⠇⠀⠀⠀⠀⠀⡜⢸⠀⡀⠀⢸⠀⠀⠀⠀⠀⠀⠀⠀⠘⡄⠀⠀⠀│
+             │⢸⠀⠀⠀⠀⠀⠀⠀⠀⡇⠀⡸⡇⠀⠀⣠⣷⢸⠀⠀⠀⡸⠀⠀⢠⠻⣿⢣⣧⢣⣷⠀⠀⡇⠇⠀⠀⠸⣄⠀│                │⢸⠀⠀⠀⢣⠀⠀⢀⠇⠉⡇⠀⣿⡜⠀⠀⠀⠀⠀⠀⡰⠁⠀⠳⡏⢱⡞⠀⠀⠀⠀⠀⠀⠀⠀⠀⡇⠀⠀⠀│
+             │⢸⠀⠀⠀⠀⠀⠀⠀⠀⢣⣼⠀⢸⠀⢠⢻⢿⣈⣶⠀⣰⡇⠀⣄⡜⠀⡿⡎⡿⡸⠛⣄⠀⡇⠀⠀⠀⠀⠁⠀│                │⢸⠀⠀⠀⠸⡀⣦⢸⠀⠀⠹⣀⠟⡇⠀⠀⠀⠀⠀⡀⡇⠀⠀⠀⠀⠸⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⢱⠀⠀⠀│
+             │⢸⠀⠀⠀⠀⠀⠀⠀⠀⢸⠃⠀⠘⡄⢸⠀⠈⠿⠻⣻⢿⡇⢀⠿⠇⠀⠀⠀⢸⡇⠀⡟⣶⠁⠀⠀⠀⠀⠀⠀│                │⢸⠀⠀⠀⠀⢸⡇⠿⠀⠀⠀⠻⠀⢱⠀⢠⠀⠀⡜⠟⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⢣⠀⠀│
+             │⢸⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣿⢸⠀⠀⠀⠀⠟⡾⢧⡿⠀⠀⠀⠀⠀⢸⡇⠀⠀⠸⠀⠀⠀⠀⠀⠀⠀│                │⢸⠀⠀⠀⠀⠀⠃⠀⠀⠀⠀⠀⠀⠘⡤⡏⡆⠀⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠘⣴⠀│
+             │⢸⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢹⡸⠀⠀⠀⠀⠀⠃⠘⠀⠀⠀⠀⠀⠀⠈⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀│                │⢸⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠘⣾⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠋⠀│
+    -5.08014 │⢸⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀│       -7.84699 │⢸⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠻⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀│
+             └────────────────────────────────────────┘                └────────────────────────────────────────┘
+             ⠀-1.97⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀102.97⠀                ⠀-1.97⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀102.97⠀</code></pre><pre><code class="language-julia hljs">using Random
+Random.seed!(111)
+plot!(Plots.fakedata(100, 10))</code></pre><pre class="documenter-example-output"><code class="nohighlight hljs ansi">             ┌────────────────────────────────────────┐                 ┌────────────────────────────────────────┐
+     8.82246 │⢸⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢰⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀│ y1      9.80146 │⢸⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢰⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀│ y2
+             │⢸⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⡸⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀│ y5              │⢸⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⡇⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀│ y6
+             │⢸⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⠇⢧⠿⣴⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀│ y9              │⢸⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⡀⡤⣆⠏⠁⢱⠀⠀⠀⠀⠀⠀⠀⠀⡰⠂⠀│ y10
+             │⢸⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⡸⠀⠘⠀⢻⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀│ y11             │⢸⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⡷⠁⠻⠀⠀⠈⡆⠀⢠⠀⠀⠀⠀⣠⠃⠀⠀│ y12
+             │⢸⠀⠀⢀⠀⡠⡄⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⡇⠀⠀⠀⠈⡆⣄⠀⡄⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀│ y15             │⢸⠀⠀⠀⢀⡆⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⡄⡰⣰⠁⠀⠀⠀⠀⠀⠘⡶⠋⡆⢀⠀⡤⠃⠀⠀⠀│ y16
+             │⢸⠀⠀⡸⡧⠃⢧⠀⠀⠀⠀⡸⡄⠀⠀⠀⠀⠀⠀⠀⢰⠁⠀⠀⠀⠀⢻⠸⣠⠛⢣⠀⠀⢸⡄⣠⠀⢠⠀⠀│ y19             │⢸⠀⠀⢰⠟⢱⠀⢰⣤⡄⠀⠀⠀⠀⠀⠀⠀⠀⠀⢠⠻⠁⠋⠀⠀⠀⠀⠀⠀⠀⠀⠀⠸⠺⡇⡇⠀⠀⠀⠀│ y20
+             │⢸⠀⣄⣿⢣⡠⡄⡇⠀⠀⢰⠁⡇⠀⢀⠀⠀⠀⠀⢀⠇⠀⡀⠀⠀⠀⠈⠀⢹⠀⠸⡀⢰⡉⡇⣿⣿⡞⡄⠀│                 │⢸⠀⠀⢸⠀⠈⢣⡸⠁⣇⠴⢇⠀⠀⠀⠀⠀⣴⠀⢸⠀⠀⣆⣰⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⠁⢠⣠⡆⠀│
+             │⢸⣶⠻⠃⢸⠇⢣⠱⣰⢶⣼⣄⣧⣄⡾⡇⠀⠀⢠⣾⡀⢸⡇⠀⡀⠀⠀⠀⡇⡇⢠⢇⡞⢳⢷⡻⠛⢱⣣⠀│                 │⢸⠀⢰⠃⢰⣴⠘⠁⠀⣿⠀⢸⣇⠀⠀⢠⣀⠏⡆⣼⣾⣾⣮⡗⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⡎⢹⢣⠀│
+             │⢹⢟⠉⠉⠉⠉⠙⣽⣯⣿⣟⠉⠻⣹⠋⢯⣏⠉⣹⡿⢏⡏⢏⡹⢻⠉⠉⠉⡏⢏⣽⢹⣏⢹⡿⠏⠉⢹⢻⠉│                 │⢸⢀⡜⠀⢸⠀⡇⠀⢸⠹⡀⢸⢸⣷⠀⣸⣿⣀⣿⡇⢻⠫⠋⠀⢷⡆⠀⠀⠀⠀⠀⡀⠀⣠⣧⣆⠇⡼⠀⠀│
+             │⢸⠀⠟⢢⠀⠀⠀⣿⡟⠋⠘⡇⢸⡇⡔⠻⣾⢄⡏⠀⡼⠃⢸⠃⠈⡆⠀⡼⠀⠈⣏⠸⣿⡜⡇⣷⡖⠁⠸⠀│                 │⢼⡧⡧⣤⢼⠤⢼⢦⡮⠤⢵⣧⣾⢿⣾⣽⣿⣿⡯⣧⢼⠤⠤⠤⠼⣵⢴⡧⠤⠤⠤⣷⡦⢿⠼⢿⢤⠧⠤⠤│
+             │⢸⠀⠀⠸⣾⢀⠾⠀⠀⠀⠀⠸⡇⢇⠇⠀⢸⣾⠇⢸⡇⡗⠚⡄⠀⣿⠢⡏⡇⡠⠛⠼⠃⠃⠈⠙⠀⠀⠀⠀│                 │⢸⣿⡼⡿⡇⠀⢸⣾⡇⢀⢸⡿⠀⠸⡹⢻⢿⠙⠸⠘⠊⠀⠀⠀⠀⠿⢇⢸⣾⠀⡄⡟⠃⢸⠀⠀⠋⠀⠀⠀│
+             │⢸⠀⠀⠀⠸⠛⠀⠀⠀⠀⠀⠀⠁⠈⠀⠀⠸⣿⠀⡜⢱⡇⠀⡇⠀⡟⢣⡇⡇⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀│                 │⢸⠘⠁⠀⢱⢸⠋⠙⠙⡼⢿⠀⠀⠀⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠛⢹⢸⢸⠀⢀⠇⠀⠀⠀⠀⠀⠀│
+             │⢸⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠸⡀⡇⠘⠀⠀⢱⣷⠃⠀⠁⠸⠃⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀│                 │⢸⠀⠀⠀⠘⠇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⡟⡌⠀⣼⠀⠀⠀⠀⠀⠀⠀│
+             │⢸⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣧⠇⠀⠀⠀⢸⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀│                 │⢸⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⣶⠁⠀⠀⠀⠀⠀⠀⠀│
+    -7.23403 │⢸⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⠀⠀⠀⠀⠘⠇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀│        -5.36228 │⢸⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠹⠀⠀⠀⠀⠀⠀⠀⠀│
+             └────────────────────────────────────────┘                 └────────────────────────────────────────┘
+             ⠀-1.97⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀102.97⠀                 ⠀-1.97⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀102.97⠀
+             ┌────────────────────────────────────────┐                 ┌────────────────────────────────────────┐
+     6.49951 │⢸⠀⠀⠀⠀⠀⠀⡀⠀⣴⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀│ y3      6.79293 │⢸⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⡴⡀⠀⠀⠀⠀⠀│ y4
+             │⢸⠀⠀⠀⠀⠀⣤⠳⡀⣿⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀│ y7              │⢸⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢸⠁⡇⠀⠀⠀⠀⠀│ y8
+             │⢸⠀⠀⠀⠀⡄⣿⠀⢇⠟⡄⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣄⡄⠀⠀⠀⠀│ y13             │⢸⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⡄⠀⠀⠀⠀⠀⠀⡜⠀⢱⠀⠀⢰⢇⠀│ y14
+             │⢸⠀⠀⠀⡀⣿⠁⡇⢸⠀⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣠⡟⢱⠀⠀⠀⠀│ y17             │⢸⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⡄⢸⠀⠀⢰⢇⠀⠀⠀⠀⠀⢀⡇⣀⠸⣄⠀⡜⠀⠀│ y18
+             │⢸⢀⣶⠋⣷⡏⠀⢱⠀⠀⣧⣦⢀⡆⠀⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢸⠸⠁⢸⠀⠀⠀⠀│                 │⢸⠀⢀⢄⡄⠀⠀⠀⠀⠀⣸⠀⠀⠀⠀⠀⠀⠀⢠⠞⢸⡟⡄⠀⡏⢸⡀⠀⢰⠀⠀⢸⡎⢻⠀⠹⡇⡇⠀⠀│
+             │⢸⡏⠀⠀⣿⠃⠀⠈⡆⠀⢹⠋⠙⢹⢳⢱⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣸⠀⠀⢸⠀⠀⠀⠀│                 │⢸⡶⡎⠸⠙⠉⢇⠀⢸⢢⣿⠀⠀⠀⠀⠀⣄⣀⠇⠀⠈⠀⢇⢠⠃⠀⠘⣄⣿⠀⡀⣾⡇⢸⢠⡆⢷⠁⠀⠀│
+             │⢸⡇⠀⢸⠘⠀⠀⠀⡇⠀⠀⠀⠀⠀⠀⢸⢀⠀⠀⠀⠀⢀⡆⠀⠀⠀⠀⠀⠀⠀⢠⢿⡏⠀⠀⡔⣧⠀⡇⠀│                 │⣸⣇⣦⣻⣀⣀⣸⣀⣸⣀⣀⣻⣀⣀⣀⣀⣟⣛⣀⣀⣀⣀⣸⣁⣀⣀⣠⣻⣟⣴⣇⣇⣀⣈⣞⣣⣈⣀⣀⣀│
+             │⢸⡷⣸⠁⠀⠀⠀⠀⢸⠀⠀⠀⠀⠀⠀⢸⢸⡀⠀⠀⠀⢸⣇⢾⡇⠀⠀⢰⠀⠀⢸⠈⠁⢀⢠⠃⢻⣼⠁⠀│                 │⢸⠸⠁⠀⡇⠀⠈⠙⠃⠀⠀⠀⡇⠀⢸⡜⠀⠀⠀⠀⠀⢸⡇⠀⠀⠀⢸⠀⠀⢫⠛⠀⠀⠀⠀⢸⠀⠀⠀⠀│
+             │⢺⠓⠓⠒⠒⠒⠒⠒⠚⡖⠒⢒⡖⠒⠒⠺⡾⢳⠒⠒⠒⢺⠛⠚⡷⣶⡒⡞⡖⡲⠓⠒⠒⡿⣺⠒⠒⢻⠒⠒│                 │⢸⠀⠀⠀⡇⠀⠀⠀⢰⢠⠀⠀⢇⢰⠋⠇⠀⠀⠀⠀⠀⡜⢸⠀⡀⠀⢸⠀⠀⠀⠀⠀⠀⠀⠀⠘⡄⠀⠀⠀│
+             │⢸⠀⠀⠀⠀⠀⠀⠀⠀⡇⠀⡸⡇⠀⠀⣠⣷⢸⠀⠀⠀⡸⠀⠀⢠⠻⣿⢣⣧⢣⣷⠀⠀⡇⠇⠀⠀⠸⣄⠀│                 │⢸⠀⠀⠀⢣⠀⠀⢀⠇⠉⡇⠀⣿⡜⠀⠀⠀⠀⠀⠀⡰⠁⠀⠳⡏⢱⡞⠀⠀⠀⠀⠀⠀⠀⠀⠀⡇⠀⠀⠀│
+             │⢸⠀⠀⠀⠀⠀⠀⠀⠀⢣⣼⠀⢸⠀⢠⢻⢿⣈⣶⠀⣰⡇⠀⣄⡜⠀⡿⡎⡿⡸⠛⣄⠀⡇⠀⠀⠀⠀⠁⠀│                 │⢸⠀⠀⠀⠸⡀⣦⢸⠀⠀⠹⣀⠟⡇⠀⠀⠀⠀⠀⡀⡇⠀⠀⠀⠀⠸⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⢱⠀⠀⠀│
+             │⢸⠀⠀⠀⠀⠀⠀⠀⠀⢸⠃⠀⠘⡄⢸⠀⠈⠿⠻⣻⢿⡇⢀⠿⠇⠀⠀⠀⢸⡇⠀⡟⣶⠁⠀⠀⠀⠀⠀⠀│                 │⢸⠀⠀⠀⠀⢸⡇⠿⠀⠀⠀⠻⠀⢱⠀⢠⠀⠀⡜⠟⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⢣⠀⠀│
+             │⢸⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣿⢸⠀⠀⠀⠀⠟⡾⢧⡿⠀⠀⠀⠀⠀⢸⡇⠀⠀⠸⠀⠀⠀⠀⠀⠀⠀│                 │⢸⠀⠀⠀⠀⠀⠃⠀⠀⠀⠀⠀⠀⠘⡤⡏⡆⠀⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠘⣴⠀│
+             │⢸⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢹⡸⠀⠀⠀⠀⠀⠃⠘⠀⠀⠀⠀⠀⠀⠈⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀│                 │⢸⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠘⣾⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠋⠀│
+    -5.08014 │⢸⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀│        -7.84699 │⢸⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠻⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀│
+             └────────────────────────────────────────┘                 └────────────────────────────────────────┘
+             ⠀-1.97⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀102.97⠀                 ⠀-1.97⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀102.97⠀</code></pre><h3 id="unicodeplots-ref19"><a class="docs-heading-anchor" href="#unicodeplots-ref19">Open/High/Low/Close</a><a id="unicodeplots-ref19-1"></a><a class="docs-heading-anchor-permalink" href="#unicodeplots-ref19" title="Permalink"></a></h3><p>Create an OHLC chart.  Pass in a list of (open,high,low,close) tuples as your <code>y</code> argument.  This uses recipes to first convert the tuples to OHLC objects, and subsequently create a :path series with the appropriate line segments.</p><pre><code class="language-julia hljs">n = 20
+hgt = rand(n) .+ 1
+bot = randn(n)
+openpct = rand(n)
+closepct = rand(n)
+y = OHLC[(openpct[i] * hgt[i] + bot[i], bot[i] + hgt[i], bot[i], closepct[i] * hgt[i] + bot[i]) for i = 1:n]
+ohlc(y)</code></pre><pre class="documenter-example-output"><code class="nohighlight hljs ansi">            ┌────────────────────────────────────────┐
+    3.96886 │⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣠⠀⠀⠀⠀⠀⠀⠀⠀⠀│ y1
+            │⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢸⠀⠀⠀⠀⠀⠀⠀⠀⠀│
+            │⠀⠀⠀⠀⠀⢀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢸⠀⠀⠀⠀⠀⠀⠀⠀⠀│
+            │⠀⠀⠀⠀⠀⢸⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢸⠂⠀⠀⠀⠀⠀⠀⣄⠀│
+            │⠀⢠⠀⠀⠀⢸⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⠀⢰⠀⠀⠀⠀⠀⢰⠀⠘⠀⠀⠀⠀⠀⠀⠀⡇⠀│
+            │⠀⢹⠀⢀⠀⢸⠀⠀⠀⠀⠀⡇⠀⠀⠀⠀⠀⠀⠀⠀⢸⠁⢸⠄⠀⠀⠀⠀⢸⠀⠀⠀⢠⠀⠀⠀⠀⠀⡇⠀│
+            │⠀⢸⠂⢸⠑⢺⠀⠀⠀⠀⠀⡧⠀⠀⠀⠀⠀⠀⠀⠀⢸⠀⢼⠀⠀⠀⠀⠀⢼⠂⠀⠀⢸⠀⠀⠀⠀⢀⡇⠀│
+            │⠀⢸⠀⢺⠀⠘⠂⠀⠀⠀⠐⡇⠀⡀⠀⠀⠀⡀⠀⠀⢹⠀⢸⠀⠀⠀⠀⠀⠈⠀⠀⠀⢸⠀⡇⠀⡆⠀⡇⠀│
+            │⠀⠀⠀⠈⠀⠀⠀⡀⠀⠀⠀⠁⠀⡇⠀⠀⠀⡇⠀⡇⢸⠀⠈⠀⣠⠀⢀⠀⠀⠀⠀⠠⢼⢁⡇⠀⡧⠀⠀⠀│
+            │⠤⠤⠤⠤⠤⠤⠤⡧⠤⠤⠤⠤⠤⡧⠤⡤⠤⣧⠤⡯⠤⠤⠤⠤⢼⠤⢼⠤⠤⠤⠤⠤⠼⠤⣧⠤⡧⠤⠤⠤│
+            │⠀⠀⠀⠀⠀⠀⠠⡧⠀⠀⠀⠀⠀⡇⠠⡇⠀⡇⠒⡇⠀⠀⠀⠀⢸⠀⢸⠀⠀⠀⠀⠀⠀⠀⠇⠈⠃⠀⠀⠀│
+            │⠀⠀⠀⠀⠀⠀⠀⡇⠀⡆⠀⠀⠈⡗⠀⣇⠀⠁⠀⡇⠀⠀⠀⠀⠸⠂⠺⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀│
+            │⠀⠀⠀⠀⠀⠀⠀⠁⠀⡇⠀⠀⠀⠀⠀⠃⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀│
+            │⠀⠀⠀⠀⠀⠀⠀⠀⠐⣇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀│
+   -2.18756 │⠀⠀⠀⠀⠀⠀⠀⠀⠀⠇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀│
+            └────────────────────────────────────────┘
+            ⠀0.112⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀20.888⠀</code></pre><h3 id="unicodeplots-ref20"><a class="docs-heading-anchor" href="#unicodeplots-ref20">Annotations</a><a id="unicodeplots-ref20-1"></a><a class="docs-heading-anchor-permalink" href="#unicodeplots-ref20" title="Permalink"></a></h3><p>The <code>annotations</code> keyword is used for text annotations in data-coordinates.  Pass in a tuple <code>(x, y, text)</code>, a vector of annotations, each of which is a tuple of <code>x</code>, <code>y</code> and <code>text</code>. You can position annotations using relative coordinates with the syntax <code>((px, py), text)</code>, where for example <code>px=.25</code> positions the annotation at <code>25%</code> of the subplot&#39;s axis width. <code>text</code> may be a simple <code>String</code>, or a <code>PlotText</code> object, which can be built with the method <code>text(string, attrs...)</code>. This wraps font and color attributes and allows you to set text styling. <code>text</code> may also be a tuple <code>(string, attrs...)</code> of arguments which are passed to <code>Plots.text</code>.</p><p><code>annotate!(ann)</code> is shorthand for <code>plot!(; annotation=ann)</code>.</p><p>Series annotations are used for annotating individual data points. They require only the annotation; x/y values are computed.  Series annotations require either plain <code>String</code>s or <code>PlotText</code> objects.</p><pre><code class="language-julia hljs">y = rand(10)
+plot(y, annotations = (3, y[3], Plots.text(&quot;this is #3&quot;, :left)), leg = false)
+annotate!([(5, y[5], (&quot;this is #5&quot;, 16, :red, :center)), (10, y[10], (&quot;this is #10&quot;, :right, 20, &quot;courier&quot;))])
+scatter!(range(2, stop = 8, length = 6), rand(6), marker = (50, 0.2, :orange), series_annotations = [&quot;series&quot;, &quot;annotations&quot;, &quot;map&quot;, &quot;to&quot;, &quot;series&quot;, Plots.text(&quot;data&quot;, :green)])</code></pre><pre class="documenter-example-output"><code class="nohighlight hljs ansi">              ┌────────────────────────────────────────┐
+     0.934734 │⠀⠀⠀⠀⠀annotations⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀│
+              │⠀⠀⠀⠀⠀⣄⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⡠⡆⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀│
+              │⠀⠀⠀⠀⢠⠃⠑⢄⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⠔⠁⠘⡄⠀⠀⠀⠀data⠀⠀⠀⠀⠀⠀⠀⠀│
+              │⠀⠀⠀⠀⡎⠀⠀⠀⠑this is #3⠃⠀⠀⠀⢱⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀│
+              │⠀⠀⠀⢰⠁⠀⠀⠀⠀⠸⡀⠀this is #5⠀⠀⢇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀│
+              │⠀⠀⢀⠇⠀⠀⠀⠀⠀⠀⡇⠀⠀⠀⠀⠀⠀⡇⠀⠀⠀⠀⠀⠀⠈⡆⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀│
+              │⠀⠀⡸⠀⠀⠀⠀⠀⠀⠀⢸⠀⠀⠀⠀⠀⢰⠁⠀⠀⠀⠀⠀⠀⠀⠸⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀│
+              │⠀⢠⠃⠀⠀⠀⠀⠀⠀⠀⠈⡆⠀⠀⠀⠀⡜⠀⠀⠀⠀⠀⠀⠀⠀⠀⢣⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀│
+              │⠀⡜⠀⠀⠀⠀⠀⠀⠀⠀⠀⢣⠀⠀⠀⢀⠇⠀⠀⠀⠀⠀series⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀│
+              │⠀⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⢸⠀⠀map⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢱⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀│
+              │⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⡇⠀⠀⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢇⠀⠀⠀⠀⢀⠔⠢⠤⣀⠀⠀│
+              │⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢱⠀⢸⠀⠀⠀⠀to⠀⠀⠀⠀⠀⠀⠀this is #10⠀│
+              │⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠘⡄⡎⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢣⠀⢀⠎⠀⠀⠀⠀⠀⠀⠀│
+              │⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢧⠃⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⣆⠎⠀⠀⠀⠀⠀⠀⠀⠀│
+   0.00763894 │⠀⠀series⠀⠀⠀⠀⠀⠈⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀│
+              └────────────────────────────────────────┘
+              ⠀0.73⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀10.27⠀</code></pre><h3 id="unicodeplots-ref22"><a class="docs-heading-anchor" href="#unicodeplots-ref22">Contours</a><a id="unicodeplots-ref22-1"></a><a class="docs-heading-anchor-permalink" href="#unicodeplots-ref22" title="Permalink"></a></h3><p>Any value for fill works here.  We first build a filled contour from a function, then an unfilled contour from a matrix.</p><pre><code class="language-julia hljs">x = 1:0.5:20
+y = 1:0.5:10
+f(x, y) = begin
+        (3x + y ^ 2) * abs(sin(x) + cos(y))
+    end
+X = repeat(reshape(x, 1, :), length(y), 1)
+Y = repeat(y, 1, length(x))
+Z = map(f, X, Y)
+p1 = contour(x, y, f, fill = true)
+p2 = contour(x, y, Z)
+plot(p1, p2)</code></pre><pre class="documenter-example-output"><code class="nohighlight hljs ansi">       ┌────────────────────────────────────────┐  ⠀⠀⠀⠀         ┌────────────────────────────────────────┐  ⠀⠀⠀⠀
+    10 │⠀⠀⡸⣿⣿⣿⣿⡀⢸⢸⣿⣿⣷⡇⠈⢰⣿⣿⣿⣿⡇⠀⣿⣿⣿⣿⣇⠉⢸⣾⣿⣿⣿⡇⠀⣿⣿⣿⣿⣿│  ┌──┐ 1    10 │⠀⠀⡸⣿⣿⣿⣿⡀⢸⢸⣿⣿⣷⡇⠈⢰⣿⣿⣿⣿⡇⠀⣿⣿⣿⣿⣇⠉⢸⣾⣿⣿⣿⡇⠀⣿⣿⣿⣿⣿│  ┌──┐ 1
+       │⠀⠀⠸⣿⣿⣿⣞⠭⢭⢿⣿⣿⣯⠇⢀⢸⢿⣿⣿⣿⣪⣪⣾⣿⣿⣿⣇⣀⢸⢿⣿⣿⣿⣯⡶⣻⣿⣿⣿⢿│  │▄▄│         │⠀⠀⠸⣿⣿⣿⣞⠭⢭⢿⣿⣿⣯⠇⢀⢸⢿⣿⣿⣿⣪⣪⣾⣿⣿⣿⣇⣀⢸⢿⣿⣿⣿⣯⡶⣻⣿⣿⣿⢿│  │▄▄│
+       │⣒⠭⣆⡫⣿⢿⣮⡿⢯⡯⣿⡿⢏⣮⣵⢝⠈⣿⣿⢮⣯⣷⡯⣿⣽⠃⣥⡶⡣⡿⢿⣿⣯⣿⣾⣿⣿⣿⢿⣦│  │▄▄│         │⣒⠭⣆⡫⣿⢿⣮⡿⢯⡯⣿⡿⢏⣮⣵⢝⠈⣿⣿⢮⣯⣷⡯⣿⣽⠃⣥⡶⡣⡿⢿⣿⣯⣿⣾⣿⣿⣿⢿⣦│  │▄▄│
+       │⢔⣉⡪⣷⡹⣳⣯⣿⣟⡿⢛⢻⣮⢗⡺⡽⣵⡈⢻⡳⣿⣿⣿⡿⢁⣾⣯⠾⢿⣾⣾⢻⣿⣿⣿⣿⣿⢻⣾⣿│  │▄▄│         │⢔⣉⡪⣷⡹⣳⣯⣿⣟⡿⢛⢻⣮⢗⡺⡽⣵⡈⢻⡳⣿⣿⣿⡿⢁⣾⣯⠾⢿⣾⣾⢻⣿⣿⣿⣿⣿⢻⣾⣿│  │▄▄│
+       │⢁⠤⡘⣵⢟⡌⠫⣒⡪⠛⣹⣻⡷⡱⢉⠪⣻⣿⣸⠻⡫⢮⣋⢃⣿⣿⣟⡟⢝⣯⢿⣟⣩⠻⣛⣽⢱⣿⣿⡿│  │▄▄│         │⢁⠤⡘⣵⢟⡌⠫⣒⡪⠛⣹⣻⡷⡱⢉⠪⣻⣿⣸⠻⡫⢮⣋⢃⣿⣿⣟⡟⢝⣯⢿⣟⣩⠻⣛⣽⢱⣿⣿⡿│  │▄▄│
+       │⢹⠀⡇⣣⡟⣼⡀⠀⠀⢸⣽⡻⣿⢸⠁⡇⡟⣯⣿⢆⠈⠁⣸⣿⣿⣿⣇⠏⢱⣿⣿⣿⣧⠉⠉⢰⣿⣿⣿⣿│  │▄▄│         │⢹⠀⡇⣣⡟⣼⡀⠀⠀⢸⣽⡻⣿⢸⠁⡇⡟⣯⣿⢆⠈⠁⣸⣿⣿⣿⣇⠏⢱⣿⣿⣿⣧⠉⠉⢰⣿⣿⣿⣿│  │▄▄│
+       │⢄⠉⢡⢃⢷⢹⠀⠀⠀⢸⢯⡾⣇⢇⡑⣡⡳⣝⢿⡎⠀⠀⢸⡿⡿⡿⣣⣋⡡⣻⢿⣿⣿⠀⠀⢸⣿⣿⣿⢿│  │▄▄│         │⢄⠉⢡⢃⢷⢹⠀⠀⠀⢸⢯⡾⣇⢇⡑⣡⡳⣝⢿⡎⠀⠀⢸⡿⡿⡿⣣⣋⡡⣻⢿⣿⣿⠀⠀⢸⣿⣿⣿⢿│  │▄▄│
+       │⠦⡩⠥⢣⢇⠇⠀⣀⡀⠈⢮⣾⡱⢷⠬⣔⣹⢮⡻⢀⡠⠦⡄⢿⣿⡿⡵⣒⡲⣯⣻⣿⢇⢴⣲⢌⢾⣿⣿⣽│  │▄▄│         │⠦⡩⠥⢣⢇⠇⠀⣀⡀⠈⢮⣾⡱⢷⠬⣔⣹⢮⡻⢀⡠⠦⡄⢿⣿⡿⡵⣒⡲⣯⣻⣿⢇⢴⣲⢌⢾⣿⣿⣽│  │▄▄│
+       │⠑⠒⠊⡱⠁⢠⠊⣀⡈⠢⡀⠫⡪⡲⠭⢒⢕⠝⡱⡪⢊⣍⡪⣆⢻⢽⣪⠶⣭⢿⢽⣣⢗⢕⣒⡵⣮⢛⣿⣺│  │▄▄│         │⠑⠒⠊⡱⠁⢠⠊⣀⡈⠢⡀⠫⡪⡲⠭⢒⢕⠝⡱⡪⢊⣍⡪⣆⢻⢽⣪⠶⣭⢿⢽⣣⢗⢕⣒⡵⣮⢛⣿⣺│  │▄▄│
+       │⠉⠒⠉⠀⢀⠇⡜⠀⠈⠣⡙⡄⠈⠪⣉⠵⠁⡰⣝⠜⡡⠢⡜⡵⡣⡙⢕⠭⡳⠛⡱⣽⣟⢗⣊⠪⣻⣿⢫⡹│  │▄▄│         │⠉⠒⠉⠀⢀⠇⡜⠀⠈⠣⡙⡄⠈⠪⣉⠵⠁⡰⣝⠜⡡⠢⡜⡵⡣⡙⢕⠭⡳⠛⡱⣽⣟⢗⣊⠪⣻⣿⢫⡹│  │▄▄│
+       │⠀⠀⠀⠀⡎⢸⠀⠀⠀⠀⢧⢹⠀⠀⠀⠀⢰⢱⣹⡸⠀⠀⠸⡸⣱⢇⠀⠉⠁⢰⣝⡿⣎⠏⢀⠱⣫⣿⣾⡈│  │▄▄│         │⠀⠀⠀⠀⡎⢸⠀⠀⠀⠀⢧⢹⠀⠀⠀⠀⢰⢱⣹⡸⠀⠀⠸⡸⣱⢇⠀⠉⠁⢰⣝⡿⣎⠏⢀⠱⣫⣿⣾⡈│  │▄▄│
+       │⠀⠀⠀⠀⢇⠈⣆⠀⠀⠀⡜⢸⠀⠀⠀⠀⢸⢸⢱⢸⠀⠀⢀⢇⢿⢸⠀⠀⠀⡇⣿⢇⡿⡀⠈⢠⢻⣿⡸⡇│  │▄▄│         │⠀⠀⠀⠀⢇⠈⣆⠀⠀⠀⡜⢸⠀⠀⠀⠀⢸⢸⢱⢸⠀⠀⢀⢇⢿⢸⠀⠀⠀⡇⣿⢇⡿⡀⠈⢠⢻⣿⡸⡇│  │▄▄│
+       │⠀⠀⠀⠀⠘⡄⠈⠦⠤⠎⠀⡎⠀⠀⠀⠀⠘⢌⡎⢆⠑⠔⢃⢜⢜⠇⠀⣀⠀⠸⡸⣿⣵⢕⡒⡡⡧⣿⡿⠀│  │▄▄│         │⠀⠀⠀⠀⠘⡄⠈⠦⠤⠎⠀⡎⠀⠀⠀⠀⠘⢌⡎⢆⠑⠔⢃⢜⢜⠇⠀⣀⠀⠸⡸⣿⣵⢕⡒⡡⡧⣿⡿⠀│  │▄▄│
+       │⠀⠀⠀⠀⠀⠈⠢⣀⣀⠤⠊⠀⠀⡠⠔⠤⡀⠘⢌⠪⣉⠒⡡⢪⠊⢠⢊⠤⢝⢤⠘⢽⡢⡓⠬⣚⡮⡗⣱⢞│  │▄▄│         │⠀⠀⠀⠀⠀⠈⠢⣀⣀⠤⠊⠀⠀⡠⠔⠤⡀⠘⢌⠪⣉⠒⡡⢪⠊⢠⢊⠤⢝⢤⠘⢽⡢⡓⠬⣚⡮⡗⣱⢞│  │▄▄│
+     1 │⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⡜⢀⣀⣀⠑⡄⠈⠑⢄⣉⠔⠁⡰⡱⡡⠒⠢⡑⣵⡈⢪⡪⠭⣚⠝⣰⢽⣺│  └──┘ 0     1 │⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⡜⢀⣀⣀⠑⡄⠈⠑⢄⣉⠔⠁⡰⡱⡡⠒⠢⡑⣵⡈⢪⡪⠭⣚⠝⣰⢽⣺│  └──┘ 0
+       └────────────────────────────────────────┘  ⠀⠀⠀⠀         └────────────────────────────────────────┘  ⠀⠀⠀⠀
+       ⠀1⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀20⠀  ⠀⠀⠀⠀         ⠀1⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀20⠀  ⠀⠀⠀⠀</code></pre><h3 id="unicodeplots-ref23"><a class="docs-heading-anchor" href="#unicodeplots-ref23">Pie</a><a id="unicodeplots-ref23-1"></a><a class="docs-heading-anchor-permalink" href="#unicodeplots-ref23" title="Permalink"></a></h3><pre><code class="language-julia hljs">x = [&quot;Nerds&quot;, &quot;Hackers&quot;, &quot;Scientists&quot;]
+y = [0.4, 0.35, 0.25]
+pie(x, y, title = &quot;The Julia Community&quot;, l = 0.5)</code></pre><pre class="documenter-example-output"><code class="nohighlight hljs ansi">            ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀The Julia Community⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+            ┌────────────────────────────────────────┐
+    1.05981 │⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣀⡠⠤⠔⠒⡗⠒⠤⠤⣀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀│ Nerds
+            │⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⠔⠉⠀⠀⠀⠀⠀⡇⠀⠀⠀⠀⠑⠢⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀│ Hackers
+            │⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⠔⠁⠀⠀⠀⠀⠀⠀⠀⡇⠀⠀⠀⠀⠀⠀⠈⠢⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀│ Scientists
+            │⠀⠀⠀⠀⠀⠀⠀⠀⠀⡠⠫⢄⠀⠀⠀⠀⠀⠀⠀⠀⡇⠀⠀⠀⠀⠀⠀⠀⠀⠈⡆⠀⠀⠀⠀⠀⠀⠀⠀⠀│
+            │⠀⠀⠀⠀⠀⠀⠀⠀⢰⠁⠀⠀⠑⢄⡀⠀⠀⠀⠀⠀⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠘⡆⠀⠀⠀⠀⠀⠀⠀⠀│
+            │⠀⠀⠀⠀⠀⠀⠀⠀⡎⠀⠀⠀⠀⠀⠈⠢⡀⠀⠀⠀⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢹⠀⠀⠀⠀⠀⠀⠀⠀│
+            │⠀⠀⠀⠀⠀⠀⠀⢸⠀⠀⠀⠀⠀⠀⠀⠀⠈⠑⢄⠀⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⡇⠀⠀⠀⠀⠀⠀⠀│
+            │⠒⠒⠒⠒⠒⠒⠒⢺⠒⠒⠒⠒⠒⠒⠒⠒⠒⠒⠒⠓⡗⠒⠒⠒⠒⠒⠒⠒⠒⠒⠒⠒⡗⠒⠒⠒⠒⠒⠒⠒│
+            │⠀⠀⠀⠀⠀⠀⠀⢸⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⡇⠀⠀⠀⠀⠀⠀⠀│
+            │⠀⠀⠀⠀⠀⠀⠀⠀⣇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢸⠀⠀⠀⠀⠀⠀⠀⠀│
+            │⠀⠀⠀⠀⠀⠀⠀⠀⠸⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⠇⠀⠀⠀⠀⠀⠀⠀⠀│
+            │⠀⠀⠀⠀⠀⠀⠀⠀⠀⠑⡄⠀⠀⠀⠀⠀⠀⠀⠀⠀⡇⠀⠀⠀⠀⠀⠀⠀⠀⢠⠇⠀⠀⠀⠀⠀⠀⠀⠀⠀│
+            │⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⢢⠀⠀⠀⠀⠀⠀⠀⠀⡇⠀⠀⠀⠀⠀⠀⢀⠴⠃⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀│
+            │⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠉⠢⢄⠀⠀⠀⠀⠀⡇⠀⠀⠀⢀⣀⠔⠋⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀│
+   -1.05999 │⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠉⠑⠒⠤⠤⡧⠴⠒⠊⠉⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀│
+            └────────────────────────────────────────┘
+            ⠀-1.63152⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀1.63152⠀</code></pre><h3 id="unicodeplots-ref24"><a class="docs-heading-anchor" href="#unicodeplots-ref24">3D</a><a id="unicodeplots-ref24-1"></a><a class="docs-heading-anchor-permalink" href="#unicodeplots-ref24" title="Permalink"></a></h3><pre><code class="language-julia hljs">n = 100
+ts = range(0, stop = 8π, length = n)
+x = ts .* map(cos, ts)
+y = (0.1ts) .* map(sin, ts)
+z = 1:n
+plot(x, y, z, zcolor = reverse(z), m = (10, 0.8, :blues, Plots.stroke(0)), leg = false, cbar = true, w = 5)
+plot!(zeros(n), zeros(n), 1:n, w = 10)</code></pre><pre class="documenter-example-output"><code class="nohighlight hljs ansi">      ┌────────────────────────────────────────┐
+    1 │⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀│
+      │⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⣀⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀│
+      │⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⡠⠔⡏⠉⠁⡰⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀│
+      │⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠐⠊⠁⠀⠀⡇⡠⠊⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀│
+      │⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⠤⡏⠀⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀│
+      │⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⡴⠭⠒⡏⠉⣨⠃⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀│
+      │⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⡧⠚⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀│
+      │⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣀⠔⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀│
+      │⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠉⠉⡏⢹⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀│
+      │⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⡷⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀│
+      │⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢎⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀│
+      │⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣿⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀│
+      │⠀⠀⠀⠀⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⡏⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀│
+      │⠀⠀⢀⡠⠧⠤⢄⣀⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀│
+   -1 │⠀⠐⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀│
+      └────────────────────────────────────────┘
+      ⠀-1⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀1⠀</code></pre><h3 id="unicodeplots-ref25"><a class="docs-heading-anchor" href="#unicodeplots-ref25">DataFrames</a><a id="unicodeplots-ref25-1"></a><a class="docs-heading-anchor-permalink" href="#unicodeplots-ref25" title="Permalink"></a></h3><p>Plot using DataFrame column symbols.</p><pre><code class="language-julia hljs">using StatsPlots
+import RDatasets
+iris = RDatasets.dataset(&quot;datasets&quot;, &quot;iris&quot;)
+@df iris scatter(:SepalLength, :SepalWidth, group = :Species, title = &quot;My awesome plot&quot;, xlabel = &quot;Length&quot;, ylabel = &quot;Width&quot;, marker = (0.5, [:cross :hex :star7], 12), bg = RGB(0.2, 0.2, 0.2))</code></pre><pre class="documenter-example-output"><code class="nohighlight hljs ansi">         ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀My awesome plot⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+         ┌────────────────────────────────────────┐
+   4.472 │⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⚬⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀│ setosa
+         │⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⚬⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀│ versicolor
+         │⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⚬⠀⠀⠀⠀⠀⚬⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀│ virginica
+         │⠀⠀⠀⠀⠀⠀⠀⠀⠀⚬⠀⠀⚬⠀⠀⚬⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⚬⠀⚬⠀│
+         │⠀⠀⠀⠀⠀⠀⠀⠀⠀⚬⠀⚬⚬⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀│
+         │⠀⠀⠀⠀⚬⠀⠀⚬⚬⚬⚬⠀⠀⚬⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⚬⠀⠀⠀⠀⠀⠀⠀⠀│
+         │⠀⠀⠀⠀⚬⠀⚬⠀⚬⚬⚬⠀⚬⠀⠀⠀⠀⠀⚬⠀⠀⚬⚬⠀⠀⠀⚬⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀│
+   Width │⠀⠀⚬⠀⚬⚬⠀⠀⚬⠀⠀⠀⠀⠀⠀⠀⠀⚬⠀⠀⠀⠀⠀⚬⚬⠀⠀⚬⚬⚬⠀⚬⠀⠀⠀⠀⠀⠀⠀⠀│
+         │⠀⚬⚬⠀⚬⠀⚬⚬⚬⠀⠀⠀⚬⠀⚬⚬⠀⚬⚬⚬⠀⠀⠀⚬⚬⚬⚬⚬⚬⠀⚬⚬⠀⠀⠀⚬⚬⠀⠀⠀│
+         │⠀⠀⚬⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⚬⚬⚬⠀⚬⚬⠀⚬⚬⚬⚬⚬⠀⚬⠀⠀⠀⠀⚬⚬⠀⠀⚬⠀⠀⠀│
+         │⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⚬⠀⠀⠀⚬⠀⚬⠀⚬⠀⠀⠀⚬⚬⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀│
+         │⠀⠀⠀⠀⠀⠀⠀⚬⠀⚬⠀⠀⠀⚬⚬⚬⚬⠀⠀⚬⠀⠀⚬⠀⠀⠀⚬⠀⠀⠀⠀⠀⠀⠀⠀⠀⚬⠀⠀⠀│
+         │⠀⠀⠀⚬⠀⠀⠀⚬⚬⠀⠀⠀⠀⚬⠀⠀⠀⠀⠀⠀⠀⠀⚬⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀│
+         │⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⚬⠀⠀⚬⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀│
+   1.928 │⠀⠀⠀⠀⠀⠀⠀⠀⚬⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀│
+         └────────────────────────────────────────┘
+         ⠀4.192⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀Length⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀8.008⠀</code></pre><h3 id="unicodeplots-ref28"><a class="docs-heading-anchor" href="#unicodeplots-ref28">Heatmap, categorical axes, and aspect_ratio</a><a id="unicodeplots-ref28-1"></a><a class="docs-heading-anchor-permalink" href="#unicodeplots-ref28" title="Permalink"></a></h3><pre><code class="language-julia hljs">xs = [string(&quot;x&quot;, i) for i = 1:10]
+ys = [string(&quot;y&quot;, i) for i = 1:4]
+z = float((1:4) * reshape(1:10, 1, :))
+heatmap(xs, ys, z, aspect_ratio = 1)</code></pre><pre class="documenter-example-output"><code class="nohighlight hljs ansi">            ┌───────────┐
+    5.31693 │▄▄▄▄▄▄▄▄▄▄▄│  ┌──┐ 40.0
+            │▄▄▄▄▄▄▄▄▄▄▄│  │▄▄│
+   -1.31693 │▄▄▄▄▄▄▄▄▄▄▄│  └──┘ 1.0
+            └───────────┘
+             0        10</code></pre><h3 id="unicodeplots-ref30"><a class="docs-heading-anchor" href="#unicodeplots-ref30">Boxplot and Violin series recipes</a><a id="unicodeplots-ref30-1"></a><a class="docs-heading-anchor-permalink" href="#unicodeplots-ref30" title="Permalink"></a></h3><pre><code class="language-julia hljs">using StatsPlots
+import RDatasets
+singers = RDatasets.dataset(&quot;lattice&quot;, &quot;singer&quot;)
+@df singers violin(:VoicePart, :Height, line = 0, fill = (0.2, :blue))
+@df singers boxplot!(:VoicePart, :Height, line = (2, :black), fill = (0.3, :orange))</code></pre><pre class="documenter-example-output"><code class="nohighlight hljs ansi">         ┌────────────────────────────────────────┐
+   76.48 │⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⚬⠀⠀⠀⠐⣶⡒⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀│ y1
+         │⠀⡴⠒⡖⢲⠀⠐⣶⢲⠀⠀⠀⢸⠀⠀⠀⢀⣿⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀│ y2
+         │⠀⡏⠉⠉⢹⡇⢠⢿⢸⠀⠀⠀⡼⡄⠀⠀⢸⢸⣇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀│ y2
+         │⠀⣇⣀⣀⣸⣇⣼⣸⣀⣇⠀⢈⢿⣏⠀⠀⡎⢸⢸⠀⠀⠀⠀⠀⠀⠀⠀⚬⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀│ y2
+         │⠀⡇⠀⠀⢸⣿⣇⣀⣀⣸⢀⣜⣸⣘⣄⢀⣇⣸⣈⣇⠀⠀⠀⠀⠀⠀⠀⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀│
+         │⠀⢧⠤⡤⣼⢿⡄⠀⠀⢸⢸⠃⠀⠀⢻⢸⡇⠀⠀⣿⠀⢤⣤⡄⠀⠀⢼⣽⠄⠀⠀⢤⡤⠄⠀⠀⠀⠀⠀⠀│
+         │⠀⢸⠀⡇⡇⠸⡧⢤⠤⡼⢸⠤⢤⠤⢼⢸⠇⠀⠀⣿⠀⢸⡇⡇⠀⠀⢸⣿⠀⠀⠀⢸⣇⠀⠀⠀⠀⠀⠀⠀│
+         │⠀⠘⡆⡇⡇⠀⢸⢸⢠⠇⠀⢧⢸⢠⠇⢸⠤⠤⠤⣿⠀⢸⡇⡇⠀⢀⡇⡇⣇⠀⠀⡎⣿⡀⠀⠠⣤⡤⠀⠀│
+         │⠀⠀⡇⣿⠁⠀⠀⣿⡼⠀⠀⠘⣾⡞⠀⢸⠀⠀⠀⣽⣖⡟⠓⢳⡆⣸⣀⣇⣸⡄⢰⠁⡇⣇⠀⢠⢿⠸⡄⠀│
+         │⠀⠀⠓⠛⠂⠀⠐⠛⠓⠀⠀⠐⠛⠓⠀⢸⡒⢲⠒⡟⣿⠒⠒⠚⡇⡇⠀⠀⠀⡇⡞⠒⠓⢺⡆⡏⢸⠀⢱⠀│
+         │⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣇⢸⢰⠁⣷⠀⠀⠀⡇⣿⠉⠉⢹⡇⡇⠀⠀⠈⣿⡏⠉⠉⣹⠀│
+         │⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⠉⠉⠀⠙⣏⣏⣹⠁⣿⣀⣀⣸⡇⡏⠉⠉⢹⣿⢸⠀⢀⣿⠀│
+         │⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢸⠀⡇⢸⠀⣇⣀⣀⣸⡏⢹⣹⢹⠉⠀│
+         │⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⡇⡇⡏⠀⢹⠀⡇⡼⠀⠀⣿⢸⠀⠀│
+   59.52 │⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠷⠷⠇⠀⠘⠦⠧⠇⠀⠠⠿⠧⠀⠀│
+         └────────────────────────────────────────┘
+         ⠀0.366⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀8.634⠀</code></pre><h3 id="unicodeplots-ref32"><a class="docs-heading-anchor" href="#unicodeplots-ref32">Spy</a><a id="unicodeplots-ref32-1"></a><a class="docs-heading-anchor-permalink" href="#unicodeplots-ref32" title="Permalink"></a></h3><p>For a matrix <code>mat</code> with unique nonzeros <code>spy(mat)</code> returns a colorless plot. If <code>mat</code> has various different nonzero values, a colorbar is added. The colorbar can be disabled with <code>legend = nothing</code>.</p><pre><code class="language- hljs">Plots.reset_defaults() # hide
+using Logging; Logging.disable_logging(Logging.Warn) # hide
+using SparseArrays
+a = spdiagm(0 =&gt; ones(50), 1 =&gt; ones(49), -1 =&gt; ones(49), 10 =&gt; ones(40), -10 =&gt; ones(40))
+b = spdiagm(0 =&gt; 1:50, 1 =&gt; 1:49, -1 =&gt; 1:49, 10 =&gt; 1:40, -10 =&gt; 1:40)
+plot(spy(a), spy(b), title = [&quot;Unique nonzeros&quot; &quot;Different nonzeros&quot;])
+current() |&gt; display # hide</code></pre><h3 id="unicodeplots-ref35"><a class="docs-heading-anchor" href="#unicodeplots-ref35">Lines and markers with varying colors</a><a id="unicodeplots-ref35-1"></a><a class="docs-heading-anchor-permalink" href="#unicodeplots-ref35" title="Permalink"></a></h3><p>You can use the <code>line_z</code> and <code>marker_z</code> properties to associate a color with each line segment or marker in the plot.</p><pre><code class="language-julia hljs">t = range(0, stop = 1, length = 100)
+θ = (6π) .* t
+x = t .* cos.(θ)
+y = t .* sin.(θ)
+p1 = plot(x, y, line_z = t, linewidth = 3, legend = false)
+p2 = scatter(x, y, marker_z = (+), color = :bluesreds, legend = false)
+plot(p1, p2)</code></pre><pre class="documenter-example-output"><code class="nohighlight hljs ansi">              ┌────────────────────────────────────────┐               ┌────────────────────────────────────────┐
+     0.799905 │⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣀⡠⠤⠤⠒⠒⠒⡗⠢⠤⠤⢄⣀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀│      0.799905 │⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⚬⠀⠀⚬⠀⡇⚬⠀⚬⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀│
+              │⠀⠀⠀⠀⠀⠀⠀⡠⠔⠊⠉⠀⠀⠀⠀⠀⠀⠀⡇⠀⠀⠀⠀⠀⠙⠢⢄⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀│               │⠀⠀⠀⠀⠀⠀⠀⚬⠀⠀⚬⠀⠀⠀⠀⠀⠀⠀⡇⠀⠀⠀⠀⠀⚬⠀⚬⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀│
+              │⠀⠀⠀⠀⢀⠔⠊⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⡇⠀⠀⠀⠀⠀⠀⠀⠀⠉⠢⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀│               │⠀⠀⠀⠀⠀⚬⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⚬⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀│
+              │⠀⠀⠀⡠⠃⠀⠀⠀⠀⠀⠀⠀⡠⠤⠒⠒⠊⠉⡗⠒⠢⢤⡀⠀⠀⠀⠀⠀⠀⠘⢄⠀⠀⠀⠀⠀⠀⠀⠀⠀│               │⠀⠀⠀⚬⠀⠀⠀⠀⠀⠀⠀⠀⚬⚬⠀⚬⠀⚬⚬⠀⚬⚬⠀⠀⠀⠀⠀⠀⠀⠀⚬⠀⠀⠀⠀⠀⠀⠀⠀⠀│
+              │⠀⠀⡜⠀⠀⠀⠀⠀⠀⢀⠔⠉⠀⠀⠀⠀⠀⠀⡇⠀⠀⠀⠈⠢⡀⠀⠀⠀⠀⠀⠈⢆⠀⠀⠀⠀⠀⠀⠀⠀│               │⠀⠀⚬⠀⠀⠀⠀⠀⠀⚬⚬⠀⠀⠀⠀⠀⠀⠀⡇⠀⠀⠀⚬⚬⠀⠀⠀⠀⠀⠀⠀⚬⠀⠀⠀⠀⠀⠀⠀⠀│
+              │⠀⢸⠀⠀⠀⠀⠀⠀⢰⠁⠀⠀⠀⠀⠀⠀⠀⣀⡇⠀⠀⠀⠀⠀⠘⡄⠀⠀⠀⠀⠀⢸⠀⠀⠀⠀⠀⠀⠀⠀│               │⠀⠀⠀⠀⠀⠀⠀⠀⚬⠀⠀⠀⠀⠀⠀⠀⠀⚬⡇⠀⠀⠀⠀⠀⚬⚬⠀⠀⠀⠀⠀⚬⠀⠀⠀⠀⠀⠀⠀⠀│
+              │⣀⣇⣀⣀⣀⣀⣀⣀⣇⣀⣀⣀⣀⣀⣠⣊⣉⣀⣿⣀⣀⣀⣀⣀⣀⣇⣀⣀⣀⣀⣀⣘⣄⣀⣀⣀⣀⣀⣀⣀│               │⣀⚬⣀⣀⣀⣀⣀⣀⚬⣀⣀⣀⣀⣀⚬⚬⚬⣀⚬⣀⣀⣀⣀⣀⣀⚬⣀⣀⣀⣀⣀⣀⚬⣀⣀⣀⣀⣀⚬⣀│
+              │⠀⡇⠀⠀⠀⠀⠀⠈⡆⠀⠀⠀⠀⠀⢸⡀⠀⠀⡇⠀⠀⠀⠀⢀⡸⠀⠀⠀⠀⠀⠀⢸⠀⠀⠀⠀⠀⠀⡸⠀│               │⠀⚬⠀⠀⠀⠀⠀⚬⠀⠀⠀⠀⠀⠀⚬⚬⠀⠀⡇⠀⠀⠀⠀⠀⚬⠀⠀⠀⠀⠀⠀⚬⠀⠀⠀⠀⠀⠀⠀⠀│
+              │⠀⢣⠀⠀⠀⠀⠀⠀⢇⠀⠀⠀⠀⠀⠀⠑⠢⣀⣇⣀⣀⡠⠤⠊⠀⠀⠀⠀⠀⠀⣠⠃⠀⠀⠀⠀⠀⢀⠇⠀│               │⠀⚬⠀⠀⠀⠀⠀⠀⚬⠀⠀⠀⠀⠀⠀⚬⚬⚬⚬⚬⚬⚬⚬⚬⠀⠀⠀⠀⠀⠀⚬⠀⠀⠀⠀⠀⠀⠀⚬⠀│
+              │⠀⠘⡄⠀⠀⠀⠀⠀⠀⠣⡀⠀⠀⠀⠀⠀⠀⠀⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⡔⠁⠀⠀⠀⠀⠀⢀⡎⠀⠀│               │⠀⠀⠀⠀⠀⠀⠀⠀⠀⚬⠀⠀⠀⠀⠀⠀⠀⠀⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⚬⠀⠀⠀⠀⠀⠀⠀⚬⠀⠀│
+              │⠀⠀⠘⢄⠀⠀⠀⠀⠀⠀⠘⠢⣀⡀⠀⠀⠀⠀⡇⠀⠀⠀⠀⠀⠀⠀⡠⠔⠉⠀⠀⠀⠀⠀⠀⡠⠃⠀⠀⠀│               │⠀⠀⚬⠀⠀⠀⠀⠀⠀⠀⚬⠀⚬⠀⠀⠀⠀⠀⡇⠀⠀⠀⠀⠀⠀⠀⠀⚬⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀│
+              │⠀⠀⠀⠈⠢⡀⠀⠀⠀⠀⠀⠀⠀⠈⠓⠢⠤⠤⣧⠤⠤⠤⠤⠒⠊⠉⠀⠀⠀⠀⠀⠀⠀⢀⠔⠁⠀⠀⠀⠀│               │⠀⠀⠀⠀⚬⠀⠀⠀⠀⠀⠀⠀⠀⠀⚬⠀⚬⠀⚬⠀⠀⚬⠀⚬⠀⚬⠀⠀⠀⠀⠀⠀⠀⠀⠀⚬⠀⠀⠀⠀│
+              │⠀⠀⠀⠀⠀⠈⠢⣀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⡠⠔⠁⠀⠀⠀⠀⠀⠀│               │⠀⠀⠀⠀⠀⠀⚬⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⚬⠀⠀⠀⠀⠀⠀⠀│
+              │⠀⠀⠀⠀⠀⠀⠀⠀⠑⠒⠤⣀⡀⠀⠀⠀⠀⠀⡇⠀⠀⠀⠀⠀⠀⠀⢀⡠⠤⠒⠉⠀⠀⠀⠀⠀⠀⠀⠀⠀│               │⠀⠀⠀⠀⠀⠀⠀⠀⠀⚬⠀⠀⚬⠀⠀⠀⠀⠀⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⚬⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀│
+    -0.968191 │⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⠉⠑⠒⠒⠢⡧⠤⠤⠔⠒⠒⠊⠉⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀│     -0.968191 │⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⚬⠀⠀⡇⚬⠀⠀⚬⠀⠀⠀⚬⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀│
+              └────────────────────────────────────────┘               └────────────────────────────────────────┘
+              ⠀-0.889625⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀1.05504⠀               ⠀-0.889625⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀1.05504⠀</code></pre><h3 id="unicodeplots-ref36"><a class="docs-heading-anchor" href="#unicodeplots-ref36">Portfolio Composition maps</a><a id="unicodeplots-ref36-1"></a><a class="docs-heading-anchor-permalink" href="#unicodeplots-ref36" title="Permalink"></a></h3><p>see: http://stackoverflow.com/a/37732384/5075246</p><pre><code class="language-julia hljs">using Random
+Random.seed!(111)
+tickers = [&quot;IBM&quot;, &quot;Google&quot;, &quot;Apple&quot;, &quot;Intel&quot;]
+N = 10
+D = length(tickers)
+weights = rand(N, D)
+weights ./= sum(weights, dims = 2)
+returns = sort!((1:N) + D * randn(N))
+portfoliocomposition(weights, returns, labels = permutedims(tickers))</code></pre><pre class="documenter-example-output"><code class="nohighlight hljs ansi">            ┌────────────────────────────────────────┐
+    14.1437 │⠀⡗⠒⠒⠒⠒⠒⠒⠒⠒⠲⢖⡒⠒⠒⠒⠒⠒⠒⠲⡒⠒⠒⠒⠒⠒⠒⠒⠒⠒⠒⢲⠒⠒⠒⠒⠒⠒⢲⠀│ IBM
+            │⠀⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⠓⠦⣄⠀⠀⠀⠀⠈⠢⡀⠀⠀⠀⠀⠀⠀⠀⠀⠈⡆⠀⠀⠀⠀⠀⢸⠀│ Google
+            │⠀⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣀⡹⠖⠀⠀⠀⠀⡱⠀⠀⠀⠀⠀⠀⢀⣀⡤⠇⠀⠀⠀⠀⠀⢸⠀│ Apple
+            │⠀⡇⠀⠀⠀⠀⠀⠀⠀⠀⢀⣠⠤⠒⠉⠁⠀⠀⠀⠀⠀⡴⠁⠀⠀⣀⣠⠴⠚⠉⠀⠀⠀⠀⠀⠀⠀⠀⢸⠀│ Intel
+            │⠀⡇⠀⠀⠀⠀⠀⠀⠀⠚⠓⠲⠤⣀⠀⠀⠀⠀⠀⠀⠘⠒⠒⠒⠛⡗⠒⠒⠒⠒⠒⠒⠒⢆⠀⠀⠀⠀⢸⠀│
+            │⠀⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣀⠭⠓⠀⠀⠀⠀⠀⠀⢀⡠⠔⠁⠀⠀⠀⠀⣀⡠⠤⠖⠃⠀⠀⠀⢸⠀│
+            │⠀⡇⠀⠀⠀⠀⠀⠀⢀⡠⠔⠊⠉⠀⠀⠀⠀⠀⠀⣀⠤⠚⠁⣀⣀⠤⠔⠒⠋⠉⠀⠀⠀⠀⠀⠀⠀⠀⢸⠀│
+            │⠀⡇⠀⢠⠤⠤⠒⠉⠁⠠⡤⠤⠤⠤⠤⠤⠤⠔⠊⠴⠶⠮⠭⠤⠤⢤⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢸⠀│
+            │⠀⡇⠀⠀⢇⠀⠀⠀⠀⠀⠘⢦⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠸⡄⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢸⠀│
+            │⠀⡇⠀⠀⠘⡆⠀⠀⠀⠀⠀⠀⠳⡄⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢸⠀│
+            │⠀⡇⠀⠀⠀⠹⡀⠀⠀⠀⠀⠀⠀⠘⢦⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢸⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢸⠀│
+            │⠀⡇⠀⠀⠀⠀⢳⠀⠀⠀⠀⠀⠀⠀⠀⠳⡄⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢸⠀│
+            │⣀⣇⣀⣀⣀⣀⣀⣙⣢⣄⣀⣀⣀⣀⣀⣀⣹⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣈⣒⣤⣀⣀⣀⣀⣀⣀⣀⣀⣸⣀│
+            │⠀⡇⠀⠀⠀⠀⠀⠀⠀⠈⠙⠦⣄⠀⠀⠀⢸⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⠑⠢⣀⠀⠀⠀⠀⢸⠀│
+   -2.30073 │⠀⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⠳⠄⠀⠀⠉⠉⠒⠒⠤⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠣⠀⠀⠀⠸⠀│
+            └────────────────────────────────────────┘
+            ⠀-0.03⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀1.03⠀</code></pre><h3 id="unicodeplots-ref38"><a class="docs-heading-anchor" href="#unicodeplots-ref38">Histogram2D (complex values)</a><a id="unicodeplots-ref38-1"></a><a class="docs-heading-anchor-permalink" href="#unicodeplots-ref38" title="Permalink"></a></h3><pre><code class="language-julia hljs">n = 10000
+x = exp.(0.1 * randn(n) .+ randn(n) .* im)
+histogram2d(x, nbins = (20, 40), show_empty_bins = true, normed = true, aspect_ratio = 1)</code></pre><pre class="documenter-example-output"><code class="nohighlight hljs ansi">         ┌────────────────────────────────────────┐
+       2 │                                        │
+         │                                        │
+         │                                        │
+         │                  ░░░░░░░               │
+         │                      ░░░▒▒▒░           │
+         │                          ░▒▓▒░         │
+         │                           ░▒█▒░        │
+   Im(x) │                            ▒█▓░        │
+         │                           ░▒█▓░        │
+         │                          ░▓▓▒░         │
+         │                     ░░░▒▒▒▒░           │
+         │                  ░░░░░░░               │
+         │                                        │
+         │                                        │
+      -2 │                                        │
+         └────────────────────────────────────────┘
+          -2               Re(x)                 2</code></pre><h3 id="unicodeplots-ref39"><a class="docs-heading-anchor" href="#unicodeplots-ref39">Unconnected lines using <code>missing</code> or <code>NaN</code></a><a id="unicodeplots-ref39-1"></a><a class="docs-heading-anchor-permalink" href="#unicodeplots-ref39" title="Permalink"></a></h3><p>Missing values and non-finite values, including <code>NaN</code>, are not plotted. Instead, lines are separated into segments at these values.</p><pre><code class="language-julia hljs">(x, y) = ([1, 2, 2, 1, 1], [1, 2, 1, 2, 1])
+plot(plot([rand(5); NaN; rand(5); NaN; rand(5)]), plot([1, missing, 2, 3], marker = true), plot([x; NaN; x .+ 2], [y; NaN; y .+ 1], arrow = 2), plot([1, 2 + 3im, Inf, 4im, 3, -Inf * im, 0, 3 + 3im], marker = true), legend = false)</code></pre><pre class="documenter-example-output"><code class="nohighlight hljs ansi">                ┌────────────────────────────────────────┐          ┌────────────────────────────────────────┐
+       0.976015 │⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⡄⠀⠀⠀⠀⠀⠀⢆⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀│     3.06 │⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⡠⠀│
+                │⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣧⠀⠀⠀⠀⠀⠀⢸⠀⠀⠀⠀⡄⠀⠀⠀⠀⠀│          │⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢠⠊⠀⠀│
+                │⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢠⢻⠀⠀⠀⠀⠀⠀⢸⠀⠀⠀⢠⡇⠀⠀⠀⠀⠀│          │⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⠔⠁⠀⠀⠀│
+                │⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢸⢸⠀⠀⠀⠀⠀⠀⠸⡀⠀⠀⢸⢣⠀⠀⠀⠀⠀│          │⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⠔⠁⠀⠀⠀⠀⠀│
+                │⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⡸⠈⡆⠀⠀⠀⠀⠀⠀⡇⠀⠀⢸⢸⠀⠀⠀⠀⠀│          │⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⡠⠊⠀⠀⠀⠀⠀⠀⠀│
+                │⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⡇⠀⡇⠀⠀⠀⠀⠀⠀⡇⠀⠀⡎⢸⠀⠀⠀⠀⠀│          │⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⡠⠊⠀⠀⠀⠀⠀⠀⠀⠀⠀│
+                │⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢠⠀⠀⠀⡇⠀⡇⠀⠀⠀⠀⠀⠀⢇⠀⠀⡇⠈⡆⠀⠀⠀⠀│          │⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⠜⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀│
+                │⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⡟⡄⠀⢸⠀⠀⢱⠀⠀⠀⠀⠀⠀⢸⠀⠀⡇⠀⡇⠀⠀⠀⠀│          │⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠔⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀│
+                │⠀⢆⠀⠀⠀⡰⡄⠀⠀⠀⠀⠀⠀⠀⠀⠀⢠⠃⢣⠀⢸⠀⠀⢸⠀⠀⠀⠀⠀⠀⢸⠀⢸⠀⠀⡇⠀⠀⠀⠀│          │⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀│
+                │⠀⠈⢢⠀⡜⠀⠈⢆⠀⠀⠀⠀⠀⠀⠀⠀⢸⠀⠘⡄⡎⠀⠀⢸⠀⠀⠀⠀⠀⠀⠸⡀⢸⠀⠀⢸⠀⠀⠀⠀│          │⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀│
+                │⠀⠀⠀⠋⠀⠀⠀⠀⢇⠀⠀⠀⠀⠀⠀⠀⡎⠀⠀⢣⡇⠀⠀⠈⡆⠀⠀⠀⠀⠀⠀⡇⡸⠀⠀⢸⠀⠀⡸⠀│          │⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀│
+                │⠀⠀⠀⠀⠀⠀⠀⠀⠈⡆⠀⠀⠀⠀⠀⢀⠇⠀⠀⠘⠇⠀⠀⠀⡇⠀⠀⠀⠀⠀⠀⡇⡇⠀⠀⠸⡀⢠⠃⠀│          │⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀│
+                │⠀⠀⠀⠀⠀⠀⠀⠀⠀⠘⡄⠀⠀⠀⠀⢸⠀⠀⠀⠀⠀⠀⠀⠀⡇⠀⠀⠀⠀⠀⠀⢇⡇⠀⠀⠀⡇⡜⠀⠀│          │⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀│
+                │⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠁⠀⠀⠀⠀⡜⠀⠀⠀⠀⠀⠀⠀⠀⢸⠀⠀⠀⠀⠀⠀⢸⠃⠀⠀⠀⣧⠃⠀⠀│          │⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀│
+    -0.00118731 │⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣁⣀⣀⣀⣀⣀⣀⣀⣀⣈⣀⣀⣀⣀⣀⣀⣸⣀⣀⣀⣀⣙⣀⣀⣀│     0.94 │⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀│
+                └────────────────────────────────────────┘          └────────────────────────────────────────┘
+                ⠀0.52⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀17.48⠀          ⠀0.91⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀4.09⠀
+         ┌────────────────────────────────────────┐                  ┌────────────────────────────────────────┐
+    3.06 │⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣆⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣰⠀│             4.12 │⠀⡧⣀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀│
+         │⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⡇⠑⢄⠀⠀⠀⠀⠀⠀⠀⢠⠊⢸⠀│                  │⠀⡇⠀⠑⠤⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀│
+         │⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⡇⠀⠀⠱⡀⠀⠀⠀⢀⠔⠁⠀⢸⠀│                  │⠀⡇⠀⠀⠀⠈⠒⢄⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀│
+         │⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⡇⠀⠀⠀⠈⠢⣀⠔⠁⠀⠀⠀⢸⠀│                  │⠀⡇⠀⠀⠀⠀⠀⠀⠉⠢⣀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀│
+         │⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⡇⠀⠀⠀⠀⡠⠊⢢⠀⠀⠀⠀⢸⠀│                  │⠀⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠑⠤⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⡰⠁⠀⠀⠀⠀⠀⠀⠀⠀⢀⠤⠒⠉⠀│
+         │⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⡇⠀⠀⡠⠊⠀⠀⠀⠑⢄⠀⠀⢸⠀│                  │⠀⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⠒⢄⠀⠀⠀⠀⠀⠀⠀⠀⡜⠀⠀⠀⠀⠀⠀⢀⡠⠔⠊⠁⠀⠀⠀⠀│
+         │⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⡇⢀⠜⠀⠀⠀⠀⠀⠀⠀⠑⢄⢸⠀│                  │⠀⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠉⠢⣀⠀⠀⠀⢀⠎⠀⠀⠀⠀⣀⠤⠒⠁⠀⠀⠀⠀⠀⠀⠀⠀│
+         │⠀⣄⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣠⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠗⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⠺⠀│            Im(x) │⠀⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠑⠤⣀⠎⠀⢀⡠⠔⠊⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀│
+         │⠀⡇⠑⡄⠀⠀⠀⠀⠀⠀⠀⡠⠊⢸⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀│                  │⠀⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢠⣋⠶⢎⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀│
+         │⠀⡇⠀⠈⠢⡀⠀⠀⠀⢀⠎⠀⠀⢸⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀│                  │⠀⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⡠⡴⠉⠀⠀⠀⠉⠢⣀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀│
+         │⠀⡇⠀⠀⠀⠈⠢⣀⠔⠁⠀⠀⠀⢸⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀│                  │⠀⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣀⠔⠊⠁⡔⠁⠀⠀⠀⠀⠀⠀⠀⠑⠤⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀│
+         │⠀⡇⠀⠀⠀⠀⡔⠑⢄⠀⠀⠀⠀⢸⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀│                  │⠀⡇⠀⠀⠀⠀⠀⠀⠀⠀⢀⡠⠒⠉⠀⠀⢀⠜⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⠒⢄⠀⠀⠀⠀⠀⠀⠀⠀│
+         │⠀⡇⠀⠀⡠⠊⠀⠀⠀⠑⢄⠀⠀⢸⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀│                  │⠀⡇⠀⠀⠀⠀⠀⡠⠔⠊⠁⠀⠀⠀⠀⢀⠎⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠉⠢⣀⠀⠀⠀⠀⠀│
+         │⠀⡇⡠⠊⠀⠀⠀⠀⠀⠀⠀⠣⡀⢸⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀│                  │⠀⡇⠀⢀⠤⠒⠉⠀⠀⠀⠀⠀⠀⠀⢠⠃⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠑⠤⡀⠀⠀│
+    0.94 │⠀⠗⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⠺⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀│            -0.12 │⠤⡷⠮⠥⠤⠤⠤⠤⠤⠤⠤⠤⠤⠤⠧⠤⠤⠤⠤⠤⠤⠤⠤⠤⠤⠤⠤⠤⠤⠤⠤⠤⠤⠤⠤⠤⠤⠬⠶⠤│
+         └────────────────────────────────────────┘                  └────────────────────────────────────────┘
+         ⠀0.91⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀4.09⠀                  ⠀-0.09⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀Re(x)⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀3.09⠀</code></pre><h3 id="unicodeplots-ref40"><a class="docs-heading-anchor" href="#unicodeplots-ref40">Lens</a><a id="unicodeplots-ref40-1"></a><a class="docs-heading-anchor-permalink" href="#unicodeplots-ref40" title="Permalink"></a></h3><p>A lens lets you easily magnify a region of a plot. x and y coordinates refer to the to be magnified region and the via the <code>inset</code> keyword the subplot index and the bounding box (in relative coordinates) of the inset plot with the magnified plot can be specified. Additional attributes count for the inset plot.</p><pre><code class="language-julia hljs">begin
+    plot([(0, 0), (0, 0.9), (1, 0.9), (2, 1), (3, 0.9), (80, 0)], legend = :outertopright)
+    plot!([(0, 0), (0, 0.9), (2, 0.9), (3, 1), (4, 0.9), (80, 0)])
+    plot!([(0, 0), (0, 0.9), (3, 0.9), (4, 1), (5, 0.9), (80, 0)])
+    plot!([(0, 0), (0, 0.9), (4, 0.9), (5, 1), (6, 0.9), (80, 0)])
+    lens!([1, 6], [0.9, 1.1], inset = (1, bbox(0.5, 0.0, 0.4, 0.4)))
+end</code></pre><pre class="documenter-example-output"><code class="nohighlight hljs ansi">          ┌────────────────────────────────────────┐
+    1.133 │⠀⣷⠒⢲⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀│ y1
+          │⠀⣿⣤⣼⣀⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀│ y2
+          │⠀⣿⣿⣿⠀⠈⠉⠉⠑⠒⠒⠤⠤⠤⣀⣀⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀│ y3
+          │⠀⡇⠀⠙⠳⣦⣀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⠉⠉⠒⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀│ y4
+          │⠀⡇⠀⠀⠀⠀⠙⠳⣦⣀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀│ y5
+          │⠀⡇⠀⠀⠀⠀⠀⠀⠀⠉⠳⢦⣀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀│ y5
+          │⠀⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠉⠳⢦⣀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀│
+          │⠀⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⠓⢦⣀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀│
+          │⠀⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⠓⠦⣀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀│
+          │⠀⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⠑⠦⣀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀│
+          │⠀⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⠑⠦⣄⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀│
+          │⠀⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⠙⠦⣄⠀⠀⠀⠀⠀⠀⠀⠀⠀│
+          │⠀⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠙⠢⣄⠀⠀⠀⠀⠀⠀│
+          │⠀⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠙⠲⣄⡀⠀⠀│
+   -0.033 │⠤⡧⠤⠤⠤⠤⠤⠤⠤⠤⠤⠤⠤⠤⠤⠤⠤⠤⠤⠤⠤⠤⠤⠤⠤⠤⠤⠤⠤⠤⠤⠤⠤⠤⠤⠤⠤⠽⠶⠤│
+          └────────────────────────────────────────┘
+          ⠀-2.4⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀82.4⠀
+       ┌────────────────────────────────────────┐
+   1.1 │⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀│ y1
+       │⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀│ y2
+       │⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀│ y3
+       │⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀│ y4
+       │⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀│
+       │⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀│
+       │⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀│
+       │⠀⠀⠀⠀⠀⠀⠀⢀⡄⠀⠀⠀⠀⠀⠀⢀⡄⠀⠀⠀⠀⠀⠀⢀⡄⠀⠀⠀⠀⠀⠀⢀⡄⠀⠀⠀⠀⠀⠀⠀│
+       │⠀⠀⠀⠀⠀⠀⢠⠃⠘⡄⠀⠀⠀⠀⢠⠃⠘⡄⠀⠀⠀⠀⢠⠃⠘⡄⠀⠀⠀⠀⢠⠃⠘⡄⠀⠀⠀⠀⠀⠀│
+       │⠀⠀⠀⠀⠀⢠⠃⠀⠀⠘⡄⠀⠀⢠⠃⠀⠀⠘⡄⠀⠀⢠⠃⠀⠀⠘⡄⠀⠀⢠⠃⠀⠀⠘⡄⠀⠀⠀⠀⠀│
+       │⠀⠀⠀⠀⢠⠃⠀⠀⠀⠀⠘⡄⢠⠃⠀⠀⠀⠀⠘⡄⢠⠃⠀⠀⠀⠀⠘⡄⢠⠃⠀⠀⠀⠀⠘⡄⠀⠀⠀⠀│
+       │⠀⠀⠀⡠⠃⠀⠀⠀⠀⠀⠀⡨⢇⠀⠀⠀⠀⠀⠀⡸⢅⠀⠀⠀⠀⠀⠀⡸⢅⠀⠀⠀⠀⠀⠀⠘⢄⠀⠀⠀│
+       │⠀⠀⡰⠁⠀⠀⠀⠀⠀⠀⡰⠁⠈⢆⠀⠀⠀⠀⡰⠁⠈⢆⠀⠀⠀⠀⡰⠁⠈⢆⠀⠀⠀⠀⠀⠀⠈⢆⠀⠀│
+       │⠀⡰⠁⠀⠀⠀⠀⠀⠀⡰⠁⠀⠀⠈⢆⠀⠀⡰⠁⠀⠀⠈⢆⠀⠀⡰⠁⠀⠀⠈⢆⠀⠀⠀⠀⠀⠀⠈⢆⠀│
+   0.9 │⣰⣁⣀⣀⣀⣀⣀⣀⣰⣁⣀⣀⣀⣀⣈⣆⣰⣁⣀⣀⣀⣀⣈⣆⡰⠁⠀⠀⠀⠀⠈⢆⡀⠀⠀⠀⠀⠀⠈⢆│
+       └────────────────────────────────────────┘
+       ⠀1⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀6⠀</code></pre><h3 id="unicodeplots-ref41"><a class="docs-heading-anchor" href="#unicodeplots-ref41">Array Types</a><a id="unicodeplots-ref41-1"></a><a class="docs-heading-anchor-permalink" href="#unicodeplots-ref41" title="Permalink"></a></h3><p>Plots supports different <code>Array</code> types that follow the <code>AbstractArray</code> interface, like <code>StaticArrays</code> and <code>OffsetArrays.</code></p><pre><code class="language-julia hljs">begin
+    using StaticArrays, OffsetArrays
+    sv = SVector{10}(rand(10))
+    ov = OffsetVector(rand(10), -2)
+    plot([sv, ov], label = [&quot;StaticArray&quot; &quot;OffsetArray&quot;])
+    plot!(3ov, ribbon = ov, label = &quot;OffsetArray ribbon&quot;)
+end</code></pre><pre class="documenter-example-output"><code class="nohighlight hljs ansi">             ┌────────────────────────────────────────┐
+     3.87951 │⠀⠀⠀⠀⢸⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀│ StaticArray
+             │⠀⠀⠀⠀⢸⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀│ OffsetArray
+             │⠀⠀⠀⠀⢸⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀│ OffsetArray ribbon
+             │⠀⠀⠀⠀⢸⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀│
+             │⠀⠀⠀⠀⢸⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⡠⠊⠀⠀⠀⠀⠀⠀⠀⠀│
+             │⠀⠀⠀⠀⢸⠀⠀⠀⠀⠀⢀⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⣀⣀⠔⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀│
+             │⠀⠀⠀⠀⢸⠀⠀⢰⠊⠉⠁⠘⡄⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⡠⠊⠉⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀│
+             │⠀⠀⠀⠀⢸⠀⠀⡜⠀⠀⠀⠀⠘⢄⠀⠀⠀⠀⠀⠀⠀⡰⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀│
+             │⠀⠀⠀⠀⢸⠀⢠⠃⠀⠀⠀⠀⠀⠈⢆⠀⠀⠀⠀⠀⢀⠇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀│
+             │⠀⢆⠀⠀⢸⠀⡜⠀⠀⠀⠀⠀⠀⠀⠈⡆⠀⠀⠀⠀⡸⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀│
+             │⠀⠘⡄⠀⢸⢠⠃⠀⠀⠀⠀⠀⠀⠀⠀⠸⡀⠀⠀⢀⠇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀│
+             │⠀⠀⠸⡀⢸⡸⠀⢠⣔⣒⣒⡒⠤⢄⣀⣀⢧⠤⠤⡼⣀⣀⡀⠀⢀⣀⣀⣀⣀⠤⠔⣒⠤⠔⠒⠓⢄⠀⠀⠀│
+             │⠀⡀⠀⢱⢸⠇⢀⠎⠀⠀⠀⠈⠑⠢⣀⠀⠈⡆⢀⠇⢀⠔⠉⠙⠓⠤⠤⢄⣀⠤⠊⠀⠀⠀⠀⠀⠀⠑⢄⠀│
+             │⠀⠈⠢⡀⢻⡰⠁⠀⠀⠀⠀⠀⠀⠀⠀⠑⢄⠸⡸⡠⠊⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀│
+   -0.050847 │⣀⣀⣀⣈⣹⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣑⣕⣁⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀│
+             └────────────────────────────────────────┘
+             ⠀-1.33⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀10.33⠀</code></pre><h3 id="unicodeplots-ref42"><a class="docs-heading-anchor" href="#unicodeplots-ref42">Setting defaults and font arguments</a><a id="unicodeplots-ref42-1"></a><a class="docs-heading-anchor-permalink" href="#unicodeplots-ref42" title="Permalink"></a></h3><pre><code class="language-julia hljs">begin
+    default(titlefont = (20, &quot;times&quot;), legendfontsize = 18, guidefont = (18, :darkgreen), tickfont = (12, :orange), guide = &quot;x&quot;, framestyle = :zerolines, yminorgrid = true)
+    plot([sin, cos], -2π, 2π, label = [&quot;sin(θ)&quot; &quot;cos(θ)&quot;], title = &quot;Trigonometric Functions&quot;, xlabel = &quot;θ&quot;, linewidth = 2, legend = :outertopleft)
+end</code></pre><pre class="documenter-example-output"><code class="nohighlight hljs ansi">            ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀Trigonometric Functions⠀⠀⠀⠀⠀⠀⠀⠀⠀
+            ┌────────────────────────────────────────┐
+       1.06 │⠀⠲⡀⠀⢀⠖⢦⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⡔⣦⡀⠀⢠⠖⢦⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢠⠖⠀│ sin(θ)
+            │⠀⠀⠹⣠⠎⠀⠀⢣⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⡎⠀⡇⢱⢠⠃⠀⠀⢣⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⠏⠀⠀│ cos(θ)
+            │⠀⠀⠀⣿⠀⠀⠀⠀⡇⠀⠀⠀⠀⠀⠀⠀⠀⡸⠀⠀⡇⠀⣏⠀⠀⠀⠈⡆⠀⠀⠀⠀⠀⠀⠀⠀⡜⠀⠀⠀│
+            │⠀⠀⢰⠙⡄⠀⠀⠀⠸⡀⠀⠀⠀⠀⠀⠀⢀⠇⠀⠀⡇⢰⠙⡄⠀⠀⠀⢱⠀⠀⠀⠀⠀⠀⠀⢰⠁⠀⠀⠀│
+            │⠀⠀⡞⠀⢳⠀⠀⠀⠀⡇⠀⠀⠀⠀⠀⠀⡸⠀⠀⠀⡇⡎⠀⢇⠀⠀⠀⠈⡆⠀⠀⠀⠀⠀⠀⡜⠀⠀⠀⠀│
+            │⠀⢠⠃⠀⠘⡄⠀⠀⠀⢸⠀⠀⠀⠀⠀⠀⡇⠀⠀⠀⣷⠁⠀⢸⠀⠀⠀⠀⢱⠀⠀⠀⠀⠀⢠⠃⠀⠀⠀⠀│
+            │⠀⡜⠀⠀⠀⢇⠀⠀⠀⠈⡆⠀⠀⠀⠀⢸⠀⠀⠀⠀⡏⠀⠀⠀⡇⠀⠀⠀⠘⡄⠀⠀⠀⠀⡜⠀⠀⠀⠀⠀│
+          x │⠤⠧⠤⠤⠤⠼⡤⠤⠤⠤⢷⠤⠤⠤⠤⡧⠤⠤⠤⢤⡧⠤⠤⠤⢼⠤⠤⠤⠤⢧⠤⠤⠤⢤⠧⠤⠤⠤⢤⠤│
+            │⠀⠀⠀⠀⠀⠀⡇⠀⠀⠀⠘⡄⠀⠀⢸⠀⠀⠀⠀⡸⡇⠀⠀⠀⠈⡇⠀⠀⠀⠸⡀⠀⠀⢸⠀⠀⠀⠀⡎⠀│
+            │⠀⠀⠀⠀⠀⠀⢸⠀⠀⠀⠀⢇⠀⠀⡎⠀⠀⠀⢀⠇⡇⠀⠀⠀⠀⢱⠀⠀⠀⠀⡇⠀⠀⡇⠀⠀⠀⢠⠃⠀│
+            │⠀⠀⠀⠀⠀⠀⠀⡇⠀⠀⠀⠸⡀⢠⠃⠀⠀⠀⢸⠀⡇⠀⠀⠀⠀⠈⡆⠀⠀⠀⢸⠀⢰⠁⠀⠀⠀⡜⠀⠀│
+            │⠀⠀⠀⠀⠀⠀⠀⢱⠀⠀⠀⠀⢣⡞⠀⠀⠀⢀⠇⠀⡇⠀⠀⠀⠀⠀⢱⠀⠀⠀⠀⡇⡇⠀⠀⠀⢠⠃⠀⠀│
+            │⠀⠀⠀⠀⠀⠀⠀⠈⡇⠀⠀⠀⢸⡁⠀⠀⠀⡸⠀⠀⡇⠀⠀⠀⠀⠀⠈⡆⠀⠀⠀⢸⡁⠀⠀⠀⡜⠀⠀⠀│
+            │⠀⠀⠀⠀⠀⠀⠀⠀⠘⡄⠀⢀⠎⢱⠀⠀⢠⠃⠀⠀⡇⠀⠀⠀⠀⠀⠀⢸⡀⠀⢠⠇⢧⠀⠀⡰⠁⠀⠀⠀│
+   -1.05999 │⠀⠀⠀⠀⠀⠀⠀⠀⠀⠙⠤⠊⠀⠀⠳⠴⠃⠀⠀⠀⡇⠀⠀⠀⠀⠀⠀⠀⠑⠴⠋⠀⠈⠳⠔⠁⠀⠀⠀⠀│
+            └────────────────────────────────────────┘
+            ⠀-6.66018⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀θ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀6.66018⠀</code></pre><h3 id="unicodeplots-ref44"><a class="docs-heading-anchor" href="#unicodeplots-ref44">Linked axes</a><a id="unicodeplots-ref44-1"></a><a class="docs-heading-anchor-permalink" href="#unicodeplots-ref44" title="Permalink"></a></h3><pre><code class="language-julia hljs">begin
+    x = -5:0.1:5
+    plot(plot(x, (x-&gt;begin
+                    x ^ 2
+                end)), plot(x, (x-&gt;begin
+                    sin(x)
+                end)), layout = 2, link = :y)
+end</code></pre><pre class="documenter-example-output"><code class="nohighlight hljs ansi">             ┌────────────────────────────────────────┐                ┌────────────────────────────────────────┐
+       25.78 │⠀⣆⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⡆⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⡰⠀│ y1       25.78 │⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⡆⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀│ y1
+             │⠀⠘⡄⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⠇⠀│                │⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀│
+             │⠀⠀⢣⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⡜⠀⠀│                │⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀│
+             │⠀⠀⠀⢣⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⡜⠀⠀⠀│                │⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀│
+             │⠀⠀⠀⠈⢆⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⡰⠁⠀⠀⠀│                │⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀│
+             │⠀⠀⠀⠀⠘⡄⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢠⠃⠀⠀⠀⠀│                │⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀│
+             │⠀⠀⠀⠀⠀⠘⡄⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢠⠃⠀⠀⠀⠀⠀│                │⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀│
+             │⠀⠀⠀⠀⠀⠀⠘⡄⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢠⠃⠀⠀⠀⠀⠀⠀│                │⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀│
+             │⠀⠀⠀⠀⠀⠀⠀⠘⡄⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢠⠃⠀⠀⠀⠀⠀⠀⠀│                │⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀│
+             │⠀⠀⠀⠀⠀⠀⠀⠀⠘⡆⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⢰⠁⠀⠀⠀⠀⠀⠀⠀⠀│                │⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀│
+             │⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⢢⠀⠀⠀⠀⠀⠀⠀⠀⠀⡇⠀⠀⠀⠀⠀⠀⠀⠀⡔⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀│                │⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀│
+             │⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠑⡄⠀⠀⠀⠀⠀⠀⠀⡇⠀⠀⠀⠀⠀⠀⢠⠊⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀│                │⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀│
+             │⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⠲⣀⠀⠀⠀⠀⠀⡇⠀⠀⠀⠀⣀⠖⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀│                │⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀│
+             │⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠑⠢⣀⣀⠀⡇⣀⣀⠔⠊⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀│                │⠀⠔⠒⠦⠤⠤⣄⣀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣇⣀⠤⠤⠤⠒⠢⠤⠤⢄⣀⡀⠀⠀⠀⠀⠀⠀⠀⠀│
+    -1.77992 │⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⡏⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉│       -1.77992 │⠉⠉⠉⠉⠉⠉⠉⠉⠉⠙⠛⠛⠭⠭⠭⠭⠛⠛⠋⠉⡏⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠙⠛⠫⠭⠭⠍⠉│
+             └────────────────────────────────────────┘                └────────────────────────────────────────┘
+             ⠀-5.3⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀5.3⠀                ⠀-5.3⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀5.3⠀</code></pre><h3 id="unicodeplots-ref46"><a class="docs-heading-anchor" href="#unicodeplots-ref46">Tuples and <code>Point</code>s as data</a><a id="unicodeplots-ref46-1"></a><a class="docs-heading-anchor-permalink" href="#unicodeplots-ref46" title="Permalink"></a></h3><pre><code class="language-julia hljs">using GeometryBasics
+using Distributions
+d = MvNormal([1.0 0.75; 0.75 2.0])
+plot([(1, 2), (3, 2), (2, 1), (2, 3)])
+scatter!(Point2.(eachcol(rand(d, 1000))), alpha = 0.25)</code></pre><pre class="documenter-example-output"><code class="nohighlight hljs ansi">            ┌────────────────────────────────────────┐
+    5.87856 │⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢸⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⚬⠀⠀⠀⠀⠀⠀⠀⠀│ y1
+            │⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢸⠀⠀⠀⠀⠀⠀⠀⠀⚬⠀⠀⠀⠀⠀⠀⚬⠀⠀⠀│ y2
+            │⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢸⚬⠀⠀⠀⠀⠀⠀⚬⚬⚬⠀⠀⠀⠀⠀⚬⠀⠀⠀│
+            │⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢸⠀⠀⠀⚬⚬⚬⚬⚬⠀⠀⠀⚬⚬⠀⚬⠀⠀⠀⠀│
+            │⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⚬⚬⚬⚬⚬⚬⚬⚬⚬⚬⚬⚬⚬⚬⚬⚬⚬⚬⣀⣀⣀⣀⣀⠀│
+            │⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⚬⠀⚬⚬⚬⚬⚬⚬⚬⚬⚬⚬⚬⚬⚬⚬⚬⚬⚬⚬⚬⚬⚬⣀⠤⠔⠊⠁⠀│
+            │⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⚬⚬⠀⚬⚬⚬⚬⚬⚬⚬⚬⚬⚬⚬⚬⚬⚬⚬⚬⚬⚬⚬⚬⚬⠀⚬⚬⠀⠀⠀│
+            │⠤⠤⠤⠤⠤⠤⚬⠤⚬⠤⚬⚬⚬⚬⚬⚬⚬⚬⚬⚬⚬⚬⚬⚬⚬⚬⚬⚬⚬⠤⚬⚬⚬⠤⠤⚬⠤⠤⠤⠤│
+            │⠀⚬⠀⠀⠀⚬⠀⚬⚬⚬⚬⚬⚬⚬⚬⚬⚬⚬⚬⚬⚬⚬⚬⚬⚬⚬⚬⚬⚬⚬⚬⚬⚬⠀⠀⠀⠀⠀⠀⠀│
+            │⠀⠀⠀⠀⠀⠀⠀⠀⚬⚬⚬⚬⚬⚬⚬⚬⚬⚬⚬⚬⚬⚬⚬⚬⚬⚬⚬⚬⚬⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀│
+            │⠀⠀⠀⚬⚬⠀⠀⚬⚬⚬⚬⚬⚬⚬⚬⚬⚬⚬⚬⚬⚬⚬⚬⚬⚬⠀⚬⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀│
+            │⠀⠀⠀⠀⠀⚬⠀⠀⚬⚬⠀⚬⚬⚬⚬⚬⚬⚬⚬⚬⚬⠀⠀⠀⚬⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀│
+            │⠀⠀⠀⠀⠀⠀⚬⠀⠀⚬⚬⚬⚬⠀⚬⚬⠀⚬⚬⚬⢸⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀│
+            │⠀⠀⠀⠀⠀⠀⚬⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢸⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀│
+   -5.80191 │⠀⠀⠀⠀⠀⠀⠀⚬⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢸⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀│
+            └────────────────────────────────────────┘
+            ⠀-3.51483⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀3.18975⠀</code></pre><h3 id="unicodeplots-ref47"><a class="docs-heading-anchor" href="#unicodeplots-ref47">Mesh3d</a><a id="unicodeplots-ref47-1"></a><a class="docs-heading-anchor-permalink" href="#unicodeplots-ref47" title="Permalink"></a></h3><p>Allows to plot arbitrary 3d meshes. If only x,y,z are given the mesh is generated automatically. You can also specify the connections using the connections keyword. The connections can be specified in two ways: Either as a tuple of vectors where each vector contains the 0-based indices of one point of a triangle, such that elements at the same position of these vectors form a triangle. Or as a vector of NTuple{3,Ints} where each element contains the 1-based indices of the three points of a triangle.</p><pre><code class="language-julia hljs">x = [0, 1, 2, 0]
+y = [0, 0, 1, 2]
+z = [0, 2, 0, 1]
+i = [0, 0, 0, 1]
+j = [1, 2, 3, 2]
+k = [2, 3, 1, 3]
+mesh3d(x, y, z; connections = (i, j, k), title = &quot;triangles&quot;, xlabel = &quot;x&quot;, ylabel = &quot;y&quot;, zlabel = &quot;z&quot;, legend = :none, margin = 2 * Plots.mm)</code></pre><pre class="documenter-example-output"><code class="nohighlight hljs ansi">      ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀triangles⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+      ┌────────────────────────────────────────┐
+    1 │⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀│
+      │⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀│
+      │⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣄⣀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀│
+      │⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢿⡄⠉⠑⠒⠢⠤⣀⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀│
+      │⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢸⠹⡄⠀⠀⠀⠀⠀⠈⠉⠒⠢⠤⢄⣀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀│
+      │⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⡇⠹⡄⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠉⠑⠒⠤⢄⣀⠀⠀⠀⠀⠀⠀⠀⠀⠀│
+      │⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢱⠀⠹⡄⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠉⣉⣒⣢⡤⠀⠀⠀⠀│
+    y │⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠘⡄⠀⠙⡄⠀⠀⠀⢀⣀⣀⡠⠤⠤⠤⠒⠒⠒⠉⠉⢉⡠⠒⠉⠀⠀⠀⠀⠀│
+      │⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢇⠀⠀⢸⠊⠉⠉⠁⠀⠀⠀⠀⠀⠀⠀⠀⣀⠤⠊⠁⠀⠀⠀⠀⠀⠀⠀⠀│
+      │⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢸⠀⠀⡎⠀⠀⠀⠀⠀⠀⠀⠀⢀⡠⠔⠊⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀│
+      │⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⡇⢀⠇⠀⠀⠀⠀⠀⢀⠤⠒⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀│
+      │⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢱⢸⠀⠀⠀⣀⠔⠊⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀│
+      │⠀⠀⠀⠀⡇⠀⠀⠀⠀⠀⠀⠀⠀⠘⣎⡠⠔⠉⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀│
+      │⠀⠀⢀⡠⠧⠤⢄⣀⡀⠀⠀⠀⠀⠀⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀│
+   -1 │⠀⠐⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀│
+      └────────────────────────────────────────┘
+      ⠀-1⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀x⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀1⠀</code></pre><h3 id="unicodeplots-ref48"><a class="docs-heading-anchor" href="#unicodeplots-ref48">Vectors of markershapes and segments</a><a id="unicodeplots-ref48-1"></a><a class="docs-heading-anchor-permalink" href="#unicodeplots-ref48" title="Permalink"></a></h3><pre><code class="language-julia hljs">using Base.Iterators: cycle, take
+yv = ones(9)
+ys = [1; 1; NaN; ones(6)]
+y = 5 .- [yv 2ys 3yv 4ys]
+plt_color_rows = plot(y, seriestype = [:path :path :scatter :scatter], markershape = collect(take(cycle((:utriangle, :rect)), 9)), markersize = 8, color = collect(take(cycle((:red, :black)), 9)))
+plt_z_cols = plot(y, markershape = [:utriangle :x :circle :square], markersize = [5 10 10 5], marker_z = [5 4 3 2], line_z = [1 3 3 1], linewidth = [1 10 5 1])
+plot(plt_color_rows, plt_z_cols)</code></pre><pre class="documenter-example-output"><code class="nohighlight hljs ansi">         ┌────────────────────────────────────────┐            ┌────────────────────────────────────────┐
+    4.09 │⠀⠒⠒⠒⠒⠒⠒⠒⠒⠒⠒⠒⠒⠒⠒⠒⠒⠒⠒⠒⠒⠒⠒⠒⠒⠒⠒⠒⠒⠒⠒⠒⠒⠒⠒⠒⠒⠒⠒⠀│ y1    4.09 │⠀⠒⠒⠒⠒⠒⠒⠒⠒⠒⠒⠒⠒⠒⠒⠒⠒⠒⠒⠒⠒⠒⠒⠒⠒⠒⠒⠒⠒⠒⠒⠒⠒⠒⠒⠒⠒⠒⠒⠀│ y1
+         │⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀│ y2         │⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀│ y2
+         │⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀│ y3         │⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀│ y3
+         │⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀│ y4         │⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀│ y4
+         │⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀│            │⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀│
+         │⠀⠉⠉⠉⠉⠉⠀⠀⠀⠀⠀⠀⠀⠀⠀⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠀│            │⠀⠉⠉⠉⠉⠉⠀⠀⠀⠀⠀⠀⠀⠀⠀⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠀│
+         │⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀│            │⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀│
+         │⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀│            │⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀│
+         │⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀│            │⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀│
+         │⠀△⠀⠀⠀△⠀⠀⠀⠀△⠀⠀⠀⠀△⠀⠀⠀⠀△⠀⠀⠀△⠀⠀⠀⠀△⠀⠀⠀⠀△⠀⠀⠀△⠀│            │⠀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⠀│
+         │⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀│            │⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀│
+         │⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀│            │⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀│
+         │⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀│            │⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀│
+         │⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀│            │⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀│
+    0.91 │⠀△⠀⠀⠀△⠀⠀⠀⠀⠀⠀⠀⠀⠀△⠀⠀⠀⠀△⠀⠀⠀△⠀⠀⠀⠀△⠀⠀⠀⠀△⠀⠀⠀△⠀│       0.91 │⠀⠤⠤⠤⠤⠤⠀⠀⠀⠀⠀⠀⠀⠀⠀⠤⠤⠤⠤⠤⠤⠤⠤⠤⠤⠤⠤⠤⠤⠤⠤⠤⠤⠤⠤⠤⠤⠤⠤⠀│
+         └────────────────────────────────────────┘            └────────────────────────────────────────┘
+         ⠀0.76⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀9.24⠀            ⠀0.76⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀9.24⠀</code></pre><h3 id="unicodeplots-ref50"><a class="docs-heading-anchor" href="#unicodeplots-ref50">3D surface with axis guides</a><a id="unicodeplots-ref50-1"></a><a class="docs-heading-anchor-permalink" href="#unicodeplots-ref50" title="Permalink"></a></h3><pre><code class="language-julia hljs">f(x, a) = begin
+        1 / x + a * x ^ 2
+    end
+xs = collect(0.1:0.05:2.0)
+as = collect(0.2:0.1:2.0)
+x_grid = [x for x = xs for y = as]
+a_grid = [y for x = xs for y = as]
+plot(x_grid, a_grid, f.(x_grid, a_grid), st = :surface, xlabel = &quot;longer xlabel&quot;, ylabel = &quot;longer ylabel&quot;, zlabel = &quot;longer zlabel&quot;)</code></pre><pre class="documenter-example-output"><code class="nohighlight hljs ansi">                 ┌────────────────────────────────────────┐  ⠀⠀⠀⠀
+               1 │⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠐⠒⠒⠤⠤⢄⣀⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀│  ┌──┐ 10.0
+                 │⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀│  │▄▄│
+                 │⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀│  │▄▄│
+                 │⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀│  │▄▄│
+                 │⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⠀⢀⡂⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀│  │▄▄│
+                 │⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠉⣙⣓⠒⠒⠤⠄⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀│  │▄▄│
+                 │⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢐⣒⢖⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀│  │▄▄│
+   longer ylabel │⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠒⡷⣮⣭⡤⣀⣀⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀│  │▄▄│
+                 │⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣼⣽⣶⣶⠆⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀│  │▄▄│
+                 │⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢨⣾⣿⣷⣾⡿⠉⠒⠂⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀│  │▄▄│
+                 │⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢠⣿⣿⣾⣿⣿⣿⡭⣉⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀│  │▄▄│
+                 │⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⡵⣿⣿⣿⣿⣿⣿⣯⣭⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀│  │▄▄│
+                 │⠀⠀⠀⢸⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣜⢟⣽⡿⠿⠛⠋⠉⠉⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀│  │▄▄│
+                 │⠀⠀⣀⠼⠤⠤⣀⣀⠀⠀⠀⠀⠀⠀⢈⡾⠟⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀│  │▄▄│
+              -1 │⠀⠊⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀│  └──┘ 1.0
+                 └────────────────────────────────────────┘  ⠀⠀⠀⠀
+                 ⠀-1⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀longer xlabel⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀1⠀  ⠀⠀⠀⠀</code></pre><h3 id="unicodeplots-ref52"><a class="docs-heading-anchor" href="#unicodeplots-ref52">3d quiver</a><a id="unicodeplots-ref52-1"></a><a class="docs-heading-anchor-permalink" href="#unicodeplots-ref52" title="Permalink"></a></h3><pre><code class="language-julia hljs">ϕs = range(-π, π, length = 50)
+θs = range(0, π, length = 25)
+θqs = range(1, π - 1, length = 25)
+x = vec([sin(θ) * cos(ϕ) for (ϕ, θ) = Iterators.product(ϕs, θs)])
+y = vec([sin(θ) * sin(ϕ) for (ϕ, θ) = Iterators.product(ϕs, θs)])
+z = vec([cos(θ) for (ϕ, θ) = Iterators.product(ϕs, θs)])
+u = 0.1 * vec([sin(θ) * cos(ϕ) for (ϕ, θ) = Iterators.product(ϕs, θqs)])
+v = 0.1 * vec([sin(θ) * sin(ϕ) for (ϕ, θ) = Iterators.product(ϕs, θqs)])
+w = 0.1 * vec([cos(θ) for (ϕ, θ) = Iterators.product(ϕs, θqs)])
+quiver(x, y, z, quiver = (u, v, w))</code></pre><pre class="documenter-example-output"><code class="nohighlight hljs ansi">      ┌────────────────────────────────────────┐
+    1 │⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀│
+      │⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀│
+      │⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀│
+      │⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⣠⣤⣤⣴⣦⣶⣶⣤⣤⣀⣀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀│
+      │⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣠⣴⣾⣿⣿⣿⣿⣿⣻⣟⣿⢿⣿⣿⣿⣷⣦⣀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀│
+      │⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⣶⣿⣿⣟⡿⣿⣞⡿⣽⠩⡯⢽⢽⣓⣿⣿⣿⣿⣿⣦⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀│
+      │⠀⠀⠀⠀⠀⠀⠀⠀⠀⣾⣿⣿⣟⣿⡯⣛⡗⡾⣼⠍⡇⡏⣿⣺⣟⢯⡷⣿⢿⣿⣷⠀⠀⠀⠀⠀⠀⠀⠀⠀│
+      │⠀⠀⠀⠀⠀⠀⠀⠀⠰⣿⣿⣿⣿⣿⣷⣽⢯⢻⣿⡇⡧⣿⣽⢼⡮⣻⣿⣿⣿⣿⣿⠂⠀⠀⠀⠀⠀⠀⠀⠀│
+      │⠀⠀⠀⠀⠀⠀⠀⠀⠀⢿⣿⣿⣿⣿⣞⡾⢽⣯⣇⡇⣺⢻⢳⡭⣷⣕⡯⣿⣿⣿⡿⠀⠀⠀⠀⠀⠀⠀⠀⠀│
+      │⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⢻⣿⣿⣻⣗⣿⡿⣿⣒⣇⣺⣺⣳⡯⣗⣿⣟⣿⣿⡟⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀│
+      │⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠉⠻⣿⣿⣿⣿⣷⣯⣿⣿⣽⣾⣿⣿⣿⣿⠟⠉⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀│
+      │⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⠉⠛⠛⠿⠿⠿⠿⠛⠛⠉⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀│
+      │⠀⠀⠀⢸⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀│
+      │⠀⠀⣀⠼⠤⠤⣀⣀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀│
+   -1 │⠀⠊⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀│
+      └────────────────────────────────────────┘
+      ⠀-1⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀1⠀</code></pre><h3 id="unicodeplots-ref53"><a class="docs-heading-anchor" href="#unicodeplots-ref53">Step Types</a><a id="unicodeplots-ref53-1"></a><a class="docs-heading-anchor-permalink" href="#unicodeplots-ref53" title="Permalink"></a></h3><p>A comparison of the various step-like <code>seriestype</code>s</p><pre><code class="language-julia hljs">x = 1:5
+y = [1, 2, 3, 2, 1]
+default(shape = :circle)
+plot(plot(x, y, markershape = :circle, seriestype = :steppre, label = &quot;steppre&quot;), plot(x, y, markershape = :circle, seriestype = :stepmid, label = &quot;stepmid&quot;), plot(x, y, markershape = :circle, seriestype = :steppost, label = &quot;steppost&quot;), layout = (3, 1))</code></pre><pre class="documenter-example-output"><code class="nohighlight hljs ansi">         ┌────────────────────────────────────────┐
+    3.06 │⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢰⠒⠒⠒⠒⠒⠒⠒⠒⠒⚬⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀│ steppre
+         │⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢸⠀⠀⠀⠀⠀⠀⠀⠀⠀⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀│
+         │⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢸⠀⠀⠀⠀⠀⠀⠀⠀⠀⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀│
+         │⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢸⠀⠀⠀⠀⠀⠀⠀⠀⠀⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀│
+         │⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢸⠀⠀⠀⠀⠀⠀⠀⠀⠀⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀│
+         │⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢸⠀⠀⠀⠀⠀⠀⠀⠀⠀⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀│
+         │⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢸⠀⠀⠀⠀⠀⠀⠀⠀⠀⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀│
+         │⠀⡤⠤⠤⠤⠤⠤⠤⠤⠤⚬⠀⠀⠀⠀⠀⠀⠀⠀⠀⠧⠤⠤⠤⠤⠤⠤⠤⠤⚬⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀│
+         │⠀⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀│
+         │⠀⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀│
+         │⠀⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀│
+         │⠀⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀│
+         │⠀⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀│
+         │⠀⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀│
+    0.94 │⠀⚬⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠧⠤⠤⠤⠤⠤⠤⠤⠤⚬⠀│
+         └────────────────────────────────────────┘
+         ⠀0.88⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀5.12⠀
+         ┌────────────────────────────────────────┐
+    3.06 │⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⡖⠒⠒⠒⠒⚬⠒⠒⠒⢲⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀│ stepmid
+         │⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⡇⠀⠀⠀⠀⠀⠀⠀⠀⢸⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀│
+         │⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⡇⠀⠀⠀⠀⠀⠀⠀⠀⢸⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀│
+         │⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⡇⠀⠀⠀⠀⠀⠀⠀⠀⢸⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀│
+         │⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⡇⠀⠀⠀⠀⠀⠀⠀⠀⢸⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀│
+         │⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⡇⠀⠀⠀⠀⠀⠀⠀⠀⢸⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀│
+         │⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⡇⠀⠀⠀⠀⠀⠀⠀⠀⢸⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀│
+         │⠀⠀⠀⠀⠀⢠⠤⠤⠤⠤⚬⠤⠤⠤⠤⠇⠀⠀⠀⠀⠀⠀⠀⠀⠸⠤⠤⠤⠤⚬⠤⠤⠤⠤⡄⠀⠀⠀⠀⠀│
+         │⠀⠀⠀⠀⠀⢸⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⡇⠀⠀⠀⠀⠀│
+         │⠀⠀⠀⠀⠀⢸⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⡇⠀⠀⠀⠀⠀│
+         │⠀⠀⠀⠀⠀⢸⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⡇⠀⠀⠀⠀⠀│
+         │⠀⠀⠀⠀⠀⢸⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⡇⠀⠀⠀⠀⠀│
+         │⠀⠀⠀⠀⠀⢸⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⡇⠀⠀⠀⠀⠀│
+         │⠀⠀⠀⠀⠀⢸⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⡇⠀⠀⠀⠀⠀│
+    0.94 │⠀⚬⠤⠤⠤⠼⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠧⠤⠤⠤⚬⠀│
+         └────────────────────────────────────────┘
+         ⠀0.88⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀5.12⠀
+         ┌────────────────────────────────────────┐
+    3.06 │⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⚬⠒⠒⠒⠒⠒⠒⠒⠒⡆⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀│ steppost
+         │⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⡇⠀⠀⠀⠀⠀⠀⠀⠀⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀│
+         │⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⡇⠀⠀⠀⠀⠀⠀⠀⠀⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀│
+         │⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⡇⠀⠀⠀⠀⠀⠀⠀⠀⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀│
+         │⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⡇⠀⠀⠀⠀⠀⠀⠀⠀⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀│
+         │⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⡇⠀⠀⠀⠀⠀⠀⠀⠀⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀│
+         │⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⡇⠀⠀⠀⠀⠀⠀⠀⠀⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀│
+         │⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⚬⠤⠤⠤⠤⠤⠤⠤⠤⠤⠇⠀⠀⠀⠀⠀⠀⠀⠀⚬⠤⠤⠤⠤⠤⠤⠤⠤⢤⠀│
+         │⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢸⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢸⠀│
+         │⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢸⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢸⠀│
+         │⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢸⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢸⠀│
+         │⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢸⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢸⠀│
+         │⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢸⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢸⠀│
+         │⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢸⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢸⠀│
+    0.94 │⠀⚬⠤⠤⠤⠤⠤⠤⠤⠤⠼⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⚬⠀│
+         └────────────────────────────────────────┘
+         ⠀0.88⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀5.12⠀</code></pre><h3 id="unicodeplots-ref54"><a class="docs-heading-anchor" href="#unicodeplots-ref54">Guide positions and alignment</a><a id="unicodeplots-ref54-1"></a><a class="docs-heading-anchor-permalink" href="#unicodeplots-ref54" title="Permalink"></a></h3><pre><code class="language-julia hljs">plot(rand(10, 4), layout = 4, xguide = &quot;x guide&quot;, yguide = &quot;y guide&quot;, xguidefonthalign = [:left :right :right :left], yguidefontvalign = [:top :bottom :bottom :top], xguideposition = :top, yguideposition = [:right :left :right :left], ymirror = [false true true false], xmirror = [false false true true], legend = false, seriestype = [:bar :scatter :path :stepmid])</code></pre><pre class="documenter-example-output"><code class="nohighlight hljs ansi">               ┌────────────────────────────────────────┐              ┌────────────────────────────────────────┐
+      0.976938 │⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⡖⚬⠒⡆⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀│     0.787859 │⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⚬⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀│
+               │⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⡇⠀⠀⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢸⠉⚬⢹⠀⠀⠀⠀⠀⠀⠀⠀⠀│              │⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⚬⠀⠀⠀⠀⠀⠀⠀⠀⠀│
+               │⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⡇⠀⠀⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢸⠀⠀⢸⠀⠀⠀⠀⠀⠀⠀⠀⠀│              │⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀│
+               │⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⡇⠀⠀⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢸⠀⠀⢸⠀⠀⠀⠀⠀⠀⠀⠀⠀│              │⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⚬⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀│
+               │⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⡇⠀⠀⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢸⠀⠀⢸⠀⠀⠀⠀⠀⠀⠀⠀⠀│              │⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀│
+               │⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⡇⠀⠀⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢸⠀⠀⢸⠀⠀⠀⠀⠀⠀⠀⠀⠀│              │⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⚬⠀⠀⠀⠀⠀│
+               │⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⡇⠀⠀⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢸⠀⠀⢸⠀⠀⠀⠀⠀⠀⠀⠀⠀│              │⠀⠀⠀⠀⠀⠀⠀⠀⠀⚬⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⚬⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀│
+       y guide │⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⡇⠀⠀⡇⠀⠀⠀⠀⠀⠀⢰⠒⚬⢲⢸⠀⠀⢸⠀⠀⠀⠀⠀⠀⠀⠀⠀│      y guide │⠀⠀⠀⠀⠀⚬⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀│
+               │⡇⠀⠀⠀⠀⢠⠤⚬⢤⡖⚬⠒⡆⡇⠀⠀⡇⠀⠀⠀⣀⚬⣀⣸⠀⠀⢸⢸⠀⠀⢸⠀⠀⠀⠀⠀⠀⠀⠀⠀│              │⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⚬⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀│
+               │⡇⠀⠀⠀⠀⢸⠀⠀⢸⡇⠀⠀⡇⡇⠀⠀⣿⠉⚬⢹⡇⠀⠀⣿⠀⠀⢸⢸⠀⠀⢸⠀⠀⠀⠀⠀⠀⠀⠀⠀│              │⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⚬⠀│
+               │⡇⠀⠀⠀⠀⢸⠀⠀⢸⡇⠀⠀⡇⡇⠀⠀⣿⠀⠀⢸⡇⠀⠀⣿⠀⠀⢸⢸⠀⠀⢸⡤⚬⠤⡄⠀⠀⠀⠀⠀│              │⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀│
+               │⡇⠀⣀⚬⣀⣸⠀⠀⢸⡇⠀⠀⡇⡇⠀⠀⣿⠀⠀⢸⡇⠀⠀⣿⠀⠀⢸⢸⠀⠀⢸⡇⠀⠀⡇⠀⠀⠀⠀⠀│              │⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀│
+               │⡇⠀⡇⠀⠀⣿⠀⠀⢸⡇⠀⠀⡇⡇⠀⠀⣿⠀⠀⢸⡇⠀⠀⣿⠀⠀⢸⢸⠀⠀⢸⡇⠀⠀⡇⠀⠀⠀⠀⠀│              │⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀│
+               │⡇⠀⡇⠀⠀⣿⠀⠀⢸⡇⠀⠀⡇⡇⠀⠀⣿⠀⠀⢸⡇⠀⠀⣿⠀⠀⢸⢸⠀⠀⢸⡇⠀⠀⣇⣀⚬⣀⠀⠀│              │⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀│
+    -0.0284545 │⡧⠤⠧⠤⠤⠿⠤⠤⠼⠧⠤⠤⠧⠧⠤⠤⠿⠤⠤⠼⠧⠤⠤⠿⠤⠤⠼⠼⠤⠤⠼⠧⠤⠤⠿⠤⠤⠼⠤⠤│      0.17391 │⠀⚬⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀│
+               └────────────────────────────────────────┘              └────────────────────────────────────────┘
+               ⠀-0.00564⠀⠀⠀⠀⠀⠀⠀⠀x guide⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀11.0056⠀              ⠀0.73⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀x guide⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀10.27⠀
+               ┌────────────────────────────────────────┐               ┌────────────────────────────────────────┐
+      0.901243 │⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⡰⡀⠀⠀⠀⠀│      0.986612 │⠀⠀⠀⠀⠀⠀⠀⡖⠒⠒⠒⢲⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀│
+               │⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢠⠃⠱⡀⠀⠀⠀│               │⠀⠀⠀⠀⠀⠀⠀⡇⠀⠀⠀⢸⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⡏⠉⠉⠉⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀│
+               │⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⡎⠀⠀⠱⡀⠀⠀│               │⠀⣀⣀⡀⠀⠀⠀⡇⠀⠀⠀⢸⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⡇⠀⠀⠀⡇⠀⠀⠀⢀⣀⣀⣀⣀⠀⠀⠀│
+               │⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⡸⠀⠀⠀⠀⠱⡀⠀│               │⠀⠀⠀⡇⠀⠀⠀⡇⠀⠀⠀⢸⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⡇⠀⠀⠀⡇⠀⠀⠀⢸⠀⠀⠀⢸⠀⠀⠀│
+               │⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢠⠃⠀⠀⠀⠀⠀⠱⠀│               │⠀⠀⠀⡇⠀⠀⠀⡇⠀⠀⠀⢸⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⡇⠀⠀⠀⡇⠀⠀⠀⢸⠀⠀⠀⢸⠀⠀⠀│
+               │⠀⢣⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢠⠤⢄⣀⣀⡀⠀⠀⠀⠀⠀⠀⠀⠀⡎⠀⠀⠀⠀⠀⠀⠀⠀│               │⠀⠀⠀⡇⠀⠀⠀⡇⠀⠀⠀⢸⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⡇⠀⠀⠀⡇⠀⠀⠀⢸⠀⠀⠀⢸⠀⠀⠀│
+               │⠀⠀⢣⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⡜⠀⠀⠀⠀⠈⠑⠢⢄⣀⣀⣀⣀⡸⠀⠀⠀⠀⠀⠀⠀⠀⠀│               │⠀⠀⠀⡇⠀⠀⠀⡇⠀⠀⠀⢸⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⡇⠀⠀⠀⡇⠀⠀⠀⢸⠀⠀⠀⢸⠀⠀⠀│
+       y guide │⠀⠀⠀⢣⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢠⠃⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀│       y guide │⠀⠀⠀⡇⠀⠀⠀⡇⠀⠀⠀⢸⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⡇⠀⠀⠀⡇⠀⠀⠀⢸⠀⠀⠀⢸⠀⠀⠀│
+               │⠀⠀⠀⠀⢣⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⡸⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀│               │⠀⠀⠀⡇⠀⠀⠀⡇⠀⠀⠀⢸⠀⠀⠀⢰⠒⠒⠒⠒⡆⠀⠀⠀⡇⠀⠀⠀⡇⠀⠀⠀⢸⠀⠀⠀⢸⠀⠀⠀│
+               │⠀⠀⠀⠀⠀⢱⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⠇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀│               │⠀⠀⠀⡇⠀⠀⠀⡇⠀⠀⠀⢸⣀⣀⣀⣸⠀⠀⠀⠀⡇⠀⠀⠀⡇⠀⠀⠀⠓⠒⠒⠒⠚⠀⠀⠀⠸⠤⠤⠀│
+               │⠀⠀⠀⠀⠀⠀⢣⠀⠀⠀⠀⠀⠀⠀⠀⡸⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀│               │⠀⠀⠀⡇⠀⠀⠀⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣇⣀⣀⣀⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀│
+               │⠀⠀⠀⠀⠀⠀⠀⢣⠀⠀⠀⠀⠀⠀⢀⠇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀│               │⠀⠀⠀⡇⠀⠀⠀⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀│
+               │⠀⠀⠀⠀⠀⠀⠀⠈⢆⠀⠀⠀⠀⠀⢸⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀│               │⠀⠀⠀⡇⠀⠀⠀⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀│
+               │⠀⠀⠀⠀⠀⠀⠀⠀⠈⡆⠀⠀⠀⠀⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀│               │⠀⠀⠀⡇⠀⠀⠀⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀│
+    -0.0143397 │⣀⣀⣀⣀⣀⣀⣀⣀⣀⣈⣉⣑⣒⣺⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀│     0.0319782 │⠀⠀⠀⠧⠤⠤⠤⠇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀│
+               └────────────────────────────────────────┘               └────────────────────────────────────────┘
+               ⠀0.73⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀x guide⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀10.27⠀               ⠀0.73⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀x guide⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀10.27⠀</code></pre><h3 id="unicodeplots-ref57"><a class="docs-heading-anchor" href="#unicodeplots-ref57">Vertical and horizonal spans</a><a id="unicodeplots-ref57-1"></a><a class="docs-heading-anchor-permalink" href="#unicodeplots-ref57" title="Permalink"></a></h3><p><code>vspan</code> and <code>hspan</code> can be used to shade horizontal and vertical ranges.</p><pre><code class="language-julia hljs">hspan([1, 2, 3, 4]; label = &quot;hspan&quot;, legend = :topleft)
+vspan!([2, 3]; alpha = 0.5, label = &quot;vspan&quot;)
+plot!([0, 2, 3, 5], [-1, 3, 2, 6]; c = :black, lw = 2, label = &quot;line&quot;)</code></pre><pre class="documenter-example-output"><code class="nohighlight hljs ansi">         ┌────────────────────────────────────────┐
+    6.21 │⠀⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⡠⠀│ hspan
+         │⠀⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⡠⠊⠀⠀│ vspan
+         │⠀⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢠⠊⠀⠀⠀⠀│ line
+         │⠀⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⠔⠁⠀⠀⠀⠀⠀│
+         │⠀⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⠔⠁⠀⠀⠀⠀⠀⠀⠀│
+         │⠀⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⠔⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀│
+         │⠀⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⠦⣀⠀⠀⠀⠀⠀⠀⠀⠀⠀⡰⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀│
+         │⠀⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⠔⠁⠀⠀⠉⠒⠤⣀⠀⠀⠀⡠⠊⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀│
+         │⠀⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⠔⠁⠀⠀⠀⠀⠀⠀⠀⠀⠉⠲⠊⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀│
+         │⠀⡇⠀⠀⠀⠀⠀⠀⠀⢀⠔⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀│
+         │⠀⡇⠀⠀⠀⠀⠀⠀⡠⠊⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀│
+         │⠀⡇⠀⠀⠀⠀⡠⠊⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀│
+         │⠤⡧⠤⠤⡤⠮⠤⠤⠤⠤⠤⠤⠤⠤⠤⠤⠤⠤⠤⠤⠤⠤⠤⠤⠤⠤⠤⠤⠤⠤⠤⠤⠤⠤⠤⠤⠤⠤⠤⠤│
+         │⠀⡇⢠⠊⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀│
+   -1.21 │⠀⡗⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀│
+         └────────────────────────────────────────┘
+         ⠀-0.15⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀5.15⠀</code></pre><ul><li>Supported arguments: <code>annotations</code>, <code>arrow</code>, <code>background_color</code>, <code>background_color_subplot</code>, <code>bins</code>, <code>bottom_margin</code>, <code>color_palette</code>, <code>discrete_values</code>, <code>flip</code>, <code>foreground_color</code>, <code>foreground_color_subplot</code>, <code>grid</code>, <code>group</code>, <code>guide</code>, <code>html_output_format</code>, <code>label</code>, <code>layout</code>, <code>left_margin</code>, <code>legend</code>, <code>lims</code>, <code>line_z</code>, <code>linealpha</code>, <code>linecolor</code>, <code>linestyle</code>, <code>link</code>, <code>margin</code>, <code>markershape</code>, <code>primary</code>, <code>projection</code>, <code>quiver</code>, <code>right_margin</code>, <code>scale</code>, <code>series_annotations</code>, <code>seriesalpha</code>, <code>seriescolor</code>, <code>seriestype</code>, <code>show</code>, <code>show_empty_bins</code>, <code>size</code>, <code>smooth</code>, <code>subplot</code>, <code>subplot_index</code>, <code>title</code>, <code>top_margin</code>, <code>x</code>, <code>xdiscrete_values</code>, <code>xerror</code>, <code>xflip</code>, <code>xgrid</code>, <code>xguide</code>, <code>xlims</code>, <code>xlink</code>, <code>xscale</code>, <code>y</code>, <code>ydiscrete_values</code>, <code>yerror</code>, <code>yflip</code>, <code>ygrid</code>, <code>yguide</code>, <code>ylims</code>, <code>ylink</code>, <code>yscale</code>, <code>z</code>, <code>z_order</code>, <code>zdiscrete_values</code>, <code>zerror</code>, <code>zflip</code>, <code>zgrid</code>, <code>zguide</code>, <code>zlims</code>, <code>zlink</code>, <code>zscale</code></li><li>Supported values for linetype: <code>:contour</code>, <code>:heatmap</code>, <code>:histogram2d</code>, <code>:mesh3d</code>, <code>:path</code>, <code>:path3d</code>, <code>:scatter</code>, <code>:scatter3d</code>, <code>:shape</code>, <code>:spy</code>, <code>:straightline</code>, <code>:surface</code>, <code>:wireframe</code></li><li>Supported values for linestyle: <code>:auto</code>, <code>:solid</code></li><li>Supported values for marker: <code>:+</code>, <code>:auto</code>, <code>:circle</code>, <code>:cross</code>, <code>:diamond</code>, <code>:dtriangle</code>, <code>:hexagon</code>, <code>:hline</code>, <code>:ltriangle</code>, <code>:none</code>, <code>:pentagon</code>, <code>:pixel</code>, <code>:rect</code>, <code>:rtriangle</code>, <code>:star4</code>, <code>:star5</code>, <code>:star6</code>, <code>:star8</code>, <code>:utriangle</code>, <code>:vline</code>, <code>:x</code>, <code>:xcross</code></li></ul><p>(Automatically generated: 2022-03-17T16:57:45.992)</p></article><nav class="docs-footer"><a class="docs-footer-prevpage" href="../../generated_pgfplotsx/">« PGFPlotsX</a><div class="flexbox-break"></div><p class="footer-message">Powered by <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> and the <a href="https://julialang.org/">Julia Programming Language</a>.</p></nav></div><div class="modal" id="documenter-settings"><div class="modal-background"></div><div class="modal-card"><header class="modal-card-head"><p class="modal-card-title">Settings</p><button class="delete"></button></header><section class="modal-card-body"><p><label class="label">Theme</label><div class="select"><select id="documenter-themepicker"><option value="documenter-light">documenter-light</option><option value="documenter-dark">documenter-dark</option></select></div></p><hr/><p>This document was generated with <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> version 0.27.15 on <span class="colophon-date" title="Thursday 17 March 2022 17:10">Thursday 17 March 2022</span>. Using Julia version 1.7.2.</p></section><footer class="modal-card-foot"></footer></div></div></div></body></html>
