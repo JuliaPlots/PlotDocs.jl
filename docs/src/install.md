@@ -32,11 +32,12 @@ Pkg.add("PlotlyJS"); Pkg.add("PlotlyBase")
 
 Pkg.add("PyPlot")
 # Depends only on PyPlot package
+
+Pkg.add("UnicodePlots")
 ```
 
 Tier 2 support backends:
 ```julia
-Pkg.add("UnicodePlots")
 Pkg.add("InspectDR")
 Pkg.add("Gaston")
 ```
@@ -66,6 +67,7 @@ gr(size = (300, 300), legend = false)  # provide optional defaults
 pgfplotsx()
 plotly(ticks=:native)                  # plotlyjs for richer saving options
 pyplot()                               # backends are selected with lowercase names
+unicodeplots()                         # plot in terminal
 ```
 
 !!! tip
