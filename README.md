@@ -5,7 +5,7 @@ Documentation for [Plots.jl](https://github.com/JuliaPlots/Plots.jl)
 ## Editing the Docs
 
 To edit the documentation, simply edit the Markdown files in [docs/src](https://github.com/JuliaPlots/PlotDocs.jl/tree/master/docs/src). [Documenter.jl](https://github.com/JuliaDocs/Documenter.jl) will automatically rebuild the documentation when changes are merged to master.
-The new documentation files will be pushed to the [`gh-pages`](https://github.com/JuliaPlots/PlotDocs.jl/tree/gh-pages) branch in this repository (useful for debugging the `Plots.jl` documentation  build through CI).
+The new documentation files will be pushed to the [`gh-pages`](https://github.com/JuliaPlots/PlotDocs.jl/tree/gh-pages) branch in this repository (useful for debugging the `Plots.jl` documentation  build through CI). When building new docs for a release (e.g. `1.Y.Z`), don't forget to manually delete the previous patch version in `gh-pages` (`1.Y.(Z - 1)`), thus avoiding filling up the deployment quota of `10Gb` imposed bu `github`.
 
 ## Building the docs
 
