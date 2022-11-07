@@ -111,6 +111,7 @@ surface(
 | Keyword        | Description                         |
 | :------------- | :---------------------------------- |
 | legend_hfactor | Vertical spacing factor for legends |
+| legend_wfactor | Multiplicative factor influencing the legend width |
 
 #### Supported `:series` `:extra_kwargs`
 
