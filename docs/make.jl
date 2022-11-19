@@ -41,25 +41,28 @@ cp(
 galleries = Pair{String,String}[]
 galleries_assets = String[]
 galleries_cb = []
-for (bename, be) in [
-    ("GR", :gr),
-    ("PlotlyJS", :plotlyjs),
-    ("PyPlot", :pyplot),
-    ("PGFPlotsX", :pgfplotsx),
-    ("UnicodePlots", :unicodeplots),
-    ("InspectDR", :inspectdr),
-    ("Gaston", :gaston),
-]
-    generate_cards(be)
-    gallery_path, postprocess_cb, assets = makedemos("gallery/$be"; src = "src/gallery")
-    push!(galleries, bename => joinpath("gallery", gallery_path))
-    push!(galleries_cb, postprocess_cb)
+user_gallery = []
+if get(ENV, "PLOTDOCS_GALLERY", "true") == "true"
+    for (bename, be) in (
+        ("GR", :gr),
+        ("PyPlot", :pyplot),
+        ("PlotlyJS", :plotlyjs),
+        ("PGFPlotsX", :pgfplotsx),
+        ("UnicodePlots", :unicodeplots),
+        ("InspectDR", :inspectdr),
+        ("Gaston", :gaston),
+    )
+        generate_cards(be)
+        let (path, cb, assets) = makedemos("gallery/$be"; src = "src/gallery")
+            push!(galleries, bename => joinpath("gallery", path))
+            push!(galleries_cb, cb)
+            push!(galleries_assets, assets)
+        end
+    end
+    user_gallery, cb, assets = makedemos("user_gallery"; src = "src")
+    push!(galleries_cb, cb)
     push!(galleries_assets, assets)
 end
-user_gallery, postprocess_cb, assets = makedemos("user_gallery"; src = "src")
-push!(galleries_cb, postprocess_cb)
-push!(galleries_assets, assets)
-
 unique!(galleries_assets)
 
 @info "UnitfulRecipes"
@@ -138,9 +141,8 @@ const PAGES = Any[
     "API" => "api.md",
 ]
 
-@info "makedocs"
 ansicolor = get(ENV, "PLOTDOCS_ANSICOLOR", "true") == "true"
-@show ansicolor
+@info "makedocs" ansicolor
 @time makedocs(
     format = Documenter.HTML(
         prettyurls = get(ENV, "CI", nothing) == "true",
