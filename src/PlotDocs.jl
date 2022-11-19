@@ -30,9 +30,7 @@ end
 
 function pretty_print_expr(io::IO, expr::Expr)
     if expr.head === :block
-        for arg in recursive_rmlines(expr).args
-            println(io, arg)
-        end
+        foreach(arg -> println(io, arg), recursive_rmlines(expr).args)
     else
         println(io, recursive_rmlines(expr))
     end
@@ -67,7 +65,7 @@ function generate_cards(pkgname::Symbol; skip = get(Plots._backend_skips, pkgnam
             # id: $(pkgname)_demo_$i $(i in skip ? "" : "\n# cover: assets/$(i in (2, 31) ? "anim_$(pkgname)_ex$i.gif" : "$(pkgname)_ex$i.png")")
             # author: "[PlotDocs.jl](https://github.com/JuliaPlots/PlotDocs.jl/)"
             # description: ""
-            # date: $(timestamp())
+            # date: $(now())
             # ---
 
             using Plots
@@ -119,7 +117,7 @@ function generate_cards(pkgname::Symbol; skip = get(Plots._backend_skips, pkgnam
         # id: $(pkgname)_attributes
         # hidden: true
         # author: "[PlotDocs.jl](https://github.com/JuliaPlots/PlotDocs.jl/)"
-        # date: $(timestamp())
+        # date: $(now())
         # ---
 
         # - Supported arguments: $(markdown_code_to_string(collect(Plots.supported_attrs(pkg))))
@@ -509,31 +507,13 @@ end
 
 # ----------------------------------------------------------------------
 
-function to_html(df::DataFrames.AbstractDataFrame)
-    cnames = DataFrames._names(df)
-    extra_dir = get(ENV, "CI", "false") == "true" ? "../" : ""
-    html = "<head><link type=\"text/css\" rel=\"stylesheet\" href=\"$extra_dir../assets/tables.css\" /></head><body><table><tr class=\"headerrow\">"
-    for column_name in cnames
-        html *= "<th>$column_name</th>"
-    end
-    html *= "</tr>"
-    attrstr = " class=\"attr\""
-    for row in 1:size(df,1)
-        html *= "<tr>"
-        for (i,column_name) in enumerate(cnames)
-            cell = (data = df[row, i]) === nothing ? "" : string(data)
-            attrstr = if i == 1
-                " class=\"attr\""
-            elseif i == length(cnames)
-                " class=\"desc\""
-            else
-                ""
-            end
-            html *= "<td$attrstr>$(DataFrames.html_escape(cell))</td>"
-        end
-        html *= "</tr>"
-    end
-    html *= "</table></body>"
+function to_html(df::AbstractDataFrame)
+    io = PipeBuffer()
+    show(
+        IOContext(io, :limit => false, :compact => false), MIME"text/html"(), df;
+        show_row_number=false, summary=false, eltypes=false,
+    )
+    read(io, String)
 end
 
 end # module
