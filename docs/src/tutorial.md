@@ -163,7 +163,7 @@ plot(x, [y1 y2], label=["sin(x)" "cos(x)"], lw=[2 1])
 plot!(x, y3, label="sin(x)^2 - 1/2", lw=3, ls=:dot)
 plot!(legend=:outerbottom, legendcolumns=3)
 xlims!(0, 2pi)
-title!("Trig functions") 
+title!("Trigonometric functions") 
 xlabel!("x")
 ylabel!("y")
 ```
