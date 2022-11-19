@@ -223,7 +223,7 @@ xlabel!(L"x")
 ylabel!(L"y")
 ```
 
-## Changing the Plotting Series
+## Changing Series Type: Scatter Plots
 
 At this point you know about line plots, but don't you want to plot your data
 in other ways? In Plots.jl, these other ways of plotting a series is called a
@@ -245,8 +245,8 @@ plot!(x, y_noisy, seriestype=:scatter, label="data")
 
 For each built-in series type, there is a shorthand function for directly
 calling that series type which matches the name of the series type. It handles
-attributes just the same as the `plot` command, and have a mutating form which
-ends in `!`. For example, we can instead write the last line as:
+attributes just the same as the `plot` command, and it has a mutating form which
+ends in `!`. For example, we can write the last line as:
 
 ```julia
 scatter!(x, y_noisy, label="data")
