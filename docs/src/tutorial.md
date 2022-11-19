@@ -133,8 +133,8 @@ Every attribute can also be applied by mutating the plot with a
 modifier function. Some attributes have their own dedicated modifier functions,
 while others can be accessed through `plot!(attribute=value)`.
 For example, the `xlabel` attribute adds a label for the 
-x-axis. We can specify it in the plot command with `xlabel=...` like we did 
-above, or we can use the modifier function to add it after the plot has already 
+x-axis. We can specify it in the plot command with `xlabel=...`, 
+or we can use the modifier function to add it after the plot has already 
 been generated. It's up to you to decide which is better for code readability.
 
 ```julia
@@ -148,11 +148,9 @@ of the plot object that wants to be modified.
 
 Let's use keywords and modifier functions interchangeably to perform some 
 common modifications to our example, listed below. You'll notice that for the 
-attributes `ls` and `legend`, a colon `:` is inserted before the name. 
+attributes `ls` and `legend`, the values include a colon `:`.
 The colon denotes a symbol in Julia. They are commonly used for values of 
-attributes in Plots.jl, along with strings and numbers. Another thing to note
-is that `y3` is being plotted as a dotted line. This is distinct from a
-scatter plot of the data.
+attributes in Plots.jl, along with strings and numbers. 
 
 * Labels for the individual lines, seen in the legend
 * Line widths (we'll use the alias `lw` instead of `linewidth`)
@@ -176,6 +174,9 @@ title!("Trigonometric functions")
 xlabel!("x")
 ylabel!("y")
 ```
+
+Note that `y3` is being plotted as a dotted line. This is distinct from a
+scatter plot of the data.
 
 ### Logarithmic Scale Plots
 
@@ -244,7 +245,7 @@ plot!(x, y_noisy, seriestype=:scatter, label="data")
 ```
 
 For each built-in series type, there is a shorthand function for directly
-calling that series type which matches the name of the series type. It handles
+calling that series type which matches its name. It handles
 attributes just the same as the `plot` command, and it has a mutating form which
 ends in `!`. For example, we can write the last line as:
 
@@ -403,7 +404,7 @@ p4 = scatter(x, y, title="Title 4", ms=2, ma=0.2)
 plot(p1, p2, p3, p4, layout=(2,2), legend=false)
 ```
 
-Notice that the attributes in the individual plots are applied to the
+Notice that the attributes in the individual plots are applied to those
 individual plots, while the attribute `legend=false` in the final `plot` 
 call is applied to all of the subplots.
 
