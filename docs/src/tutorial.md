@@ -333,7 +333,7 @@ For examples of plots from the various backends, see the Examples section.
 At the start of the tutorial, we recommended following along the code examples 
 in an interactive session for the following reason: try adding those same 
 plotting commands to a script. Now call the script... and the plot doesn't 
-show up? This is because Julia in interactive use calls `display` on every 
+show up? This is because Julia in interactive use through the REPL calls `display` on every 
 variable that is returned by a command without a semicolon `;`. In each case 
 above, the interactive usage was automatically calling `display` on the returned
 plot objects.
