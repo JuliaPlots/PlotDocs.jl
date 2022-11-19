@@ -14,6 +14,12 @@ unicodeplots()
 inspectdr()
 gaston()
 
+@info "generate markdown"
+generate_attr_markdown()
+generate_supported_markdown()
+generate_graph_attr_markdown()
+generate_colorschemes_markdown()
+
 @eval DemoCards.get_logopath() =
     joinpath(pkgdir(PlotDocs), "docs", "src", "assets", "axis_logo_600x400.png")
 
@@ -29,6 +35,8 @@ cp(
     joinpath(@__DIR__, "src", "generated", "statsplots.md"),
     force = true,
 )
+
+@info "gallery"
 
 galleries = Pair{String,String}[]
 galleries_assets = String[]
@@ -54,8 +62,7 @@ push!(galleries_assets, assets)
 
 unique!(galleries_assets)
 
-##################
-# `UnitfulRecipes`
+@info "UnitfulRecipes"
 src_unitfulrecipes = "src/UnitfulRecipes"
 unitfulrecipes = joinpath(@__DIR__, src_unitfulrecipes)
 notebooks = joinpath(unitfulrecipes, "notebooks")
@@ -69,7 +76,6 @@ for (root, _, files) in walkdir(unitfulrecipes), file in files
     Literate.markdown(ipath, opath, documenter = execute)
     nb && Literate.notebook(ipath, notebooks, execute = execute)
 end
-##################
 
 const PAGES = Any[
     "Home" => "index.md",
@@ -132,11 +138,7 @@ const PAGES = Any[
     "API" => "api.md",
 ]
 
-generate_attr_markdown()
-generate_supported_markdown()
-generate_graph_attr_markdown()
-generate_colorschemes_markdown()
-
+@info "makedocs"
 ansicolor = get(ENV, "PLOTDOCS_ANSICOLOR", "true") == "true"
 @show ansicolor
 @time makedocs(
@@ -156,6 +158,7 @@ foreach(galleries_cb) do cb
     cb()  # URL redirection for DemoCards-generated gallery
 end
 
+@info "deploydocs"
 deploydocs(
     repo = "github.com/JuliaPlots/PlotDocs.jl.git",
     versions = ["stable" => "v^", "v#.#", "dev" => "dev", "latest" => "dev"],
