@@ -36,7 +36,7 @@ The plot is displayed in a plot pane, a stand-alone window or the browser,
 depending on the environment and backend (see [below](@ref plotting-backends)).
 
 If this is your first plot of the session and it takes a while to show up,
-this is normal; this latency is called the "time to first plot" problem, 
+this is normal; this latency is called the "time to first plot" problem (or `TTFP`), 
 and subsequent plots will be fast. Because of the way Julia works under
 the hood, this is a difficult problem to solve, but much progress has been made
 in the past few years to reduce this compilation time.
