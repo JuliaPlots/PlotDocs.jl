@@ -92,7 +92,7 @@ savefig("myplot.png")      # saves the CURRENT_PLOT as a .png
 savefig(p, "myplot.pdf")   # saves the plot from p as a .pdf vector graphic
 ```
 
-There also exist convenience functions `png` and `pdf`. With these, the extension 
+There also exist convenience functions `png`, `Plots.pdf` and other unexported helpers. With these, the extension 
 is omitted from the filename. The following is equivalent to the above code:
 
 ```julia
