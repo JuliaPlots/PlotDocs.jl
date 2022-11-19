@@ -8,7 +8,8 @@ Plots.reset_defaults()
 This is a guide for getting you up and running with Plots.jl. Its main goal is
 to introduce you to the terminology used in the package, how to use Plots.jl in
 common use cases, and put you in a position to easily understand the rest of
-the manual.
+the manual. We recommend you follow along the code examples inside the REPL
+or an interactive notebook.
 
 ## Basic Plotting: Line Plots
 
@@ -86,8 +87,8 @@ In cases where the plot variable is omitted, Plots.jl uses the global
 
 In the previous section we made plots... we're done, right? No! We need to style
 our plots. In Plots.jl, the modifiers to plots are called **attributes**, which
-are documented at the [attributes page](@ref attributes). Plots.jl follows a simple
-rule with data vs attributes: 
+are documented at the [attributes page](@ref attributes). Plots.jl follows two 
+simple rules with data and attributes: 
 
 * Positional arguments correspond to input data
 * Keyword arguments correspond to attributes
@@ -99,8 +100,9 @@ one attribute assigned to some value.
 As an example, we can change the line width using `linewidth` (or its alias `lw`), 
 change the legend's labels using `label`, and add a title with `title`. Notice how
 `["sin(x)" "cos(x)"]` has the same number of columns as the data.
-Additionally, since the linewidth is being attributed to `[y1 y2]`, both lines 
-will be affected by the assigned value. Let's apply these to our previous plot:
+Additionally, since the line width is being attributed to `[y1 y2]`, both lines 
+will be affected by the assigned value. Let's apply all of this to our previous 
+plot:
 
 ```@example tutorial
 x = range(0, 10, length=100)
@@ -115,17 +117,24 @@ while others can be accessed through `plot!(attribute=value)`.
 For example, the `xlabel` attribute adds a label for the 
 x-axis. We can specify it in the plot command with `xlabel=...` like we did 
 above, or we can use the modifier function to add it after the plot has already 
-been generated. It's up to you to decide which is better for code readability. 
+been generated. It's up to you to decide which is better for code readability.
+
+```julia
+xlabel!("x")
+```
 
 Every modifier function is the name of the attribute followed by `!`. This will
 implicitly use the global `Plots.CURRENT_PLOT`. We can apply it to
-other plot objects via `attribute!(p, value)`. 
+other plot objects via `attribute!(p, value)`, where `p` is the name
+of the plot object that wants to be modified.
 
-Let's use keywords and modifier functions interchangeably
-to perform the some common modifications. You'll notice that for the attributes
-`ls` and `legend`, a colon `:` is inserted before the name. The colon denotes
-a symbol in Julia, which are commonly used for values of attributes, along with
-strings and numbers.
+Let's use keywords and modifier functions interchangeably to perform some 
+common modifications to our example, listed below. You'll notice that for the 
+attributes `ls` and `legend`, a colon `:` is inserted before the name. 
+The colon denotes a symbol in Julia. They are commonly used for values of 
+attributes in Plots.jl, along with strings and numbers. Another thing to note
+is that `y3` is being plotted as a dotted line. This is distinct from a
+scatter plot of the data.
 
 * Labels for the individual lines, seen in the legend
 * Line widths (we'll use the alias `lw` instead of `linewidth`)
@@ -152,6 +161,120 @@ ylabel!("y")
 
 More information about attributes can be found in the Attributes section 
 of the Manual.
+
+## Changing the Plotting Series
+
+At this point you know about line plots, but don't you want to plot your data
+in other ways? In Plots.jl, these other ways of plotting a series is called a
+**series type**. A line is one series type. However, a scatter plot is another
+series type which is commonly used. 
+
+Let's start with the sine function again, but this type, we'll define a vector
+called `y_noisy` that adds some randomness. 
+We can change the series type by the `seriestype` attribute.
+
+```@example tutorial
+x = range(0, 10, length=100)
+y = sin.(x)
+y_noisy = @. sin(x) + 0.1*randn()
+
+plot(x, y, label="sin(x)")
+plot!(x, y_noisy, seriestype=:scatter, label="data")
+```
+
+For each built-in series type, there is a shorthand function for directly
+calling that series type which matches the name of the series type. It handles
+attributes just the same as the `plot` command, and have a mutating form which
+ends in `!`. For example, we can instead write the last line as:
+
+```julia
+scatter!(x, y_noisy, label="data")
+```
+
+The series types which are available are dependent on the backend, and are
+documented on the [Supported Attributes page](@ref supported). As we will describe
+later, other libraries can add new series types using **recipes**.
+
+Scatter plots will have some common attributes related to the markers. Here
+is an example of the same plot, but with some attributes fleshed out to make
+the plot more presentable. Many aliases are used for brevity:
+
+* `lc` for `linecolor`
+* `lw` for `linewidth`
+* `mc` for `markercolor`
+* `ms` for `markersize`
+* `ma` for `markeralpha`
+
+```@example tutorial
+using Random
+Random.seed!(1234)   # set the seed to make the plot reproducible
+
+x = range(0, 10, length=100)
+y = sin.(x)
+y_noisy = @. sin(x) + 0.1*randn()
+
+plot(x, y, label="sin(x)", lc=:black, lw=2)
+scatter!(x, y_noisy, label="data", mc=:red, ms=2, ma=0.5)
+plot!(legend=:bottomleft)
+title!("Sine with noise")
+xlabel!("x")
+ylabel!("y")
+```
+
+## Plotting in Scripts
+
+At the start of the tutorial, we recommended following along the code examples 
+in an interactive session for the following reason: try adding those same 
+plotting commands to a script. Now call the script... and the plot doesn't 
+show up? This is because Julia in interactive use calls `display` on every 
+variable that is returned by a command without a semicolon `;`. In each case 
+above, the interactive usage was automatically calling `display` on the returned
+plot objects.
+
+In a script, Julia does not do automatic displays, which is why `;` is not
+necessary. However, if we would like to display our plots in a script, this
+means we just need to add the `display` call. For example:
+
+```julia
+display(plot(x, y))
+```
+
+Alternatively, we could call `gui()` at the end to do the same thing.
+If we have a plot object `p`, we can type `display(p)` to display the plot.
+
+## Combining Multiple Plots as Subplots
+
+We can combine multiple plots together as subplots using **layouts**.
+There are many methods for doing this, and we will show two simple methods
+for generating simple layouts. More advanced layouts are shown in the
+[Layouts page](@ref layouts).
+
+The first method is to define a layout which will split a series. The `layout`
+command takes in a 2-tuple `layout=(N, M)` which builds an NxM grid of plots.
+It will automatically split a series to be in each plot. For example, if we do
+`layout=(4,1)` on a plot with four series, then we will get four rows of plots,
+each with one series in it:
+
+```@example tutorial
+y = rand(10, 4)
+plot(x, y, layout = (4, 1))
+```
+
+We can also use layouts on plots of plot objects. For example, we can generate
+for separate plots and make a single plot that combines them in a 2x2 grid
+via the following:
+
+```@example tutorial
+p1 = plot(x, y) # Make a line plot
+p2 = scatter(x, y) # Make a scatter plot
+p3 = plot(x, y, xlabel = "This one is labelled", lw = 3, title = "Subtitle")
+p4 = histogram(x, y) # Four histograms each with 10 points? Why not!
+plot(p1, p2, p3, p4, layout = (2, 2), legend = false)
+```
+
+Notice that the attributes in the individual plots are applied to the
+individual plots, while the attributes on the final `plot` call are applied
+to all of the subplots.
 
 ## [Plotting Backends](@id plotting-backends)
 
@@ -204,84 +327,6 @@ savefig(p, "myplot.pdf") # Saves the plot from p as a .pdf vector graphic
 Some backends like GR can save to vector graphics and PDFs, while others like Plotly only save to `.png`s. For more information on backends, see the
 [backends page](@ref backends). For examples of plots from the various backends, see
 the Examples section.
-
-## Changing the Plotting Series
-
-At this point you're a master of lines, but don't you want to plot your data
-in other ways? In Plots.jl, these other ways of plotting a series is called a
-**series type**. A line is one series type. However, a scatter plot is another
-series type which is commonly used. We can change the series type by the
-`seriestype` attribute:
-
-```@example tutorial
-gr() # We will continue onward using the GR backend
-plot(x, y, seriestype = :scatter, title = "My Scatter Plot")
-```
-
-For each built-in series type, there is a shorthand function for directly
-calling that series type which matches the name of the series type. It handles
-attributes just the same as the `plot` command, and have a mutating form which
-ends in `!`. For example, we can instead do that scatter plot with:
-
-```@example tutorial
-scatter(x, y, title = "My Scatter Plot")
-```
-
-The series types which are available are dependent on the backend, and are
-documented on the [Supported Attributes page](@ref supported). As we will describe
-later, other libraries can add new series types via **recipes** as well.
-
-## Plotting in Scripts
-
-Now that you're making useful plots, go ahead and add these plotting commands
-to a script. Now call the script... and the plot doesn't show up? This is
-because Julia in interactive use calls `display` on every variable that is
-returned by a command without a `;`. Thus in each case above, the interactive
-usage was automatically calling `display` on the returned plot objects.
-
-In a script, Julia does not do automatic displays (which is why `;` is not
-necessary). However, if we would like to display our plots in a script, this
-means we just need to add the `display` call. For example:
-
-```julia
-display(plot(x, y))
-```
-
-If we have a plot object `p`, we can do `display(p)` at any time.
-
-## Combining Multiple Plots as Subplots
-
-We can combine multiple plots together as subplots using **layouts**.
-There are many methods for doing this, and we will show two simple methods
-for generating simple layouts. More advanced layouts are shown in the
-[Layouts page](@ref layouts).
-
-The first method is to define a layout which will split a series. The `layout`
-command takes in a 2-tuple `layout=(N, M)` which builds an NxM grid of plots.
-It will automatically split a series to be in each plot. For example, if we do
-`layout=(4,1)` on a plot with four series, then we will get four rows of plots,
-each with one series in it:
-
-```@example tutorial
-y = rand(10, 4)
-plot(x, y, layout = (4, 1))
-```
-
-We can also use layouts on plots of plot objects. For example, we can generate
-for separate plots and make a single plot that combines them in a 2x2 grid
-via the following:
-
-```@example tutorial
-p1 = plot(x, y) # Make a line plot
-p2 = scatter(x, y) # Make a scatter plot
-p3 = plot(x, y, xlabel = "This one is labelled", lw = 3, title = "Subtitle")
-p4 = histogram(x, y) # Four histograms each with 10 points? Why not!
-plot(p1, p2, p3, p4, layout = (2, 2), legend = false)
-```
-
-Notice that the attributes in the individual plots are applied to the
-individual plots, while the attributes on the final `plot` call are applied
-to all of the subplots.
 
 ## Plot Recipes and Recipe Libraries
 
