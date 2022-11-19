@@ -28,13 +28,12 @@ function recursive_rmlines(x::Expr)
     x
 end
 
-function pretty_print_expr(io::IO, expr::Expr)
+pretty_print_expr(io::IO, expr::Expr) =
     if expr.head === :block
         foreach(arg -> println(io, arg), recursive_rmlines(expr).args)
     else
         println(io, recursive_rmlines(expr))
     end
-end
 
 markdown_code_to_string(arr, prefix = "") =
     surround_backticks(prefix, join(sort(map(string, arr)), "`, `$prefix"))
@@ -178,7 +177,7 @@ function generate_supported_markdown()
 
     """)
 
-    supported_args =OrderedDict(
+    supported_args = OrderedDict(
         "Keyword Arguments" => (Plots._all_args, Plots.supported_attrs),
         "Markers" => (Plots._allMarkers, Plots.supported_markers),
         "Line Styles" => (Plots._allStyles,  Plots.supported_styles),
@@ -500,8 +499,7 @@ function to_html(df::AbstractDataFrame; table_style=Dict("font-size" => "12px"),
     io = PipeBuffer()  # NOTE: `DataFrames` exports `PrettyTables`
     show(
         IOContext(io, :limit => false, :compact => false), MIME"text/html"(), df;
-        show_row_number=false, summary=false, eltypes=false, standalone=false,
-        table_style,
+        show_row_number=false, summary=false, eltypes=false, table_style,
         kw...
     )
     read(io, String)
