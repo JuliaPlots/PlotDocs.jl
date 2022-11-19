@@ -12,58 +12,86 @@ the manual.
 
 ## Basic Plotting: Line Plots
 
-The most basic plots are line plots. Assuming you have installed Plots.jl via
-`Pkg.add("Plots")`, you can plot a line by calling `plot` on two vectors of
-numbers. For example:
+After you have installed Plots.jl, the first step is to initialize the package.
+Depending on your computer, this will take a few seconds:
 
 ```@example tutorial
 using Plots
-x = 1:10; y = rand(10); # These are the plotting data
+```
+
+To start, let's plot some trig functions. For the `x` coordinates, we can
+create a range from 0 to 10 of, say, 100 elements. For the `y` coordinates, we 
+can create a vector by evaluating `sin(x)` in an element-wise fashion. To do this 
+in Julia, we insert a dot right after the function call. Finally, we use `plot()`
+to plot the line.
+
+```@example tutorial
+x = range(0, 10, length=100)
+y = sin.(x)
 plot(x, y)
 ```
 
 The plot is displayed in a plot pane, a stand-alone window or the browser,
 depending on the environment and backend (see [below](@ref plotting-backends)).
 
-In Plots.jl, every column is a **series**, i.e. a set of related points which
-form lines, surfaces, or other plotting primitives. Thus we can plot multiple
-lines by plotting a matrix of values and each column is interpreted as a
-separate line:
+If this is your first plot of the session and it takes a while to show up,
+this is normal; this latency is often called the "time to first plot" (TTFP)
+problem, and subsequent plots will be fast. Because of the way Julia works under
+the hood, this is a difficult problem to solve, but much progress has been made
+in the past few years to reduce this compilation time.
+
+In Plots.jl, every column is a **series**, a set of related points which
+form lines, surfaces, or other plotting primitives. We can plot multiple
+lines by plotting a matrix of values where each column is interpreted as a
+separate line. Below, `[y1 y2]` forms a `100x2` matrix (100 elements, 2 columns).
 
 ```@example tutorial
-x = 1:10; y = rand(10, 2) # 2 columns means two lines
-plot(x, y)
+x = range(0, 10, length=100)
+y1 = sin.(x)
+y2 = cos.(x)
+plot(x, [y1 y2])
 ```
 
 Additionally, we can add more lines by mutating the plot object. This is done
-by the `plot!` command. Let's add another line to our current plot:
+by the `plot!` command, where the `!` denotes that the command is modifying
+the current plot.
+You'll notice that we use an `@.` macro. This is a convenience macro
+that inserts dots for every function call to the right of the macro, ensuring 
+that the entire expression is to be evaluated in an element-wise manner. 
+If we inputted the dots manually, we would need three of them for the sine, 
+exponent, and subtraction, and the resulting code would be less readable.
 
 ```@example tutorial
-z = rand(10)
-plot!(x, z)
+y3 = @. sin(x)^2 - 1/2   # equivalent to y3 = sin.(x).^2 .- 1/2
+plot!(x, y3)
 ```
 
 Note that we could have done the same as above using an explicit plot variable:
 
 ```@example tutorial
-x = 1:10; y = rand(10, 2) # 2 columns means two lines
-p = plot(x, y)
-z = rand(10)
-plot!(p, x, z)
+x = range(0, 10, length=100)
+y1 = sin.(x)
+y2 = cos.(x)
+p = plot(x, [y1 y2])
+
+y3 = @. sin(x)^2 - 1/2
+plot!(p, x, y3)
 ```
 
-Note that in the case where `p` is omitted, Plots.jl uses the global
-`Plots.CURRENT_PLOT` automatically in the same manner.
+In cases where the plot variable is omitted, Plots.jl uses the global
+`Plots.CURRENT_PLOT` automatically.
 
 ## Plot Attributes
 
-In the previous section we made plots... we're done right? No! We need to style
-our plots. In Plots.jl, the modifiers to plots are called **attributes**. These
+In the previous section we made plots... we're done, right? No! We need to style
+our plots. In Plots.jl, the modifiers to plots are called **attributes**, which
 are documented at the [attributes page](@ref attributes). Plots.jl follows a simple
-rule with data vs attributes: positional arguments are input data, and keyword
-arguments are attributes. Thus something like `plot(x,y,z)` is 3-dimensional
-data for 3D plots, while `plot(x,y,attribute=value)` is 2-dimensional with
-an attribute.
+rule with data vs attributes: 
+* Positional arguments correspond to input data
+* Keyword arguments correspond to attributes
+So something like `plot(x, y, z)` is 3-dimensional data for 3D plots, 
+while `plot(x, y, attribute=value)` is 2-dimensional data with an attribute assigned
+to some value.
 
 As an example, we see that from the attributes page that we can increase the
 line width using `linewidth` (or its alias `lw`), change the legend's labels
