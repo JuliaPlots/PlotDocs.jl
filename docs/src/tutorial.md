@@ -474,7 +474,7 @@ requires no more intervention!
 ### Using Plot Recipes
 
 StatsPlots.jl adds the `marginhist` multiplot via a plot recipe. For our data,
-we'll pull in the famous `iris` dataset from RDatasets:
+we will pull in the famous `iris` dataset from RDatasets:
 
 ```@example tutorial
 # Pkg.add("RDatasets")
