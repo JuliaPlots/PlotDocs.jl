@@ -43,15 +43,15 @@ galleries_assets = String[]
 galleries_cb = []
 user_gallery = []
 if get(ENV, "PLOTDOCS_GALLERY", "true") == "true"
-    for (bename, be) in [
+    for (bename, be) in (
         ("GR", :gr),
-        ("PlotlyJS", :plotlyjs),
         ("PyPlot", :pyplot),
+        ("PlotlyJS", :plotlyjs),
         ("PGFPlotsX", :pgfplotsx),
         ("UnicodePlots", :unicodeplots),
         ("InspectDR", :inspectdr),
         ("Gaston", :gaston),
-    ]
+    )
         generate_cards(be)
         let (path, cb, assets) = makedemos("gallery/$be"; src = "src/gallery")
             push!(galleries, bename => joinpath("gallery", path))
@@ -62,9 +62,8 @@ if get(ENV, "PLOTDOCS_GALLERY", "true") == "true"
     user_gallery, cb, assets = makedemos("user_gallery"; src = "src")
     push!(galleries_cb, cb)
     push!(galleries_assets, assets)
-    unique!(galleries_assets)
 end
-@info "generated $(length(galleries_assets)) gallery card(s)" 
+unique!(galleries_assets)
 
 @info "UnitfulRecipes"
 src_unitfulrecipes = "src/UnitfulRecipes"
@@ -142,9 +141,8 @@ const PAGES = Any[
     "API" => "api.md",
 ]
 
-@info "makedocs"
 ansicolor = get(ENV, "PLOTDOCS_ANSICOLOR", "true") == "true"
-@show ansicolor
+@info "makedocs" ansicolor
 @time makedocs(
     format = Documenter.HTML(
         prettyurls = get(ENV, "CI", nothing) == "true",
