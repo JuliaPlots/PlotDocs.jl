@@ -171,9 +171,9 @@ ylabel!("y")
 ### Logarithmic Scale Plots
 
 Sometimes data needs to be plotted across orders of magnitude. The attributes
-`xscale` and `yscale` can be set to `:log10`. Care should be taken to ensure
-that the data and limits are positive. In our case, `x` has to start from
-a positive number, and the lower y-limit cannot be 0.
+`xscale` and `yscale` can be set to `:log10` in this case. They can also be
+set to `:identity` to keep them linear-scale.
+Care should be taken to ensure that the data and limits are positive. 
 
 ```@example tutorial
 x = 10 .^ range(0, 4, length=100)
@@ -181,8 +181,8 @@ y = @. 1/(1+x)
 
 plot(x, y, label="1/(1+x)")
 plot!(xscale=:log10, yscale=:log10, minorgrid=true)
-xlims!(1e0, 1e4)
-ylims!(1e-5, 1e0)
+xlims!(1e+0, 1e+4)
+ylims!(1e-5, 1e+0)
 title!("Log-log plot") 
 xlabel!("x")
 ylabel!("y")
@@ -226,7 +226,8 @@ later, other libraries can add new series types using **recipes**.
 
 Scatter plots will have some common attributes related to the markers. Here
 is an example of the same plot, but with some attributes fleshed out to make
-the plot more presentable. Many aliases are used for brevity:
+the plot more presentable. Many aliases are used for brevity, and the list
+below is by no means exhaustive.
 
 * `lc` for `linecolor`
 * `lw` for `linewidth`
@@ -262,7 +263,8 @@ However, let's say we want a different plotting backend which will plot into
 a nice GUI or into the plot pane of VS Code. To do this, we'll need a backend 
 which is compatible with these features. Some common backends for this are 
 PyPlot and Plotly. For example, to install PyPlot, simply type the command 
-`Pkg.add("PyPlot")` into the REPL; to install Plotly, replace with `PlotlyJS`.
+`Pkg.add("PyPlot")` into the REPL; to install Plotly, type
+`Pkg.add("PlotlyJS")`.
 
 We can specifically choose the backend we are plotting into by using the name 
 of the backend in all lowercase as a function. Let's plot the example from 
@@ -299,7 +301,7 @@ ylabel!("y")
 Each plotting backend has a very different feel. Some have interactivity, some
 are faster and can deal with huge numbers of datapoints, and some can do
 3D plots. Some backends like GR can save to vector graphics and PDFs, while 
-others like Plotly only save to PNGs. 
+others like Plotly can only save to PNGs. 
 
 For more information on backends, see the [backends page](@ref backends). 
 For examples of plots from the various backends, see the Examples section.
@@ -353,7 +355,7 @@ plot(x, [y1 y2 y3], layout=(3, 1), legend=false)
 ```
 
 We can also use layouts on plots of plot objects. For example, we can generate
-four separate plots and make a single plot that combines them in a 2x2 grid.
+four separate plots and make a single plot that combines them into a 2x2 grid.
 
 ```@example tutorial
 x = range(0, 10, length=100)
@@ -406,26 +408,31 @@ directly from data tables.
 ### Using User Recipes
 
 A user recipe says how to interpret plotting commands on a new data type.
-In this case, StatsPlots.jl thus has a macro `@df` which allows you to plot
+In this case, StatsPlots.jl has a macro `@df` which allows you to plot
 a `DataFrame` directly by using the column names. Let's build a `DataFrame`
 with columns `a`, `b`, and `c`, and tell Plots.jl to use `a` as the `x` axis
 and plot the series defined by columns `b` and `c`:
 
 ```@example tutorial
 # Pkg.add("StatsPlots")
-using StatsPlots # Required for the DataFrame user recipe
-# Now let's create the DataFrame
+# required for the dataframe user recipe
+using StatsPlots 
+
+# now let's create the dataframe
 using DataFrames
-df = DataFrame(a = 1:10, b = 10 * rand(10), c = 10 * rand(10))
-# Plot the DataFrame by declaring the points by the column names
-@df df plot(:a, [:b :c]) # x = :a, y = [:b :c]. Notice this is two columns!
+df = DataFrame(a=1:10, b=10*rand(10), c=10*rand(10))
+
+# plot the dataframe by declaring the points by the column names
+# x = :a, y = [:b :c] (notice that y has two columns!)
+@df df plot(:a, [:b :c])
 ```
 
-Notice there's not much you have to do here: all of the commands from before
+There's not much you have to do here: all of the commands from before
 (attributes, series types, etc.) will still work on this data:
 
 ```@example tutorial
-@df df scatter(:a, :b, title = "My DataFrame Scatter Plot!") # x = :a, y = :b
+# x = :a, y = :b
+@df df scatter(:a, :b, title="My DataFrame Scatter Plot!") 
 ```
 
 ### Using a Type Recipe
@@ -436,49 +443,49 @@ data:
 
 ```@example tutorial
 using Distributions
-plot(Normal(3, 5), lw = 3)
+plot(Normal(3, 5), lw=3)
 ```
 
-Thus type recipes are a very convenient way to plot a specialized type which
+Type recipes are a very convenient way to plot a specialized type which
 requires no more intervention!
 
 ### Using Plot Recipes
 
-StatsPlots.jl adds the `marginhist` multiplot via a plot recipe. For our data
-we will pull in the famous `iris` dataset from RDatasets:
+StatsPlots.jl adds the `marginhist` multiplot via a plot recipe. For our data,
+we'll pull in the famous `iris` dataset from RDatasets:
 
 ```@example tutorial
-#Pkg.add("RDatasets")
+# Pkg.add("RDatasets")
 using RDatasets, StatsPlots
 iris = dataset("datasets", "iris")
 @df iris marginalhist(:PetalLength, :PetalWidth)
 ```
 
-Here `iris` is a Dataframe, using the `@df` macro on `Dataframe`s described above,
+Here, `iris` is a DataFrame; using the `@df` macro on `DataFrame`s described above,
 we give `marginalhist(x, y)` the data from the `PetalLength` and the `PetalWidth`
 columns.
 
-This demonstrates two important facts. Notice that this is more than a series
-since it generates multiple series (i.e. there are multiple plots due to the
-hists on the top and right). Thus a plot recipe is not just a series but instead
-something like a new `plot` command.
+Notice that this is more than a series since it generates multiple series 
+(i.e. there are multiple plots due to the hists on the top and right). 
+Thus a plot recipe is not just a series, but also something like a new 
+`plot` command.
 
 ### Using Series Recipes
 
 StatsPlots.jl also introduces new series recipes. The key is that you don't have
-to do anything differently: after `using StatsPlots` you can simply use those
+to do anything differently. After `using StatsPlots`, you can simply use those
 new series recipes as though they were built into the plotting libraries. Let's
 use the Violin plot on some random data:
 
 ```@example tutorial
-y = rand(100, 4) # Four series of 100 points each
-violin(["Series 1" "Series 2" "Series 3" "Series 4"], y, leg = false)
+y = rand(100, 4)
+violin(["Series 1" "Series 2" "Series 3" "Series 4"], y, legend=false)
 ```
 
-and we can add a `boxplot` on top using the same mutation commands as before:
+We can add a `boxplot` on top using the same mutation commands as before:
 
 ```@example tutorial
-boxplot!(["Series 1" "Series 2" "Series 3" "Series 4"], y, leg = false)
+boxplot!(["Series 1" "Series 2" "Series 3" "Series 4"], y, legend=false)
 ```
 
 ## Additional Addons To Try
