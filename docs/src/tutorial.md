@@ -191,6 +191,29 @@ ylabel!("y")
 More information about attributes can be found in the Attributes section 
 of the Manual.
 
+### LaTeX Equation Strings
+
+Plots.jl works with LaTeXStrings.jl, a package that allows the user to type
+LaTeX equations in string literals. To install this, type in
+`Pkg.add("LaTeXStrings")`. The easiest way to use it is to prepend `L` to a
+LaTeX-formatted string. Here's an example of it in use. Note that `*` denotes 
+string concatenation in Julia.
+
+```@example tutorial
+using LaTeXStrings
+
+x = 10 .^ range(0, 4, length=100)
+y = @. 1/(1+x)
+
+plot(x, y, label=L"\frac{1}{1+x}")
+plot!(xscale=:log10, yscale=:log10, minorgrid=true)
+xlims!(1e+0, 1e+4)
+ylims!(1e-5, 1e+0)
+title!("Log-log plot of " * L"\frac{1}{1+x}") 
+xlabel!(L"x")
+ylabel!(L"y")
+```
+
 ## Changing the Plotting Series
 
 At this point you know about line plots, but don't you want to plot your data
