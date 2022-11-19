@@ -44,7 +44,7 @@ in the past few years to reduce this compilation time.
 In Plots.jl, every column is a **series**, a set of related points which
 form lines, surfaces, or other plotting primitives. We can plot multiple
 lines by plotting a matrix of values where each column is interpreted as a
-separate line. Below, `[y1 y2]` forms a `100x2` matrix (100 elements, 2 columns).
+separate line. Below, `[y1 y2]` forms a 100x2 matrix (100 elements, 2 columns).
 
 ```@example tutorial
 x = range(0, 10, length=100)
@@ -82,6 +82,15 @@ plot!(p, x, y3)
 
 In cases where the plot variable is omitted, Plots.jl uses the global
 `Plots.CURRENT_PLOT` automatically.
+
+### Saving Figures
+
+Saving plots is done by the `savefig` command. For example:
+
+```julia
+savefig("myplot.png") # Saves the CURRENT_PLOT as a .png
+savefig(p, "myplot.pdf") # Saves the plot from p as a .pdf vector graphic
+```
 
 ## Plot Attributes
 
@@ -159,6 +168,26 @@ xlabel!("x")
 ylabel!("y")
 ```
 
+### Logarithmic Scale Plots
+
+Sometimes data needs to be plotted across orders of magnitude. The attributes
+`xscale` and `yscale` can be set to `:log10`. Care should be taken to ensure
+that the data and limits are positive. In our case, `x` has to start from
+a positive number, and the lower y-limit cannot be 0.
+
+```@example tutorial
+x = 10 .^ range(0, 4, length=100)
+y = @. 1/(1+x)
+
+plot(x, y, label="1/(1+x)")
+plot!(xscale=:log10, yscale=:log10, minorgrid=true)
+xlims!(1e0, 1e4)
+ylims!(1e-5, 1e0)
+title!("Log-log plot") 
+xlabel!("x")
+ylabel!("y")
+```
+
 More information about attributes can be found in the Attributes section 
 of the Manual.
 
@@ -206,9 +235,6 @@ the plot more presentable. Many aliases are used for brevity:
 * `ma` for `markeralpha`
 
 ```@example tutorial
-using Random
-Random.seed!(1234)   # set the seed to make the plot reproducible
-
 x = range(0, 10, length=100)
 y = sin.(x)
 y_noisy = @. sin(x) + 0.1*randn()
@@ -220,6 +246,63 @@ title!("Sine with noise")
 xlabel!("x")
 ylabel!("y")
 ```
+
+## [Plotting Backends](@id plotting-backends)
+
+Here's a secret: Plots.jl isn't actually a plotting package! Plots.jl is a
+plotting metapackage: it's an interface over many different plotting libraries.
+What Plots.jl is actually doing is interpreting your commands and then
+generating the plots using another plotting library, called the **backend**. 
+The nice thing about this is that you can use many different plotting libraries
+all with the Plots.jl syntax, and we'll see in a little bit that Plots.jl 
+adds new features to each of these libraries!
+
+When we started plotting above, our plot used the default backend GR. 
+However, let's say we want a different plotting backend which will plot into 
+a nice GUI or into the plot pane of VS Code. To do this, we'll need a backend 
+which is compatible with these features. Some common backends for this are 
+PyPlot and Plotly. For example, to install PyPlot, simply type the command 
+`Pkg.add("PyPlot")` into the REPL; to install Plotly, replace with `PlotlyJS`.
+
+We can specifically choose the backend we are plotting into by using the name 
+of the backend in all lowercase as a function. Let's plot the example from 
+above using Plotly and then GR:
+
+```@example tutorial
+plotlyjs()   # set the backend to Plotly
+
+x = range(0, 10, length=100)
+y = sin.(x)
+y_noisy = @. sin(x) + 0.1*randn()
+
+# this plots into the web browser via Plotly
+plot(x, y, label="sin(x)", lc=:black, lw=2)
+scatter!(x, y_noisy, label="data", mc=:red, ms=2, ma=0.5)
+plot!(legend=:bottomleft)
+title!("Sine with noise, plotted with Plotly")
+xlabel!("x")
+ylabel!("y")
+```
+
+```@example tutorial
+gr()   # set the backend to GR
+
+# this plots using GR
+plot(x, y, label="sin(x)", lc=:black, lw=2)
+scatter!(x, y_noisy, label="data", mc=:red, ms=2, ma=0.5)
+plot!(legend=:bottomleft)
+title!("Sine with noise, plotted with GR")
+xlabel!("x")
+ylabel!("y")
+```
+
+Each plotting backend has a very different feel. Some have interactivity, some
+are faster and can deal with huge numbers of datapoints, and some can do
+3D plots. Some backends like GR can save to vector graphics and PDFs, while 
+others like Plotly only save to PNGs. 
+
+For more information on backends, see the [backends page](@ref backends). 
+For examples of plots from the various backends, see the Examples section.
 
 ## Plotting in Scripts
 
@@ -240,7 +323,8 @@ display(plot(x, y))
 ```
 
 Alternatively, we could call `gui()` at the end to do the same thing.
-If we have a plot object `p`, we can type `display(p)` to display the plot.
+Finally, if we have a plot object `p`, we can type `display(p)` to 
+display the plot.
 
 ## Combining Multiple Plots as Subplots
 
@@ -250,83 +334,45 @@ for generating simple layouts. More advanced layouts are shown in the
 [Layouts page](@ref layouts).
 
 The first method is to define a layout which will split a series. The `layout`
-command takes in a 2-tuple `layout=(N, M)` which builds an NxM grid of plots.
-It will automatically split a series to be in each plot. For example, if we do
-`layout=(4,1)` on a plot with four series, then we will get four rows of plots,
-each with one series in it:
+command takes in a 2-tuple `layout=(N, M)` which builds an NxM grid of plots,
+and it will automatically split a series to be in each plot. For example, if we 
+type `layout=(3, 1)` on a plot with three series, then we will get three rows of 
+plots, each with one series in it.
+
+Let's define some functions and plot them in separate plots. Since there's only
+one series in each plot, we'll also remove the legend in each of the plots 
+using `legend=false`.
 
 ```@example tutorial
-y = rand(10, 4)
-plot(x, y, layout = (4, 1))
+x = range(0, 10, length=100)
+y1 = @. exp(-0.1x) * cos(4x)
+y2 = @. exp(-0.3x) * cos(4x)
+y3 = @. exp(-0.5x) * cos(4x)
+y = [y1 y2 y3]
+plot(x, [y1 y2 y3], layout=(3, 1), legend=false)
 ```
 
 We can also use layouts on plots of plot objects. For example, we can generate
-for separate plots and make a single plot that combines them in a 2x2 grid
-via the following:
+four separate plots and make a single plot that combines them in a 2x2 grid.
 
 ```@example tutorial
-p1 = plot(x, y) # Make a line plot
-p2 = scatter(x, y) # Make a scatter plot
-p3 = plot(x, y, xlabel = "This one is labelled", lw = 3, title = "Subtitle")
-p4 = histogram(x, y) # Four histograms each with 10 points? Why not!
-plot(p1, p2, p3, p4, layout = (2, 2), legend = false)
+x = range(0, 10, length=100)
+y1 = @. exp(-0.1x) * cos(4x)
+y2 = @. exp(-0.3x) * cos(4x)
+y3 = @. exp(-0.1x)
+y4 = @. exp(-0.3x)
+y = [y1 y2 y3 y4]
+
+p1 = plot(x, y)
+p2 = plot(x, y, title="Title 2", lw=3)
+p3 = scatter(x, y, ms=2, ma=0.5, xlabel="xlabel 3")
+p4 = scatter(x, y, title="Title 4", ms=2, ma=0.2)
+plot(p1, p2, p3, p4, layout=(2,2), legend=false)
 ```
 
 Notice that the attributes in the individual plots are applied to the
-individual plots, while the attributes on the final `plot` call are applied
-to all of the subplots.
-
-## [Plotting Backends](@id plotting-backends)
-
-Here's a secret: Plots.jl isn't actually a plotting package! Plots.jl is a
-plotting metapackage: it's an interface over many different plotting libraries.
-Thus what Plots.jl is actually doing is interpreting your commands and then
-generating the plots using another plotting library. This plotting library in
-the background is referred to as the **backend**. The nice thing about this
-is that this means you can use many different plotting libraries all with the
-Plots.jl syntax, and we'll see in a little bit that Plots.jl adds new features
-to each of these libraries!
-
-When we started plotting above, our plot used the default backend GR. However, let's say we want a
-different plotting backend which will plot into a nice GUI or into the plot pane
-of VS Code. To do this, we'll need a backend which is compatible with these
-features. Some common backends for this are PyPlot and Plotly. To install these
-backends, simply use the standard Julia installation
-(`Pkg.add("BackendPackage")`). We can specifically choose the backend we are
-plotting into by using the name of the backend in all lower case as a function.
-Let's plot the example from above using Plotly and then GR:
-
-```@example tutorial
-x = 1:10; y = rand(10, 2) # 2 columns means two lines
-plotlyjs() # Set the backend to Plotly
-# This plots into the web browser via Plotly
-plot(x, y, title = "This is Plotted using Plotly")
-png("tutorial_1") # hide
-```
-![](tutorial_1.png)
-
-```@example tutorial
-gr() # Set the backend to GR
-# This plots using GR
-plot(x, y, title = "This is Plotted using GR")
-```
-
-If you're in VS Code or Juno, the first plot command will cause the plot to open in the
-plot pane. If you're in the REPL, the plot command will open in a browser window. You can always
-open a GUI anyways by using the `gui()` command.
-
-Each plotting backend has a very different feel. Some have interactivity, some
-are faster and can deal with huge numbers of datapoints, and some can do
-3D plots. Saving plots is done by the `savefig` command. As an example:
-
-```julia
-savefig("myplot.png") # Saves the CURRENT_PLOT as a .png
-savefig(p, "myplot.pdf") # Saves the plot from p as a .pdf vector graphic
-```
-
-Some backends like GR can save to vector graphics and PDFs, while others like Plotly only save to `.png`s. For more information on backends, see the
-[backends page](@ref backends). For examples of plots from the various backends, see
-the Examples section.
+individual plots, while the attribute `legend=false` in the final `plot` 
+call is applied to all of the subplots.
 
 ## Plot Recipes and Recipe Libraries
 
@@ -354,8 +400,8 @@ on are:
 2. It adds a plot recipe for marginal histograms.
 3. It adds a bunch of new statistical plot series.
 
-Besides recipes, StatsPlots.jl also provides a specialized macro from plotting directly
-from data tables.
+Besides recipes, StatsPlots.jl also provides a specialized macro from plotting 
+directly from data tables.
 
 ### Using User Recipes
 
@@ -443,6 +489,7 @@ try. Here's a short list of very usable addons to check out:
 - [PlotThemes.jl](https://github.com/JuliaPlots/PlotThemes.jl) allows you to
   change the color scheme of your plots. For example, `theme(:dark)` adds a
   dark theme.
-- [StatsPlots.jl](https://github.com/JuliaPlots/StatsPlots.jl) adds functionality for visualizations of statistical analysis
+- [StatsPlots.jl](https://github.com/JuliaPlots/StatsPlots.jl) adds functionality 
+  for visualizations of statistical analysis
 - The [ecosystem page](@ref ecosystem) shows many other packages which have recipes
   and extend Plots.jl's functionality.
