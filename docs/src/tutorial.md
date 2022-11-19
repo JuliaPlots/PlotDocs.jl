@@ -35,8 +35,8 @@ The plot is displayed in a plot pane, a stand-alone window or the browser,
 depending on the environment and backend (see [below](@ref plotting-backends)).
 
 If this is your first plot of the session and it takes a while to show up,
-this is normal; this latency is often called the "time to first plot" (TTFP)
-problem, and subsequent plots will be fast. Because of the way Julia works under
+this is normal; this latency is called the "time to first plot" problem, 
+and subsequent plots will be fast. Because of the way Julia works under
 the hood, this is a difficult problem to solve, but much progress has been made
 in the past few years to reduce this compilation time.
 
@@ -55,7 +55,7 @@ plot(x, [y1 y2])
 Additionally, we can add more lines by mutating the plot object. This is done
 by the `plot!` command, where the `!` denotes that the command is modifying
 the current plot.
-You'll notice that we use an `@.` macro. This is a convenience macro
+You'll notice that we also use an `@.` macro. This is a convenience macro
 that inserts dots for every function call to the right of the macro, ensuring 
 that the entire expression is to be evaluated in an element-wise manner. 
 If we inputted the dots manually, we would need three of them for the sine, 
@@ -66,7 +66,8 @@ y3 = @. sin(x)^2 - 1/2   # equivalent to y3 = sin.(x).^2 .- 1/2
 plot!(x, y3)
 ```
 
-Note that we could have done the same as above using an explicit plot variable:
+Note that we could have done the same as above using an explicit plot variable,
+which we call `p`:
 
 ```@example tutorial
 x = range(0, 10, length=100)
@@ -87,36 +88,70 @@ In the previous section we made plots... we're done, right? No! We need to style
 our plots. In Plots.jl, the modifiers to plots are called **attributes**, which
 are documented at the [attributes page](@ref attributes). Plots.jl follows a simple
 rule with data vs attributes: 
+
 * Positional arguments correspond to input data
 * Keyword arguments correspond to attributes
-So something like `plot(x, y, z)` is 3-dimensional data for 3D plots, 
-while `plot(x, y, attribute=value)` is 2-dimensional data with an attribute assigned
-to some value.
 
-As an example, we see that from the attributes page that we can increase the
-line width using `linewidth` (or its alias `lw`), change the legend's labels
-using the `label` command, and add a title with `title`. Let's apply that to our
-previous plot:
+So something like `plot(x, y, z)` is three-dimensional data for 3D plots with no
+attributes, while `plot(x, y, attribute=value)` is two-dimensional data with 
+one attribute assigned to some value.
 
-```@example tutorial
-x = 1:10; y = rand(10, 2) # 2 columns means two lines
-plot(x, y, title = "Two Lines", label = ["Line 1" "Line 2"], lw = 3)
-```
-
-Note that every attribute can also be applied by mutating the plot with a
-modifier function. For example, the `xlabel` attribute adds a label for the
-x-axis. We can in the plot command specify it via `xlabel=...` like we did above.
-Or we can use the modifier function to add it after the plot has already been
-generated:
+As an example, we can change the line width using `linewidth` (or its alias `lw`), 
+change the legend's labels using `label`, and add a title with `title`. Notice how
+`["sin(x)" "cos(x)"]` has the same number of columns as the data.
+Additionally, since the linewidth is being attributed to `[y1 y2]`, both lines 
+will be affected by the assigned value. Let's apply these to our previous plot:
 
 ```@example tutorial
-xlabel!("My x label")
+x = range(0, 10, length=100)
+y1 = sin.(x)
+y2 = cos.(x)
+plot(x, [y1 y2], title="Trig functions", label=["sin(x)" "cos(x)"], linewidth=3)
 ```
 
-Every modifier function is the name of the attribute followed by `!`. Note that
-this implicitly uses the global `Plots.CURRENT_PLOT` and we can apply it to
-other plot objects via `attribute!(p,value)`. For more examples of attributes
-in action, see the examples pages.
+Every attribute can also be applied by mutating the plot with a
+modifier function. Some attributes have their own dedicated modifier functions,
+while others can be accessed through `plot!(attribute=value)`.
+For example, the `xlabel` attribute adds a label for the 
+x-axis. We can specify it in the plot command with `xlabel=...` like we did 
+above, or we can use the modifier function to add it after the plot has already 
+been generated. It's up to you to decide which is better for code readability. 
+
+Every modifier function is the name of the attribute followed by `!`. This will
+implicitly use the global `Plots.CURRENT_PLOT`. We can apply it to
+other plot objects via `attribute!(p, value)`. 
+
+Let's use keywords and modifier functions interchangeably
+to perform the some common modifications. You'll notice that for the attributes
+`ls` and `legend`, a colon `:` is inserted before the name. The colon denotes
+a symbol in Julia, which are commonly used for values of attributes, along with
+strings and numbers.
+
+* Labels for the individual lines, seen in the legend
+* Line widths (we'll use the alias `lw` instead of `linewidth`)
+* Line styles (we'll use the alias `ls` instead of `linestyle`)
+* Legend position (outside the plot, as the default would clutter the plot)
+* Legend columns (3, to better use the horizontal space)
+* X-limits to go from `0` to `2pi`
+* Plot title and axis labels
+
+```@example tutorial
+x = range(0, 10, length=100)
+y1 = sin.(x)
+y2 = cos.(x)
+y3 = @. sin(x)^2 - 1/2
+
+plot(x, [y1 y2], label=["sin(x)" "cos(x)"], lw=[2 1])
+plot!(x, y3, label="sin(x)^2 - 1/2", lw=3, ls=:dot)
+plot!(legend=:outerbottom, legendcolumns=3)
+xlims!(0, 2pi)
+title!("Trig functions") 
+xlabel!("x")
+ylabel!("y")
+```
+
+More information about attributes can be found in the Attributes section 
+of the Manual.
 
 ## [Plotting Backends](@id plotting-backends)
 
