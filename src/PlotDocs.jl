@@ -23,11 +23,11 @@ recursive_rmlines(x) = x
 function recursive_rmlines(x::Expr)
     x = rmlines(x)
     x.args .= recursive_rmlines.(x.args)
-    return x
+    x
 end
 
 function pretty_print_expr(io::IO, expr::Expr)
-    if expr.head == :block
+    if expr.head === :block
         for arg in recursive_rmlines(expr).args
             println(io, arg)
         end
@@ -37,7 +37,7 @@ function pretty_print_expr(io::IO, expr::Expr)
 end
 
 markdown_code_to_string(arr, prefix = "") =
-    string("`", prefix, join(sort(map(string, arr)), "`, `$prefix"), "`")
+    surround_backticks(prefix, join(sort(map(string, arr)), "`, `$prefix"))
 
 markdown_symbols_to_string(arr) = isempty(arr) ? "" : markdown_code_to_string(arr, ":")
 
@@ -50,7 +50,7 @@ function generate_cards(pkgname::Symbol; skip = get(Plots._backend_skips, pkgnam
 
     for (i, example) in enumerate(_examples)
         # write out the header, description, code block, and image link
-        jlname = "$(pkgname)-ref$(i).jl"
+        jlname = "$pkgname-ref$i.jl"
         jl = PipeBuffer()
         if !isempty(example.header)
             push!(sec_config["order"], jlname)
@@ -62,14 +62,14 @@ function generate_cards(pkgname::Symbol; skip = get(Plots._backend_skips, pkgnam
             write(jl, """
             # ---
             # title: $(example.header)
-            # id: $(pkgname)_demo_$(i) $(i in skip ? "" : "\n# cover: assets/$(i in (2, 31) ? "anim_$(pkgname)_ex$(i).gif" : "$(pkgname)_ex$(i).png")")
+            # id: $(pkgname)_demo_$i $(i in skip ? "" : "\n# cover: assets/$(i in (2, 31) ? "anim_$(pkgname)_ex$i.gif" : "$(pkgname)_ex$i.png")")
             # author: "[PlotDocs.jl](https://github.com/JuliaPlots/PlotDocs.jl/)"
             # description: ""
             # date: $(now())
             # ---
 
             using Plots
-            $(pkgname)()
+            $pkgname()
             """)
 
             i in skip && @goto write_file
@@ -81,21 +81,22 @@ function generate_cards(pkgname::Symbol; skip = get(Plots._backend_skips, pkgnam
         write(jl, "# $(replace(example.desc, "\n" => "\n  # "))\n")
         isnothing(example.imports) || pretty_print_expr(jl, example.imports)
         pretty_print_expr(jl, example.exprs)
+
         # NOTE: the supported `Literate.jl` syntax is `#src` and `#hide` NOT `# src` !!
         write(jl, "\nmkpath(\"assets\")  #src\n")
         write(jl, if i in (2, 31)
-            "gif(anim, \"assets/anim_$(pkgname)_ex$(i).gif\")\n"  # NOTE: must no be hidden, for appearance in the rendered `html`
+            "gif(anim, \"assets/anim_$(pkgname)_ex$i.gif\")\n"  # NOTE: must no be hidden, for appearance in the rendered `html`
         else
-            "png(\"assets/$(pkgname)_ex$(i).png\")  #src\n"
+            "png(\"assets/$(pkgname)_ex$i.png\")  #src\n"
         end)
-        if pkgname == :plotlyjs
+        if pkgname === :plotlyjs
             write(jl, "nothing#hide\n")
-            write(jl, "# ![plot](assets/$(pkgname)_ex$(i).png)\n")
+            write(jl, "# ![plot](assets/$(pkgname)_ex$i.png)\n")
         end
 
         @label write_file
         fn, mode = if isempty(example.header)
-            "$(pkgname)-ref$(i-1).jl", "a"
+            "$pkgname-ref$(i-1).jl", "a"
         else
             jlname, "w"
         end
@@ -130,7 +131,7 @@ function generate_cards(pkgname::Symbol; skip = get(Plots._backend_skips, pkgnam
         push!(sec_config["order"], attr_name)
         write(config, json(sec_config))
     end
-    return cardspath
+    cardspath
 end
 
 # tables detailing the features that each backend supports
@@ -144,13 +145,11 @@ function make_support_df(allvals, func)
     for b in bs
         b_supported_vals = ["" for _ in 1:length(vals)]
         for (i, val) in enumerate(vals)
-            if func == Plots.supported_seriestypes
+            b_supported_vals[i] = if func == Plots.supported_seriestypes
                 stype = Plots.seriestype_supported(Plots._backend_instance(b), val)
-                b_supported_vals[i] = stype == :native ? "✅" : (stype == :no ? "" : "🔼")
+                stype === :native ? "✅" : (stype === :no ? "" : "🔼")
             else
-                supported = func(Plots._backend_instance(b))
-
-                b_supported_vals[i] = val in supported ? "✅" : ""
+                val in func(Plots._backend_instance(b)) ? "✅" : ""
             end
         end
         df[!, b] = b_supported_vals
@@ -216,26 +215,22 @@ function make_attr_df(ktype::Symbol, defs::KW)
         Description = fill("", n),
     )
     for (i, (k, def)) in enumerate(defs)
-        desc = get(Plots._arg_desc, k, "")
-        first_period_idx = findfirst(isequal('.'), desc)
+        type, desc = get(Plots._arg_desc, k, (Any, ""))
 
         aliases = sort(collect(keys(filter(p -> p.second == k, Plots._keyAliases))))
         df.Attribute[i] = string(k)
         df.Aliases[i] = join(aliases, ", ")
-        if first_period_idx !== nothing
-            typedesc = desc[1:first_period_idx-1]
-            desc = strip(desc[first_period_idx+1:end])
-            df.Default[i] = show_default(def)
-            df.Type[i] = string(typedesc)
-            df.Description[i] = string(desc)
-        end
+        df.Default[i] = show_default(def)
+        df.Type[i] = string(type)
+        df.Description[i] = string(desc)
     end
     sort!(df, [:Attribute])
-    return df
+    df
 end
 
-show_default(x) = string("`", x, "`")
-show_default(::Nothing) = "`nothing`"
+surround_backticks(args...) = '`' * string(args...) * '`'
+show_default(x) = surround_backticks(x)
+show_default(x::Symbol) = surround_backticks(":$x")
 
 const ATTRIBUTE_TEXTS = Dict(
     :Series => "These attributes apply to individual series (lines, scatters, heatmaps, etc)",
@@ -280,11 +275,8 @@ function generate_attr_markdown(c)
     close(md)
 end
 
-function generate_attr_markdown()
-    for c in (:Series, :Plot, :Subplot, :Axis)
-        generate_attr_markdown(c)
-    end
-end
+generate_attr_markdown() =
+    foreach(c -> generate_attr_markdown(c), (:Series, :Plot, :Subplot, :Axis))
 
 function generate_graph_attr_markdown()
     md = open(joinpath(GENDIR, "graph_attributes.md"), "w")
@@ -486,12 +478,11 @@ function colors_svg(cs, w, h)
         """
     end
     html *= "</svg>"
-    return html
 end
 
 function generate_colorschemes_table(ks)
     extra_dir = get(ENV, "CI", "false") == "true" ? "../" : ""
-    html = "<head><link type=\"text/css\" rel=\"stylesheet\" href=\"$(extra_dir)../assets/tables.css\" /></head><body><table><tr class=\"headerrow\">"
+    html = "<head><link type=\"text/css\" rel=\"stylesheet\" href=\"$extra_dir../assets/tables.css\" /></head><body><table><tr class=\"headerrow\">"
     for header in ["NAME", "palette(NAME)", "cgrad(NAME)"]
         html *= "<th>$header</th>"
     end
@@ -512,7 +503,6 @@ function generate_colorschemes_table(ks)
         html *= "</td></tr>"
     end
     html *= "</table></body>"
-    return html
 end
 
 # ----------------------------------------------------------------------
@@ -520,7 +510,7 @@ end
 function to_html(df::DataFrames.AbstractDataFrame)
     cnames = DataFrames._names(df)
     extra_dir = get(ENV, "CI", "false") == "true" ? "../" : ""
-    html = "<head><link type=\"text/css\" rel=\"stylesheet\" href=\"$(extra_dir)../assets/tables.css\" /></head><body><table><tr class=\"headerrow\">"
+    html = "<head><link type=\"text/css\" rel=\"stylesheet\" href=\"$extra_dir../assets/tables.css\" /></head><body><table><tr class=\"headerrow\">"
     for column_name in cnames
         html *= "<th>$column_name</th>"
     end
@@ -529,8 +519,7 @@ function to_html(df::DataFrames.AbstractDataFrame)
     for row in 1:size(df,1)
         html *= "<tr>"
         for (i,column_name) in enumerate(cnames)
-            data = df[row, i]
-            cell = data == nothing ? "" : string(data)
+            cell = (data = df[row, i]) === nothing ? "" : string(data)
             attrstr = if i == 1
                 " class=\"attr\""
             elseif i == length(cnames)
@@ -543,7 +532,6 @@ function to_html(df::DataFrames.AbstractDataFrame)
         html *= "</tr>"
     end
     html *= "</table></body>"
-    return html
 end
 
 end # module
