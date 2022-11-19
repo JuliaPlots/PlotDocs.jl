@@ -19,6 +19,8 @@ const PLOT_DOCS_URL = "https://github.com/JuliaPlots/PlotDocs.jl/blob/master/src
 
 # ----------------------------------------------------------------------
 
+timestamp() = Dates.format(now(), RFC1123Format)
+
 recursive_rmlines(x) = x
 function recursive_rmlines(x::Expr)
     x = rmlines(x)
@@ -65,7 +67,7 @@ function generate_cards(pkgname::Symbol; skip = get(Plots._backend_skips, pkgnam
             # id: $(pkgname)_demo_$i $(i in skip ? "" : "\n# cover: assets/$(i in (2, 31) ? "anim_$(pkgname)_ex$i.gif" : "$(pkgname)_ex$i.png")")
             # author: "[PlotDocs.jl](https://github.com/JuliaPlots/PlotDocs.jl/)"
             # description: ""
-            # date: $(now())
+            # date: $(timestamp())
             # ---
 
             using Plots
@@ -117,7 +119,7 @@ function generate_cards(pkgname::Symbol; skip = get(Plots._backend_skips, pkgnam
         # id: $(pkgname)_attributes
         # hidden: true
         # author: "[PlotDocs.jl](https://github.com/JuliaPlots/PlotDocs.jl/)"
-        # date: $(now())
+        # date: $(timestamp())
         # ---
 
         # - Supported arguments: $(markdown_code_to_string(collect(Plots.supported_attrs(pkg))))
@@ -197,7 +199,7 @@ function generate_supported_markdown()
         """)
     end
 
-    write(md, "\n(Automatically generated: $(now()))")
+    write(md, "\n(Automatically generated: $(timestamp()))")
     close(md)
 end
 
@@ -269,7 +271,7 @@ function generate_attr_markdown(c)
     $(to_html(make_attr_df(c, ATTRIBUTE_DEFAULTS[c])))
     ```
 
-    (Automatically generated: $(now()))
+    (Automatically generated: $(timestamp()))
     """)
 
     close(md)
@@ -415,7 +417,7 @@ function generate_graph_attr_markdown()
     plot(graphplot([0 1; 0 0], nodecolor=:red), graphplot([0 1; 0 0], nc=:red))
     ```
 
-    (Automatically generated: $(now()))
+    (Automatically generated: $(timestamp()))
     """)
 
     close(md)
