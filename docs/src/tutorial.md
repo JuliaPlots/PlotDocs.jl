@@ -273,8 +273,7 @@ ylabel!("y")
 
 ## [Plotting Backends](@id plotting-backends)
 
-Here's a secret: Plots.jl isn't actually a plotting package! Plots.jl is a
-plotting metapackage: it's an interface over many different plotting libraries.
+Plots.jl is a plotting metapackage: it's an interface over many different plotting libraries.
 What Plots.jl is actually doing is interpreting your commands and then
 generating the plots using another plotting library, called the **backend**. 
 The nice thing about this is that you can use many different plotting libraries
