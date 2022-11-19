@@ -117,7 +117,7 @@ plot:
 x = range(0, 10, length=100)
 y1 = sin.(x)
 y2 = cos.(x)
-plot(x, [y1 y2], title="Trig functions", label=["sin(x)" "cos(x)"], linewidth=3)
+plot(x, [y1 y2], title="Trigonometric functions", label=["sin(x)" "cos(x)"], linewidth=3)
 ```
 
 Every attribute can also be applied by mutating the plot with a
