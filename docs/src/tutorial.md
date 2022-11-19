@@ -20,7 +20,7 @@ Depending on your computer, this will take a few seconds:
 using Plots
 ```
 
-To start, let's plot some trig functions. For the `x` coordinates, we can
+To start, let's plot some trigonometric functions. For the `x` coordinates, we can
 create a range from 0 to 10 of, say, 100 elements. For the `y` coordinates, we 
 can create a vector by evaluating `sin(x)` in an element-wise fashion. To do this 
 in Julia, we insert a dot right after the function call. Finally, we use `plot()`
