@@ -41,26 +41,30 @@ cp(
 galleries = Pair{String,String}[]
 galleries_assets = String[]
 galleries_cb = []
-for (bename, be) in [
-    ("GR", :gr),
-    ("PlotlyJS", :plotlyjs),
-    ("PyPlot", :pyplot),
-    ("PGFPlotsX", :pgfplotsx),
-    ("UnicodePlots", :unicodeplots),
-    ("InspectDR", :inspectdr),
-    ("Gaston", :gaston),
-]
-    generate_cards(be)
-    gallery_path, postprocess_cb, assets = makedemos("gallery/$be"; src = "src/gallery")
-    push!(galleries, bename => joinpath("gallery", gallery_path))
-    push!(galleries_cb, postprocess_cb)
+user_gallery = []
+if get(ENV, "PLOTDOCS_GALLERY", "true") == "true"
+    for (bename, be) in [
+        ("GR", :gr),
+        ("PlotlyJS", :plotlyjs),
+        ("PyPlot", :pyplot),
+        ("PGFPlotsX", :pgfplotsx),
+        ("UnicodePlots", :unicodeplots),
+        ("InspectDR", :inspectdr),
+        ("Gaston", :gaston),
+    ]
+        generate_cards(be)
+        let (path, cb, assets) = makedemos("gallery/$be"; src = "src/gallery")
+            push!(galleries, bename => joinpath("gallery", path))
+            push!(galleries_cb, cb)
+            push!(galleries_assets, assets)
+        end
+    end
+    user_gallery, cb, assets = makedemos("user_gallery"; src = "src")
+    push!(galleries_cb, cb)
     push!(galleries_assets, assets)
+    unique!(galleries_assets)
 end
-user_gallery, postprocess_cb, assets = makedemos("user_gallery"; src = "src")
-push!(galleries_cb, postprocess_cb)
-push!(galleries_assets, assets)
-
-unique!(galleries_assets)
+@info "generated $(length(galleries_assets)) gallery card(s)" 
 
 @info "UnitfulRecipes"
 src_unitfulrecipes = "src/UnitfulRecipes"
