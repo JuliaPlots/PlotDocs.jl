@@ -142,7 +142,7 @@ function make_support_df(allvals, func)
     df = DataFrames.DataFrame(keys=vals)
 
     for b in bs
-        b_supported_vals = ["" for _ in 1:length(vals)]
+        b_supported_vals = fill("", length(vals))
         for (i, val) in enumerate(vals)
             b_supported_vals[i] = if func == Plots.supported_seriestypes
                 stype = Plots.seriestype_supported(Plots._backend_instance(b), val)
