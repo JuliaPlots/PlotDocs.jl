@@ -16,6 +16,13 @@ import StatsPlots
         else
             true
         end
+        if (m = match(r"generated/attributes_(\w+).html", lowercase(rec.src))) !== nothing
+            # fix attributes search terms (:Series, :Plot, :Subplot, :Axis)
+            rec = SearchRecord(
+                rec.src, rec.page, rec.fragment, rec.category, rec.title, rec.page_title,
+                $(ATTRIBUTE_SEARCH)[first(m.captures)]
+            )
+        end
         if add_to_index
             push!(ctx.search_index, rec)
         else
