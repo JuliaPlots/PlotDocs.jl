@@ -12,8 +12,7 @@ export
     generate_colorschemes_markdown,
     GENDIR
 
-const GENDIR = normpath(@__DIR__, "..", "docs", "src", "generated")
-mkpath(GENDIR)
+const GENDIR = mkpath(normpath(@__DIR__, "..", "docs", "src", "generated"))
 
 const PLOT_DOCS_URL = "https://github.com/JuliaPlots/PlotDocs.jl/blob/master/src/PlotDocs.jl"
 

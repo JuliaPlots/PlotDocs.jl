@@ -2,10 +2,37 @@ using PlotDocs, PlotThemes, Plots, RecipesBase, RecipesPipeline
 using Documenter, DemoCards, Literate
 import StatsPlots
 
-# Set matplotlib gui backend
-ENV["MPLBACKEND"] = "agg"
+# monkey patch `Documenter` for duplicate gallery search results - see github.com/JuliaPlots/Plots.jl/issues/4157
+# note that this could break on minor `Documenter` releases
+@eval Documenter.Writers.HTMLWriter domify(ctx, navnode) = begin
+    # github.com/JuliaDocs/Documenter.jl/blob/327d155f992ec7c63e35fa2cb08f7f7c2d33409a/src/Writers/HTMLWriter.jl#L1448-L1455
+    page = getpage(ctx, navnode)
+    map(page.elements) do elem
+        rec = SearchRecord(ctx, navnode, elem)
+        ############################################################
+        # begin addition
+        add_to_index = if (m = match(r"gallery/(\w+)/", lowercase(rec.src))) !== nothing
+            first(m.captures) == "gr"  # only add `GR` gallery pages to `search_index`
+        else
+            true
+        end
+        if add_to_index
+            push!(ctx.search_index, rec)
+        else
+            @info "skip adding $(rec.src) to `search_index`"
+        end
+        # end addition
+        ############################################################
+        domify(ctx, navnode, page.mapping[elem])
+    end
+end
 
-# Initialize all backends
+@eval DemoCards get_logopath() = $(pkgdir(PlotDocs, "docs", "src", "assets", "axis_logo_600x400.png"))
+
+get!(ENV, "MPLBACKEND", "agg")  # set matplotlib gui backend
+mkpath(GENDIR)
+
+# initialize all backends
 gr()
 plotlyjs()
 pyplot()
@@ -20,19 +47,9 @@ generate_supported_markdown()
 generate_graph_attr_markdown()
 generate_colorschemes_markdown()
 
-@eval DemoCards.get_logopath() =
-    joinpath(pkgdir(PlotDocs), "docs", "src", "assets", "axis_logo_600x400.png")
-
-cp(
-    joinpath(pkgdir(PlotThemes), "README.md"),
-    joinpath(mkpath(joinpath(@__DIR__, "src", "generated")), "plotthemes.md"),
-    force = true,
-)
-cp(
-    joinpath(pkgdir(StatsPlots), "README.md"),
-    joinpath(@__DIR__, "src", "generated", "statsplots.md"),
-    force = true,
-)
+for (pkg, dest) in ((PlotThemes, "plotthemes.md"), (StatsPlots, "statsplots.md"))
+    cp(pkgdir(pkg, "README.md"), joinpath(GENDIR, dest); force = true)
+end
 
 @info "gallery"
 
@@ -74,8 +91,8 @@ for (root, _, files) in walkdir(unitfulrecipes), file in files
     last(splitext(file)) == ".jl" || continue
     ipath = joinpath(root, file)
     opath = replace(ipath, src_unitfulrecipes => "src/generated") |> splitdir |> first
-    Literate.markdown(ipath, opath, documenter = execute)
-    nb && Literate.notebook(ipath, notebooks, execute = execute)
+    Literate.markdown(ipath, opath; documenter = execute)
+    nb && Literate.notebook(ipath, notebooks; execute)
 end
 
 const PAGES = Any[
