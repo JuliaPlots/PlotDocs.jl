@@ -2,8 +2,7 @@ using PlotDocs, PlotThemes, Plots, RecipesBase, RecipesPipeline
 using Documenter, DemoCards, Literate
 import StatsPlots
 
-# monkey patch `Documenter` for duplicate gallery search results - see github.com/JuliaPlots/Plots.jl/issues/4157
-# note that this could break on minor `Documenter` releases
+# monkey patch `Documenter` - note that this could break on minor `Documenter` releases
 @eval Documenter.Writers.HTMLWriter domify(ctx, navnode) = begin
     # github.com/JuliaDocs/Documenter.jl/blob/327d155f992ec7c63e35fa2cb08f7f7c2d33409a/src/Writers/HTMLWriter.jl#L1448-L1455
     page = getpage(ctx, navnode)
@@ -12,9 +11,16 @@ import StatsPlots
         ############################################################
         # begin addition
         add_to_index = if (m = match(r"gallery/(\w+)/", lowercase(rec.src))) !== nothing
-            first(m.captures) == "gr"  # only add `GR` gallery pages to `search_index`
+            first(m.captures) == "gr"  # only add `GR` gallery pages to `search_index` (github.com/JuliaPlots/Plots.jl/issues/4157)
         else
             true
+        end
+        if (m = match(r"generated/attributes_(\w+).html", lowercase(rec.src))) !== nothing
+            # fix attributes search terms: `Series`, `Plot`, `Subplot` and `Axis` (github.com/JuliaPlots/Plots.jl/issues/2337)
+            rec = SearchRecord(
+                rec.src, rec.page, rec.fragment, rec.category, rec.title, rec.page_title,
+                $(ATTRIBUTE_SEARCH)[first(m.captures)]
+            )
         end
         if add_to_index
             push!(ctx.search_index, rec)
