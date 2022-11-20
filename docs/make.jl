@@ -23,10 +23,8 @@ generate_colorschemes_markdown()
 @eval DemoCards.get_logopath() =
     joinpath(pkgdir(PlotDocs), "docs", "src", "assets", "axis_logo_600x400.png")
 
-plotthemes_path = pkgdir(PlotThemes)
-
 cp(
-    joinpath(plotthemes_path, "README.md"),
+    joinpath(pkgdir(PlotThemes), "README.md"),
     joinpath(mkpath(joinpath(@__DIR__, "src", "generated")), "plotthemes.md"),
     force = true,
 )
