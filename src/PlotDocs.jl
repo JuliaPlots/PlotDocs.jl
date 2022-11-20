@@ -258,7 +258,7 @@ function generate_attr_markdown(c)
     md = open(joinpath(GENDIR, "attributes_$cstr.md"), "w")
 
     df = make_attr_df(c, ATTRIBUTE_DEFAULTS[c])
-    ATTRIBUTE_SEARCH[cstr] = attr_text * ' ' * join(df.Attribute, ' ')
+    ATTRIBUTE_SEARCH[cstr] = join((attr_text, join(df.Attribute, ' '), join(df.Aliases, ' ')), ' ')
 
     write(md, """
     ```@meta
