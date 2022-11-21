@@ -1,4 +1,4 @@
-# RecipesBase.jl
+# RecipesBase
 
 **Author: Thomas Breloff (@tbreloff)**
 

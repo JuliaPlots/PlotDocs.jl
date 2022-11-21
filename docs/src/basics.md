@@ -1,5 +1,3 @@
-
-
 ### Basic Concepts
 
 Use `plot` to create a new plot object, and `plot!` to add to an existing one:
@@ -11,7 +9,6 @@ plot!(plt, args...; kw...)            # modifies Plot `plt`
 ```
 
 The graphic is not shown implicitly, only when "displayed".  This will happen automatically when returned to a REPL prompt or to an IJulia cell.  There are [many other options](@ref output) as well.
-
 
 Input arguments can take [many forms](@ref input-data).  Some valid examples:
 
@@ -37,10 +34,7 @@ plot(1:10, Any[rand(10), sin])               # 2 series: rand(10) and map(sin,x)
 - If the argument is a "matrix-type", then [each column will map to a series](@ref columns-are-series), cycling through columns if there are fewer columns than series.  In this sense, a vector is treated just like an "nx1 matrix".
 - Many arguments accept many different types... for example the color (also markercolor, fillcolor, etc) argument will accept strings or symbols with a color name, or any Colors.Colorant, or a ColorScheme, or a symbol representing a ColorGradient, or an AbstractVector of colors/symbols/etc...
 
-
 ---
-
-
 
 ### Useful Tips
 
@@ -67,6 +61,4 @@ plot(1:10, Any[rand(10), sin])               # 2 series: rand(10) and map(sin,x)
 !!! tip
     Call `gui()` to display the plot in a window. Interactivity depends on backend. Plotting at the REPL (without semicolon) implicitly calls `gui()`.
 
-!!! tip
-    See the [examples](@ref GR) for plotting ideas and features.
 ---
