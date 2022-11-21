@@ -13,7 +13,7 @@ or an interactive notebook.
 
 ## Basic Plotting: Line Plots
 
-After you have installed Plots.jl, the first step is to initialize the package.
+After you have installed Plots.jl via `Pkg.add("Plots")`, the first step is to initialize the package.
 Depending on your computer, this will take a few seconds:
 
 ```@example tutorial
