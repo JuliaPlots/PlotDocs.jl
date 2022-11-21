@@ -107,6 +107,11 @@ const PAGES = Any[
         "Installation" => "install.md",
         "Basics" => "basics.md",
         "Tutorial" => "tutorial.md",
+        "Series Types" => [
+            "Contour Plots" => "SeriesTypes/contour.md",
+            "Heatmaps" => "SeriesTypes/heatmap.md",
+            "Histograms" => "SeriesTypes/histogram.md",
+        ],
     ],
     "Manual" => [
         "Input Data" => "input_data.md",
