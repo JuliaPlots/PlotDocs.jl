@@ -233,7 +233,7 @@ series type which is commonly used.
 
 Let's start with the sine function again, but this type, we'll define a vector
 called `y_noisy` that adds some randomness. 
-We can change the series type by the `seriestype` attribute.
+We can change the series type using the `seriestype` attribute.
 
 ```@example tutorial
 x = range(0, 10, length=100)
