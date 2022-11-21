@@ -206,8 +206,8 @@ of the Manual.
 Plots.jl works with LaTeXStrings.jl, a package that allows the user to type
 LaTeX equations in string literals. To install this, type in
 `Pkg.add("LaTeXStrings")`. The easiest way to use it is to prepend `L` to a
-LaTeX-formatted string. Here's an example of it in use. Note that `*` denotes 
-string concatenation in Julia.
+LaTeX-formatted string. If the string is a mix between normal text and LaTeX
+equations, insert dollar signs `$` as needed.
 
 ```@example tutorial
 using LaTeXStrings
@@ -219,7 +219,7 @@ plot(x, y, label=L"\frac{1}{1+x}")
 plot!(xscale=:log10, yscale=:log10, minorgrid=true)
 xlims!(1e+0, 1e+4)
 ylims!(1e-5, 1e+0)
-title!("Log-log plot of " * L"\frac{1}{1+x}") 
+title!(L"Log-log plot of $\frac{1}{1+x}$") 
 xlabel!(L"x")
 ylabel!(L"y")
 ```
