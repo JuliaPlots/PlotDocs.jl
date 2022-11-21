@@ -319,10 +319,9 @@ plot!(legend=:bottomleft)
 title!("Sine with noise, plotted with Plotly")
 xlabel!("x")
 ylabel!("y")
-png("assets/plotlyjs_tutorial.png")  #src
-nothing#hide
-# ![plot](assets/plotlyjs_tutorial.png)
+png("plotlyjs_tutorial")  #hide
 ```
+![](plotlyjs_tutorial.png)
 
 ```@example tutorial
 gr()   # set the backend to GR
