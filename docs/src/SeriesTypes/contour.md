@@ -32,27 +32,42 @@ used to modify the plot after it has been generated.
 
 ## Common Attributes
 
-Let's make this plot more presentable with attributes. We can change the number of levels with `levels`. 
-Besides the title and axes labels, we can also add contour labels via the attribute `contour_labels`. We'll use the 
-LaTeXStrings.jl package to write the function expression in the title. (To install this package, type `]` and then 
-`add LaTeXStrings` into the REPL.) LaTeX-formatted strings are prepended with `L` right before them.
+Let's make this plot more presentable with the following attributes:
 
-The default colormap is `:inferno`, from matplotlib. This can be changed using `seriescolor`, which has the alias
-`color`, or even `c`. A full list of colormaps can be found in the [ColorSchemes](@ref colorschemes) section of the
-manual. A guide to choosing appropriate colormaps for your contour plots can be found 
-[here](https://matplotlib.org/stable/tutorials/colors/colormaps.html). As an example, we'll change the colormap from
-`:inferno` to `:turbo`.
+1. The number of levels can be changed with `levels`. 
+2. Besides the title and axes labels, we can also add contour labels via the attribute `contour_labels`, which has the
+alias `clabels`. We'll use the LaTeXStrings.jl package to write the function expression in the title. (To install this
+package, type `]` and then `add LaTeXStrings` into the REPL.) LaTeX-formatted strings are prepended with `L` right 
+before them.
+3. The colormap can be changed using `seriescolor`, which has the alias `color`, or even `c`. The default colormap is 
+`:inferno`, from matplotlib. A full list of colormaps can be found in the [ColorSchemes](@ref colorschemes) section of 
+the manual.
+4. The colorbar location can be changed with the attribute `colorbar`, alias `cbar`. We can remove it by setting
+`cbar=false`.
+5. The line width can be changed as with line plots using `linewidth`, or `lw`.
 
 Note that `levels`, `color`, and `contour_labels` need to be specified in `contour`.
 
 ```@example contour
 using LaTeXStrings
 
-contour(x, y, z, levels=10, color=:turbo, contour_labels=true)
+contour(x, y, z, levels=10, color=:turbo, clabels=true, cbar=false, lw=1)
 title!(L"(3x + y^2)|\sin(x) + \cos(y)|")
 xlabel!(L"x")
 ylabel!(L"y")
 ```
+
+If only black lines are desired, you can set the `color` attribute like so:
+
+```julia
+contour(x, y, z, color=[:black])
+```
+
+For alternating black and red lines of a specific hex value, you could type `color=[:black, "#E52B50"]`, and so on.
+
+To get a full list of the available values that an attribute can take, type `plotattr("attribute")` into the REPL. For
+example, `plotattr("cbar")` shows that it can take in symbols from a predefined list (e.g. `:left` and `:top`), which 
+move the colorbar from its default location; or a boolean `true` or `false`, the latter of which hides the colorbar.
 
 ## Filled Contours
 
@@ -63,7 +78,7 @@ contour(x, y, z, fill=true)
 ```
 
 Another way is to use the function `contourf`, along with its mutating version `contourf!`. With filled contour plots,
-the attribute `contour_labels` does not apply.
+the attribute `clabels` does not apply.
 
 ```@example contour
 contourf(x, y, z, levels=20, color=:turbo)
