@@ -234,9 +234,9 @@ in other ways? In Plots.jl, these other ways of plotting a series is called a
 **series type**. A line is one series type. However, a scatter plot is another
 series type which is commonly used. 
 
-Let's start with the sine function again, but this type, we'll define a vector
+Let's start with the sine function again, but this time, we'll define a vector
 called `y_noisy` that adds some randomness. 
-We can change the series type by the `seriestype` attribute.
+We can change the series type using the `seriestype` attribute.
 
 ```@example tutorial
 x = range(0, 10, length=100)
