@@ -433,7 +433,7 @@ on are:
 2. It adds a plot recipe for marginal histograms.
 3. It adds a bunch of new statistical plot series.
 
-Besides recipes, StatsPlots.jl also provides a specialized macro from plotting 
+Besides recipes, StatsPlots.jl also provides a specialized macro `@df` from plotting 
 directly from data tables.
 
 ### Using User Recipes
