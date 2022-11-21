@@ -8,13 +8,13 @@ Plots.reset_defaults()
 This is a guide for getting you up and running with Plots.jl. Its main goal is
 to introduce you to the terminology used in the package, how to use Plots.jl in
 common use cases, and put you in a position to easily understand the rest of
-the manual. We recommend you follow along the code examples inside the REPL
-or an interactive notebook.
+the manual. It is recommended that the that the code examples be followed inside
+the REPL or an interactive notebook.
 
 ## Basic Plotting: Line Plots
 
-After you have installed Plots.jl via `Pkg.add("Plots")`, the first step is to initialize the package.
-Depending on your computer, this will take a few seconds:
+After you have installed Plots.jl via `Pkg.add("Plots")`, the first step is to 
+initialize the package. Depending on your computer, this will take a few seconds:
 
 ```@example tutorial
 using Plots
@@ -101,6 +101,9 @@ png("myplot")
 Plots.pdf(p, "myplot")
 ```
 
+More information about outputting figures can be found in the 
+[Output](@ref output) section of the Manual.
+
 ## Plot Attributes
 
 In the previous section we made plots... we're done, right? No! We need to style
@@ -134,7 +137,7 @@ modifier function. Some attributes have their own dedicated modifier functions,
 while others can be accessed through `plot!(attribute=value)`.
 For example, the `xlabel` attribute adds a label for the 
 x-axis. We can specify it in the plot command with `xlabel=...`, 
-or we can use the modifier function to add it after the plot has already 
+or we can use the modifier function below to add it after the plot has already 
 been generated. It's up to you to decide which is better for code readability.
 
 ```julia
@@ -198,8 +201,8 @@ xlabel!("x")
 ylabel!("y")
 ```
 
-More information about attributes can be found in the Attributes section 
-of the Manual.
+More information about attributes can be found in the 
+[Attributes](@ref attributes) section of the Manual.
 
 ### LaTeX Equation Strings
 
@@ -403,7 +406,7 @@ p4 = scatter(x, y, title="Title 4", ms=2, ma=0.2)
 plot(p1, p2, p3, p4, layout=(2,2), legend=false)
 ```
 
-Notice that the attributes in the individual plots are applied to those
+Note that the attributes in the individual plots are applied to those
 individual plots, while the attribute `legend=false` in the final `plot` 
 call is applied to all of the subplots.
 
