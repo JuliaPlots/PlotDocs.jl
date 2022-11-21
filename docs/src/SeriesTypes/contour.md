@@ -37,8 +37,7 @@ Let's make this plot more presentable with the following attributes:
 1. The number of levels can be changed with `levels`. 
 2. Besides the title and axes labels, we can also add contour labels via the attribute `contour_labels`, which has the
 alias `clabels`. We'll use the LaTeXStrings.jl package to write the function expression in the title. (To install this
-package, type `]` and then `add LaTeXStrings` into the REPL.) LaTeX-formatted strings are prepended with `L` right 
-before them.
+package, type `]` and then `add LaTeXStrings` into the REPL.)
 3. The colormap can be changed using `seriescolor`, which has the alias `color`, or even `c`. The default colormap is 
 `:inferno`, from matplotlib. A full list of colormaps can be found in the [ColorSchemes](@ref colorschemes) section of 
 the manual.
@@ -52,7 +51,7 @@ Note that `levels`, `color`, and `contour_labels` need to be specified in `conto
 using LaTeXStrings
 
 contour(x, y, z, levels=10, color=:turbo, clabels=true, cbar=false, lw=1)
-title!(L"(3x + y^2)|\sin(x) + \cos(y)|")
+title!(L"Plot of $(3x + y^2)|\sin(x) + \cos(y)|$")
 xlabel!(L"x")
 ylabel!(L"y")
 ```
@@ -66,8 +65,9 @@ contour(x, y, z, color=[:black])
 For alternating black and red lines of a specific hex value, you could type `color=[:black, "#E52B50"]`, and so on.
 
 To get a full list of the available values that an attribute can take, type `plotattr("attribute")` into the REPL. For
-example, `plotattr("cbar")` shows that it can take in symbols from a predefined list (e.g. `:left` and `:top`), which 
-move the colorbar from its default location; or a boolean `true` or `false`, the latter of which hides the colorbar.
+example, `plotattr("cbar")` shows that it can take either symbols from a predefined list (e.g. `:left` and `:top`), 
+which move the colorbar from its default location; or a boolean `true` or `false`, the latter of which hides the 
+colorbar.
 
 ## Filled Contours
 
