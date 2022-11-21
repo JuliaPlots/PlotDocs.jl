@@ -16,7 +16,7 @@ const GENDIR = mkpath(normpath(@__DIR__, "..", "docs", "src", "generated"))
 
 const PLOT_DOCS_URL = "https://github.com/JuliaPlots/PlotDocs.jl/blob/master/src/PlotDocs.jl"
 
-const ATTRIBUTE_SEARCH = Dict{String,String}()  # search terms
+const ATTRIBUTE_SEARCH = Dict{String,Any}()  # search terms
 
 # ----------------------------------------------------------------------
 
@@ -258,7 +258,7 @@ function generate_attr_markdown(c)
     md = open(joinpath(GENDIR, "attributes_$cstr.md"), "w")
 
     df = make_attr_df(c, ATTRIBUTE_DEFAULTS[c])
-    ATTRIBUTE_SEARCH[cstr] = join((attr_text, join(df.Attribute, ' '), join(df.Aliases, ' ')), ' ')
+    ATTRIBUTE_SEARCH[cstr] = collect(zip(df.Attribute, df.Aliases))
 
     write(md, """
     ```@meta
