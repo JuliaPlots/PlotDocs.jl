@@ -10,7 +10,7 @@ import StatsPlots
         rec = SearchRecord(ctx, navnode, elem)
         ############################################################
         # begin addition
-        if (m = match(r"generated/attributes_(\w+).html", lowercase(rec.src))) !== nothing
+        if (m = match(r"generated/attributes_(\w+)", lowercase(rec.src))) !== nothing
             # fix attributes search terms: `Series`, `Plot`, `Subplot` and `Axis` (github.com/JuliaPlots/Plots.jl/issues/2337)
             @info "fix $(rec.src) $(rec.fragment) attribute search"
             for (attr, alias) in $(ATTRIBUTE_SEARCH)[first(m.captures)]
