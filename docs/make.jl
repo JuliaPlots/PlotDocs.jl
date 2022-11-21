@@ -10,22 +10,21 @@ import StatsPlots
         rec = SearchRecord(ctx, navnode, elem)
         ############################################################
         # begin addition
+        if (m = match(r"generated/attributes_(\w+).html", lowercase(rec.src))) !== nothing
+            # fix attributes search terms: `Series`, `Plot`, `Subplot` and `Axis` (github.com/JuliaPlots/Plots.jl/issues/2337)
+            text = $(ATTRIBUTE_SEARCH)[first(m.captures)]
+            rec = SearchRecord(rec.src, rec.page, rec.fragment, rec.category, rec.title, rec.page_title, text)
+            @warn "fix attribute search $(rec.src) $(rec.fragment)" text
+        end
         add_to_index = if (m = match(r"gallery/(\w+)/", lowercase(rec.src))) !== nothing
             first(m.captures) == "gr"  # only add `GR` gallery pages to `search_index` (github.com/JuliaPlots/Plots.jl/issues/4157)
         else
             true
         end
-        if (m = match(r"generated/attributes_(\w+).html", lowercase(rec.src))) !== nothing
-            # fix attributes search terms: `Series`, `Plot`, `Subplot` and `Axis` (github.com/JuliaPlots/Plots.jl/issues/2337)
-            rec = SearchRecord(
-                rec.src, rec.page, rec.fragment, rec.category, rec.title, rec.page_title,
-                $(ATTRIBUTE_SEARCH)[first(m.captures)]
-            )
-        end
         if add_to_index
             push!(ctx.search_index, rec)
         else
-            @info "skip adding $(rec.src) to `search_index`"
+            @warn "skip adding $(rec.src) $(rec.fragment) to `search_index`"
         end
         # end addition
         ############################################################
