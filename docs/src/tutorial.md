@@ -8,13 +8,13 @@ Plots.reset_defaults()
 This is a guide for getting you up and running with Plots.jl. Its main goal is
 to introduce you to the terminology used in the package, how to use Plots.jl in
 common use cases, and put you in a position to easily understand the rest of
-the manual. We recommend you follow along the code examples inside the REPL
-or an interactive notebook.
+the manual. It is recommended that the code examples be followed inside
+the REPL or an interactive notebook.
 
 ## Basic Plotting: Line Plots
 
-After you have installed Plots.jl, the first step is to initialize the package.
-Depending on your computer, this will take a few seconds:
+After you have installed Plots.jl via `Pkg.add("Plots")`, the first step is to 
+initialize the package. Depending on your computer, this will take a few seconds:
 
 ```@example tutorial
 using Plots
@@ -92,14 +92,17 @@ savefig("myplot.png")      # saves the CURRENT_PLOT as a .png
 savefig(p, "myplot.pdf")   # saves the plot from p as a .pdf vector graphic
 ```
 
-There also exist convenience functions `Plots.png`, `Plots.pdf` and other 
+There also exist convenience functions `png`, `Plots.pdf` and other 
 unexported helpers. With these, the extension is omitted from the filename. 
 The following is equivalent to the above code:
 
 ```julia
 png("myplot")
-pdf(p, "myplot")
+Plots.pdf(p, "myplot")
 ```
+
+More information about outputting figures can be found in the 
+[Output](@ref output) section of the Manual.
 
 ## Plot Attributes
 
@@ -134,7 +137,7 @@ modifier function. Some attributes have their own dedicated modifier functions,
 while others can be accessed through `plot!(attribute=value)`.
 For example, the `xlabel` attribute adds a label for the 
 x-axis. We can specify it in the plot command with `xlabel=...`, 
-or we can use the modifier function to add it after the plot has already 
+or we can use the modifier function below to add it after the plot has already 
 been generated. It's up to you to decide which is better for code readability.
 
 ```julia
@@ -198,16 +201,16 @@ xlabel!("x")
 ylabel!("y")
 ```
 
-More information about attributes can be found in the Attributes section 
-of the Manual.
+More information about attributes can be found in the 
+[Attributes](@ref attributes) section of the Manual.
 
 ### LaTeX Equation Strings
 
 Plots.jl works with LaTeXStrings.jl, a package that allows the user to type
 LaTeX equations in string literals. To install this, type in
 `Pkg.add("LaTeXStrings")`. The easiest way to use it is to prepend `L` to a
-LaTeX-formatted string. Here's an example of it in use. Note that `*` denotes 
-string concatenation in Julia.
+LaTeX-formatted string. If the string is a mix between normal text and LaTeX
+equations, insert dollar signs `$` as needed.
 
 ```@example tutorial
 using LaTeXStrings
@@ -219,7 +222,7 @@ plot(x, y, label=L"\frac{1}{1+x}")
 plot!(xscale=:log10, yscale=:log10, minorgrid=true)
 xlims!(1e+0, 1e+4)
 ylims!(1e-5, 1e+0)
-title!("Log-log plot of " * L"\frac{1}{1+x}") 
+title!(L"Log-log plot of $\frac{1}{1+x}$") 
 xlabel!(L"x")
 ylabel!(L"y")
 ```
@@ -231,9 +234,9 @@ in other ways? In Plots.jl, these other ways of plotting a series is called a
 **series type**. A line is one series type. However, a scatter plot is another
 series type which is commonly used. 
 
-Let's start with the sine function again, but this type, we'll define a vector
+Let's start with the sine function again, but this time, we'll define a vector
 called `y_noisy` that adds some randomness. 
-We can change the series type by the `seriestype` attribute.
+We can change the series type using the `seriestype` attribute.
 
 ```@example tutorial
 x = range(0, 10, length=100)
@@ -309,7 +312,7 @@ x = range(0, 10, length=100)
 y = sin.(x)
 y_noisy = @. sin(x) + 0.1*randn()
 
-# this plots into the web browser via Plotly
+# this plots into a standalone window via Plotly
 plot(x, y, label="sin(x)", lc=:black, lw=2)
 scatter!(x, y_noisy, label="data", mc=:red, ms=2, ma=0.5)
 plot!(legend=:bottomleft)
@@ -403,7 +406,7 @@ p4 = scatter(x, y, title="Title 4", ms=2, ma=0.2)
 plot(p1, p2, p3, p4, layout=(2,2), legend=false)
 ```
 
-Notice that the attributes in the individual plots are applied to those
+Note that the attributes in the individual plots are applied to those
 individual plots, while the attribute `legend=false` in the final `plot` 
 call is applied to all of the subplots.
 
@@ -433,7 +436,7 @@ on are:
 2. It adds a plot recipe for marginal histograms.
 3. It adds a bunch of new statistical plot series.
 
-Besides recipes, StatsPlots.jl also provides a specialized macro from plotting 
+Besides recipes, StatsPlots.jl also provides a specialized macro `@df` from plotting 
 directly from data tables.
 
 ### Using User Recipes
