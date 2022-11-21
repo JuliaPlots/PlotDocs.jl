@@ -8,7 +8,7 @@ Plots.reset_defaults()
 This is a guide for getting you up and running with Plots.jl. Its main goal is
 to introduce you to the terminology used in the package, how to use Plots.jl in
 common use cases, and put you in a position to easily understand the rest of
-the manual. It is recommended that the that the code examples be followed inside
+the manual. It is recommended that the code examples be followed inside
 the REPL or an interactive notebook.
 
 ## Basic Plotting: Line Plots
