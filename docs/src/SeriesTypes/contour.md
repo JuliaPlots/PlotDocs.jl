@@ -133,3 +133,6 @@ contourf(x, y, log10.(z), color=:turbo, levels=8, colorbar_ticks=(tv, tl),
     xlabel=L"x", 
     ylabel=L"y")
 ```
+
+If you want the fill boundaries to correspond to the orders of magnitude, `levels=8`. Depending on the data, this
+number may require some tweaking. However, if a smoother plot is desired, then you can set it to a much larger number.
