@@ -5,30 +5,40 @@ Plots.reset_defaults()
 
 # [Contour Plots](@id contour)
 
-The easiest way to get started with contour plots is to use the PyPlot backend. With this backend, `contour` can
-take in 1D arrays for the X and Y axes and it'll know how to broadcast them, and you can write 2D functions of the
-axes variables via broadcasting. PyPlot requires the `PyPlot.jl` package which can be installed by typing `]` and
-then `add PyPlot` into the REPL. The first time you call `pyplot()`, Julia may install matplotlib for you.
+The easiest way to get started with contour plots is to use the PyPlot backend. PyPlot requires the `PyPlot.jl` 
+package which can be installed by typing `]` and then `add PyPlot` into the REPL. The first time you call `pyplot()`,
+Julia may install matplotlib for you. All of the plots generated on this page use PyPlot, although the code will work
+for the default GR backend as well.
 
-Let's define some ranges and a function `f(x, y)` to plot. Notice the `'` at the end of the line defining `x`. 
-This is the adjoint operator and makes `x` a row vector. You can check the shape of `x` by typing `size(x)`. In the
+Let's define some ranges and a function `f(x, y)` to plot. Notice the `'` in the line defining `z`.
+This is the adjoint operator and makes `x` a row vector. You can check the shape of `x'` by typing `size(x')`. In the
 tutorial, we mentioned that the `@.` macro evaluates whatever is to the right of it in an element-wise manner. More
-precisely, the dot `.` is shorthand for broadcasting; since `x` is of size `(1, 100)` and y is of size `(50, )`, 
-`z = @. f(x, y)` will broadcast the function `f` over `x` and `y` and yield a matrix of size `(50, 100)`.
+precisely, the dot `.` is shorthand for broadcasting; since `x'` is of size `(1, 100)` and y is of size `(50, )`, 
+`z = @. f(x', y)` will broadcast the function `f` over `x'` and `y` and yield a matrix of size `(50, 100)`.
 
-```@example contour
 using Plots; pyplot()
 
 f(x, y) = (3x + y^2) * abs(sin(x) + cos(y))
 
-x = range(0, 5, length=100)'
+x = range(0, 5, length=100)
 y = range(0, 3, length=50)
-z = @. f(x, y)
+z = @. f(x', y)
 contour(x, y, z)
 ```
 
 Much like with `plot!` and `scatter!`, the `contour` function also has a mutating version `contour!` which can be
 used to modify the plot after it has been generated.
+
+With the PyPlot backend, `contour` can also take in a row vector for `x`, so alternatively, you can define `x` as 
+a row vector as shown below and PyPlot will know how to plot it correctly. Beware that this will NOT work for other 
+backends such as the default GR backend, which require `x` and `y` to both be column vectors.
+
+```julia
+x = range(0, 5, length=100)'
+y = range(0, 3, length=50)
+z = @. f(x, y)
+contour(x, y, z)
+```
 
 ## Common Attributes
 
@@ -48,6 +58,12 @@ Note that `levels`, `color`, and `contour_labels` need to be specified in `conto
 
 ```@example contour
 using LaTeXStrings
+
+f(x, y) = (3x + y^2) * abs(sin(x) + cos(y))
+
+x = range(0, 5, length=100)
+y = range(0, 3, length=50)
+z = @. f(x', y)
 
 contour(x, y, z, levels=10, color=:turbo, clabels=true, cbar=false, lw=1)
 title!(L"Plot of $(3x + y^2)|\sin(x) + \cos(y)|$")
@@ -98,9 +114,9 @@ versions.
 ```@example contour
 g(x, y) = log(x*y)
 
-x = 10 .^ range(0, 6, length=100) |> adjoint
+x = 10 .^ range(0, 6, length=100)
 y = 10 .^ range(0, 6, length=100)
-z = @. g(x, y)
+z = @. g(x', y)
 contourf(x, y, z, color=:plasma,
     xscale=:log10, yscale=:log10,
     title=L"\log(xy)",
@@ -120,9 +136,9 @@ to `%$` when working within `L"..."` to avoid clashing with `$` as normally used
 ```@example contour
 h(x, y) = exp(x^2 + y^2)
 
-x = range(-3, 3, length=100)'
+x = range(-3, 3, length=100)
 y = range(-3, 3, length=100)
-z = @. h(x, y)
+z = @. h(x', y)
 
 tv = 0:8
 tl = [L"10^{%$i}" for i in tv]
