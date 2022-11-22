@@ -27,7 +27,8 @@ sudo apt -y install \
   ghostscript-x \
   qt5-default \
   pdf2svg \
-  gnuplot
+  gnuplot \
+  g++
 
 echo '== install fonts =='
 mkdir -p ~/.fonts
@@ -46,6 +47,9 @@ export DOCUMENTER_DEBUG=true  # Democards.jl
 export GKSwstype=nul  # Plots.jl/issues/3664
 export COLORTERM='truecolor'  # UnicodePlots.jl
 export PLOTDOCS_ANSICOLOR=true
+
+# tentative fix for `pyplot` bug: libstdc++.so.X: version `GLIBCXX_X.X.X' not found ...
+export LD_PRELOAD=$(g++ --print-file-name=libstdc++.so)
 
 julia='xvfb-run julia --color=yes --project=docs'
 
