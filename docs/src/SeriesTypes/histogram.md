@@ -66,13 +66,13 @@ weights of the same length as `x`. To check that the weighting is done correctly
 multiplied by a normalization factor.
 
 ```@example histogram
-p2(x) = exp(x)/(exp(1)-1)
+f_exp(x) = exp(x)/(exp(1)-1)
 
 x = rand(10^4)
 w = exp.(x)
 
 histogram(x, label="Experimental", bins=:scott, weights=w, normalize=:pdf, color=:gray)
-plot!(p2, label="Analytical", lw=3, color=:red)
+plot!(f_exp, label="Analytical", lw=3, color=:red)
 plot!(legend=:topleft)
 xlims!(0, 1.0)
 ylims!(0, 1.6)
