@@ -65,8 +65,8 @@ $julia -e '
     v"3.4.30" => 12,
     # ... keep this up-to-date with gcc 13
   )[libstdcxx_ver]
-  CondaPkg.add("libgcc-ng<=$gcc_ver")
-  CondaPkg.add("libstdcxx-ng<=$gcc_ver")
+  Conda.add("libgcc-ng<=$gcc_ver")
+  Conda.add("libstdcxx-ng<=$gcc_ver")
   Conda.add("matplotlib")
   Conda.list()
 '
