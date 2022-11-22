@@ -61,6 +61,7 @@ $julia -e '
   Conda.runconda(`config --set auto_update_conda False --file $rc --force`, env)
   Pkg.add("PyCall"); Pkg.build("PyCall"; verbose=true)
   Conda.add("matplotlib")
+  Conda.add("libgcc")
   Conda.list()
 '
 
