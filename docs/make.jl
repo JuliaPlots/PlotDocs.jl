@@ -113,7 +113,6 @@ const PAGES = Any[
         "Tutorial" => "tutorial.md",
         "Series Types" => [
             "Contour Plots" => "SeriesTypes/contour.md",
-            "Heatmaps" => "SeriesTypes/heatmap.md",
             "Histograms" => "SeriesTypes/histogram.md",
         ],
     ],

@@ -33,7 +33,7 @@ range(-5, 5, length=21)
 where we have to add 1 to the length because the length counts the number of bin boundaries. Finally, you can also pass 
 in an integer, like `bins=15`, but this will only be an approximation and the actual number of bins may vary.
 
-### Normalization
+## Normalization
 
 It is often desirable to normalize the histogram in some way. To do this, the `normalize` attribute is used, and
 we want `normalize=:pdf` (or `:true`) to normalize the total area of the bins to 1. Since we sampled from the normal 
@@ -58,7 +58,7 @@ ylabel!("P(x)")
 * `:probability`, which sums all the bin heights to 1
 * `:density`, which makes the area of each bin equal to the counts
 
-### Weighted Histograms
+## Weighted Histograms
 
 Another common feature is to weight the values in `x`. Say that `x` consists of data sampled from a uniform
 distribution and we wanted to weight the values according to an exponential function. We would pass in a vector of 
@@ -81,7 +81,7 @@ xlabel!("x")
 ylabel!("P(x)")
 ```
 
-### Other Variations
+## Other Variations
 
 * Histogram scatter plots can be made via `scatterhist` and `scatterhist!`, where points substitute in for bars.
 * Histogram step plots can be made via `stephist` and `stephist!`, where an outline substitutes in for bars.

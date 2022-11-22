@@ -89,3 +89,47 @@ ylabel!(L"y")
 
 If you are using the GR backend to plot filled contours, there will be black lines separating the filled regions. If
 these lines are undesirable, a different backend must be used, like PyPlot.
+
+## Logarithmic Contour Plots
+
+Much like with line and scatter plots, the X and Y axes can be made logarithmic. It will be easier for the backend to 
+generate the plot if the attributes are specified in the `contourf` command directly instead of using their mutating
+versions.
+
+```@example contour
+g(x, y) = log(x*y)
+
+x = 10 .^ range(0, 6, length=100) |> adjoint
+y = 10 .^ range(0, 6, length=100)
+z = @. g(x, y)
+contourf(x, y, z, color=:plasma, aspect_ratio=:equal,
+    xscale=:log10, yscale=:log10,
+    title=L"\log(xy)",
+    xlabel=L"x",
+    ylabel=L"y")
+```
+
+It is often desired that the colorbar be logarithmic. The process to get this working correctly is a bit more involved
+and will require some manual tweaking. First, we define a function `h(x, y) = exp(x^2 + y^2)`, which we will plot the 
+logarithm of. Then we adjust the `levels` and `colorbar_ticks` attributes.
+
+The `colorbar_ticks` attribute can take in a tuple of two vectors `(tickvalues, ticklabels)`. Since `h(x, y)` varies
+from 10<sup>0</sup> to 10<sup>8</sup> over the prescribed domain, tickvalues will be a vector `t = 0:8`. We can format
+the labels with superscripts by using LaTeXStrings again. Note that the string interpolation operator changes from `$` 
+to `%$` when working within `L"..."` to avoid clashing with `$` as normally used in LaTeX.
+
+```@example contour
+h(x, y) = exp(x^2 + y^2)
+
+x = range(-3, 3, length=100)'
+y = range(-3, 3, length=100)
+z = @. h(x, y)
+
+tv = 0:8
+tl = [L"10^{%$i}" for i in tv]
+contourf(x, y, log10.(z), color=:turbo, levels=8, colorbar_ticks=(tv, tl), 
+    aspect_ratio=:equal,
+    title=L"\exp(x^{2} + y^{2})", 
+    xlabel=L"x", 
+    ylabel=L"y")
+```
