@@ -68,8 +68,8 @@ $julia -e '
 
 # tentative fix for `pyplot` bug: libstdc++.so.X: version `GLIBCXX_X.X.X' not found ...
 # export LD_PRELOAD=$(g++ --print-file-name=libstdc++.so)
-export LD_PRELOAD=$($julia -e 'using Conda; joinpath(Conda.ROOTENV, "lib", "libstdc++.so") |> print')
-echo $LD_PRELOAD
+# export LD_PRELOAD=$($julia -e 'using Conda; joinpath(Conda.ROOTENV, "lib", "libstdc++.so") |> print')
+# echo $LD_PRELOAD
 
 echo "== build documentation for $GITHUB_REPOSITORY@$GITHUB_REF, triggerd by $GITHUB_ACTOR on $GITHUB_EVENT_NAME =="
 if [ "$GITHUB_REPOSITORY" == 'JuliaPlots/PlotDocs.jl' ]; then
