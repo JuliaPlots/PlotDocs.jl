@@ -39,7 +39,8 @@ Let's make this plot more presentable with the following attributes:
 alias `clabels`. We'll use the LaTeXStrings.jl package to write the function expression in the title. (To install this
 package, type `]` and then `add LaTeXStrings` into the REPL.)
 3. The colormap can be changed using `seriescolor`, which has the alias `color`, or even `c`. The default colormap is 
-`:inferno`, from matplotlib. A full list of colormaps can be found in the ColorSchemes section of the manual.
+`:inferno`, from matplotlib. A full list of colormaps can be found in the [ColorSchemes](@ref colorschemes) section of 
+the manual.
 4. The colorbar location can be changed with the attribute `colorbar`, alias `cbar`. We can remove it by setting
 `cbar=false`.
 5. The widths of the isocontours can be changed using `linewidth`, or `lw`.
@@ -113,7 +114,7 @@ and will require some manual tweaking. First, we define a function `h(x, y) = ex
 logarithm of. Then we adjust the `levels` and `colorbar_ticks` attributes.
 
 The `colorbar_ticks` attribute can take in a tuple of two vectors `(tickvalues, ticklabels)`. Since `h(x, y)` varies
-from 10<sup>0</sup> to 10<sup>8</sup> over the prescribed domain, tickvalues will be a vector `tv = 0:8`. We can format
+from 10<sup>0</sup> to 10<sup>8</sup> over the prescribed domain, tickvalues will be a vector `t = 0:8`. We can format
 the labels with superscripts by using LaTeXStrings again. Note that the string interpolation operator changes from `$` 
 to `%$` when working within `L"..."` to avoid clashing with `$` as normally used in LaTeX.
 
