@@ -101,7 +101,7 @@ g(x, y) = log(x*y)
 x = 10 .^ range(0, 6, length=100) |> adjoint
 y = 10 .^ range(0, 6, length=100)
 z = @. g(x, y)
-contourf(x, y, z, color=:plasma, aspect_ratio=:equal,
+contourf(x, y, z, color=:plasma,
     xscale=:log10, yscale=:log10,
     title=L"\log(xy)",
     xlabel=L"x",
