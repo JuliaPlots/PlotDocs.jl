@@ -103,7 +103,7 @@ ylabel!(L"y")
 ```
 
 If you are using the GR backend to plot filled contours, there will be black lines separating the filled regions. If
-these lines are undesirable, a different backend must be used, like PyPlot.
+these lines are undesirable, you can set the line width to 0: `lw=0`.
 
 ## Logarithmic Contour Plots
 
