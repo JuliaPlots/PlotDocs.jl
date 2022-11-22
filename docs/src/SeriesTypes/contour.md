@@ -16,7 +16,7 @@ tutorial, we mentioned that the `@.` macro evaluates whatever is to the right of
 precisely, the dot `.` is shorthand for broadcasting; since `x` is of size `(1, 100)` and y is of size `(50, )`, 
 `z = @. f(x, y)` will broadcast the function `f` over `x` and `y` and yield a matrix of size `(50, 100)`.
 
-```julia
+```@example contour
 using Plots; pyplot()
 
 f(x, y) = (3x + y^2) * abs(sin(x) + cos(y))
@@ -47,7 +47,7 @@ the manual.
 
 Note that `levels`, `color`, and `contour_labels` need to be specified in `contour`.
 
-```julia
+```@example contour
 using LaTeXStrings
 
 contour(x, y, z, levels=10, color=:turbo, clabels=true, cbar=false, lw=1)
@@ -80,7 +80,7 @@ contour(x, y, z, fill=true)
 Another way is to use the function `contourf`, along with its mutating version `contourf!`. With filled contour plots,
 the attribute `clabels` does not apply.
 
-```julia
+```@example contour
 contourf(x, y, z, levels=20, color=:turbo)
 title!(L"(3x + y^2)|\sin(x) + \cos(y)|")
 xlabel!(L"x")
@@ -96,7 +96,7 @@ Much like with line and scatter plots, the X and Y axes can be made logarithmic.
 generate the plot if the attributes are specified in the `contourf` command directly instead of using their mutating
 versions.
 
-```julia
+```@example contour
 g(x, y) = log(x*y)
 
 x = 10 .^ range(0, 6, length=100) |> adjoint
@@ -118,7 +118,7 @@ from 10<sup>0</sup> to 10<sup>8</sup> over the prescribed domain, tickvalues wil
 the labels with superscripts by using LaTeXStrings again. Note that the string interpolation operator changes from `$` 
 to `%$` when working within `L"..."` to avoid clashing with `$` as normally used in LaTeX.
 
-```julia
+```@example contour
 h(x, y) = exp(x^2 + y^2)
 
 x = range(-3, 3, length=100)'
