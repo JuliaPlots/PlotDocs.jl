@@ -48,9 +48,6 @@ export GKSwstype=nul  # Plots.jl/issues/3664
 export COLORTERM='truecolor'  # UnicodePlots.jl
 export PLOTDOCS_ANSICOLOR=true
 
-# tentative fix for `pyplot` bug: libstdc++.so.X: version `GLIBCXX_X.X.X' not found ...
-# export LD_PRELOAD=$(g++ --print-file-name=libstdc++.so)
-
 julia='xvfb-run julia --color=yes --project=docs'
 
 $julia -e '
@@ -61,9 +58,13 @@ $julia -e '
   Conda.runconda(`config --set auto_update_conda False --file $rc --force`, env)
   Pkg.add("PyCall"); Pkg.build("PyCall"; verbose=true)
   Conda.add("matplotlib")
-  Conda.add("libgcc")
   Conda.list()
 '
+
+# tentative fix for `pyplot` bug: libstdc++.so.X: version `GLIBCXX_X.X.X' not found ...
+# export LD_PRELOAD=$(g++ --print-file-name=libstdc++.so)
+export LD_PRELOAD=$($julia -e 'using Conda; joinpath(Conda.ROOTENV, "lib", "libstdc++.so") |> print')
+echo $LD_PRELOAD
 
 echo "== build documentation for $GITHUB_REPOSITORY@$GITHUB_REF, triggerd by $GITHUB_ACTOR on $GITHUB_EVENT_NAME =="
 if [ "$GITHUB_REPOSITORY" == 'JuliaPlots/PlotDocs.jl' ]; then
