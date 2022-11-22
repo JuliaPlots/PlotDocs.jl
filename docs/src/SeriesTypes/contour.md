@@ -43,7 +43,7 @@ package, type `]` and then `add LaTeXStrings` into the REPL.)
 the manual.
 4. The colorbar location can be changed with the attribute `colorbar`, alias `cbar`. We can remove it by setting
 `cbar=false`.
-5. The line width can be changed as with line plots using `linewidth`, or `lw`.
+5. The widths of the isocontours can be changed using `linewidth`, or `lw`.
 
 Note that `levels`, `color`, and `contour_labels` need to be specified in `contour`.
 
@@ -62,7 +62,7 @@ If only black lines are desired, you can set the `color` attribute like so:
 contour(x, y, z, color=[:black])
 ```
 
-For alternating black and red lines of a specific hex value, you could type `color=[:black, "#E52B50"]`, and so on.
+and for alternating black and red lines of a specific hex value, you could type `color=[:black, "#E52B50"]`, and so on.
 
 To get a full list of the available values that an attribute can take, type `plotattr("attribute")` into the REPL. For
 example, `plotattr("cbar")` shows that it can take either symbols from a predefined list (e.g. `:left` and `:top`), 
@@ -86,3 +86,6 @@ title!(L"(3x + y^2)|\sin(x) + \cos(y)|")
 xlabel!(L"x")
 ylabel!(L"y")
 ```
+
+If you are using the GR backend to plot filled contours, there will be black lines separating the filled regions. If
+these lines are undesirable, a different backend must be used, like PyPlot.
