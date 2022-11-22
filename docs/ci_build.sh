@@ -49,7 +49,7 @@ export COLORTERM='truecolor'  # UnicodePlots.jl
 export PLOTDOCS_ANSICOLOR=true
 
 # tentative fix for `pyplot` bug: libstdc++.so.X: version `GLIBCXX_X.X.X' not found ...
-export LD_PRELOAD=$(g++ --print-file-name=libstdc++.so)
+# export LD_PRELOAD=$(g++ --print-file-name=libstdc++.so)
 
 julia='xvfb-run julia --color=yes --project=docs'
 
