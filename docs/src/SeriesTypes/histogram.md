@@ -109,8 +109,8 @@ histogram2d(x, y)
 
 Things like custom bin numbers, weights, and normalization work in 2D, along with changing things like the
 colormap. However, the bin numbers need to be passed in via tuples; if only one number is passed in for
-the bins, for example, it is assumed that both axes have the same number of bins. The weights only accept a single
-vector for the `x` values.
+the bins, for example, it is assumed that both axes will set the same number of bins. Additionally, the weights 
+only accept a single vector for the `x` values.
 
 ```@example histogram
 w = exp.(x)
