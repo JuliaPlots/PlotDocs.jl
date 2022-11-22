@@ -3,7 +3,7 @@ using Plots; gr()
 Plots.reset_defaults()
 ```
 
-# [Colorschemes](@id colorschemes)
+# Colorschemes
 
 Plots supports all colorschemes from [ColorSchemes.jl](https://juliagraphics.github.io/ColorSchemes.jl/stable/basics/#Pre-defined-schemes-1).
 They can be used as a gradient or as a palette and are passed as a symbol holding their name to `cgrad` or `palette`.
