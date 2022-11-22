@@ -57,6 +57,11 @@ $julia -e '
   using Conda; env, rc = Conda.ROOTENV, Conda.conda_rc(Conda.ROOTENV)
   Conda.runconda(`config --set auto_update_conda False --file $rc --force`, env)
   Pkg.add("PyCall"); Pkg.build("PyCall"; verbose=true)
+  # see discourse.julialang.org/t/glibcxx-version-not-found/82209/8
+  # julia 1.8.3 is built with libstdc++.so.6.0.29, so we must restrict to this version (gcc 11.3.0, not gcc 12.2.0)
+  ver = 11
+  CondaPkg.add("libgcc-ng<=$ver")
+  CondaPkg.add("libstdcxx-ng<=$ver")
   Conda.add("matplotlib")
   Conda.list()
 '
