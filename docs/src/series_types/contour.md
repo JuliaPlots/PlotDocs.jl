@@ -16,6 +16,7 @@ tutorial, we mentioned that the `@.` macro evaluates whatever is to the right of
 precisely, the dot `.` is shorthand for broadcasting; since `x'` is of size `(1, 100)` and y is of size `(50, )`, 
 `z = @. f(x', y)` will broadcast the function `f` over `x'` and `y` and yield a matrix of size `(50, 100)`.
 
+```@example contour
 using Plots; pyplot()
 
 f(x, y) = (3x + y^2) * abs(sin(x) + cos(y))
