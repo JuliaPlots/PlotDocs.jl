@@ -96,12 +96,12 @@ plot(p1, p2, p3, layout=(1, 3), legend=false)
 Two-dimensional histograms are accessed through the function `histogram2d` and its mutating variant `histogram2d!`.
 To plot them, two vectors `x` and `y` of the same length are needed. 
 
-The histogram is plotted in 2D as a heatmap instead of as 3D bars. Bins without any count are not plotted at all.
-The default colormap is `:inferno`, as with contour plots and heatmaps. 
+The histogram is plotted in 2D as a heatmap instead of as 3D bars. The default colormap is `:inferno`, as with contour 
+plots and heatmaps. Bins without any count are not plotted at all by default.
 
 ```@example histogram
-x = randn(10^3)
-y = randn(10^3) .- 1
+x = randn(10^4)
+y = randn(10^4)
 histogram2d(x, y)
 ```
 
@@ -110,12 +110,13 @@ colormap. However, the bin numbers need to be passed in via tuples; if only one 
 the bins, for example, it is assumed that both axes will set the same number of bins. Additionally, the weights 
 only accept a single vector for the `x` values.
 
+Not plotting the bins at all may not be visually appealing, especially if a colormap is used with dark colors on the 
+low end. To rectify this, use the attribute `show_empty_bins=true`.
+
 ```@example histogram
 w = exp.(x)
-histogram2d(x, y, bins=(40, 20), normalize=:pdf, weights=w, 
-    color=:plasma, aspect_ratio=:equal)
-xlims!(-5, 5)
-ylims!(-6, 4)
+histogram2d(x, y, bins=(40, 20), show_empty_bins=true,
+    normalize=:pdf, weights=w, color=:plasma)
 title!("Normalized 2D Histogram")
 xlabel!("x")
 ylabel!("y")
