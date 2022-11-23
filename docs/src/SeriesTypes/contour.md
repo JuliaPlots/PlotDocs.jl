@@ -92,8 +92,7 @@ We can also specify that the contours should be filled in. One way to do this is
 contour(x, y, z, fill=true)
 ```
 
-Another way is to use the function `contourf`, along with its mutating version `contourf!`. With filled contour plots,
-the attribute `clabels` does not apply.
+Another way is to use the function `contourf`, along with its mutating version `contourf!`:
 
 ```@example contour
 contourf(x, y, z, levels=20, color=:turbo)
