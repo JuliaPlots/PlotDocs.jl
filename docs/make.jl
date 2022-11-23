@@ -112,8 +112,8 @@ const PAGES = Any[
         "Basics" => "basics.md",
         "Tutorial" => "tutorial.md",
         "Series Types" => [
-            "Contour Plots" => "SeriesTypes/contour.md",
-            "Histograms" => "SeriesTypes/histogram.md",
+            "Contour Plots" => "series_types/contour.md",
+            "Histograms" => "series_types/histogram.md",
         ],
     ],
     "Manual" => [
