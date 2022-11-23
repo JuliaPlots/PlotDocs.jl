@@ -9,13 +9,11 @@ One-dimensional histograms are accessed through the function `histogram` and its
 will use the default GR backend on this page.
 
 The most basic plot of a histogram is that of a vector of random numbers sampled from the unit normal distribution.
-We'll first fix the random number generator seed so that the plots are reproducible.
 
 ```@example histogram
-using Plots, Random
-Random.seed!(1234)
+using Plots
 
-x = randn(1000)
+x = randn(10^3)
 histogram(x)
 ```
 
@@ -102,8 +100,8 @@ The histogram is plotted in 2D as a heatmap instead of as 3D bars. Bins without 
 The default colormap is `:inferno`, as with contour plots and heatmaps. 
 
 ```@example histogram
-x = randn(1000)
-y = randn(1000) .- 1
+x = randn(10^3)
+y = randn(10^3) .- 1
 histogram2d(x, y)
 ```
 

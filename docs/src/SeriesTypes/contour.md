@@ -107,9 +107,11 @@ these lines are undesirable, you can set the line width to 0: `lw=0`.
 
 ## Logarithmic Contour Plots
 
-Much like with line and scatter plots, the X and Y axes can be made logarithmic. It will be easier for the backend to 
-generate the plot if the attributes are specified in the `contourf` command directly instead of using their mutating
-versions.
+Much like with line and scatter plots, the X and Y axes can be made logarithmic through the `xscale` and `yscale`
+attributes. If both axes need to be logarithmic, then you can set `scale=:log10`.
+
+It will be easier for the backend to generate the plot if the attributes are specified in the `contourf` command 
+directly instead of using their mutating versions.
 
 ```@example contour
 g(x, y) = log(x*y)
@@ -117,11 +119,8 @@ g(x, y) = log(x*y)
 x = 10 .^ range(0, 6, length=100)
 y = 10 .^ range(0, 6, length=100)
 z = @. g(x', y)
-contourf(x, y, z, color=:plasma,
-    xscale=:log10, yscale=:log10,
-    title=L"\log(xy)",
-    xlabel=L"x",
-    ylabel=L"y")
+contourf(x, y, z, color=:plasma, scale=:log10,
+    title=L"\log(xy)", xlabel=L"x", ylabel=L"y")
 ```
 
 It is often desired that the colorbar be logarithmic. The process to get this working correctly is a bit more involved
@@ -142,11 +141,9 @@ z = @. h(x', y)
 
 tv = 0:8
 tl = [L"10^{%$i}" for i in tv]
-contourf(x, y, log10.(z), color=:turbo, levels=8, colorbar_ticks=(tv, tl), 
-    aspect_ratio=:equal,
-    title=L"\exp(x^{2} + y^{2})", 
-    xlabel=L"x", 
-    ylabel=L"y")
+contourf(x, y, log10.(z), color=:turbo, levels=8, 
+    colorbar_ticks=(tv, tl), aspect_ratio=:equal, 
+    title=L"\exp(x^{2} + y^{2})", xlabel=L"x", ylabel=L"y")
 ```
 
 If you want the fill boundaries to correspond to the orders of magnitude, `levels=8`. Depending on the data, this
