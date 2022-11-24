@@ -91,6 +91,8 @@ p3 = stephist(x, title="Step")
 plot(p1, p2, p3, layout=(1, 3), legend=false)
 ```
 
+Note that the Y axis of the histogram scatter plot will not start from 0 by default.
+
 ## 2D Histograms
 
 Two-dimensional histograms are accessed through the function `histogram2d` and its mutating variant `histogram2d!`.
