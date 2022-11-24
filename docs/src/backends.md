@@ -206,13 +206,11 @@ pl = scatter(1:3, rand(3),
 
 A Julia wrapper around the popular python package `PyPlot` (Matplotlib).  It uses `PyCall.jl` to pass data with minimal overhead.
 
-<!--FIXME: this example is broken with libstdc++.so.X: version `GLIBCXX_X.X.XX' not found (conda dependencies)-->
-<!--```@example backends-->
-<!--pyplot(); backendplot()  #hide-->
-<!--png("backends_pyplot.png")  #hide-->
-<!--```-->
-<!--![](backends_pyplot.png)-->
-
+```@example backends
+pyplot(); backendplot()  #hide
+png("backends_pyplot.png")  #hide
+```
+![](backends_pyplot.png)
 
 Pros:
 
