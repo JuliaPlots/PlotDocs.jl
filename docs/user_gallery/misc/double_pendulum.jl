@@ -13,14 +13,13 @@
 
 using OrdinaryDiffEq
 
-G = 9.8  # acceleration due to gravity, in m/s^2
-L1 = 1.0  # length of pendulum 1 in m
-L2 = 1.0  # length of pendulum 2 in m
+G = 9.8      # acceleration due to gravity, in m/s^2
+L1 = 1.0     # length of pendulum 1 in m
+L2 = 1.0     # length of pendulum 2 in m
 L = L1 + L2  # maximal length of the combined pendulum
-M1 = 1.0  # mass of pendulum 1 in kg
-M2 = 1.0  # mass of pendulum 2 in kg
-t_stop = 5  # how many seconds to simulate
-history_len = 500  # how many trajectory points to display
+M1 = 1.0     # mass of pendulum 1 in kg
+M2 = 1.0     # mass of pendulum 2 in kg
+t_stop = 5   # how many seconds to simulate
 
 function pendulum!(du, u, p, t)
     (; M1, M2, L1, L2, G) = p
@@ -47,7 +46,7 @@ function pendulum!(du, u, p, t)
             (M1 + M2) * L1 * u[2] * u[2] * sin(delta) - (M1 + M2) * G * sin(u[3])
         ) / den2
     )
-    return nothing
+    nothing
 end
 
 # `th1` and `th2` are the initial angles (degrees)
@@ -62,17 +61,14 @@ p = (; M1, M2, L1, L2, G)
 prob = ODEProblem(pendulum!, deg2rad.([th1, w1, th2, w2]), (0.0, t_stop), p)
 sol = solve(prob, Tsit5())
 
-
-
 x1 = +L1 * sin.(sol[1, :])
 y1 = -L1 * cos.(sol[1, :])
 
 x2 = +L2 * sin.(sol[3, :]) + x1
 y2 = -L2 * cos.(sol[3, :]) + y1
 
-
-
 using Plots
+gr()
 anim = @animate for i in eachindex(x2)
 
     x = [0, x1[i], x2[i]]
@@ -101,6 +97,6 @@ anim = @animate for i in eachindex(x2)
 end
 gif(anim, fps = 10)
 
-# save cover image #src
-mkpath("assets") #src
-gif(anim, "assets/Pendulum.gif", fps = 10) #src
+# save cover image  #src
+mkpath("assets")  #src
+gif(anim, "assets/Pendulum.gif", fps = 10)  #src

@@ -75,6 +75,7 @@ plt = plot3d(
     ylim = (-30, 30),
     zlim = (0, 60),
     title = "Lorenz Attractor",
+    legend = false,
     marker = 2,
 )
 

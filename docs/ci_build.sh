@@ -41,18 +41,19 @@ sudo fc-cache -vr
 fc-list | grep 'JuliaMono'
 
 echo "== install julia dependencies =="
-export JULIA_DEBUG='Documenter,PlotDocs,DemoCards'
-export DOCUMENTER_DEBUG=true  # Democards.jl
+if true; then
+  export JULIA_DEBUG='Documenter,Literate,DemoCards'
+  export DOCUMENTER_DEBUG=true  # Democards.jl
+fi
 
 export GKSwstype=nul  # Plots.jl/issues/3664
-export COLORTERM='truecolor'  # UnicodePlots.jl
+export COLORTERM=truecolor  # UnicodePlots.jl
 export PLOTDOCS_ANSICOLOR=true
 
 julia='xvfb-run julia --color=yes --project=docs'
 
 $julia -e '
-  using Pkg
-  Pkg.develop(PackageSpec(path=pwd())); Pkg.instantiate()
+  using Pkg; Pkg.instantiate()
   Pkg.add("Conda"); Pkg.build("Conda"; verbose=true)
   using Conda; env, rc = Conda.ROOTENV, Conda.conda_rc(Conda.ROOTENV)
   Conda.runconda(`config --set auto_update_conda False --file $rc --force`, env)
@@ -75,13 +76,9 @@ $julia -e '
   Pkg.add("PyCall"); Pkg.build("PyCall"; verbose=true)
 '
 
-# tentative fix for `pyplot` bug: libstdc++.so.X: version `GLIBCXX_X.X.X' not found ...
-# export LD_PRELOAD=$(g++ --print-file-name=libstdc++.so)
-# export LD_PRELOAD=$($julia -e 'using Conda; joinpath(Conda.ROOTENV, "lib", "libstdc++.so") |> print')
-# echo $LD_PRELOAD
-
 echo "== build documentation for $GITHUB_REPOSITORY@$GITHUB_REF, triggerd by $GITHUB_ACTOR on $GITHUB_EVENT_NAME =="
 if [ "$GITHUB_REPOSITORY" == 'JuliaPlots/PlotDocs.jl' ]; then
+  $julia -e 'using Pkg; Pkg.add(PackageSpec(name="Plots", rev="master"))'
   $julia docs/make.jl
 elif [ "$GITHUB_REPOSITORY" == 'JuliaPlots/Plots.jl' ]; then
   $julia -e 'using Pkg; Pkg.add(PackageSpec(name="Plots", rev=split(ENV["GITHUB_REF"], "/", limit=3)[3])); Pkg.instantiate()'
