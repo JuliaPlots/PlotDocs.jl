@@ -115,8 +115,10 @@ function generate_cards(
     skip = get(Plots._backend_skips, backend, Int[]), gendir = "gallery", 
 )
     # create folder: for each backend we generate a DemoSection "generated" under "gallery"
-    cardspath = mkpath(normpath("docs", gendir, "$backend", "generated"))  # NOTE: this path must be relative
+    cardspath = mkpath(normpath("docs", gendir, "$backend", "generated"))  # NOTE: must this path be relative ?
     sec_config = Dict{String, Any}("order" => [])
+
+    needs_rng_fix = Dict{Int,Bool}()
 
     for (i, example) in enumerate(Plots._examples[slice])
         # write out the header, description, code block, and image link
@@ -155,7 +157,8 @@ function generate_cards(
         # DemoCards use Literate.jl syntax with extra leading `#` as markdown lines
         write(jl, "# $(replace(example.desc, "\n" => "\n  # "))\n")
         isnothing(example.imports) || pretty_print_expr(jl, example.imports)
-        pretty_print_expr(jl, Plots.replace_rand(example.exprs))
+        needs_rng_fix[i] = (exprs_rng = Plots.replace_rand(example.exprs)) != example.exprs
+        pretty_print_expr(jl, exprs_rng)
 
         # NOTE: the supported `Literate.jl` syntax is `#src` and `#hide` NOT `# src` !!
         # from the docs: """
@@ -210,7 +213,7 @@ function generate_cards(
         push!(sec_config["order"], attr_name)
         write(config, json(sec_config))
     end
-    cardspath
+    needs_rng_fix
 end
 
 # tables detailing the features that each backend supports
@@ -609,34 +612,7 @@ function main()
     @info "gallery"
     gallery = Pair{String,String}[]
     gallery_assets, gallery_callbacks, user_gallery = map(_ -> [], 1:3)
-
-    for name in split(backends)
-        generate_cards(Symbol(lowercase(name)), slice)
-        let (path, cb, assets) = makedemos(joinpath("gallery", lowercase(name)); src = "src/gallery")
-            push!(gallery, name => joinpath("gallery", path))
-            push!(gallery_callbacks, cb)
-            push!(gallery_assets, assets)
-        end
-    end
-    user_gallery, cb, assets = makedemos("user_gallery"; src = "src")
-    push!(gallery_callbacks, cb)
-    push!(gallery_assets, assets)
-    unique!(gallery_assets)
-
-    @info "UnitfulRecipes"
-    src_unitfulrecipes = "src/UnitfulRecipes"
-    unitfulrecipes = joinpath(@__DIR__, src_unitfulrecipes)
-    notebooks = joinpath(unitfulrecipes, "notebooks")
-
-    execute = true  # set to true for executing notebooks and documenter
-    nb = false      # set to true to generate the notebooks
-    for (root, _, files) in walkdir(unitfulrecipes), file in files
-        last(splitext(file)) == ".jl" || continue
-        ipath = joinpath(root, file)
-        opath = replace(ipath, src_unitfulrecipes => "src/generated") |> splitdir |> first
-        Literate.markdown(ipath, opath; documenter = execute)
-        nb && Literate.notebook(ipath, notebooks; execute)
-    end
+    needs_rng_fix = Dict{String,Any}()
 
     pages = [
         "Home" => "index.md",
@@ -703,10 +679,61 @@ function main()
         "API" => "api.md",
     ]
 
+    all_pages = []
+
+    add_pages(x) =
+        for p in x
+            if p.second isa String
+                push!(all_pages, basename(p.second))
+            else
+                # recursive
+                add_pages(p)
+            end
+        end
+
+    @show all_pages
+
+    temp = "temp"  # work directory, for `Documenter` and `DemoCards`
+    for (root, dirs, files) in walkdir("src")
+        foreach(dir -> mkpath(joinpath(temp, dir)), dirs)
+        foreach(file -> cp(joinpath(root, file), joinpath(temp, file); force = true), files)
+    end
+
+    for name in split(backends)
+        name_low = lowercase(name)
+        needs_rng_fix[name] = generate_cards(Symbol(name_low), slice)
+        let (path, cb, assets) = makedemos(joinpath("gallery", name_low); src = "$temp/gallery")
+            push!(gallery, name => joinpath("gallery", path))
+            push!(gallery_callbacks, cb)
+            push!(gallery_assets, assets)
+        end
+    end
+    user_gallery, cb, assets = makedemos("user_gallery"; src = temp)
+    push!(gallery_callbacks, cb)
+    push!(gallery_assets, assets)
+    unique!(gallery_assets)
+
+    @info "UnitfulRecipes"
+    src_unitfulrecipes = "src/UnitfulRecipes"
+    unitfulrecipes = joinpath(@__DIR__, src_unitfulrecipes)
+    notebooks = joinpath(unitfulrecipes, "notebooks")
+
+    execute = true  # set to true for executing notebooks and documenter
+    nb = false      # set to true to generate the notebooks
+    for (root, _, files) in walkdir(unitfulrecipes), file in files
+        last(splitext(file)) == ".jl" || continue
+        ipath = joinpath(root, file)
+        opath = replace(ipath, src_unitfulrecipes => "$temp/generated") |> splitdir |> first
+        Literate.markdown(ipath, opath; documenter = execute)
+        nb && Literate.notebook(ipath, notebooks; execute)
+    end
+
     ansicolor = get(ENV, "PLOTDOCS_ANSICOLOR", "true") == "true"
     @info "makedocs" ansicolor
+    failed = false
     try
         @time makedocs(;
+            src = temp,
             format = Documenter.HTML(
                 prettyurls = get(ENV, "CI", nothing) == "true",
                 assets = ["assets/favicon.ico", gallery_assets...],
@@ -719,6 +746,7 @@ function main()
             pages,
         )
     catch e
+        failed = true
         e isa KeyBoardInterrupt || rethrow()
     end
 
@@ -726,30 +754,37 @@ function main()
         cb()  # URL redirection for DemoCards-generated gallery
     end
 
+    failed && return  # don't deploy and post-process on failure
+
     # postprocess gallery html files to remove `rng` in user displayed code
+    # non-exhaustive list of examples to be fixed: [1, 4, 5, 7:12, 14:21, 25:27, 29:30, 33:34, 36, 38:39, 41, 43, 45:46, 48, 52, 54, 62]
     for name in split(backends)
         prefix = joinpath(@__DIR__, "build", "gallery", lowercase(name), "generated")
+        must_fix = needs_rng_fix[name]
         for file in glob("*/index.html", prefix)
+            (m = match(r"-ref(\d+)", file)) === nothing && continue
+            idx = parse(Int, first(m.captures))
             lines = readlines(file; keep=true)
             open(file, "w") do io
                 count = 0
+                in_code = false
+                sub = ""
                 for line in lines
-                    if (m = match(r"""<code class="language-julia hljs">(.*?)<\/code>""", line)) !== nothing
-                        count += 1
-                        code = first(m.captures)
-                        pre = line[begin:(m.offset - 1)]
-                        repl = (
-                            "<code class=\"language-julia hljs\">" *
-                            replace(code, r"rng\s*?,\s*" => "") *
-                            "</code>"
-                        )
-                        post = line[m.offset+length(m.match):(end)]
-                        line = pre * repl * post
-                        # @show line pre repl post
+                    trailing = if (m = match(r"""<code class="language-julia hljs">.*""", line)) !== nothing
+                        in_code = true
+                        m.match
+                    else
+                        line
                     end
+                    if in_code && occursin("rng", line)
+                        line = replace(line, r"rng\s*?,\s*" => "")
+                        count += 1
+                    end
+                    occursin("</code>", trailing) && (in_code = false)
                     write(io, line)
                 end
                 count > 0 && @info "replaced $count occurrence(s) of `rng`" file
+                @assert (get(must_fix, idx, false) ? count > 0 : count == 0) "idx=$idx - count=$count - file=$file"
             end
         end
     end
