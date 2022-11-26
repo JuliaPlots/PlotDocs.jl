@@ -47,6 +47,35 @@ end
 
 @eval DemoCards get_logopath() = $(joinpath(@__DIR__, "src", "assets", "axis_logo_600x400.png"))
 
+# monkey patch `DemoCards` to avoid `# Generated` section in gallery
+@eval DemoCards generate(sec::DemoSection, templates; level=1, properties=Dict{String, Any}()) = begin
+    # https://github.com/JuliaDocs/DemoCards.jl/blob/db05c296b9de80137c28f92a4944bc21a0cda0db/src/generate.jl#L275-L292
+    ############################################################
+    # begin addition
+    header = if occursin("generated", lowercase(sec.title)) 
+        ""
+    else
+        repeat("#", level) * " " * sec.title
+    end * '\n'
+    # end addition
+    ############################################################
+    footer = "\n"
+    properties = merge(properties, sec.properties) # sec.properties has higher priority
+
+    # either cards or subsections are empty
+    # recursively generate the page contents
+    if isempty(sec.cards)
+        body = generate(sec.subsections, templates; level=level+1, properties=properties)
+    else
+        items = Dict(
+            "cards" => generate(sec.cards, templates["card"], properties=properties),
+            "description" => sec.description
+        )
+        body = Mustache.render(templates["section"], items)
+    end
+    header * body * footer
+end
+
 # ----------------------------------------------------------------------
 
 edit_url(args...) = 
@@ -86,7 +115,7 @@ function generate_cards(
     skip = get(Plots._backend_skips, backend, Int[]), gendir = "gallery", 
 )
     # create folder: for each backend we generate a DemoSection "generated" under "gallery"
-    cardspath = mkpath(normpath(@__DIR__, gendir, "$backend", "generated"))
+    cardspath = mkpath(normpath("docs", gendir, "$backend", "generated"))  # NOTE: this path must be relative
     sec_config = Dict{String, Any}("order" => [])
 
     for (i, example) in enumerate(Plots._examples[slice])
@@ -119,6 +148,7 @@ function generate_cards(
                 Plots.reset_defaults()  #hide
                 using StableRNGs  #hide
                 rng = StableRNG($(Plots.PLOTS_SEED))  #hide
+                nothing  #hide
                 """
             )
         end
@@ -188,20 +218,19 @@ end
 function make_support_df(allvals, func)
     vals = sort(collect(allvals)) # rows
     bs = sort(backends())
-    bs = filter(be -> !(be in Plots._deprecated_backends), bs) # cols
     df = DataFrames.DataFrame(keys=vals)
 
-    for b in bs
-        b_supported_vals = fill("", length(vals))
+    for be in filter(b -> b ∉ Plots._deprecated_backends, bs) # cols
+        be_supported_vals = fill("", length(vals))
         for (i, val) in enumerate(vals)
-            b_supported_vals[i] = if func == Plots.supported_seriestypes
-                stype = Plots.seriestype_supported(Plots._backend_instance(b), val)
+            be_supported_vals[i] = if func == Plots.supported_seriestypes
+                stype = Plots.seriestype_supported(Plots._backend_instance(be), val)
                 stype === :native ? "✅" : (stype === :no ? "" : "🔼")
             else
-                val in func(Plots._backend_instance(b)) ? "✅" : ""
+                val in func(Plots._backend_instance(be)) ? "✅" : ""
             end
         end
-        df[!, b] = b_supported_vals
+        df[!, be] = be_supported_vals
     end
     df
 end
@@ -213,7 +242,6 @@ function generate_supported_markdown()
         "Line Styles" => (Plots._allStyles,  Plots.supported_styles),
         "Scales" => (Plots._allScales,  Plots.supported_scales)
     )
-
     open(joinpath(GENDIR, "supported.md"), "w") do md
         write(md, """
             ```@meta
@@ -297,10 +325,8 @@ function generate_attr_markdown(c)
         :Axis => Plots._axis_defaults,
     )
 
-    cstr = lowercase(string(c))
-    attr_text = attribute_texts[c]
-
     df = make_attr_df(c, attribute_defaults[c])
+    cstr = lowercase(string(c))
     ATTRIBUTE_SEARCH[cstr] = collect(zip(df.Attribute, df.Aliases))
 
     open(joinpath(GENDIR, "attributes_$cstr.md"), "w") do md
@@ -310,7 +336,7 @@ function generate_attr_markdown(c)
             ```
             ### $c
 
-            $attr_text
+            $(attribute_texts[c])
 
             ```@raw html
             $(to_html(df))
@@ -471,11 +497,9 @@ function generate_colorschemes_markdown()
             ```
             """
         )
-
         for line in readlines(normpath(@__DIR__, "src", "colorschemes.md"))
             write(md, line * '\n')
         end
-
         write(md, """
             ## misc
 
@@ -509,7 +533,7 @@ function colors_svg(cs, w, h)
              viewBox="0 0 $n 1" preserveAspectRatio="none"
              shape-rendering="crispEdges" stroke="none">
         """, "\n" => " "
-    )  # NOTE: no linebreaks
+    )  # NOTE: no linebreaks (because those break html code)
     for (i, c) in enumerate(cs)
         html *= """<rect width="$(ws)mm" height="$(h)mm" x="$(i-1)" y="0" fill="#$(hex(convert(RGB, c)))" />"""
     end
@@ -549,6 +573,8 @@ end
 
 function main()
     get!(ENV, "MPLBACKEND", "agg")  # set matplotlib gui backend
+    get!(ENV, "GKSwstype", "nul")  # disable default GR ws
+
     mkpath(GENDIR)
 
     # initialize all backends
@@ -559,6 +585,16 @@ function main()
     unicodeplots()
     inspectdr()
     gaston()
+
+    # NOTE: for a faster representative test build use `PLOTDOCS_BACKENDS='GR' PLOTDOCS_EXAMPLES='1'`
+    default_backends = "GR PyPlot PlotlyJS PGFPlotsX UnicodePlots InspectDR Gaston"
+    backends = get(ENV, "PLOTDOCS_BACKENDS", default_backends)
+    backends = backends == "ALL" ? default_backends : backends
+    @info "selected backends: $backends"
+
+    slice = parse.(Int, split(get(ENV, "PLOTDOCS_EXAMPLES", "")))
+    slice = length(slice) == 0 ? Colon() : slice
+    @info "selected examples: $slice"
 
     @info "generate markdown"
     generate_attr_markdown()
@@ -571,20 +607,8 @@ function main()
     end
 
     @info "gallery"
-
     gallery = Pair{String,String}[]
-    gallery_assets = String[]
-    gallery_callbacks, user_gallery = map(_ -> [], 1:2)
-
-    # NOTE: for a faster representative test build use `PLOTDOCS_BACKENDS='GR' PLOTDOCS_EXAMPLES='1'`
-    default_backends = "GR PyPlot PlotlyJS PGFPlotsX UnicodePlots InspectDR Gaston"
-    backends = get(ENV, "PLOTDOCS_BACKENDS", default_backends)
-    backends = backends == "ALL" ? default_backends : backends
-    @info "selected backends: $backends"
-
-    slice = parse.(Int, split(get(ENV, "PLOTDOCS_EXAMPLES", "")))
-    slice = length(slice) == 0 ? Colon() : slice
-    @info "selected examples: $slice"
+    gallery_assets, gallery_callbacks, user_gallery = map(_ -> [], 1:3)
 
     for name in split(backends)
         generate_cards(Symbol(lowercase(name)), slice)
@@ -598,10 +622,6 @@ function main()
     push!(gallery_callbacks, cb)
     push!(gallery_assets, assets)
     unique!(gallery_assets)
-
-    # debug
-    # foreach(println, gallery)
-    # println(user_gallery)
 
     @info "UnitfulRecipes"
     src_unitfulrecipes = "src/UnitfulRecipes"
@@ -660,7 +680,7 @@ function main()
             "Supported Attributes" => "generated/supported.md",
         ],
         "Learning" => "learning.md",
-        "Contributing" => "contributing.md", # TODO: testing
+        "Contributing" => "contributing.md",
         "Ecosystem" => [
             "StatsPlots" => "generated/statsplots.md",
             "GraphRecipes" => [
@@ -685,24 +705,28 @@ function main()
 
     ansicolor = get(ENV, "PLOTDOCS_ANSICOLOR", "true") == "true"
     @info "makedocs" ansicolor
-    @time makedocs(;
-        format = Documenter.HTML(
-            prettyurls = get(ENV, "CI", nothing) == "true",
-            assets = ["assets/favicon.ico", gallery_assets...],
-            ansicolor = ansicolor,
-            collapselevel = 2,
-        ),
-        sitename = "Plots",
-        authors = "Thomas Breloff",
-        strict = [:doctest, :example_block],
-        pages,
-    )
+    try
+        @time makedocs(;
+            format = Documenter.HTML(
+                prettyurls = get(ENV, "CI", nothing) == "true",
+                assets = ["assets/favicon.ico", gallery_assets...],
+                ansicolor = ansicolor,
+                collapselevel = 2,
+            ),
+            sitename = "Plots",
+            authors = "Thomas Breloff",
+            strict = [:doctest, :example_block],
+            pages,
+        )
+    catch e
+        e isa KeyBoardInterrupt || rethrow()
+    end
 
     foreach(gallery_callbacks) do cb
         cb()  # URL redirection for DemoCards-generated gallery
     end
 
-    # postprocess gallery html files
+    # postprocess gallery html files to remove `rng` in user displayed code
     for name in split(backends)
         prefix = joinpath(@__DIR__, "build", "gallery", lowercase(name), "generated")
         for file in glob("*/index.html", prefix)
@@ -710,13 +734,22 @@ function main()
             open(file, "w") do io
                 count = 0
                 for line in lines
-                    if occursin("<code class=\"language-julia", line)
+                    if (m = match(r"""<code class="language-julia hljs">(.*?)<\/code>""", line)) !== nothing
                         count += 1
-                        line = replace(line, r"rng\s*,\s*" => "")
+                        code = first(m.captures)
+                        pre = line[begin:(m.offset - 1)]
+                        repl = (
+                            "<code class=\"language-julia hljs\">" *
+                            replace(code, r"rng\s*?,\s*" => "") *
+                            "</code>"
+                        )
+                        post = line[m.offset+length(m.match):(end)]
+                        line = pre * repl * post
+                        # @show line pre repl post
                     end
                     write(io, line)
                 end
-                count > 0 && @info "replaced $count occurrences of `rng`" file
+                count > 0 && @info "replaced $count occurrence(s) of `rng`" file
             end
         end
     end
