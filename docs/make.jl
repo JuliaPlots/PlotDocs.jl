@@ -5,6 +5,7 @@ using JSON
 
 import StatsPlots
 
+const SRC_DIR = joinpath(@__DIR__, "src")
 const WORK_DIR = joinpath(@__DIR__, "work")
 const GEN_DIR = joinpath(WORK_DIR, "generated")
 
@@ -46,7 +47,7 @@ const ATTRIBUTE_SEARCH = Dict{String,Any}()  # search terms
     end
 end
 
-@eval DemoCards get_logopath() = $(joinpath(@__DIR__, "src", "assets", "axis_logo_600x400.png"))
+@eval DemoCards get_logopath() = $(joinpath(SRC_DIR, "assets", "axis_logo_600x400.png"))
 
 # monkey patch `DemoCards` to avoid `# Generated` section in gallery
 @eval DemoCards generate(sec::DemoSection, templates; level=1, properties=Dict{String, Any}()) = begin
@@ -111,19 +112,22 @@ markdown_symbols_to_string(arr) = isempty(arr) ? "" : markdown_code_to_string(ar
 
 # ----------------------------------------------------------------------
 
+# NOTE: keep consistent with `Plots`
+ref_name(i) = "ref" * lpad(i, 3, '0')
+
 function generate_cards(
-    backend::Symbol, slice, gendir;
+    prefix::AbstractString, backend::Symbol, slice;
     skip = get(Plots._backend_skips, backend, Int[]) 
 )
     # create folder: for each backend we generate a DemoSection "generated" under "gallery"
-    cardspath = mkpath(joinpath(WORK_DIR, gendir, "$backend", "generated"))
+    cardspath = mkpath(joinpath(prefix, "$backend", "generated"))
     sec_config = Dict{String, Any}("order" => [])
 
     needs_rng_fix = Dict{Int,Bool}()
 
     for (i, example) in enumerate(Plots._examples[slice])
         # write out the header, description, code block, and image link
-        jlname = "$backend-ref$i.jl"
+        jlname = "$backend-$(ref_name(i)).jl"
         jl = PipeBuffer()
         if !isempty(example.header)
             push!(sec_config["order"], jlname)
@@ -132,10 +136,15 @@ function generate_cards(
 
             # DemoCards YAML frontmatter
             # https://johnnychen94.github.io/DemoCards.jl/stable/quickstart/usage_example/julia_demos/1.julia_demo/#juliademocard_example
+            asset = if i in (2, 31)
+                "anim_$(backend)_$(ref_name(i)).gif"
+            else
+                "$(backend)_$(ref_name(i)).png"
+            end
             write(jl, """
                 # ---
                 # title: $(example.header)
-                # id: $(backend)_demo_$i $(i in skip ? "" : "\n# cover: assets/$(i in (2, 31) ? "anim_$(backend)_ex$i.gif" : "$(backend)_ex$i.png")")
+                # id: $(backend)_demo_$i $(i in skip ? "" : "\n# cover: assets/$asset")
                 # author: "$(author())"
                 # description: ""
                 # date: $(now())
@@ -165,24 +174,31 @@ function generate_cards(
         # from the docs: """
         # #src and #hide are quite similar. The only difference is that #src lines are filtered out before execution (if execute=true) and #hide lines are filtered out after execution.
         # """
-        write(jl, "\nmkpath(\"assets\")  #src\n")
-        write(jl, if i in (2, 31)
-            "gif(anim, \"assets/anim_$(backend)_ex$i.gif\")\n"  # NOTE: must not be hidden, for appearance in the rendered `html`
+        asset = if i in (2, 31)
+            "gif(anim, \"assets/anim_$(backend)_$(ref_name(i)).gif\")\n"  # NOTE: must not be hidden, for appearance in the rendered `html`
         else
-            "png(\"assets/$(backend)_ex$i.png\")  #src\n"
-        end)
-        if backend === :plotlyjs
-            write(jl, "nothing  #hide\n")
-            write(jl, "# ![plot](assets/$(backend)_ex$i.png)\n")
+            "png(\"assets/$(backend)_$(ref_name(i)).png\")  #src\n"
         end
+        write(jl, """
+            mkpath("assets")  #src
+            $asset
+            """
+        )
+        backend === :plotlyjs && write(jl, """
+            nothing  #hide
+            # ![plot](assets/$(backend)_$(ref_name(i)).png)
+            """
+        )
 
         @label write_file
         fn, mode = if isempty(example.header)
-            "$backend-ref$(i-1).jl", "a"
+            "$backend-$(ref_name(i - 1)).jl", "a"  # continued example
         else
             jlname, "w"
         end
-        open(joinpath(cardspath, fn), mode) do io
+        card = joinpath(cardspath, fn)
+        # @info "writing" card
+        open(card, mode) do io
             write(io, read(jl, String))
         end
         # DEBUG: sometimes the generated file is still empty when passing to `DemoCards.makedemos`
@@ -501,7 +517,7 @@ function generate_colorschemes_markdown()
             ```
             """
         )
-        for line in readlines(normpath(@__DIR__, "src", "colorschemes.md"))
+        for line in readlines(joinpath(SRC_DIR, "colorschemes.md"))
             write(md, line * '\n')
         end
         write(md, """
@@ -587,11 +603,11 @@ function main()
     pyplot()
     pgfplotsx()
     unicodeplots()
-    inspectdr()
     gaston()
+    inspectdr()
 
     # NOTE: for a faster representative test build use `PLOTDOCS_BACKENDS='GR' PLOTDOCS_EXAMPLES='1'`
-    default_backends = "GR PyPlot PlotlyJS PGFPlotsX UnicodePlots InspectDR Gaston"
+    default_backends = "GR PyPlot PlotlyJS PGFPlotsX UnicodePlots Gaston InspectDR"
     backends = get(ENV, "PLOTDOCS_BACKENDS", default_backends)
     backends = backends == "ALL" ? default_backends : backends
     @info "selected backends: $backends"
@@ -599,6 +615,8 @@ function main()
     slice = parse.(Int, split(get(ENV, "PLOTDOCS_EXAMPLES", "")))
     slice = length(slice) == 0 ? Colon() : slice
     @info "selected examples: $slice"
+
+    work = basename(WORK_DIR)
 
     @info "generate markdown"
     generate_attr_markdown()
@@ -614,6 +632,20 @@ function main()
     gallery = Pair{String,String}[]
     gallery_assets, gallery_callbacks, user_gallery = map(_ -> [], 1:3)
     needs_rng_fix = Dict{String,Any}()
+
+    for name in split(backends)
+        name_low = lowercase(name)
+        needs_rng_fix[name] = generate_cards(joinpath(@__DIR__, "gallery"), Symbol(name_low), slice)
+        let (path, cb, assets) = makedemos(joinpath("gallery", name_low); src = "$work/gallery")
+            push!(gallery, name => joinpath("gallery", path))
+            push!(gallery_callbacks, cb)
+            push!(gallery_assets, assets)
+        end
+    end
+    user_gallery, cb, assets = makedemos(joinpath("user_gallery"); src = work)
+    push!(gallery_callbacks, cb)
+    push!(gallery_assets, assets)
+    unique!(gallery_assets)
 
     pages = [
         "Home" => "index.md",
@@ -686,36 +718,25 @@ function main()
     else
         push!(selected_pages, basename(p.second))
     end
-    collect_pages!(v::AbstractVector) = foreach(x -> collect_pages!(x), v)
+    collect_pages!(v::AbstractVector) = foreach(collect_pages!, v)
 
-    collect_pages!(pages)  # those will be built pages (comment in `pages` to skip build)
+    collect_pages!(pages)  # those will be built pages (comment in `pages` to skip rendering those)
     unique!(selected_pages)
-    @show selected_pages
+    # @show selected_pages length(gallery) length(user_gallery)
 
-    # work directory, for `Documenter` and `DemoCards` (scratch)
-    work = basename(WORK_DIR)
-    @info "copy source files to work dir `$work`"
-    for (root, dirs, files) in walkdir("src")
+    # FIXME: github.com/JuliaDocs/DemoCards.jl/pull/134
+    # delete src/democards/bulmagridtheme.css when released
+    n = 0
+    for (root, dirs, files) in walkdir(SRC_DIR)
         foreach(dir -> mkpath(joinpath(WORK_DIR, dir)), dirs)
         for file in files
-            basename(file) in selected_pages || continue
-            cp(joinpath(root, file), joinpath(WORK_DIR, file); force = true)
+            _, ext = splitext(file)
+            (ext == ".md" && file ∉ selected_pages) && continue
+            cp(joinpath(root, file), joinpath(replace(root, SRC_DIR => WORK_DIR), file); force = true)
+            n += 1
         end
     end
-
-    for name in split(backends)
-        name_low = lowercase(name)
-        needs_rng_fix[name] = generate_cards(Symbol(name_low), slice, "gallery")
-        let (path, cb, assets) = makedemos(joinpath(@__DIR__, "gallery", name_low); src = "$work/gallery")
-            push!(gallery, name => joinpath("gallery", path))
-            push!(gallery_callbacks, cb)
-            push!(gallery_assets, assets)
-        end
-    end
-    user_gallery, cb, assets = makedemos(joinpath(@__DIR__, "user_gallery"); src = work)
-    push!(gallery_callbacks, cb)
-    push!(gallery_assets, assets)
-    unique!(gallery_assets)
+    @info "copied $n source file(s) to scratch directory `$work`"
 
     @info "UnitfulRecipes"
     src_unitfulrecipes = "src/UnitfulRecipes"
@@ -737,12 +758,12 @@ function main()
     failed = false
     try
         @time makedocs(;
-            src = work,
-            format = Documenter.HTML(
+            source = work,
+            format = Documenter.HTML(;
                 prettyurls = get(ENV, "CI", nothing) == "true",
                 assets = ["assets/favicon.ico", gallery_assets...],
-                ansicolor = ansicolor,
                 collapselevel = 2,
+                ansicolor,
             ),
             sitename = "Plots",
             authors = "Thomas Breloff",
@@ -751,7 +772,7 @@ function main()
         )
     catch e
         failed = true
-        e isa KeyBoardInterrupt || rethrow()
+        e isa InterruptException || rethrow()
     end
 
     foreach(gallery_callbacks) do cb
@@ -761,7 +782,8 @@ function main()
     failed && return  # don't deploy and post-process on failure
 
     # postprocess gallery html files to remove `rng` in user displayed code
-    # non-exhaustive list of examples to be fixed: [1, 4, 5, 7:12, 14:21, 25:27, 29:30, 33:34, 36, 38:39, 41, 43, 45:46, 48, 52, 54, 62]
+    # non-exhaustive list of examples to be fixed:
+    # [1, 4, 5, 7:12, 14:21, 25:27, 29:30, 33:34, 36, 38:39, 41, 43, 45:46, 48, 52, 54, 62]
     for name in split(backends)
         prefix = joinpath(@__DIR__, "build", "gallery", lowercase(name), "generated")
         must_fix = needs_rng_fix[name]
@@ -770,9 +792,7 @@ function main()
             idx = parse(Int, first(m.captures))
             lines = readlines(file; keep=true)
             open(file, "w") do io
-                count = 0
-                in_code = false
-                sub = ""
+                count, in_code, sub = 0, false, ""
                 for line in lines
                     trailing = if (m = match(r"""<code class="language-julia hljs">.*""", line)) !== nothing
                         in_code = true
@@ -787,7 +807,7 @@ function main()
                     occursin("</code>", trailing) && (in_code = false)
                     write(io, line)
                 end
-                count > 0 && @info "replaced $count occurrence(s) of `rng`" file
+                count > 0 && @info "replaced $count `rng` occurrence(s) in $file"
                 @assert (get(must_fix, idx, false) ? count > 0 : count == 0) "idx=$idx - count=$count - file=$file"
             end
         end
