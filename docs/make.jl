@@ -5,7 +5,8 @@ using JSON
 
 import StatsPlots
 
-const GENDIR = mkpath(normpath(@__DIR__, "src", "generated"))
+const WORK_DIR = joinpath(@__DIR__, "work")
+const GEN_DIR = joinpath(WORK_DIR, "generated")
 
 const ATTRIBUTE_SEARCH = Dict{String,Any}()  # search terms
 
@@ -111,11 +112,11 @@ markdown_symbols_to_string(arr) = isempty(arr) ? "" : markdown_code_to_string(ar
 # ----------------------------------------------------------------------
 
 function generate_cards(
-    backend::Symbol, slice;
-    skip = get(Plots._backend_skips, backend, Int[]), gendir = "gallery", 
+    backend::Symbol, slice, gendir;
+    skip = get(Plots._backend_skips, backend, Int[]) 
 )
     # create folder: for each backend we generate a DemoSection "generated" under "gallery"
-    cardspath = mkpath(normpath("docs", gendir, "$backend", "generated"))  # NOTE: must this path be relative ?
+    cardspath = mkpath(joinpath(WORK_DIR, gendir, "$backend", "generated"))
     sec_config = Dict{String, Any}("order" => [])
 
     needs_rng_fix = Dict{Int,Bool}()
@@ -245,7 +246,7 @@ function generate_supported_markdown()
         "Line Styles" => (Plots._allStyles,  Plots.supported_styles),
         "Scales" => (Plots._allScales,  Plots.supported_scales)
     )
-    open(joinpath(GENDIR, "supported.md"), "w") do md
+    open(joinpath(GEN_DIR, "supported.md"), "w") do md
         write(md, """
             ```@meta
             EditURL = "$(edit_url())"
@@ -332,7 +333,7 @@ function generate_attr_markdown(c)
     cstr = lowercase(string(c))
     ATTRIBUTE_SEARCH[cstr] = collect(zip(df.Attribute, df.Aliases))
 
-    open(joinpath(GENDIR, "attributes_$cstr.md"), "w") do md
+    open(joinpath(GEN_DIR, "attributes_$cstr.md"), "w") do md
         write(md, """
             ```@meta
             EditURL = "$(edit_url())"
@@ -453,7 +454,7 @@ function generate_graph_attr_markdown()
             "A box around edge labels that avoids intersections between edge labels and the edges that they are labeling.",
         ]
     )
-    open(joinpath(GENDIR, "graph_attributes.md"), "w") do md
+    open(joinpath(GEN_DIR, "graph_attributes.md"), "w") do md
         write(md, """
             ```@meta
             EditURL = "$(edit_url())"
@@ -493,7 +494,7 @@ function generate_graph_attr_markdown()
 end
 
 function generate_colorschemes_markdown()
-    open(joinpath(GENDIR, "colorschemes.md"), "w") do md
+    open(joinpath(GEN_DIR, "colorschemes.md"), "w") do md
         write(md, """
             ```@meta
             EditURL = "$(edit_url())"
@@ -578,7 +579,7 @@ function main()
     get!(ENV, "MPLBACKEND", "agg")  # set matplotlib gui backend
     get!(ENV, "GKSwstype", "nul")  # disable default GR ws
 
-    mkpath(GENDIR)
+    mkpath(GEN_DIR)
 
     # initialize all backends
     gr()
@@ -606,7 +607,7 @@ function main()
     generate_colorschemes_markdown()
 
     for (pkg, dest) in ((PlotThemes, "plotthemes.md"), (StatsPlots, "statsplots.md"))
-        cp(pkgdir(pkg, "README.md"), joinpath(GENDIR, dest); force = true)
+        cp(pkgdir(pkg, "README.md"), joinpath(GEN_DIR, dest); force = true)
     end
 
     @info "gallery"
@@ -679,36 +680,39 @@ function main()
         "API" => "api.md",
     ]
 
-    all_pages = []
+    selected_pages = []
+    collect_pages!(p::Pair) = if p.second isa AbstractVector
+        collect_pages!(p.second)
+    else
+        push!(selected_pages, basename(p.second))
+    end
+    collect_pages!(v::AbstractVector) = foreach(x -> collect_pages!(x), v)
 
-    add_pages(x) =
-        for p in x
-            if p.second isa String
-                push!(all_pages, basename(p.second))
-            else
-                # recursive
-                add_pages(p)
-            end
-        end
+    collect_pages!(pages)  # those will be built pages (comment in `pages` to skip build)
+    unique!(selected_pages)
+    @show selected_pages
 
-    @show all_pages
-
-    temp = "temp"  # work directory, for `Documenter` and `DemoCards`
+    # work directory, for `Documenter` and `DemoCards` (scratch)
+    work = basename(WORK_DIR)
+    @info "copy source files to work dir `$work`"
     for (root, dirs, files) in walkdir("src")
-        foreach(dir -> mkpath(joinpath(temp, dir)), dirs)
-        foreach(file -> cp(joinpath(root, file), joinpath(temp, file); force = true), files)
+        foreach(dir -> mkpath(joinpath(WORK_DIR, dir)), dirs)
+        for file in files
+            basename(file) in selected_pages || continue
+            cp(joinpath(root, file), joinpath(WORK_DIR, file); force = true)
+        end
     end
 
     for name in split(backends)
         name_low = lowercase(name)
-        needs_rng_fix[name] = generate_cards(Symbol(name_low), slice)
-        let (path, cb, assets) = makedemos(joinpath("gallery", name_low); src = "$temp/gallery")
+        needs_rng_fix[name] = generate_cards(Symbol(name_low), slice, "gallery")
+        let (path, cb, assets) = makedemos(joinpath(@__DIR__, "gallery", name_low); src = "$work/gallery")
             push!(gallery, name => joinpath("gallery", path))
             push!(gallery_callbacks, cb)
             push!(gallery_assets, assets)
         end
     end
-    user_gallery, cb, assets = makedemos("user_gallery"; src = temp)
+    user_gallery, cb, assets = makedemos(joinpath(@__DIR__, "user_gallery"); src = work)
     push!(gallery_callbacks, cb)
     push!(gallery_assets, assets)
     unique!(gallery_assets)
@@ -723,7 +727,7 @@ function main()
     for (root, _, files) in walkdir(unitfulrecipes), file in files
         last(splitext(file)) == ".jl" || continue
         ipath = joinpath(root, file)
-        opath = replace(ipath, src_unitfulrecipes => "$temp/generated") |> splitdir |> first
+        opath = replace(ipath, src_unitfulrecipes => "$work/generated") |> splitdir |> first
         Literate.markdown(ipath, opath; documenter = execute)
         nb && Literate.notebook(ipath, notebooks; execute)
     end
@@ -733,7 +737,7 @@ function main()
     failed = false
     try
         @time makedocs(;
-            src = temp,
+            src = work,
             format = Documenter.HTML(
                 prettyurls = get(ENV, "CI", nothing) == "true",
                 assets = ["assets/favicon.ico", gallery_assets...],
