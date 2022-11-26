@@ -1,8 +1,10 @@
 module PlotDocs
 
-using Plots, DataFrames, MacroTools, OrderedCollections, Dates
-import Plots: _examples
+using Plots, DataFrames, MacroTools, OrderedCollections, Dates, StableRNGs
+import Plots: _examples, PLOTS_SEED
 using JSON
+
+import Random
 
 export
     generate_cards,
@@ -79,7 +81,10 @@ function generate_cards(pkgname::Symbol; skip = get(Plots._backend_skips, pkgnam
         end
         # DemoCards use Literate.jl syntax with extra leading `#` as markdown lines
         write(jl, "# $(replace(example.desc, "\n" => "\n  # "))\n")
+        write(jl, "using StableRNGs  #hide\n")
+        write(jl, "rng = StableRNG($PLOTS_SEED)  #hide\n")
         isnothing(example.imports) || pretty_print_expr(jl, example.imports)
+        # pretty_print_expr(jl, Plots.replace_rand(example.exprs))
         pretty_print_expr(jl, example.exprs)
 
         # NOTE: the supported `Literate.jl` syntax is `#src` and `#hide` NOT `# src` !!
@@ -90,7 +95,7 @@ function generate_cards(pkgname::Symbol; skip = get(Plots._backend_skips, pkgnam
             "png(\"assets/$(pkgname)_ex$i.png\")  #src\n"
         end)
         if pkgname === :plotlyjs
-            write(jl, "nothing#hide\n")
+            write(jl, "nothing  #hide\n")
             write(jl, "# ![plot](assets/$(pkgname)_ex$i.png)\n")
         end
 
