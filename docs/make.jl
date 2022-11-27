@@ -146,7 +146,7 @@ function generate_cards(
             write(jl, """
                 # ---
                 # title: $(example.header)
-                # id: $(backend)_demo_$i $(i ∈ skip ? "" : "\n# cover: assets/$asset")
+                # id: $(backend)_$(ref_name(i)) $(i ∈ skip ? "" : "\n# cover: assets/$asset")
                 # author: "$(author())"
                 # description: ""
                 # date: $(now())
