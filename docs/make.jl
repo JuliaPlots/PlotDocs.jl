@@ -20,17 +20,17 @@ const ATTRIBUTE_SEARCH = Dict{String,Any}()  # search terms
         ############################################################
         # begin addition
         info = "[src=$(rec.src) fragment=$(rec.fragment) title=$(rec.title) page_title=$(rec.page_title)]"
-        if (m = match(r"generated/attributes_(\w+)", lowercase(rec.src))) !== nothing
+        if (m = match(r"generated/attributes_(\w+)", lowercase(rec.src))) ≢ nothing
             # fix attributes search terms: `Series`, `Plot`, `Subplot` and `Axis` (github.com/JuliaPlots/Plots.jl/issues/2337)
             @info "$info: fix attribute search"
-            for (attr, alias) in $(ATTRIBUTE_SEARCH)[first(m.captures)]
+            for (attr, alias) ∈ $(ATTRIBUTE_SEARCH)[first(m.captures)]
                 push!(
                     ctx.search_index, 
                     SearchRecord(rec.src, rec.page, rec.fragment, rec.category, rec.title, rec.page_title, attr * ' ' * alias)
                 )
             end
         else
-            add_to_index = if (m = match(r"gallery/(\w+)/", lowercase(rec.src))) !== nothing
+            add_to_index = if (m = match(r"gallery/(\w+)/", lowercase(rec.src))) ≢ nothing
                 first(m.captures) == "gr"  # only add `GR` gallery pages to `search_index` (github.com/JuliaPlots/Plots.jl/issues/4157)
             else
                 true
@@ -50,14 +50,15 @@ end
 @eval DemoCards get_logopath() = $(joinpath(SRC_DIR, "assets", "axis_logo_600x400.png"))
 
 # monkey patch `DemoCards` to avoid `# Generated` section in gallery
+# remove when https://github.com/JuliaDocs/DemoCards.jl/pull/135 is merged & released
 @eval DemoCards generate(sec::DemoSection, templates; level=1, properties=Dict{String, Any}()) = begin
     # https://github.com/JuliaDocs/DemoCards.jl/blob/db05c296b9de80137c28f92a4944bc21a0cda0db/src/generate.jl#L275-L292
     ############################################################
     # begin addition
-    header = if occursin("generated", lowercase(sec.title)) 
-        ""
-    else
+    header = if length(sec.title) > 0
         repeat("#", level) * " " * sec.title
+    else
+        ""
     end * '\n'
     # end addition
     ############################################################
@@ -99,7 +100,7 @@ function recursive_rmlines(x::Expr)
 end
 
 pretty_print_expr(io::IO, expr::Expr) =
-    if expr.head === :block
+    if expr.head ≡ :block
         foreach(arg -> println(io, arg), recursive_rmlines(expr).args)
     else
         println(io, recursive_rmlines(expr))
@@ -125,7 +126,8 @@ function generate_cards(
 
     needs_rng_fix = Dict{Int,Bool}()
 
-    for (i, example) in enumerate(Plots._examples[slice])
+    for (i, example) ∈ enumerate(Plots._examples)
+        (slice ≢ nothing && i ∉ slice) && continue
         # write out the header, description, code block, and image link
         jlname = "$backend-$(ref_name(i)).jl"
         jl = PipeBuffer()
@@ -136,7 +138,7 @@ function generate_cards(
 
             # DemoCards YAML frontmatter
             # https://johnnychen94.github.io/DemoCards.jl/stable/quickstart/usage_example/julia_demos/1.julia_demo/#juliademocard_example
-            asset = if i in (2, 31)
+            asset = if i ∈ Plots._animation_examples
                 "anim_$(backend)_$(ref_name(i)).gif"
             else
                 "$(backend)_$(ref_name(i)).png"
@@ -144,7 +146,7 @@ function generate_cards(
             write(jl, """
                 # ---
                 # title: $(example.header)
-                # id: $(backend)_demo_$i $(i in skip ? "" : "\n# cover: assets/$asset")
+                # id: $(backend)_demo_$i $(i ∈ skip ? "" : "\n# cover: assets/$asset")
                 # author: "$(author())"
                 # description: ""
                 # date: $(now())
@@ -155,7 +157,7 @@ function generate_cards(
                 """
             )
 
-            i in skip && @goto write_file
+            i ∈ skip && @goto write_file
             write(jl, """
                 Plots.reset_defaults()  #hide
                 using StableRNGs  #hide
@@ -174,7 +176,7 @@ function generate_cards(
         # from the docs: """
         # #src and #hide are quite similar. The only difference is that #src lines are filtered out before execution (if execute=true) and #hide lines are filtered out after execution.
         # """
-        asset = if i in (2, 31)
+        asset = if i ∈ Plots._animation_examples
             "gif(anim, \"assets/anim_$(backend)_$(ref_name(i)).gif\")\n"  # NOTE: must not be hidden, for appearance in the rendered `html`
         else
             "png(\"assets/$(backend)_$(ref_name(i)).png\")  #src\n"
@@ -184,7 +186,7 @@ function generate_cards(
             $asset
             """
         )
-        backend === :plotlyjs && write(jl, """
+        backend ≡ :plotlyjs && write(jl, """
             nothing  #hide
             # ![plot](assets/$(backend)_$(ref_name(i)).png)
             """
@@ -226,6 +228,7 @@ function generate_cards(
         )
     end
     open(joinpath(cardspath, "config.json"), "w") do config
+        sec_config["title"]  = ""  # avoid `# Generated` section in gallery
         sec_config["description"] = "[Supported attributes](@ref $(backend)_attributes)"
         push!(sec_config["order"], attr_name)
         write(config, json(sec_config))
@@ -234,20 +237,19 @@ function generate_cards(
 end
 
 # tables detailing the features that each backend supports
-
 function make_support_df(allvals, func)
     vals = sort(collect(allvals)) # rows
     bs = sort(backends())
     df = DataFrames.DataFrame(keys=vals)
 
-    for be in filter(b -> b ∉ Plots._deprecated_backends, bs) # cols
+    for be ∈ filter(b -> b ∉ Plots._deprecated_backends, bs) # cols
         be_supported_vals = fill("", length(vals))
-        for (i, val) in enumerate(vals)
+        for (i, val) ∈ enumerate(vals)
             be_supported_vals[i] = if func == Plots.supported_seriestypes
                 stype = Plots.seriestype_supported(Plots._backend_instance(be), val)
-                stype === :native ? "✅" : (stype === :no ? "" : "🔼")
+                stype ≡ :native ? "✅" : (stype ≡ :no ? "" : "🔼")
             else
-                val in func(Plots._backend_instance(be)) ? "✅" : ""
+                val ∈ func(Plots._backend_instance(be)) ? "✅" : ""
             end
         end
         df[!, be] = be_supported_vals
@@ -280,7 +282,7 @@ function generate_supported_markdown()
             ```
             """
         )
-        for (header, args) in supported_args
+        for (header, args) ∈ supported_args
             write(md, """
 
                 ## $header
@@ -295,10 +297,6 @@ function generate_supported_markdown()
     end
 end
 
-
-# ----------------------------------------------------------------------
-
-
 function make_attr_df(ktype::Symbol, defs::KW)
     n = length(defs)
     df = DataFrame(
@@ -308,7 +306,7 @@ function make_attr_df(ktype::Symbol, defs::KW)
         Type = fill("", n),
         Description = fill("", n),
     )
-    for (i, (k, def)) in enumerate(defs)
+    for (i, (k, def)) ∈ enumerate(defs)
         type, desc = get(Plots._arg_desc, k, (Any, ""))
 
         aliases = sort(collect(keys(filter(p -> p.second == k, Plots._keyAliases))))
@@ -517,7 +515,7 @@ function generate_colorschemes_markdown()
             ```
             """
         )
-        for line in readlines(joinpath(SRC_DIR, "colorschemes.md"))
+        for line ∈ readlines(joinpath(SRC_DIR, "colorschemes.md"))
             write(md, line * '\n')
         end
         write(md, """
@@ -531,8 +529,8 @@ function generate_colorschemes_markdown()
         ks = [:default; sort(collect(keys(PlotUtils.MISC_COLORSCHEMES)))]
         write(md, to_html(make_colorschemes_df(ks); allow_html_in_cells=true))
         write(md, "\n```\n\nThe following colorschemes are defined by ColorSchemes.jl.\n\n")
-        for cs in ("cmocean", "scientific", "matplotlib", "colorbrewer", "gnuplot", "colorcet", "seaborn", "general")
-            ks = sort([k for (k, v) in PlotUtils.ColorSchemes.colorschemes if occursin(cs, v.category)])
+        for cs ∈ ("cmocean", "scientific", "matplotlib", "colorbrewer", "gnuplot", "colorcet", "seaborn", "general")
+            ks = sort([k for (k, v) ∈ PlotUtils.ColorSchemes.colorschemes if occursin(cs, v.category)])
             write(md, "\n## $cs\n\n```@raw html\n")
             write(md, to_html(make_colorschemes_df(ks); allow_html_in_cells=true))
             write(md, "\n```\n")
@@ -554,7 +552,7 @@ function colors_svg(cs, w, h)
              shape-rendering="crispEdges" stroke="none">
         """, "\n" => " "
     )  # NOTE: no linebreaks (because those break html code)
-    for (i, c) in enumerate(cs)
+    for (i, c) ∈ enumerate(cs)
         html *= """<rect width="$(ws)mm" height="$(h)mm" x="$(i-1)" y="0" fill="#$(hex(convert(RGB, c)))" />"""
     end
     html *= "</svg>"
@@ -568,7 +566,7 @@ function make_colorschemes_df(ks)
         Gradient = fill("", n),
     )
     len, w, h = 100, 60, 5
-    for (i, k) in enumerate(ks)
+    for (i, k) ∈ enumerate(ks)
         p = palette(k)
         cg = cgrad(k)[range(0, 1, length = len)]
         cp = length(p) ≤ len ? color_list(p) : cg
@@ -599,8 +597,8 @@ function main()
 
     # initialize all backends
     gr()
-    plotlyjs()
     pyplot()
+    plotlyjs()
     pgfplotsx()
     unicodeplots()
     gaston()
@@ -613,7 +611,7 @@ function main()
     @info "selected backends: $backends"
 
     slice = parse.(Int, split(get(ENV, "PLOTDOCS_EXAMPLES", "")))
-    slice = length(slice) == 0 ? Colon() : slice
+    slice = length(slice) == 0 ? nothing : slice
     @info "selected examples: $slice"
 
     work = basename(WORK_DIR)
@@ -624,7 +622,7 @@ function main()
     generate_graph_attr_markdown()
     generate_colorschemes_markdown()
 
-    for (pkg, dest) in ((PlotThemes, "plotthemes.md"), (StatsPlots, "statsplots.md"))
+    for (pkg, dest) ∈ ((PlotThemes, "plotthemes.md"), (StatsPlots, "statsplots.md"))
         cp(pkgdir(pkg, "README.md"), joinpath(GEN_DIR, dest); force = true)
     end
 
@@ -633,7 +631,7 @@ function main()
     gallery_assets, gallery_callbacks, user_gallery = map(_ -> [], 1:3)
     needs_rng_fix = Dict{String,Any}()
 
-    for name in split(backends)
+    for name ∈ split(backends)
         name_low = lowercase(name)
         needs_rng_fix[name] = generate_cards(joinpath(@__DIR__, "gallery"), Symbol(name_low), slice)
         let (path, cb, assets) = makedemos(joinpath("gallery", name_low); src = "$work/gallery")
@@ -728,9 +726,9 @@ function main()
     # FIXME: github.com/JuliaDocs/DemoCards.jl/pull/134
     # delete src/democards/bulmagridtheme.css when released
     n = 0
-    for (root, dirs, files) in walkdir(SRC_DIR)
+    for (root, dirs, files) ∈ walkdir(SRC_DIR)
         foreach(dir -> mkpath(joinpath(WORK_DIR, dir)), dirs)
-        for file in files
+        for file ∈ files
             _, ext = splitext(file)
             (ext == ".md" && file ∉ selected_pages) && continue
             cp(joinpath(root, file), joinpath(replace(root, SRC_DIR => WORK_DIR), file); force = true)
@@ -746,7 +744,7 @@ function main()
 
     execute = true  # set to true for executing notebooks and documenter
     nb = false      # set to true to generate the notebooks
-    for (root, _, files) in walkdir(unitfulrecipes), file in files
+    for (root, _, files) ∈ walkdir(unitfulrecipes), file ∈ files
         last(splitext(file)) == ".jl" || continue
         ipath = joinpath(root, file)
         opath = replace(ipath, src_unitfulrecipes => "$work/generated") |> splitdir |> first
@@ -785,17 +783,18 @@ function main()
     # postprocess gallery html files to remove `rng` in user displayed code
     # non-exhaustive list of examples to be fixed:
     # [1, 4, 5, 7:12, 14:21, 25:27, 29:30, 33:34, 36, 38:39, 41, 43, 45:46, 48, 52, 54, 62]
-    for name in split(backends)
+    for name ∈ split(backends)
         prefix = joinpath(@__DIR__, "build", "gallery", lowercase(name), "generated")
         must_fix = needs_rng_fix[name]
-        for file in glob("*/index.html", prefix)
-            (m = match(r"-ref(\d+)", file)) === nothing && continue
+        for file ∈ glob("*/index.html", prefix)
+            (m = match(r"-ref(\d+)", file)) ≡ nothing && continue
             idx = parse(Int, first(m.captures))
+            get(must_fix, idx, false) || continue
             lines = readlines(file; keep=true)
             open(file, "w") do io
                 count, in_code, sub = 0, false, ""
-                for line in lines
-                    trailing = if (m = match(r"""<code class="language-julia hljs">.*""", line)) !== nothing
+                for line ∈ lines
+                    trailing = if (m = match(r"""<code class="language-julia hljs">.*""", line)) ≢ nothing
                         in_code = true
                         m.match
                     else
@@ -809,7 +808,7 @@ function main()
                     write(io, line)
                 end
                 count > 0 && @info "replaced $count `rng` occurrence(s) in $file"
-                @assert (get(must_fix, idx, false) ? count > 0 : count == 0) "idx=$idx - count=$count - file=$file"
+                @assert count > 0 "idx=$idx - count=$count - file=$file"
             end
         end
     end
