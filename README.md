@@ -9,9 +9,11 @@ The new documentation files will be pushed to the [`gh-pages`](https://github.co
 
 ## Building the docs
 
-With proper dependencies installed, run the following on your local terminal `$ GKSwstype=nul CI=true julia --project=docs docs/make.jl`.
+With proper dependencies installed, run the following on your local terminal `$ CI=true julia --project=docs docs/make.jl`.
 
-Setting the environment variable `CI=true` is optional, but this will be closer to the remote docs building process.
+Setting the environment variable `CI=true` is optional, but the result will be closer to the remote docs building process.
+
+To only build part of the documentation (faster dev), use `PLOTDOCS_BACKENDS='GR PyPlot'` and / or `PLOTDOCS_EXAMPLES='1 22 60'` environement variables. 
 
 ## Contributing demos
 

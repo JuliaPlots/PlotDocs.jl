@@ -54,18 +54,18 @@ This document is meant to be a guide and introduction to make that choice.
 
 My favorites: `GR` for speed, `Plotly(JS)` for interactivity, `UnicodePlots` for REPL/SSH and `PyPlot` otherwise.
 
-| If you require...         | then use...                         |
-| :------------------------ | :---------------------------------- |
-| features                  | PyPlot, Plotly(JS), GR              |
-| speed                     | GR, UnicodePlots, InspectDR, Gaston |
-| interactivity             | Plotly(JS), PyPlot, InspectDR       |
-| beauty                    | Plotly(JS), PGFPlots/ PGFPlotsX     |
-| REPL plotting             | UnicodePlots                        |
-| 3D plots                  | PyPlot, GR, Plotly(JS), Gaston      |
-| a GUI window              | GR, PyPlot, PlotlyJS, InspectDR     |
-| a small footprint         | UnicodePlots, Plotly                |
-| backend stability         | Gaston                              |
-| plot+data -> `.hdf5` file | HDF5                                |
+| If you require...         | then use...                             |
+| :------------------------ | :-------------------------------------- |
+| features                  | GR, PyPlot, Plotly(JS), Gaston          |
+| speed                     | GR, UnicodePlots, InspectDR, Gaston     |
+| interactivity             | PyPlot, Plotly(JS), InspectDR           |
+| beauty                    | GR, Plotly(JS), PGFPlots/ PGFPlotsX     |
+| REPL plotting             | UnicodePlots                            |
+| 3D plots                  | GR, PyPlot, Plotly(JS), Gaston          |
+| a GUI window              | GR, PyPlot, PlotlyJS, Gaston, InspectDR |
+| a small footprint         | UnicodePlots, Plotly                    |
+| backend stability         | PyPlot, Gaston                          |
+| plot+data -> `.hdf5` file | HDF5                                    |
 
 Of course this list is rather subjective and nothing in life is that simple. Likely there are subtle tradeoffs between backends, long hidden bugs, and more excitement. Don't be shy to try out something new !
 
@@ -77,9 +77,7 @@ The default backend. Very fast with lots of plot types. Still actively developed
 
 ```@example backends
 gr(); backendplot()  #hide
-png("backends_gr.png")  #hide
 ```
-![](backends_gr.png)
 
 Pros:
 
@@ -169,18 +167,20 @@ These can also be passed using the `extra_plot_kwargs` keyword.
 ```@example backends
 using LaTeXStrings
 plotlyjs()
-plot(1:4, [[1,4,9,16]*10000, [0.5, 2, 4.5, 8]],
-           labels = [L"\alpha_{1c} = 352 \pm 11 \text{ km s}^{-1}";
-                     L"\beta_{1c} = 25 \pm 11 \text{ km s}^{-1}"] |> permutedims,
-           xlabel = L"\sqrt{(n_\text{c}(t|{T_\text{early}}))}",
-           ylabel = L"d, r \text{ (solar radius)}",
-           yformatter = :plain,
-           extra_plot_kwargs = KW(
-               :include_mathjax => "cdn",
-               :yaxis => KW(:automargin => true),
-               :xaxis => KW(:domain => "auto")
-               ),
-       )
+plot(
+    1:4,
+    [[1,4,9,16]*10000, [0.5, 2, 4.5, 8]],
+    labels = [L"\alpha_{1c} = 352 \pm 11 \text{ km s}^{-1}";
+              L"\beta_{1c} = 25 \pm 11 \text{ km s}^{-1}"] |> permutedims,
+    xlabel = L"\sqrt{(n_\text{c}(t|{T_\text{early}}))}",
+    ylabel = L"d, r \text{ (solar radius)}",
+    yformatter = :plain,
+    extra_plot_kwargs = KW(
+        :include_mathjax => "cdn",
+        :yaxis => KW(:automargin => true),
+        :xaxis => KW(:domain => "auto")
+   ),
+)
 Plots.html("plotly_mathjax")  #hide
 ```
 ```@raw html
@@ -194,12 +194,14 @@ Arbitrary arguments are supported but one needs to be careful since no checks ar
 For example adding [customdata](https://plotly.com/javascript/reference/scatter/#scatter-customdata) can be done the following way `scatter(1:3, customdata=["a", "b", "c"])`.
 One can also pass multiple extra arguments to plotly.
 ```
-pl = scatter(1:3, rand(3),
-              extra_kwargs = KW(
-                  :series => KW(:customdata => ["a", "b", "c"]),
-                  :plot => KW(:legend => KW(:itemsizing => "constant"))
-                  )
-            )
+pl = scatter(
+    1:3,
+    rand(3),
+    extra_kwargs = KW(
+        :series => KW(:customdata => ["a", "b", "c"]),
+        :plot => KW(:legend => KW(:itemsizing => "constant"))
+    )
+)
 ```
 
 ## [PyPlot](https://github.com/stevengj/PyPlot.jl)
@@ -208,9 +210,7 @@ A Julia wrapper around the popular python package `PyPlot` (Matplotlib).  It use
 
 ```@example backends
 pyplot(); backendplot()  #hide
-png("backends_pyplot.png")  #hide
 ```
-![](backends_pyplot.png)
 
 Pros:
 
@@ -234,10 +234,8 @@ For example, for a 3D plot, the following example should generate a colorbar at 
 ```@example backends
 using Plots; pyplot()
 
-x = y = collect(range(-π, π, length = 100))
-fn(x, y) = begin
-    3 * exp(-(3x^2 + y^2)/5) * (sin(x+2y))+0.1*randn(1)[1]
-end
+x = y = collect(range(-π, π; length = 100))
+fn(x, y) = 3 * exp(-(3x^2 + y^2)/5) * (sin(x+2y))+0.1randn(1)[1]
 surface(x, y, fn, c=:viridis, extra_kwargs=Dict(:subplot=>Dict("3d_colorbar_axis" => [0.9, 0.05, 0.05, 0.9])))
 ```
 
@@ -254,9 +252,7 @@ LaTeX plotting, based on `PGF/TikZ`.
 
 ```@example backends
 pgfplotsx(); backendplot()  #hide
-png("backends_pgfplotsx.png")  #hide
 ```
-![](backends_pgfplotsx.png)
 
 Successor backend of PGFPlots backend.
 
@@ -308,7 +304,7 @@ Like this it is possible to keep the preamble of latex documents clean.
 ```@example backends
 using Plots; pgfplotsx()
 surface(range(-3,3, length=30), range(-3,3, length=30),
-        (x, y)->exp(-x^2-y^2),
+        (x, y) -> exp(-x^2-y^2),
         label="",
         colormap_name = "viridis",
         extra_kwargs =:subplot)
@@ -327,9 +323,7 @@ Simple and lightweight. Plot directly in your terminal. You won't produce anythi
 
 ```@example backends
 unicodeplots(); backendplot()  #hide
-png("backends_unicodeplots.png")  #hide
 ```
-![](backends_unicodeplots.png)
 
 Pros:
 
@@ -351,7 +345,7 @@ It is possible to use more features of `UnicodePlots` via the [`extra_kwargs`](@
 using Plots; unicodeplots()
 
 extra_kwargs = Dict(:subplot=>(; border = :bold, blend = false))
-p = plot(1:4, 1:4, c = :yellow, extra_kwargs = extra_kwargs)
+p = plot(1:4, 1:4, c = :yellow; extra_kwargs)
 plot!(p, 2:3, 2:3, c = :red)
 ```
 
@@ -377,6 +371,14 @@ plot!(p, 2:3, 2:3, c = :red)
 | `surfaceplot`    | zscale   | `z` axis scaling                                                                |
 | `surfaceplot`    | lines    | Use `lineplot` instead of `scatterplot` (monotonic data)                        |
 
+## [Gaston](https://github.com/mbaz/Gaston.jl)
+
+`Gaston` is a direct interface to [gnuplot](http://gnuplot.info), a cross platform command line driven plotting utility. The integration of `Gaston` in `Plots` is recent (2021), but a lot of features are supported.
+
+```@example backends
+gaston(); backendplot()  #hide
+```
+
 ## [InspectDR](https://github.com/ma-laforge/InspectDR.jl)
 
 Fast plotting with a responsive GUI (optional).  Target: quickly identify design/simulation issues & glitches in order to shorten design iterations.
@@ -400,16 +402,6 @@ Cons:
 - Mostly limited to 2D line/scatter plots
 
 Primary author: MA Laforge (@ma-laforge)
-
-## [Gaston](https://github.com/mbaz/Gaston.jl)
-
-`Gaston` is a direct interface to [gnuplot](http://gnuplot.info), a cross platform command line driven plotting utility. The integration of `Gaston` in `Plots` is recent (2021).
-
-```@example backends
-gaston(); backendplot()  #hide
-png("backends_gaston.png")  #hide
-```
-![](backends_gaston.png)
 
 ## [HDF5](https://github.com/JuliaIO/HDF5.jl) (HDF5-Plots)
 
