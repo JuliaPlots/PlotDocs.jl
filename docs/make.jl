@@ -712,6 +712,7 @@ function main()
         "API" => "api.md",
     ]
 
+    # those will be built pages - to skip some pages, comment them above
     selected_pages = []
     collect_pages!(p::Pair) = if p.second isa AbstractVector
         collect_pages!(p.second)
@@ -720,7 +721,7 @@ function main()
     end
     collect_pages!(v::AbstractVector) = foreach(collect_pages!, v)
 
-    collect_pages!(pages)  # those will be built pages (comment in `pages` to skip rendering those)
+    collect_pages!(pages)
     unique!(selected_pages)
     # @show selected_pages length(gallery) length(user_gallery)
 
