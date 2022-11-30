@@ -25,7 +25,7 @@ sudo apt -y install \
   ttf-mscorefonts-installer \
   poppler-utils \
   ghostscript-x \
-  qt5-default \
+  qtbase5-dev \
   pdf2svg \
   gnuplot \
   g++
