@@ -49,6 +49,7 @@ fi
 export GKSwstype=nul  # Plots.jl/issues/3664
 export COLORTERM=truecolor  # UnicodePlots.jl
 export PLOTDOCS_ANSICOLOR=true
+export LD_PRELOAD=$(g++ --print-file-name=libstdc++.so)
 
 julia='xvfb-run -a julia --color=yes --project=docs'
 
