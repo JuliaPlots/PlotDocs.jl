@@ -25,7 +25,7 @@ sudo apt -y install \
   ttf-mscorefonts-installer \
   poppler-utils \
   ghostscript-x \
-  qt5-default \
+  qtbase5-dev \
   pdf2svg \
   gnuplot \
   g++
@@ -49,8 +49,9 @@ fi
 export GKSwstype=nul  # Plots.jl/issues/3664
 export COLORTERM=truecolor  # UnicodePlots.jl
 export PLOTDOCS_ANSICOLOR=true
+export LD_PRELOAD=$(g++ --print-file-name=libstdc++.so)
 
-julia='xvfb-run julia --color=yes --project=docs'
+julia='xvfb-run -a julia --color=yes --project=docs'
 
 $julia -e '
   using Pkg; Pkg.instantiate()
