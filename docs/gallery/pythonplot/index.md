@@ -1,10 +1,10 @@
-# PyPlot
+# PythonPlot
 
-To switch to the `PyPlot` backend, you can use:
+To switch to the `PythonPlot` backend, you can use:
 
 ```julia
 using Plots
-pyplot()
+pythonplot()
 ```
 
 The demos are generated from `Plots._examples`. Empty demos are features that this backend does not support.

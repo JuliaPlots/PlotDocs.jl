@@ -52,20 +52,20 @@ This document is meant to be a guide and introduction to make that choice.
 
 # At a glance
 
-My favorites: `GR` for speed, `Plotly(JS)` for interactivity, `UnicodePlots` for REPL/SSH and `PyPlot` otherwise.
+My favorites: `GR` for speed, `Plotly(JS)` for interactivity, `UnicodePlots` for REPL/SSH and `PythonPlot` otherwise.
 
-| If you require...         | then use...                             |
-| :------------------------ | :-------------------------------------- |
-| features                  | GR, PyPlot, Plotly(JS), Gaston          |
-| speed                     | GR, UnicodePlots, InspectDR, Gaston     |
-| interactivity             | PyPlot, Plotly(JS), InspectDR           |
-| beauty                    | GR, Plotly(JS), PGFPlots/ PGFPlotsX     |
-| REPL plotting             | UnicodePlots                            |
-| 3D plots                  | GR, PyPlot, Plotly(JS), Gaston          |
-| a GUI window              | GR, PyPlot, PlotlyJS, Gaston, InspectDR |
-| a small footprint         | UnicodePlots, Plotly                    |
-| backend stability         | PyPlot, Gaston                          |
-| plot+data -> `.hdf5` file | HDF5                                    |
+| If you require...         | then use...                                 |
+| :------------------------ | :------------------------------------------ |
+| features                  | GR, PythonPlot, Plotly(JS), Gaston          |
+| speed                     | GR, UnicodePlots, InspectDR, Gaston         |
+| interactivity             | PythonPlot, Plotly(JS), InspectDR           |
+| beauty                    | GR, Plotly(JS), PGFPlots/ PGFPlotsX         |
+| REPL plotting             | UnicodePlots                                |
+| 3D plots                  | GR, PythonPlot, Plotly(JS), Gaston          |
+| a GUI window              | GR, PythonPlot, PlotlyJS, Gaston, InspectDR |
+| a small footprint         | UnicodePlots, Plotly                        |
+| backend stability         | PythonPlot, Gaston                          |
+| plot+data -> `.hdf5` file | HDF5                                        |
 
 Of course this list is rather subjective and nothing in life is that simple. Likely there are subtle tradeoffs between backends, long hidden bugs, and more excitement. Don't be shy to try out something new !
 
@@ -204,12 +204,12 @@ pl = scatter(
 )
 ```
 
-## [PyPlot](https://github.com/stevengj/PyPlot.jl)
+## [PythonPlot](https://github.com/stevengj/PythonPlot.jl)
 
-A Julia wrapper around the popular python package `PyPlot` (Matplotlib).  It uses `PyCall.jl` to pass data with minimal overhead.
+A Julia wrapper around the popular python package `Matplotlib`. It uses `PythonCall.jl` to pass data with minimal overhead.
 
 ```@example backends
-pyplot(); backendplot()  #hide
+pythonplot(); backendplot()  #hide
 ```
 
 Pros:
@@ -228,11 +228,11 @@ Cons:
 Primary author: Steven G Johnson (@stevengj)
 
 ### Fine tuning
-It is possible to use more features of `PyPlot/matplotlib` via the [`extra_kwargs`](@ref extra_kwargs) mechanism.
+It is possible to use more features of `matplotlib` via the [`extra_kwargs`](@ref extra_kwargs) mechanism.
 For example, for a 3D plot, the following example should generate a colorbar at a proper location; without the `extra_kwargs` below, the colorbar is displayed too far right to see its ticks and numbers. The four coordinates in the example below, i.e., `[0.9, 0.05, 0.05, 0.9]` specify the colorbar location `[ left, bottom, width, height ]`. Note that for 2D plots, this fine tuning is not necessary.
 
 ```@example backends
-using Plots; pyplot()
+using Plots; pythonplot()
 
 x = y = collect(range(-π, π; length = 100))
 fn(x, y) = 3 * exp(-(3x^2 + y^2)/5) * (sin(x+2y))+0.1randn(1)[1]
@@ -418,7 +418,7 @@ Plots.hdf5plot_write(p, "plotsave.hdf5")
 
 **Read from .hdf5 file**
 ```julia
-pyplot() # Must first select some backend
+pythonplot() # Must first select some backend
 pread = Plots.hdf5plot_read("plotsave.hdf5")
 display(pread)
 ```
@@ -444,6 +444,10 @@ Primary author: MA Laforge (@ma-laforge)
 
 # Deprecated backends
 
+### [PyPlot](https://github.com/stevengj/PyPlot.jl)
+
+`matplotlib` based backend, using `PyCall.jl` and `PyPlot.jl`. Superseded by `PythonCall.jl` and `PythonPlot.jl`.
+Whilst still supported in `Plots 1.X`, users are advised to transition to the `pythonplot` backend.
 
 ### [PGFPlots](https://github.com/sisl/PGFPlots.jl)
 

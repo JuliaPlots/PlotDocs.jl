@@ -597,7 +597,7 @@ function main()
 
     # initialize all backends
     gr()
-    pyplot()
+    pythonplot()
     plotlyjs()
     pgfplotsx()
     unicodeplots()
@@ -605,7 +605,7 @@ function main()
     inspectdr()
 
     # NOTE: for a faster representative test build use `PLOTDOCS_BACKENDS='GR' PLOTDOCS_EXAMPLES='1'`
-    default_backends = "GR PyPlot PlotlyJS PGFPlotsX UnicodePlots Gaston InspectDR"
+    default_backends = "GR PythonPlot PlotlyJS PGFPlotsX UnicodePlots Gaston InspectDR"
     backends = get(ENV, "PLOTDOCS_BACKENDS", default_backends)
     backends = backends == "ALL" ? default_backends : backends
     @info "selected backends: $backends"

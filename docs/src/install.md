@@ -30,8 +30,8 @@ Pkg.add("PlotlyJS"); Pkg.add("PlotlyBase")
 # In order to have a good experience with Jupyter, refer to Plotly-specific
 # Jupyter installation (https://github.com/plotly/plotly.py#installation)
 
-Pkg.add("PyPlot")
-# Depends only on PyPlot package
+Pkg.add("PythonPlot")
+# Depends only on PythonPlot package
 
 Pkg.add("UnicodePlots")
 ```
@@ -66,7 +66,7 @@ Optionally, [choose a backend](@ref backends) and/or override default settings a
 gr(size = (300, 300), legend = false)  # provide optional defaults
 pgfplotsx()
 plotly(ticks=:native)                  # plotlyjs for richer saving options
-pyplot()                               # backends are selected with lowercase names
+pythonplot()                           # backends are selected with lowercase names
 unicodeplots()                         # plot in terminal
 ```
 
