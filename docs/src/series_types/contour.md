@@ -5,9 +5,9 @@ Plots.reset_defaults()
 
 # [Contour Plots](@id contour)
 
-The easiest way to get started with contour plots is to use the PyPlot backend. PyPlot requires the `PyPlot.jl` 
-package which can be installed by typing `]` and then `add PyPlot` into the REPL. The first time you call `pyplot()`,
-Julia may install matplotlib for you. All of the plots generated on this page use PyPlot, although the code will work
+The easiest way to get started with contour plots is to use the PythonPlot backend. PythonPlot requires the `PythonPlot.jl` 
+package which can be installed by typing `]` and then `add PythonPlot` into the REPL. The first time you call `pythonplot()`,
+Julia may install matplotlib for you. All of the plots generated on this page use PythonPlot, although the code will work
 for the default GR backend as well.
 
 Let's define some ranges and a function `f(x, y)` to plot. Notice the `'` in the line defining `z`.
@@ -17,7 +17,7 @@ precisely, the dot `.` is shorthand for broadcasting; since `x'` is of size `(1,
 `z = @. f(x', y)` will broadcast the function `f` over `x'` and `y` and yield a matrix of size `(50, 100)`.
 
 ```@example contour
-using Plots; pyplot()
+using Plots; pythonplot()
 
 f(x, y) = (3x + y^2) * abs(sin(x) + cos(y))
 
@@ -30,8 +30,8 @@ contour(x, y, z)
 Much like with `plot!` and `scatter!`, the `contour` function also has a mutating version `contour!` which can be
 used to modify the plot after it has been generated.
 
-With the PyPlot backend, `contour` can also take in a row vector for `x`, so alternatively, you can define `x` as 
-a row vector as shown below and PyPlot will know how to plot it correctly. Beware that this will NOT work for other 
+With the `pythonplot` backend, `contour` can also take in a row vector for `x`, so alternatively, you can define `x` as 
+a row vector as shown below and PythonPlot will know how to plot it correctly. Beware that this will NOT work for other 
 backends such as the default GR backend, which require `x` and `y` to both be column vectors.
 
 ```julia

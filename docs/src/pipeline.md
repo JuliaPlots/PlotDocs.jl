@@ -21,7 +21,7 @@ x, y = range(0, 1, length = n), randn(n, 3)
 and we'd like to visualize `x` against each column of `y`.  Here's a sample command in Plots:
 
 ```@example pipeline
-using Plots; pyplot(size = (400, 300))
+using Plots; pythonplot(size = (400, 300))
 plot(
     x, y,
     line = (0.5, [4 1 0], [:path :scatter :histogram]),
@@ -40,21 +40,21 @@ In this example, we have an input matrix, and we'd like to plot three series on 
 We create a row vector (1x3 matrix) of symbols to assign different visualization types for each series, set the orientation of the histogram, and set
 alpha values.
 
-For comparison's sake, this is somewhat similar to the following calls in PyPlot:
+For comparison's sake, this is somewhat similar to the following calls in PythonPlot:
 
 ```@example pipeline
-import PyPlot
-fig = PyPlot.gcf()
+import PythonPlot
+fig = PythonPlot.gcf()
 fig.set_size_inches(4, 3, forward = true)
 fig.set_dpi(100)
-PyPlot.clf()
+PythonPlot.clf()
 
 n = 100
 x, y = range(0, 1, length = n), randn(n, 3)
 
-PyPlot.plot(x, y[:,1], alpha = 0.5, "steelblue", linewidth = 4)
-PyPlot.scatter(x, y[:,2], alpha = 0.5, marker = "+", s = 100, c="orangered")
-PyPlot.plt.hist(
+PythonPlot.plot(x, y[:,1], alpha = 0.5, "steelblue", linewidth = 4)
+PythonPlot.scatter(x, y[:,2], alpha = 0.5, marker = "+", s = 100, c="orangered")
+PythonPlot.hist(
     y[:,3],
     orientation = "horizontal",
     alpha = 0.5,
@@ -64,14 +64,15 @@ PyPlot.plt.hist(
     linewidth = 0
 )
 
-ax = PyPlot.gca()
+ax = PythonPlot.gca()
 ax.xaxis.grid(true)
 ax.yaxis.grid(true)
-PyPlot.title("My title")
-PyPlot.legend(["y1","y2"])
-PyPlot.savefig("pyplot.svg"); nothing # hide
+PythonPlot.title("My title")
+PythonPlot.legend(["y1","y2"])
+PythonPlot.savefig("pythonplot.svg")
+nothing  #hide
 ```
-![](pyplot.svg)
+![](pythonplot.svg)
 
 ---
 

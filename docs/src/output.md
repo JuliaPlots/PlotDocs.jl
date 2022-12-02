@@ -60,16 +60,16 @@ When not using `savefig`, the default output format depends on the environment (
 Note:   not all backends support every output file format !
 A simple table showing which format is supported by which backend
 
-| format | backends                                           |
-| :----- | :------------------------------------------------- |
-| eps    | inspectdr, plotlyjs, pyplot                        |
-| html   | plotly,  plotlyjs                                  |
-| json   | plotly, plotlyjs                                   |
-| pdf    | gr, plotlyjs, pyplot, pgfplotsx, inspectdr, gaston |
-| png    | gr, plotlyjs, pyplot, pgfplotsx, inspectdr, gaston, unicodeplots |
-| ps     | gr, pyplot                                         |
-| svg    | gr, inspectdr, pgfplotsx, plotlyjs, pyplot, gaston |
-| tex    | pgfplotsx                                          |
-| text   | hdf5, unicodeplots                                 |
+| format | backends                                                             |
+| :----- | :------------------------------------------------------------------- |
+| eps    | inspectdr, plotlyjs, pythonplot                                      |
+| html   | plotly,  plotlyjs                                                    |
+| json   | plotly, plotlyjs                                                     |
+| pdf    | gr, plotlyjs, pythonplot, pgfplotsx, inspectdr, gaston               |
+| png    | gr, plotlyjs, pythonplot, pgfplotsx, inspectdr, gaston, unicodeplots |
+| ps     | gr, pythonplot                                                       |
+| svg    | gr, inspectdr, pgfplotsx, plotlyjs, pythonplot, gaston               |
+| tex    | pgfplotsx                                                            |
+| text   | hdf5, unicodeplots                                                   |
 
 Supported file formats can be written to an IO stream via, for example, `png(myplot, pipebuffer::IO)`, so the image file can be passed via a PipeBuffer to other functions, eg. `Cairo.read_from_png(pipebuffer::IO)`.

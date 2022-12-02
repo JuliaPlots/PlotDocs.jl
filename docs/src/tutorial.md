@@ -297,8 +297,8 @@ When we started plotting above, our plot used the default backend GR.
 However, let's say we want a different plotting backend which will plot into 
 a nice GUI or into the plot pane of VS Code. To do this, we'll need a backend 
 which is compatible with these features. Some common backends for this are 
-PyPlot and Plotly. For example, to install PyPlot, simply type the command 
-`Pkg.add("PyPlot")` into the REPL; to install Plotly, type
+PythonPlot and Plotly. For example, to install PythonPlot, simply type the command 
+`Pkg.add("PythonPlot")` into the REPL; to install Plotly, type
 `Pkg.add("PlotlyJS")`.
 
 We can specifically choose the backend we are plotting into by using the name 
