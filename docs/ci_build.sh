@@ -50,14 +50,13 @@ export LD_PRELOAD=$(g++ --print-file-name=libstdc++.so)
 export GKSwstype=nul  # Plots.jl/issues/3664
 export COLORTERM=truecolor  # UnicodePlots.jl
 export PLOTDOCS_ANSICOLOR=true
+export JULIA_CONDAPKG_BACKEND=MicroMamba
 
 julia='xvfb-run -a julia --color=yes --project=docs'
 
 $julia -e '
-  using Pkg; Pkg.instantiate()
-  Pkg.add("Conda"); Pkg.build("Conda"; verbose=true)
-  using Conda; env, rc = Conda.ROOTENV, Conda.conda_rc(Conda.ROOTENV)
-  Conda.runconda(`config --set auto_update_conda False --file $rc --force`, env)
+  using Pkg; Pkg.add("CondaPkg")
+  using CondaPkg; CondaPkg.resolve()
   libgcc = if Sys.islinux()
     # see discourse.julialang.org/t/glibcxx-version-not-found/82209/8
     # julia 1.8.3 is built with libstdc++.so.6.0.29, so we must restrict to this version (gcc 11.3.0, not gcc 12.2.0)
@@ -72,14 +71,9 @@ $julia -e '
   else
     ()
   end
-  Conda.add([libgcc..., "matplotlib"])
-  Conda.list()
-  Pkg.add("PyCall"); Pkg.build("PyCall"; verbose=true)
+  CondaPkg.PkgREPL.add([libgcc..., "matplotlib"])
+  CondaPkg.status()
 '
-
-export JULIA_PYTHONCALL_EXE=$($julia -e 'import Conda; print(joinpath(Conda.BINDIR, "python"))')
-export JULIA_CONDAPKG_EXE=$($julia -e 'import Conda; print(Conda.CONDA_EXE)')
-export JULIA_CONDAPKG_BACKEND=Null
 
 echo "== build documentation for $GITHUB_REPOSITORY@$GITHUB_REF, triggerd by $GITHUB_ACTOR on $GITHUB_EVENT_NAME =="
 if [ "$GITHUB_REPOSITORY" == 'JuliaPlots/PlotDocs.jl' ]; then
