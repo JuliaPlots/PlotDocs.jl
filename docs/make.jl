@@ -813,6 +813,18 @@ function main()
         end
     end
 
+    # postprocess temporary work dir
+    src = basename(SRC_DIR)
+    for file ∈ glob("*/index.html", joinpath(@__DIR__, "build"))
+        lines = readlines(file; keep=true)
+        any((occursin("blob/master/docs", line) for line ∈ lines)) || continue
+        open(file, "w") do io
+            for line ∈ lines
+                write(io, replace(line, "blob/master/docs/$work" => "blob/master/docs/$src"))
+            end
+        end
+    end
+
     @info "deploydocs"
     deploydocs(
         repo = "github.com/JuliaPlots/PlotDocs.jl.git",
