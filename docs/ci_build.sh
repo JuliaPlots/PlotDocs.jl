@@ -46,10 +46,10 @@ if true; then
   export DOCUMENTER_DEBUG=true  # Democards.jl
 fi
 
+export LD_PRELOAD=$(g++ --print-file-name=libstdc++.so)
 export GKSwstype=nul  # Plots.jl/issues/3664
 export COLORTERM=truecolor  # UnicodePlots.jl
 export PLOTDOCS_ANSICOLOR=true
-export LD_PRELOAD=$(g++ --print-file-name=libstdc++.so)
 
 julia='xvfb-run -a julia --color=yes --project=docs'
 
@@ -76,6 +76,10 @@ $julia -e '
   Conda.list()
   Pkg.add("PyCall"); Pkg.build("PyCall"; verbose=true)
 '
+
+export JULIA_PYTHONCALL_EXE=$($julia -e 'import Conda; print(joinpath(Conda.BINDIR, "python"))')
+export JULIA_CONDAPKG_EXE=$($julia -e 'import Conda; print(Conda.CONDA_EXE)')
+export JULIA_CONDAPKG_BACKEND=Null
 
 echo "== build documentation for $GITHUB_REPOSITORY@$GITHUB_REF, triggerd by $GITHUB_ACTOR on $GITHUB_EVENT_NAME =="
 if [ "$GITHUB_REPOSITORY" == 'JuliaPlots/PlotDocs.jl' ]; then
