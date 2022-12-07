@@ -28,7 +28,6 @@ plot(
     normalize = true,
     bins = 30,
     marker = (10, 0.5, [:none :+ :none]),
-    markerstrokewidth = 0,
     color = [:steelblue :orangered :green],
     fill = 0.5,
     orientation = [:v :v :h],
