@@ -3,17 +3,6 @@
 
 Series attributes apply to individual series, such as lines, scatters, heatmaps, etc.
 
-
-
-
-
-
-:match_dimensions   => (Bool, "For heatmap types: should the first dimension of a matrix (rows) correspond to the first dimension of the plot (`x`-axis) ? Defaults to `false`, which matches the behavior of Matplotlib, Plotly, and others. Note: when passing a function for `z`, the function should still map `(x,y) -> z`."),
-
-
-
-
-
 ### arrow
 ```julia
 arrow :: Union{Bool, Plots.Arrow}
@@ -365,6 +354,17 @@ Aliases: `markerstrokewidths` `msw` `mswidth`
 Width of the marker stroke (border) in pixels.
 
 Defaults to `1`.
+
+### match_dimensions
+```julia
+match_dimensions :: Bool
+```
+
+For heatmap types: should the first dimension of a matrix (rows) correspond to the first dimension of the plot (x-axis)? 
+
+Defaults to `false` (which matches the behavior of matplotlib, Plotly, and others).
+
+Note: when passing a function for `z`, the function should still map `(x,y) -> z`.
 
 ### normalize
 ```julia
