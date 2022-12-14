@@ -202,7 +202,7 @@ Defaults to `:solid`.
 Choose from the following:
 * `:auto` `:solid` `:dash` `:dot` `:dashdot` `:dashdotdot`
 
-## Guide (Axes Label) Attributes
+## Guide (Axis Label) Attributes
 
 ### [guide](@id axisattr_guide)
 ```julia
