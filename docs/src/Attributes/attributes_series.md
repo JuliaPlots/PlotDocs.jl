@@ -3,6 +3,8 @@
 
 Series attributes apply to individual series, such as lines, scatters, heatmaps, etc. The detailed documentation will contain a list of series types for which the given attribute is relevant.
 
+## Contents
+
 | Attribute | Aliases |
 | :--- | :--- |
 | [`arrow`](@ref seriesattr_arrow) | `arrows` |
@@ -62,6 +64,7 @@ Series attributes apply to individual series, such as lines, scatters, heatmaps,
 | [`z_order`](@ref seriesattr_z_order) | `z_orders` `zorders` |
 | [`zerror`](@ref seriesattr_zerror) | `zerr` `zerrorbar` `zerrors` |
 
+## Documentation
 
 ### [arrow](@id seriesattr_arrow)
 ```julia
