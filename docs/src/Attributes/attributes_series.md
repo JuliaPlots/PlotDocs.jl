@@ -3,7 +3,67 @@
 
 Series attributes apply to individual series, such as lines, scatters, heatmaps, etc.
 
-### arrow
+| Attribute | Aliases |
+| :--- | :--- |
+| [`arrow`](@ref seriesattr_) | `arrows` |
+| [`bar_edges`](@ref seriesattr_bar_edges) | |
+| [`bar_position`](@ref seriesattr_bar_position) | `bar_positions` `barpositions` |
+| [`bar_width`](@ref seriesattr_bar_width) | `bar_widths` `barwidths` |
+| [`bins`](@ref seriesattr_bins) | `bin` `nb` `nbin` `nbins` |
+| [`colorbar_entry`](@ref seriesattr_colorbar_entry) | `colorbar_entrys` `colorbarentrys` |
+| [`connections`](@ref seriesattr_connections) | |
+| [`contour_labels`](@ref seriesattr_contour_labels) | `clabels` `clabs` `contourlabels` |
+| [`contours`](@ref seriesattr_contours) | |
+| [`extra_kwargs`](@ref seriesattr_extra_kwargs) | |
+| [`fill_z`](@ref seriesattr_fill_z) | `fill_zs` `fillz` `fillzs` `fz` `sc` `surfacecolor` `surfacecolour` `surfcolor` `surfcolour` |
+| [`fillalpha`](@ref seriesattr_fillalpha) | `fa` `falpha` `fillalphas` `fillopacity` `fopacity` `fα` |
+| [`fillcolor`](@ref seriesattr_fillcolor) | `fc` `fcolor` `fcolour` `fillcolors` `fillcolour` |
+| [`fillrange`](@ref seriesattr_fillrange) | `fill_between` `fillbetween` `fillranges` `fillrng` `fillto` `frange` |
+| [`fillstyle`](@ref seriesattr_fillstyle) | `fillstyles` |
+| [`group`](@ref seriesattr_group) | `g` `grouping` `groups` |
+| [`hover`](@ref seriesattr_hover) | `hovers` |
+| [`label`](@ref seriesattr_label) | `lab` `labels` |
+| [`levels`](@ref seriesattr_levels) | `levs` `nlev` `nlevels` |
+| [`line_z`](@ref seriesattr_line_z) | `line_zs` `linez` `linezs` `lz` `zline` |
+| [`linealpha`](@ref seriesattr_linealpha) | `la` `lalpha` `linealphas` `lineopacity` `lopacity` `lα` |
+| [`linecolor`](@ref seriesattr_linecolor) | `lc` `lcolor` `lcolour` `linecolors` `linecolour` |
+| [`linestyle`](@ref seriesattr_linestyle) | `linestyles` `ls` `s` `style` |
+| [`linewidth`](@ref seriesattr_linewidth) | `linewidths` `lw` `w` `width` |
+| [`marker_z`](@ref seriesattr_marker_z) | `marker_zs` `markerz` `markerzs` `mz` `zcolor` |
+| [`markeralpha`](@ref seriesattr_markeralpha) | `ma` `malpha` `markeralphas` `markeropacity` `mopacity` `mα` |
+| [`markercolor`](@ref seriesattr_markercolor) | `markercolors` `markercolour` `mc` `mcolor` `mcolour` |
+| [`markershape`](@ref seriesattr_markershape) | `markershapes` `shape` |
+| [`markersize`](@ref seriesattr_markersize) | `markersizes` `ms` `msize` |
+| [`markerstrokealpha`](@ref seriesattr_markerstrokealpha) | `markerstrokealphas` `markerstrokeopacity` `msa` `msalpha` `msopacity` `msα` |
+| [`markerstrokecolor`](@ref seriesattr_markerstrokecolor) | `markerstrokecolors` `markerstrokecolour` `msc` `mscolor` `mscolour` |
+| [`markerstrokestyle`](@ref seriesattr_markerstrokestyle) | `markerstrokestyles` |
+| [`markerstrokewidth`](@ref seriesattr_markerstrokewidth) | `markerstrokewidths` `msw` `mswidth` |
+| [`match_dimensions`](@ref seriesattr_match_dimensions) | |
+| [`normalize`](@ref seriesattr_normalize) | `norm` `normalized` `normalizes` `normed` |
+| [`orientation`](@ref seriesattr_orientation) | `dir` `direction` `orientations` |
+| [`permute`](@ref seriesattr_permute) | `permutes` |
+| [`primary`](@ref seriesattr_primary) | `primarys` |
+| [`quiver`](@ref seriesattr_quiver) | `gradient` `quiver2d` `quivers` `vectorfield` `velocity` |
+| [`ribbon`](@ref seriesattr_ribbon) | `rib` `ribbons` |
+| [`series_annotations`](@ref seriesattr_series_annotations) | `series_ann` `series_annotation` `series_anns` `seriesann` `seriesannotation` `seriesanns` `text` `texts` `txt` `txts` |
+| [`seriesalpha`](@ref seriesattr_seriesalpha) | `alpha` `opacity` `seriesalphas` `α` |
+| [`seriescolor`](@ref seriesattr_seriescolor) | `c` `cmap` `color` `colormap` `colour` `seriescolors` |
+| [`seriestype`](@ref seriesattr_seriestype) | `linetype` `lt` `seriestypes` `st` `t` `typ` |
+| [`show_empty_bins`](@ref seriesattr_show_empty_bins) | `show_empty` `showempty` `showemptybins` |
+| [`smooth`](@ref seriesattr_smooth) | `reg` `regression` `smooths` |
+| [`stride`](@ref seriesattr_stride) | `str` `strides` `surf_str` `surface_stride` `surfacestride` `surfstr` `wirefame_stride` `wirefamestride` |
+| [`subplot`](@ref seriesattr_subplot) | `sp` `splt` `subplots` `subplt` |
+| [`weights`](@ref seriesattr_weights) | |
+| [`x`](@ref seriesattr_x) | `xs` |
+| [`xerror`](@ref seriesattr_xerror) | `xerr` `xerrorbar` `xerrors` |
+| [`y`](@ref seriesattr_y) | `ys` |
+| [`yerror`](@ref seriesattr_yerror) | `err` `errorbar` `yerr` `yerrorbar` `yerrors` |
+| [`z`](@ref seriesattr_z) | `zs` |
+| [`z_order`](@ref seriesattr_z_order) | `z_orders` `zorders` |
+| [`zerror`](@ref seriesattr_zerror) | `zerr` `zerrorbar` `zerrors` |
+
+
+### [arrow](@id seriesattr_arrow)
 ```julia
 arrow :: Union{Bool, Plots.Arrow}
 ```
@@ -13,7 +73,7 @@ Defines arrowheads that should be displayed at the end of path line segments (ju
 
 Defaults to `nothing`.
 
-### bar_edges
+### [bar_edges](@id seriesattr_bar_edges)
 ```julia
 bar_edges :: Bool
 ```
@@ -22,7 +82,7 @@ Align bars to edges with `true`, or centers with `false`.
 
 Defaults to `false`.
 
-### bar_position
+### [bar_position](@id seriesattr_bar_position)
 ```julia
 bar_position :: Symbol
 ```
@@ -32,7 +92,7 @@ Choose from `:overlay` or `:stack`. (Warning: may only be partially implemented)
 
 Defaults to `:overlay`.
 
-### bar_width
+### [bar_width](@id seriesattr_bar_width)
 ```julia
 bar_width :: Real
 ```
@@ -40,7 +100,7 @@ bar_width :: Real
 
 Width of bars in data coordinates. When `nothing`, chooses based on `x` (or `y` when `orientation = :h`).
 
-### bins
+### [bins](@id seriesattr_bins)
 ```julia
 bins :: Union{Integer, Symbol, Tuple{Integer, Integer}, AbstractVector}
 ```
@@ -69,7 +129,7 @@ Relevant attribute for the following series types:
 * [`histogram`](https://docs.juliaplots.org/stable/api/#Plots.histogram-Tuple)
 * [`histogram2d`](https://docs.juliaplots.org/stable/api/#Plots.histogram2d-Tuple)
 
-### colorbar_entry
+### [colorbar_entry](@id seriesattr_colorbar_entry)
 ```julia
 colorbar_entry :: Bool
 ```
@@ -79,14 +139,14 @@ Include this series in the color bar?  Set to `false` to exclude.
 
 Defaults to `true`.
 
-### connections
+### [connections](@id seriesattr_connections)
 ```julia
 connections :: Any
 ```
 
 Defaults to `nothing`.
 
-### contour_labels
+### [contour_labels](@id seriesattr_contour_labels)
 ```julia
 contour_labels :: Bool
 ```
@@ -96,7 +156,7 @@ Show labels at the contour lines?
 
 Defaults to `false`.
 
-### contours
+### [contours](@id seriesattr_contours)
 ```julia
 contours :: Bool
 ```
@@ -105,16 +165,16 @@ Add contours to the side-grids of 3D plots?  Used in surface/wireframe.
 
 Defaults to `false`.
 
-### extra_kwargs
+### [extra_kwargs](@id seriesattr_extra_kwargs)
 ```julia
 extra_kwargs :: Symbol
 ```
 
-Specify for which element extra keyword args are collected or a KW (Dict{Symbol, Any}) to pass a map of extra keyword args which may be specific to a backend. Choose from (`:plot`, `:subplot`, `:series`), defaults to `:series`. Example: `pgfplotsx(); scatter(1:5, extra_kwargs=Dict(:subplot=>Dict("axis line shift" => "10pt"))`.
+Specify for which element extra keyword args are collected or a KW (`Dict{Symbol, Any}`) to pass a map of extra keyword args which may be specific to a backend. Choose from (`:plot`, `:subplot`, `:series`), defaults to `:series`. Example: `pgfplotsx(); scatter(1:5, extra_kwargs=Dict(:subplot=>Dict("axis line shift" => "10pt"))`.
 
 Defaults to `Dict{Any, Any}()`.
 
-### fill_z
+### [fill_z](@id seriesattr_fill_z)
 ```julia
 fill_z :: AbstractMatrix
 ```
@@ -124,7 +184,7 @@ Matrix of the same size as z matrix, which specifies the color of the 3D surface
 
 Defaults to `nothing`.
 
-### fillalpha
+### [fillalpha](@id seriesattr_fillalpha)
 ```julia
 fillalpha :: Real
 ```
@@ -134,7 +194,7 @@ The alpha/opacity override for the fill area. `nothing` means it will take the a
 
 Defaults to `nothing`.
 
-### fillcolor
+### [fillcolor](@id seriesattr_fillcolor)
 ```julia
 fillcolor :: Union{Integer, Symbol, ColorSchemes.ColorScheme, Colorant}
 ```
@@ -144,7 +204,7 @@ Color of the filled area of path or bar types. `:match` will take the value from
 
 Defaults to `:match`.
 
-### fillrange
+### [fillrange](@id seriesattr_fillrange)
 ```julia
 fillrange :: Union{Real, AbstractVector}
 ```
@@ -154,7 +214,7 @@ Fills area between fillrange and `y` for line-types, sets the base for `bar`, `s
 
 Defaults to `nothing`.
 
-### fillstyle
+### [fillstyle](@id seriesattr_fillstyle)
 ```julia
 fillstyle :: Symbol
 ```
@@ -164,7 +224,7 @@ Style of the fill area. `nothing` means solid fill. Choose from `:/`, `:\\`, `:|
 
 Defaults to `nothing`.
 
-### group
+### [group](@id seriesattr_group)
 ```julia
 group :: AbstractVector
 ```
@@ -174,7 +234,7 @@ Data is split into a separate series, one for each unique value in `group`.
 
 Defaults to `nothing`.
 
-### hover
+### [hover](@id seriesattr_hover)
 ```julia
 hover :: AbstractVector{AbstractString}
 ```
@@ -184,7 +244,7 @@ Text to display when hovering over each data point.
 
 Defaults to `nothing`.
 
-### label
+### [label](@id seriesattr_label)
 ```julia
 label :: AbstractString
 ```
@@ -194,7 +254,7 @@ The label for a series, which appears in a legend. If empty, no legend entry is 
 
 Defaults to `:auto`.
 
-### levels
+### [levels](@id seriesattr_levels)
 ```julia
 levels :: Union{Integer, AbstractVector}
 ```
@@ -204,7 +264,7 @@ Singleton for number of contours or iterable for contour values. Determines cont
 
 Defaults to `15`.
 
-### line_z
+### [line_z](@id seriesattr_line_z)
 ```julia
 line_z :: Union{Function, AbstractVector}
 ```
@@ -214,7 +274,7 @@ z-values for each series line segment, which correspond to the color to be used 
 
 Defaults to `nothing`.
 
-### linealpha
+### [linealpha](@id seriesattr_linealpha)
 ```julia
 linealpha :: Real
 ```
@@ -224,7 +284,7 @@ The alpha/opacity override for the line. `nothing` means it will take the alpha 
 
 Defaults to `nothing`.
 
-### linecolor
+### [linecolor](@id seriesattr_linecolor)
 ```julia
 linecolor :: Union{Integer, Symbol, ColorSchemes.ColorScheme, Colorant}
 ```
@@ -234,7 +294,7 @@ Color of the line (for path and bar stroke). `:match` will take the value from `
 
 Defaults to `:auto`.
 
-### linestyle
+### [linestyle](@id seriesattr_linestyle)
 ```julia
 linestyle :: Symbol
 ```
@@ -247,7 +307,7 @@ Defaults to `:solid`.
 Choose from the following:
 * `:auto` `:solid` `:dash` `:dot` `:dashdot` `:dashdotdot`
 
-### linewidth
+### [linewidth](@id seriesattr_linewidth)
 ```julia
 linewidth :: Real
 ```
@@ -257,7 +317,7 @@ Width of the line (in pixels).
 
 Defaults to `:auto`.
 
-### marker_z
+### [marker_z](@id seriesattr_marker_z)
 ```julia
 marker_z :: Union{Function, AbstractVector}
 ```
@@ -267,7 +327,7 @@ z-values for each series data point, which correspond to the color to be used fr
 
 Defaults to `nothing`.
 
-### markeralpha
+### [markeralpha](@id seriesattr_markeralpha)
 ```julia
 markeralpha :: Real
 ```
@@ -277,7 +337,7 @@ The alpha/opacity override for the marker interior. `nothing` means it will take
 
 Defaults to `nothing`.
 
-### markercolor
+### [markercolor](@id seriesattr_markercolor)
 ```julia
 markercolor :: Union{Integer, Symbol, ColorSchemes.ColorScheme, Colorant}
 ```
@@ -287,7 +347,7 @@ Color of the interior of the marker or shape. `:match` will take the value from 
 
 Defaults to `:match`.
 
-### markershape
+### [markershape](@id seriesattr_markershape)
 ```julia
 markershape :: Union{Symbol, AbstractVector, Shape}
 ```
@@ -302,7 +362,7 @@ Choose from the following:
 * `:star4` `:star5` `:star6` `:star7` `:star8`
 * `:pentagon` `:hexagon` `:heptagon` `:octagon`
 
-### markersize
+### [markersize](@id seriesattr_markersize)
 ```julia
 markersize :: Union{Real, AbstractVector}
 ```
@@ -312,7 +372,7 @@ Size (radius pixels) of the markers.
 
 Defaults to `4`.
 
-### markerstrokealpha
+### [markerstrokealpha](@id seriesattr_markerstrokealpha)
 ```julia
 markerstrokealpha :: Real
 ```
@@ -322,7 +382,7 @@ The alpha/opacity override for the marker stroke (border). `nothing` means it wi
 
 Defaults to `nothing`.
 
-### markerstrokecolor
+### [markerstrokecolor](@id seriesattr_markerstrokecolor)
 ```julia
 markerstrokecolor :: Union{Integer, Symbol, ColorSchemes.ColorScheme, Colorant}
 ```
@@ -332,7 +392,7 @@ Color of the marker stroke (border). `:match` will take the value from `:foregro
 
 Defaults to `:match`.
 
-### markerstrokestyle
+### [markerstrokestyle](@id seriesattr_markerstrokestyle)
 ```julia
 markerstrokestyle :: Symbol
 ```
@@ -345,7 +405,7 @@ Defaults to `:solid`.
 Choose from the following:
 * `:auto` `:solid` `:dash` `:dot` `:dashdot` `:dashdotdot`
 
-### markerstrokewidth
+### [markerstrokewidth](@id seriesattr_markerstrokewidth)
 ```julia
 markerstrokewidth :: Real
 ```
@@ -355,7 +415,7 @@ Width of the marker stroke (border) in pixels.
 
 Defaults to `1`.
 
-### match_dimensions
+### [match_dimensions](@id seriesattr_match_dimensions)
 ```julia
 match_dimensions :: Bool
 ```
@@ -366,7 +426,7 @@ Defaults to `false` (which matches the behavior of matplotlib, Plotly, and other
 
 Note: when passing a function for `z`, the function should still map `(x,y) -> z`.
 
-### normalize
+### [normalize](@id seriesattr_normalize)
 ```julia
 normalize :: Union{Bool, Symbol}
 ```
@@ -385,7 +445,7 @@ Can take in one of the following types:
     * `false` (default) – same as `:none`
     * `true` – same as `:pdf`
 
-### orientation
+### [orientation](@id seriesattr_orientation)
 ```julia
 orientation :: Symbol
 ```
@@ -395,7 +455,7 @@ orientation :: Symbol
 
 Defaults to `:vertical`.
 
-### permute
+### [permute](@id seriesattr_permute)
 ```julia
 permute :: Tuple{Symbol, Symbol}
 ```
@@ -405,7 +465,7 @@ Permutes data and axis properties of the axes given in the tuple, e.g. `(:x, :y)
 
 Defaults to `:none`.
 
-### primary
+### [primary](@id seriesattr_primary)
 ```julia
 primary :: Bool
 ```
@@ -415,7 +475,7 @@ Does this count as a "real series?" For example, you could have a path (primary)
 
 Defaults to `true`.
 
-### quiver
+### [quiver](@id seriesattr_quiver)
 ```julia
 quiver :: Union{Tuple{AbstractVector, AbstractVector}, AbstractVector}
 ```
@@ -425,7 +485,7 @@ The directional vectors `(U, V)` which specify velocity/gradient vectors for a q
 
 Defaults to `nothing`.
 
-### ribbon
+### [ribbon](@id seriesattr_ribbon)
 ```julia
 ribbon :: Union{Real, AbstractVector}
 ```
@@ -435,7 +495,7 @@ Creates a fillrange around the data points.
 
 Defaults to `nothing`.
 
-### series_annotations
+### [series_annotations](@id seriesattr_series_annotations)
 ```julia
 series_annotations :: Union{AbstractString, Plots.PlotText, AbstractVector}
 ```
@@ -445,7 +505,7 @@ Annotations which are mapped to data points/positions.
 
 Defaults to `nothing`.
 
-### seriesalpha
+### [seriesalpha](@id seriesattr_seriesalpha)
 ```julia
 seriesalpha :: Real
 ```
@@ -455,7 +515,7 @@ The alpha/opacity override for the series. `nothing` means it will take the alph
 
 Defaults to `nothing`.
 
-### seriescolor
+### [seriescolor](@id seriesattr_seriescolor)
 ```julia
 seriescolor :: Union{Integer, Symbol, ColorSchemes.ColorScheme, Colorant}
 ```
@@ -465,7 +525,7 @@ The base color for this series. `:auto` will select a color from the subplot's `
 
 Defaults to `:auto`.
 
-### seriestype
+### [seriestype](@id seriesattr_seriestype)
 ```julia
 seriestype :: Symbol
 ```
@@ -478,7 +538,7 @@ Defaults to `:path`.
 Choose from any series recipes which are defined, or the following:
 * `:none` `:line` `:path` `:steppre` `:stepmid` `:steppost` `:sticks` `:scatter` `:heatmap` `:hexbin` `:barbins` `:barhist` `:histogram` `:scatterbins` `:scatterhist` `:stepbins` `:stephist` `:bins2d` `:histogram2d` `:histogram3d` `:density` `:bar` `:hline` `:vline` `:contour` `:pie` `:shape` `:image` `:path3d` `:scatter3d` `:surface` `:wireframe` `:contour3d` `:volume` `:mesh3d`
 
-### show_empty_bins
+### [show_empty_bins](@id seriesattr_show_empty_bins)
 ```julia
 show_empty_bins :: Bool
 ```
@@ -488,7 +548,7 @@ Whether empty bins in a 2D histogram are colored as 0  with `true`, or transpare
 
 Defaults to `false`.
 
-### smooth
+### [smooth](@id seriesattr_smooth)
 ```julia
 smooth :: Bool
 ```
@@ -498,7 +558,7 @@ Add a regression line?
 
 Defaults to `false`.
 
-### stride
+### [stride](@id seriesattr_stride)
 ```julia
 stride :: Any
 ```
@@ -506,7 +566,7 @@ stride :: Any
 
 Defaults to `(1, 1)`.
 
-### subplot
+### [subplot](@id seriesattr_subplot)
 ```julia
 subplot :: Union{Integer, Plots.Subplot}
 ```
@@ -516,7 +576,7 @@ The subplot that this series belongs to.
 
 Defaults to `:auto`.
 
-### weights
+### [weights](@id seriesattr_weights)
 ```julia
 weights :: AbstractVector
 ```
@@ -525,7 +585,7 @@ Used in histogram types for weighted counts.
 
 Defaults to `nothing`.
 
-### x
+### [x](@id seriesattr_x)
 ```julia
 x :: Any
 ```
@@ -535,7 +595,7 @@ Input data (first dimension).
 
 Defaults to `nothing`.
 
-### xerror
+### [xerror](@id seriesattr_xerror)
 ```julia
 xerror :: Union{Tuple{AbstractVector, AbstractVector}, AbstractVector}
 ```
@@ -545,7 +605,7 @@ xerror :: Union{Tuple{AbstractVector, AbstractVector}, AbstractVector}
 
 Defaults to `nothing`.
 
-### y
+### [y](@id seriesattr_y)
 ```julia
 y :: Any
 ```
@@ -555,7 +615,7 @@ Input data (second dimension).
 
 Defaults to `nothing`.
 
-### yerror
+### [yerror](@id seriesattr_yerror)
 ```julia
 yerror :: Union{Tuple{AbstractVector, AbstractVector}, AbstractVector}
 ```
@@ -565,7 +625,7 @@ yerror :: Union{Tuple{AbstractVector, AbstractVector}, AbstractVector}
 
 Defaults to `nothing`.
 
-### z
+### [z](@id seriesattr_z)
 ```julia
 z :: Any
 ```
@@ -575,7 +635,7 @@ Input data (third dimension). May be wrapped by a `Surface` for surface and heat
 
 Defaults to `nothing`.
 
-### z_order
+### [z_order](@id seriesattr_z_order)
 ```julia
 z_order :: Union{Integer, Symbol}
 ```
@@ -585,7 +645,7 @@ z_order :: Union{Integer, Symbol}
 
 Defaults to `:front`.
 
-### zerror
+### [zerror](@id seriesattr_zerror)
 ```julia
 zerror :: Any
 ```
