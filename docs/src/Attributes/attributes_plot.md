@@ -21,7 +21,7 @@ A Plot contains a tree-like layout of Subplots. These attributes apply to the fu
 | [`link`](@ref plotattr_link) | `links` |
 | [`overwrite_figure`](@ref plotattr_overwrite_figure) | `clearfig` `clf` `overwrite` `overwrite_figures` `overwritefigures` `reuse` |
 | [`plot_title`](@ref plotattr_plot_title) | `plot_titles` `plottitles` |
-| [`plot_titlefontcolor`](@ref plotattr_plot_titlefontcolor) | 	`plot_titlefontcolors` `plottitlefontcolors` |
+| [`plot_titlefontcolor`](@ref plotattr_plot_titlefontcolor) | `plot_titlefontcolors` `plottitlefontcolors` |
 | [`plot_titlefontfamily`](@ref plotattr_plot_titlefontfamily) | `plot_titlefontfamilys` `plottitlefontfamilys` |
 | [`plot_titlefonthalign`](@ref plotattr_plot_titlefonthalign) | `plot_titlefonthaligns` `plottitlefonthaligns` |
 | [`plot_titlefontrotation`](@ref plotattr_plot_titlefontrotation) | `plot_titlefontrotations` `plottitlefontrotations` |
