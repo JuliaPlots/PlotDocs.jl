@@ -1,11 +1,11 @@
 
 # Series Attributes
 
-Series attributes apply to individual series, such as lines, scatters, heatmaps, etc.
+Series attributes apply to individual series, such as lines, scatters, heatmaps, etc. The detailed documentation will contain a list of series types for which the given attribute is relevant.
 
 | Attribute | Aliases |
 | :--- | :--- |
-| [`arrow`](@ref seriesattr_) | `arrows` |
+| [`arrow`](@ref seriesattr_arrow) | `arrows` |
 | [`bar_edges`](@ref seriesattr_bar_edges) | |
 | [`bar_position`](@ref seriesattr_bar_position) | `bar_positions` `barpositions` |
 | [`bar_width`](@ref seriesattr_bar_width) | `bar_widths` `barwidths` |
