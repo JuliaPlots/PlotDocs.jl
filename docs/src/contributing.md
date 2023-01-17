@@ -19,7 +19,7 @@ When in doubt, use this handy dandy logic designed by a [legendary open source g
 
 ## The JuliaPlots Organization
 
-[JuliaPlots](https://github.com/JuliaPlots) is the home for all things Plots. It was founded by [Tom Breloff](http://www.breloff.com), and extended through many contributions from [members](https://github.com/orgs/JuliaPlots/people) and others.  The first step in contributing will be to understand which package(s) are appropriate destinations for your code.
+[JuliaPlots](https://github.com/JuliaPlots) is the home for all things Plots. It was founded by [Tom Breloff](https://www.breloff.com), and extended through many contributions from [members](https://github.com/orgs/JuliaPlots/people) and others.  The first step in contributing will be to understand which package(s) are appropriate destinations for your code.
 
 
 ### Plots
@@ -239,7 +239,7 @@ We update our local copy of origin, checkout the dev branch, then attempt to "fa
 
 #### Write code, and format
 
-Power up your favorite editor (maybe [Juno](http://junolab.org/)?) and make some code changes to the repo.
+Power up your favorite editor (maybe [Juno](https://junolab.org/)?) and make some code changes to the repo.
 
 Format your changes (code style consistency) using:
 ```bash
@@ -285,7 +285,7 @@ New tags should represent "stable releases"... those that you are happy to distr
 
 Only JuliaPlots members may create a new tag.  To create a new tag, we'll create a new release on Github and use [attobot](https://github.com/attobot/attobot) to generate the PR to METADATA.  Create a new release at https://github.com/JuliaPlots/Plots.jl/releases/new (of course replacing the repo name with the package you're tagging).
 
-The version number (vMAJOR.MINOR.PATCH) should be incremented using [semver](http://semver.org/), which generally means that breaking changes should increment the major number, backwards compatible changes should increment the minor number, and bug fixes should increment the patch number.  For "v0.x.y" versions, this requirement is relaxed.  The minor version can be incremented for breaking changes.
+The version number (vMAJOR.MINOR.PATCH) should be incremented using [semver](https://semver.org/), which generally means that breaking changes should increment the major number, backwards compatible changes should increment the minor number, and bug fixes should increment the patch number.  For "v0.x.y" versions, this requirement is relaxed.  The minor version can be incremented for breaking changes.
 
 ---
 

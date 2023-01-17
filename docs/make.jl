@@ -25,7 +25,7 @@ const ATTRIBUTE_SEARCH = Dict{String,Any}()  # search terms
             @info "$info: fix attribute search"
             for (attr, alias) ∈ $(ATTRIBUTE_SEARCH)[first(m.captures)]
                 push!(
-                    ctx.search_index, 
+                    ctx.search_index,
                     SearchRecord(rec.src, rec.page, rec.fragment, rec.category, rec.title, rec.page_title, attr * ' ' * alias)
                 )
             end
@@ -81,7 +81,7 @@ end
 
 # ----------------------------------------------------------------------
 
-edit_url(args...) = 
+edit_url(args...) =
     "https://github.com/JuliaPlots/PlotDocs.jl/blob/master/docs/" * if length(args) == 0
         "make.jl"
     else
@@ -118,7 +118,7 @@ ref_name(i) = "ref" * lpad(i, 3, '0')
 
 function generate_cards(
     prefix::AbstractString, backend::Symbol, slice;
-    skip = get(Plots._backend_skips, backend, Int[]) 
+    skip = get(Plots._backend_skips, backend, Int[])
 )
     # create folder: for each backend we generate a DemoSection "generated" under "gallery"
     cardspath = mkpath(joinpath(prefix, "$backend", "generated"))
@@ -545,8 +545,8 @@ function colors_svg(cs, w, h)
     html = replace("""
         <?xml version="1.0" encoding="UTF-8"?>
         <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
-         "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
-        <svg xmlns="http://www.w3.org/2000/svg" version="1.1"
+         "https://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+        <svg xmlns="https://www.w3.org/2000/svg" version="1.1"
              width="$(n * ws)mm" height="$(h)mm"
              viewBox="0 0 $n 1" preserveAspectRatio="none"
              shape-rendering="crispEdges" stroke="none">

@@ -42,7 +42,7 @@ Pkg.add("InspectDR")
 Pkg.add("Gaston")
 ```
 
-Learn more about backends [here](http://docs.juliaplots.org/latest/backends/).
+Learn more about backends [here](https://docs.juliaplots.org/latest/backends/).
 
 Finally, you may wish to add some extensions from the [Plots ecosystem](@ref ecosystem):
 

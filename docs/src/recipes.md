@@ -40,7 +40,7 @@ Afterwards, all plot commands which work for vectors will also work for your dat
 
 ### Series Recipes
 
-Lets quickly discuss a mainstay of data visualization: the histogram.  Hadley Wickham has explored the nature of histograms as part of his [Layered Grammar of Graphics](http://vita.had.co.nz/papers/layered-grammar.pdf).  In it, he discusses how a histogram is really nothing more than a bar graph which has its data pre-binned.  This is true, and it can be taken further.  A bar-graph is really an extension of a step-graph, in which zeros are interwoven among the x-values.  A step-graph is really nothing more than a path (line) which can travel only horizontally or vertically.  Of course, a similar decomposition could be had by treating the bars as filled polygons.
+Lets quickly discuss a mainstay of data visualization: the histogram.  Hadley Wickham has explored the nature of histograms as part of his [Layered Grammar of Graphics](https://vita.had.co.nz/papers/layered-grammar.pdf).  In it, he discusses how a histogram is really nothing more than a bar graph which has its data pre-binned.  This is true, and it can be taken further.  A bar-graph is really an extension of a step-graph, in which zeros are interwoven among the x-values.  A step-graph is really nothing more than a path (line) which can travel only horizontally or vertically.  Of course, a similar decomposition could be had by treating the bars as filled polygons.
 
 The point to be had is that a graphics package need only be able to draw lines and polygons, and they can support drawing a histogram.  The path from data to histogram is normally very complicated, but we can avoid the complexity and define a recipe to convert it to its subcomponents.  In a few lines of readable code, we can implement a key statistical visualization.  See the [tutorial on series recipes](https://github.com/tbreloff/ExamplePlots.jl/tree/master/notebooks/series_recipes.ipynb) for a better understanding of how you might use them.
 
@@ -401,7 +401,7 @@ end
 
 It's important to note: normally we would return arguments from a recipe, and those arguments would be added to a `RecipeData` object and pushed onto our `Vector{RecipeData}`.  However, when creating series using the `@series` macro, you have the option of returning `nothing`, which will bypass that last step.
 
-One can also have multiple series in a single subplot and repeat the same for multiple subplots if needed. This would require one to supply the correct subplot id/number. 
+One can also have multiple series in a single subplot and repeat the same for multiple subplots if needed. This would require one to supply the correct subplot id/number.
 
 ```julia
 mutable struct SeriesRange
@@ -410,7 +410,7 @@ end
 @recipe function f(m::SeriesRange)
     range = m.range
     layout := length(range)
-    for i in range 
+    for i in range
         @series begin
             subplot := i
             seriestype := scatter
@@ -419,7 +419,7 @@ end
         @series begin
             subplot := i
             rand(10)
-        end 
+        end
     end
 end
 ```
@@ -488,6 +488,6 @@ Closest candidates are:
 !!! compat "RecipesBase 0.9"
     Use of the `return` keyword in recipes requires RecipesBase 0.9
 
-This error is encountered if you use the `return` keyword in a recipe, which is not supported in RecipesBase up to v0.8. 
+This error is encountered if you use the `return` keyword in a recipe, which is not supported in RecipesBase up to v0.8.
 
 

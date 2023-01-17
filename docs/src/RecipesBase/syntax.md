@@ -75,7 +75,7 @@ Let's walk through this recipe step by step.
 First, the function signature in the recipe definition determines the recipe type, in this case a user recipe.
 The function name `f` in is irrelevant and can be replaced by any other function name.
 [`@recipe`](@ref) does not use it.
-In the recipe body we can set default values for [Plots attributes](http://docs.juliaplots.org/latest/attributes/).
+In the recipe body we can set default values for [Plots attributes](https://docs.juliaplots.org/latest/attributes/).
 ```
 attr --> val
 ```
@@ -92,7 +92,7 @@ This overwrites whatever the user passed to `plot` for `attr` and sets it to `va
     It is strongly recommended to avoid using attribute aliases in recipes as this might lead to unexpected behavior in some cases.
     In the recipe above `xlabel` is used as aliases for `xguide`.
     When the recipe is used Plots will show a warning and hint to the default attribute name.
-    They can also be found in the attribute tables under http://docs.juliaplots.org/latest/attributes/.
+    They can also be found in the attribute tables under https://docs.juliaplots.org/latest/attributes/.
 
 We use the [`@series`](@ref) macro to add a new series for the error band to the plot.
 Within an [`@series`](@ref) block we can use the same syntax as above to force or set default values for attributes.

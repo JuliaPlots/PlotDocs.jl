@@ -389,7 +389,7 @@ plot!(p, 2:3, 2:3, c = :red)
 
 ## [Gaston](https://github.com/mbaz/Gaston.jl)
 
-`Gaston` is a direct interface to [gnuplot](http://gnuplot.info), a cross platform command line driven plotting utility. The integration of `Gaston` in `Plots` is recent (2021), but a lot of features are supported.
+`Gaston` is a direct interface to [gnuplot](https://gnuplot.info), a cross platform command line driven plotting utility. The integration of `Gaston` in `Plots` is recent (2021), but a lot of features are supported.
 
 ```@example backends
 gaston(); backendplot()  #hide
