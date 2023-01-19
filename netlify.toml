@@ -1,2 +1,2 @@
 [build]
-command = "for link in $(find . -maxdepth 1 -type l -ls | cut -f \"29,31-\" -d \" \" | cut -c 2- | sed \"s/ /-\\//\"); do sed -i \"$ a [[redirects]]\\n  from = \\\"$(echo $link | cut -f 1 -d \"-\")\\\"\\n  to = \\\"$(echo $link | cut -f 2 -d \"-\")\\\"\\n  status = 200\\n\\n\" netlify.toml; done"
+command = "for link in $(find . -maxdepth 1 -type l -ls | cut -f \"29,31-\" -d \" \" | cut -c 2- | sed \"s/ /-\\//\"); do echo $link; sed -i \"$ a [[redirects]]\\n  from = \\\"$(echo $link | cut -f 1 -d \"-\")\\\"\\n  to = \\\"$(echo $link | cut -f 2 -d \"-\")\\\"\\n  status = 200\\n\\n\" netlify.toml; done"
