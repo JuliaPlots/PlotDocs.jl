@@ -1,2 +1,2 @@
 [build]
-command = "for link in $(find . -maxdepth 1 -type l -ls | grep -e \"/.*\" -o | sed \"s/ -> /-\\//\"); do echo $link; l1=$(echo $link | cut -f 1 -d \"-\"); sed -i \"$ a [[redirects]]\\n  from = \\\"$l1/*\\\"\\n  to = \\\"$(echo $link | cut -f 2 -d \"-\")/:splat\\\"\\n  status = 200\\n  force = true \\n\\n\" netlify.toml; done; echo \"$(cat netlify.toml)\""
+command = "for link in $(find . -maxdepth 1 -type l -ls | grep -e \"/.*\" -o | sed \"s/ -> /-\\//\"); do echo $link; l1=$(echo $link | cut -f 1 -d \"-\"); sed -i \"$ a [[redirects]]\\n  from = \\\"$l1*\\\"\\n  to = \\\"$(echo $link | cut -f 2 -d \"-\"):splat\\\"\\n  status = 200\\n  force = true \\n\\n\" netlify.toml; done; echo \"$(cat netlify.toml)\""
