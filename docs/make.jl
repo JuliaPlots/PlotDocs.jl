@@ -5,6 +5,8 @@ using JSON
 
 import StatsPlots
 
+import FileIO, FreeType  # weak deps
+
 const SRC_DIR = joinpath(@__DIR__, "src")
 const WORK_DIR = joinpath(@__DIR__, "work")
 const GEN_DIR = joinpath(WORK_DIR, "generated")
