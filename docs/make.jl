@@ -5,8 +5,6 @@ using JSON
 
 import StatsPlots
 
-import FileIO, FreeType  # weak deps
-
 const SRC_DIR = joinpath(@__DIR__, "src")
 const WORK_DIR = joinpath(@__DIR__, "work")
 const GEN_DIR = joinpath(WORK_DIR, "generated")
@@ -145,6 +143,11 @@ function generate_cards(
             else
                 "$(backend)_$(ref_name(i)).png"
             end
+            extra = if backend ≡ :unicodeplots
+                "import FileIO, FreeType  #hide"  # weak deps for png export
+            else
+                ""
+            end
             write(jl, """
                 # ---
                 # title: $(example.header)
@@ -156,6 +159,7 @@ function generate_cards(
 
                 using Plots
                 $backend()
+                $extra
                 """
             )
 
