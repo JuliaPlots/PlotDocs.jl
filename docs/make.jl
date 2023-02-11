@@ -49,36 +49,6 @@ end
 
 @eval DemoCards get_logopath() = $(joinpath(SRC_DIR, "assets", "axis_logo_600x400.png"))
 
-# monkey patch `DemoCards` to avoid `# Generated` section in gallery
-# remove when https://github.com/JuliaDocs/DemoCards.jl/pull/135 is merged & released
-@eval DemoCards generate(sec::DemoSection, templates; level=1, properties=Dict{String, Any}()) = begin
-    # https://github.com/JuliaDocs/DemoCards.jl/blob/db05c296b9de80137c28f92a4944bc21a0cda0db/src/generate.jl#L275-L292
-    ############################################################
-    # begin addition
-    header = if length(sec.title) > 0
-        repeat("#", level) * " " * sec.title
-    else
-        ""
-    end * '\n'
-    # end addition
-    ############################################################
-    footer = "\n"
-    properties = merge(properties, sec.properties) # sec.properties has higher priority
-
-    # either cards or subsections are empty
-    # recursively generate the page contents
-    if isempty(sec.cards)
-        body = generate(sec.subsections, templates; level=level+1, properties=properties)
-    else
-        items = Dict(
-            "cards" => generate(sec.cards, templates["card"], properties=properties),
-            "description" => sec.description
-        )
-        body = Mustache.render(templates["section"], items)
-    end
-    header * body * footer
-end
-
 # ----------------------------------------------------------------------
 
 edit_url(args...) =
