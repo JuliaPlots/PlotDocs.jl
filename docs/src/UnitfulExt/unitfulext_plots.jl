@@ -9,7 +9,7 @@
 #md #     These examples are available as Jupyter notebooks.
 #md #     You can execute them online with [binder](https://mybinder.org/) or just view them with [nbviewer](https://nbviewer.jupyter.org/) by clicking on the badges above!
 
-# These examples were slightly modified from some of [the examples in the Plots.jl documentation](https://github.com/JuliaPlots/Plots.jl/blob/master/src/examples.jl) and can be used as both a tutorial or as a series of test for the UnitfulRecipes module
+# These examples were slightly modified from some of [the examples in the Plots.jl documentation](https://github.com/JuliaPlots/Plots.jl/blob/master/src/examples.jl) and can be used as both a tutorial or as a series of test for the `Unitful` recipes.
 # (they are essentially the same except we have added some units to the data).
 
 # First we need to tell Julia we are using Unitful and Plots

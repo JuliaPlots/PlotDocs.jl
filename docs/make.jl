@@ -671,11 +671,11 @@ function main()
                 "Examples" => "GraphRecipes/examples.md",
                 "Attributes" => "generated/graph_attributes.md",
             ],
-            "UnitfulRecipes" => [
-                "Introduction" => "UnitfulRecipes/unitfulrecipes.md",
+            "UnitfulExt" => [
+                "Introduction" => "UnitfulExt/unitfulext.md",
                 "Examples" => [
-                    "Simple" => "generated/unitfulrecipes_examples.md",
-                    "Plots" => "generated/unitfulrecipes_plots.md",
+                    "Simple" => "generated/unitfulext_examples.md",
+                    "Plots" => "generated/unitfulext_plots.md",
                 ]
             ],
             "Overview" => "ecosystem.md",

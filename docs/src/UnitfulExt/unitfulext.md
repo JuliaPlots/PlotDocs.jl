@@ -1,7 +1,8 @@
 *for plotting data with units seamlessly in Julia*
 
-`UnitfulRecipes` provides recipes for plotting figures when using data with [Unitful.jl](https://github.com/PainterQubits/Unitful.jl) units.
+`Plots` provides `Unitful` recipes for plotting figures when using data with [Unitful.jl](https://github.com/PainterQubits/Unitful.jl) units.
 
+NOTE: Since julia `1.9`, the `UnitfulRecipes` module has been renamed to `UnitfulExt` for practical purposes and consistency with package dependencies / weak extensions: this detail (legacy) doesn't have to be known by the end user.
 
 ---
 
@@ -9,7 +10,7 @@
 
 The goal is that if you can plot something with [Plots.jl](https://github.com/JuliaPlots/Plots.jl) then you should be able to plot the same thing with units.
 
-Essentially, `UnitfulRecipes` strips the units of your data and appends them to the corresponding axis labels.
+Essentially, `Unitful` recipes strips the units of your data and appends them to the corresponding axis labels.
 
 Pictures speak louder than words, so we wrote some examples (accessible through the links on the left) for you to get an idea of what this package does or to simply try it out for yourself!
 

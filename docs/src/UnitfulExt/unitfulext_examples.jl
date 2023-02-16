@@ -9,7 +9,7 @@
 #md #     These examples are available as Jupyter notebooks.
 #md #     You can execute them online with [binder](https://mybinder.org/) or just view them with [nbviewer](https://nbviewer.jupyter.org/) by clicking on the badges above!
 
-# These examples show what UnitfulRecipes is all about.
+# These examples show what `Unitful` recipes is all about.
 
 # First we need to tell Julia we are using Unitful and Plots
 
@@ -28,7 +28,7 @@ y2 = 100randn(10)*u"g"
 plot!(y2)
 
 
-# UnitfulRecipes will not allow you to plot with different unit-dimensions, so
+# `Unitful` recipes will not allow you to plot with different unit-dimensions, so
 # ```julia
 # plot!(rand(10)*u"m")
 # ```
@@ -63,7 +63,11 @@ plot([plot(y, ylab="mass", title=repr(s), unitformat=s) for s in (nothing, true,
 
 # `unitformat` can be one of a number of predefined symbols, defined in
 
-URsymbols = keys(UnitfulRecipes.UNIT_FORMATS)
+URsymbols = if isdefined(Base, :get_extension)
+     Base.get_extension(Plots, :UnitfulExt)
+else
+     Plots.UnitfulExt.UNIT_FORMATS
+end |> keys
 
 # which correspond to these unit formats:
 
