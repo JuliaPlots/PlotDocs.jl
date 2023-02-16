@@ -149,7 +149,7 @@ PDF graphics can also be added to Plots.jl plots using `load("image.pdf")`. Note
 *Save Gotham*
 
 ```@example input_data
-using Plots
+using RecipesPipeline, Plots
 
 function make_batman()
     p = [(0, 0), (0.5, 0.2), (1, 0), (1, 2),  (0.3, 1.2), (0.2, 2), (0, 1.7)]
@@ -163,7 +163,7 @@ function make_batman()
             map(BezierCurve([p[i], m[i], p[i + 1]]), range(0, 1, length = 30))
         )
     end
-    x, y = Plots.unzip(Tuple.(pts))
+    x, y = RecipesPipeline.unzip(Tuple.(pts))
     Shape(vcat(x, -reverse(x)), vcat(y, reverse(y)))
 end
 
@@ -181,7 +181,7 @@ plt = plot(
 ```@example input_data
 # create an ellipse in the sky
 pts = Plots.partialcircle(0, 2π, 100, 0.1)
-x, y = Plots.unzip(pts)
+x, y = RecipesPipeline.unzip(pts)
 x = 1.5x .+ 0.7
 y .+= 1.3
 pts = collect(zip(x, y))
