@@ -2,7 +2,8 @@
 
 `Plots` provides `Unitful` recipes for plotting figures when using data with [Unitful.jl](https://github.com/PainterQubits/Unitful.jl) units.
 
-NOTE: Since julia `1.9`, the `UnitfulRecipes` module has been renamed to `UnitfulExt` for practical purposes and consistency with package dependencies / weak extensions: this detail (legacy) doesn't have to be known by the end user.
+!!! note
+    Since julia `1.9`, the module formerly known as `UnitfulRecipes` has been moved to a weak dependency called `UnitfulExt`. 
 
 ---
 
