@@ -9,7 +9,7 @@
 #md #     These examples are available as Jupyter notebooks.
 #md #     You can execute them online with [binder](https://mybinder.org/) or just view them with [nbviewer](https://nbviewer.jupyter.org/) by clicking on the badges above!
 
-# These examples show what `Unitful` recipes is all about.
+# These examples show what `Unitful` recipes are all about.
 
 # First we need to tell Julia we are using Unitful and Plots
 
