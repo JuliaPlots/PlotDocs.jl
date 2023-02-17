@@ -671,11 +671,11 @@ function main()
                 "Examples" => "GraphRecipes/examples.md",
                 "Attributes" => "generated/graph_attributes.md",
             ],
-            "UnitfulRecipes" => [
-                "Introduction" => "UnitfulRecipes/unitfulrecipes.md",
+            "UnitfulExt" => [
+                "Introduction" => "UnitfulExt/unitfulext.md",
                 "Examples" => [
-                    "Simple" => "generated/unitfulrecipes_examples.md",
-                    "Plots" => "generated/unitfulrecipes_plots.md",
+                    "Simple" => "generated/unitfulext_examples.md",
+                    "Plots" => "generated/unitfulext_plots.md",
                 ]
             ],
             "Overview" => "ecosystem.md",
@@ -713,17 +713,17 @@ function main()
     end
     @info "copied $n source file(s) to scratch directory `$work`"
 
-    @info "UnitfulRecipes"
-    src_unitfulrecipes = "src/UnitfulRecipes"
-    unitfulrecipes = joinpath(@__DIR__, src_unitfulrecipes)
-    notebooks = joinpath(unitfulrecipes, "notebooks")
+    @info "UnitfulExt"
+    src_unitfulext = "src/UnitfulExt"
+    unitfulext = joinpath(@__DIR__, src_unitfulext)
+    notebooks = joinpath(unitfulext, "notebooks")
 
     execute = true  # set to true for executing notebooks and documenter
     nb = false      # set to true to generate the notebooks
-    for (root, _, files) ∈ walkdir(unitfulrecipes), file ∈ files
+    for (root, _, files) ∈ walkdir(unitfulext), file ∈ files
         last(splitext(file)) == ".jl" || continue
         ipath = joinpath(root, file)
-        opath = replace(ipath, src_unitfulrecipes => "$work/generated") |> splitdir |> first
+        opath = replace(ipath, src_unitfulext => "$work/generated") |> splitdir |> first
         Literate.markdown(ipath, opath; documenter = execute)
         nb && Literate.notebook(ipath, notebooks; execute)
     end
