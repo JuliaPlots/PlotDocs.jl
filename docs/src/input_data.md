@@ -56,6 +56,17 @@ plot(
 ```
 This example plots the four series with different labels, marker shapes, and marker colors by combining row and column vectors to decorate the data.
 
+The following example illustrates how Plots.jl handles: an array of matrices, an array of arrays of arrays and an array of tuples of arrays.
+```
+x1, x2 = [1, 0],  [2, 3]    # vectors
+y1, y2 = [4, 5],  [6, 7]    # vectors
+m1, m2 = [x1 y1], [x2 y2]   # matrices
+
+plot([m1, m2])              # array of matrices -> 4 series, plots each matrix column, x assumed to be integer count
+plot([[x1,y1], [x2,y2]])    # array of array of arrays -> 4 series, plots each individual array, x assumed to be integer count 
+plot([(x1,y1), (x2,y2)])    # array of tuples of arrays -> 2 series, plots each tuple as new series
+```
+
 ## Unconnected Data within same groups
 
 As shown in the examples, you can plot a single polygon by using a single call to `plot` using the `:path` line type. You can use several calls to `plot` to draw several polygons.
