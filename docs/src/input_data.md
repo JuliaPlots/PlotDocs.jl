@@ -57,7 +57,7 @@ plot(
 This example plots the four series with different labels, marker shapes, and marker colors by combining row and column vectors to decorate the data.
 
 The following example illustrates how Plots.jl handles: an array of matrices, an array of arrays of arrays and an array of tuples of arrays.
-```
+```@example input_data
 x1, x2 = [1, 0],  [2, 3]    # vectors
 y1, y2 = [4, 5],  [6, 7]    # vectors
 m1, m2 = [x1 y1], [x2 y2]   # 2x2 matrices
