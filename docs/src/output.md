@@ -69,7 +69,7 @@ A simple table showing which format is supported by which backend
 | png    | gr, plotlyjs, pythonplot, pgfplotsx, inspectdr, gaston, unicodeplots |
 | ps     | gr, pythonplot                                                       |
 | svg    | gr, inspectdr, pgfplotsx, plotlyjs, pythonplot, gaston               |
-| tex    | pgfplotsx                                                            |
+| tex    | pgfplotsx, pythonplot                                                |
 | text   | hdf5, unicodeplots                                                   |
 
 Supported file formats can be written to an IO stream via, for example, `png(myplot, pipebuffer::IO)`, so the image file can be passed via a PipeBuffer to other functions, eg. `Cairo.read_from_png(pipebuffer::IO)`.
