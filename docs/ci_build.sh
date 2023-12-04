@@ -33,7 +33,7 @@ sudo apt -y install \
 echo '== install fonts =='
 mkdir -p ~/.fonts
 repo="https://github.com/cormullion/juliamono"
-ver="$(git -c 'versionsort.suffix=-' ls-remote --tags --sort='v:refname' "$repo.git" | tail -n 1 | awk '{ print $2 }' | sed 's,refs/tags/,,')"
+ver="$(git -c 'versionsort.suffix=-' ls-remote --tags --sort='v:refname' "$repo.git" v0.0\* | tail -n 1 | awk '{ print $2 }' | sed 's,refs/tags/,,')"
 url="$repo/releases/download/$ver/JuliaMono-ttf.tar.gz"
 echo "downloading & extract url=$url"
 wget -q "$url" -O - | tar -xz -C ~/.fonts
