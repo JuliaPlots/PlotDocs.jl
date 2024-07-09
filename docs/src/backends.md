@@ -50,22 +50,6 @@ For those who haven't had the pleasure of hacking on 15 different plotting APIs:
 However, you will probably have a hard time choosing the right backend for your task at hand.
 This document is meant to be a guide and introduction to make that choice.
 
-# Persistent backend selection
-
-Plots uses the [Preferences](https://github.com/JuliaPackaging/Preferences.jl) mechanism to make the default backend choice persistent across julia restart.
-
-```julia
-$ JULIA_PKG_PRECOMPILE_AUTO=0 julia -e 'import Plots; Plots.set_default_backend!(:pythonplot)'
-$ julia  # restart, show persistent mode
-julia> using Plots
-[ Info: Precompiling Plots [91a5bcdd-55d7-5caf-9e0b-520d859cae80]
-[ Info: PythonPlot  # precompiles for this backend
-julia> plot(1:2) |> display  # uses `PythonPlot` by default
-```
-
-You can clear preferences with `Plots.set_default_backend!()`.
-Alternatively, one can use the environment variable `PLOTS_DEFAULT_BACKEND` to select the default backend (but this will need to trigger manual precompilation using `Base.compilecache(Plots)`).
-
 # At a glance
 
 My favorites: `GR` for speed, `Plotly(JS)` for interactivity, `UnicodePlots` for REPL/SSH and `PythonPlot` otherwise.
