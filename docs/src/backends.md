@@ -384,10 +384,6 @@ gaston(); backendplot()  #hide
 
 Fast plotting with a responsive GUI (optional).  Target: quickly identify design/simulation issues & glitches in order to shorten design iterations.
 
-```@example backends
-inspectdr(); backendplot(n = 2)  #hide
-```
-
 Pros:
 
 - Relatively short load times / time to first plot.
