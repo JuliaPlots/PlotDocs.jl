@@ -115,6 +115,7 @@ end
 export myplot, myplot!
 myplot(args...; kw...) = plot(MyPlot(args); kw...)
 myplot!(args...; kw...) = plot!(MyPlot(args); kw...)
+myplot!(p::AbstractPlot, args...; kw...) = plot!(p, MyPlot(args); kw...)
 ```
 
 To check `args` type, define a struct with type parameters.
