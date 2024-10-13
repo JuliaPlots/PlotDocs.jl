@@ -1,3 +1,7 @@
+# WARNING
+
+https://github.com/JuliaPlots/PlotDocs.jl is now integrated into https://github.com/JuliaPlots/Plots.jl for Plots v2, please make corresponding PRs there.
+
 # PlotDocs.jl
 
 Documentation for [Plots.jl](https://github.com/JuliaPlots/Plots.jl)
