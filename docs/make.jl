@@ -735,6 +735,7 @@ function main()
         @time makedocs(;
             source = work,
             format = Documenter.HTML(;
+                size_threshold = nothing,
                 prettyurls = get(ENV, "CI", nothing) == "true",
                 assets = ["assets/favicon.ico", gallery_assets...],
                 collapselevel = 2,
