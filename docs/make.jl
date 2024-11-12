@@ -742,6 +742,7 @@ function main()
             ),
             sitename = "Plots",
             authors = "Thomas Breloff",
+            warnonly = true,
             pages,
         )
     catch e
