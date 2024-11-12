@@ -742,7 +742,6 @@ function main()
             ),
             sitename = "Plots",
             authors = "Thomas Breloff",
-            strict = [:doctest, :example_block],
             pages,
         )
     catch e
