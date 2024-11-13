@@ -1,14 +1,14 @@
 using Plots
 plotlyjs()
 
-Plots.reset_defaults()  #hide
+PlotsBase.Commons.reset_defaults()  #hide
 using StableRNGs  #hide
 rng = StableRNG(1234)  #hide
 nothing  #hide
 
 markers = filter((m->begin
-                m in Plots.supported_markers()
-            end), Plots._shape_keys)
+                m in PlotsBase.supported_markers()
+            end), PlotsBase.Commons._shape_keys)
 markers = permutedims(markers)
 n = length(markers)
 x = (range(0, stop = 10, length = n + 2))[2:end - 1]
@@ -18,4 +18,3 @@ scatter(x, y, m = markers, markersize = 8, lab = map(string, markers), bg = :lin
 nothing  #hide
 
 # This file was generated using Literate.jl, https://github.com/fredrikekre/Literate.jl
-

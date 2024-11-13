@@ -1,7 +1,7 @@
 using Plots
 pgfplotsx()
 
-Plots.reset_defaults()  #hide
+PlotsBase.Commons.reset_defaults()  #hide
 using StableRNGs  #hide
 rng = StableRNG(1234)  #hide
 nothing  #hide
@@ -16,4 +16,3 @@ end
 gif(anim, "assets/anim_pgfplotsx_ref031.gif")
 
 # This file was generated using Literate.jl, https://github.com/fredrikekre/Literate.jl
-

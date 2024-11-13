@@ -1,7 +1,7 @@
 using Plots
 pythonplot()
 
-Plots.reset_defaults()  #hide
+PlotsBase.Commons.reset_defaults()  #hide
 using StableRNGs  #hide
 rng = StableRNG(1234)  #hide
 nothing  #hide
@@ -18,4 +18,3 @@ w = 0.1 * vec([cos(θ) for (ϕ, θ) = Iterators.product(ϕs, θqs)])
 quiver(x, y, z, quiver = (u, v, w))
 
 # This file was generated using Literate.jl, https://github.com/fredrikekre/Literate.jl
-

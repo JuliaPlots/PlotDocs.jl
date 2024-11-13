@@ -1,7 +1,7 @@
 using Plots
 pythonplot()
 
-Plots.reset_defaults()  #hide
+PlotsBase.Commons.reset_defaults()  #hide
 using StableRNGs  #hide
 rng = StableRNG(1234)  #hide
 nothing  #hide
@@ -12,4 +12,3 @@ z = float((1:4) * reshape(1:10, 1, :))
 heatmap(xs, ys, z, aspect_ratio = 1)
 
 # This file was generated using Literate.jl, https://github.com/fredrikekre/Literate.jl
-

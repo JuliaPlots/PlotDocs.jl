@@ -1,7 +1,7 @@
 using Plots
 plotlyjs()
 
-Plots.reset_defaults()  #hide
+PlotsBase.Commons.reset_defaults()  #hide
 using StableRNGs  #hide
 rng = StableRNG(1234)  #hide
 nothing  #hide
@@ -11,4 +11,3 @@ plot(plot(0:10; ribbon = (LinRange(0, 2, 11), LinRange(0, 1, 11))), plot(0:10; r
 nothing  #hide
 
 # This file was generated using Literate.jl, https://github.com/fredrikekre/Literate.jl
-

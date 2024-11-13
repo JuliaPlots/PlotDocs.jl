@@ -1,7 +1,7 @@
 using Plots
 unicodeplots()
 import FileIO, FreeType  #hide
-Plots.reset_defaults()  #hide
+PlotsBase.Commons.reset_defaults()  #hide
 using StableRNGs  #hide
 rng = StableRNG(1234)  #hide
 nothing  #hide
@@ -12,4 +12,3 @@ default(shape = :circle)
 plot(plot(x, y, markershape = :circle, seriestype = :steppre, label = "steppre"), plot(x, y, markershape = :circle, seriestype = :stepmid, label = "stepmid"), plot(x, y, markershape = :circle, seriestype = :steppost, label = "steppost"), layout = (3, 1))
 
 # This file was generated using Literate.jl, https://github.com/fredrikekre/Literate.jl
-

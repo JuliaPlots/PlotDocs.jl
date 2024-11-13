@@ -1,7 +1,7 @@
 using Plots
 plotlyjs()
 
-Plots.reset_defaults()  #hide
+PlotsBase.Commons.reset_defaults()  #hide
 using StableRNGs  #hide
 rng = StableRNG(1234)  #hide
 nothing  #hide
@@ -17,4 +17,3 @@ plot(x, y, line = (linetypes, 3), lab = map(string, linetypes), ms = 15)
 nothing  #hide
 
 # This file was generated using Literate.jl, https://github.com/fredrikekre/Literate.jl
-

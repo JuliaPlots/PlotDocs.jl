@@ -1,7 +1,7 @@
 using Plots
 gr()
 
-Plots.reset_defaults()  #hide
+PlotsBase.Commons.reset_defaults()  #hide
 using StableRNGs  #hide
 rng = StableRNG(1234)  #hide
 nothing  #hide
@@ -12,4 +12,3 @@ b = spdiagm(0 => 1:50, 1 => 1:49, -1 => 1:49, 10 => 1:40, -10 => 1:40)
 plot(spy(a), spy(b), title = ["Unique nonzeros" "Different nonzeros"])
 
 # This file was generated using Literate.jl, https://github.com/fredrikekre/Literate.jl
-

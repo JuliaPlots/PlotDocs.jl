@@ -1,7 +1,7 @@
 using Plots
 pgfplotsx()
 
-Plots.reset_defaults()  #hide
+PlotsBase.Commons.reset_defaults()  #hide
 using StableRNGs  #hide
 rng = StableRNG(1234)  #hide
 nothing  #hide
@@ -15,4 +15,3 @@ title!("TITLE")
 yaxis!("YLABEL", :log10, minorgrid = true)
 
 # This file was generated using Literate.jl, https://github.com/fredrikekre/Literate.jl
-

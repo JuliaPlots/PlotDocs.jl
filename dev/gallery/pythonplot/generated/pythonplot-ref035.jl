@@ -1,7 +1,7 @@
 using Plots
 pythonplot()
 
-Plots.reset_defaults()  #hide
+PlotsBase.Commons.reset_defaults()  #hide
 using StableRNGs  #hide
 rng = StableRNG(1234)  #hide
 nothing  #hide
@@ -15,4 +15,3 @@ p2 = scatter(x, y, marker_z = (+), color = :bluesreds, legend = false)
 plot(p1, p2)
 
 # This file was generated using Literate.jl, https://github.com/fredrikekre/Literate.jl
-

@@ -1,7 +1,7 @@
 using Plots
 plotlyjs()
 
-Plots.reset_defaults()  #hide
+PlotsBase.Commons.reset_defaults()  #hide
 using StableRNGs  #hide
 rng = StableRNG(1234)  #hide
 nothing  #hide
@@ -18,4 +18,3 @@ gif(anim, "assets/anim_plotlyjs_ref031.gif")
 nothing  #hide
 
 # This file was generated using Literate.jl, https://github.com/fredrikekre/Literate.jl
-

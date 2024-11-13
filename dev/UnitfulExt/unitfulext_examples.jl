@@ -2,9 +2,6 @@
 # # [Simple Examples](@id 1_Examples)
 #---------------------------------------------------------
 
-#md # [![](https://mybinder.org/badge_logo.svg)](@__BINDER_ROOT_URL__/notebooks/1_Examples.ipynb)
-#md # [![](https://img.shields.io/badge/show-nbviewer-579ACA.svg)](@__NBVIEWER_ROOT_URL__/notebooks/1_Examples.ipynb)
-
 #md # !!! note
 #md #     These examples are available as Jupyter notebooks.
 #md #     You can execute them online with [binder](https://mybinder.org/) or just view them with [nbviewer](https://nbviewer.jupyter.org/) by clicking on the badges above!
@@ -64,7 +61,7 @@ plot([plot(y, ylab="mass", title=repr(s), unitformat=s) for s in (nothing, true,
 # `unitformat` can be one of a number of predefined symbols, defined in
 
 URsymbols = if isdefined(Base, :get_extension)
-     Base.get_extension(Plots, :UnitfulExt)
+     getproperty(Base.get_extension(Plots.PlotsBase, :UnitfulExt), :UNIT_FORMATS)
 else
      Plots.UnitfulExt.UNIT_FORMATS
 end |> keys

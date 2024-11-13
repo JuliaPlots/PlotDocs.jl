@@ -1,7 +1,7 @@
 using Plots
 unicodeplots()
 import FileIO, FreeType  #hide
-Plots.reset_defaults()  #hide
+PlotsBase.Commons.reset_defaults()  #hide
 using StableRNGs  #hide
 rng = StableRNG(1234)  #hide
 nothing  #hide
@@ -16,4 +16,3 @@ Z = ((x, y)->begin
 surface(X, Y, Z.(X, Y), xlabel = "longer xlabel", ylabel = "longer ylabel", zlabel = "longer zlabel")
 
 # This file was generated using Literate.jl, https://github.com/fredrikekre/Literate.jl
-

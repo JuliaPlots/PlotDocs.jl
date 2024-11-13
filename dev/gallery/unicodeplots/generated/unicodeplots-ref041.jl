@@ -1,7 +1,7 @@
 using Plots
 unicodeplots()
 import FileIO, FreeType  #hide
-Plots.reset_defaults()  #hide
+PlotsBase.Commons.reset_defaults()  #hide
 using StableRNGs  #hide
 rng = StableRNG(1234)  #hide
 nothing  #hide
@@ -13,4 +13,3 @@ plot(Any[sv, ov], label = ["StaticArray" "OffsetArray"])
 plot!(3ov, ribbon = ov, label = "OffsetArray ribbon")
 
 # This file was generated using Literate.jl, https://github.com/fredrikekre/Literate.jl
-

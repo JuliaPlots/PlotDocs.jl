@@ -1,7 +1,7 @@
 using Plots
 pgfplotsx()
 
-Plots.reset_defaults()  #hide
+PlotsBase.Commons.reset_defaults()  #hide
 using StableRNGs  #hide
 rng = StableRNG(1234)  #hide
 nothing  #hide
@@ -10,4 +10,3 @@ default(titlefont = (20, "times"), legendfontsize = 18, guidefont = (18, :darkgr
 plot([sin, cos], -2π, 2π, label = ["sin(θ)" "cos(θ)"], title = "Trigonometric Functions", xlabel = "θ", linewidth = 2, legend = :outertopleft)
 
 # This file was generated using Literate.jl, https://github.com/fredrikekre/Literate.jl
-

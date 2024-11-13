@@ -2,9 +2,6 @@
 # # [Plots.jl examples](@id 2_Plots)
 #---------------------------------------------------------
 
-#md # [![](https://mybinder.org/badge_logo.svg)](@__BINDER_ROOT_URL__/notebooks/examples/2_Plots.ipynb)
-#md # [![](https://img.shields.io/badge/show-nbviewer-579ACA.svg)](@__NBVIEWER_ROOT_URL__/notebooks/examples/2_Plots.ipynb)
-
 #md # !!! note
 #md #     These examples are available as Jupyter notebooks.
 #md #     You can execute them online with [binder](https://mybinder.org/) or just view them with [nbviewer](https://nbviewer.jupyter.org/) by clicking on the badges above!
@@ -18,7 +15,7 @@ using Unitful, Plots
 
 # ## Lines
 
-plot(Plots.fakedata(50, 5) * u"m", w=3)
+plot(PlotsBase.fakedata(50, 5) * u"m", w=3)
 
 # ## Parametric plots
 
@@ -69,7 +66,7 @@ histogram2d(randn(10000) * u"cm", randn(10000) * u"cm", nbins=20)
 
 # ## Line styles
 
-styles = intersect([:solid, :dash, :dot, :dashdot, :dashdotdot], Plots.supported_styles())
+styles = intersect([:solid, :dash, :dot, :dashdot, :dashdotdot], PlotsBase.supported_styles())
 styles = reshape(styles, 1, length(styles))
 n = length(styles)
 y = cumsum(randn(20, n), dims=1) * u"km"
@@ -108,7 +105,7 @@ plot(
 
 # ## Marker types
 
-markers = intersect(Plots._shape_keys, Plots.supported_markers())
+markers = intersect(PlotsBase.Commons._shape_keys, PlotsBase.supported_markers())
 markers = reshape(markers, 1, length(markers))
 n = length(markers)
 x = (range(0, stop=10, length=n + 2))[2:end - 1] * u"km"
@@ -130,7 +127,7 @@ plot(randn(100, 5) * u"km", layout=l, t=[:line :histogram :scatter :steppre :bar
 
 # ## Adding to subplots
 
-plot(Plots.fakedata(100, 10) * u"km", layout=4, palette=[:grays :blues :heat :lightrainbow], bg_inside=[:orange :pink :darkblue :black])
+plot(PlotsBase.fakedata(100, 10) * u"km", layout=4, palette=[:grays :blues :heat :lightrainbow], bg_inside=[:orange :pink :darkblue :black])
 
 # ## Contour plots
 

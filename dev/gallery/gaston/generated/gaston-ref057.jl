@@ -1,7 +1,7 @@
 using Plots
 gaston()
 
-Plots.reset_defaults()  #hide
+PlotsBase.Commons.reset_defaults()  #hide
 using StableRNGs  #hide
 rng = StableRNG(1234)  #hide
 nothing  #hide
@@ -11,4 +11,3 @@ vspan!([2, 3]; alpha = 0.5, label = "vspan")
 plot!([0, 2, 3, 5], [-1, 3, 2, 6]; c = :black, lw = 2, label = "line")
 
 # This file was generated using Literate.jl, https://github.com/fredrikekre/Literate.jl
-

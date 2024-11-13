@@ -1,7 +1,7 @@
 using Plots
 gr()
 
-Plots.reset_defaults()  #hide
+PlotsBase.Commons.reset_defaults()  #hide
 using StableRNGs  #hide
 rng = StableRNG(1234)  #hide
 nothing  #hide
@@ -13,4 +13,3 @@ kw = (aspect_ratio = :equal, label = :none, xlabel = "x", ylabel = "y", zlabel =
 plot(plot(x, y, z; proj_type = :ortho, title = "orthographic (isometric)", camera = (45, round(atand(1 / √2); digits = 3)), kw...), plot(x, y, z; proj_type = :persp, title = "perspective (fps)", camera = (0, 0), kw...))
 
 # This file was generated using Literate.jl, https://github.com/fredrikekre/Literate.jl
-
