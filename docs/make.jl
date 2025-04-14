@@ -577,10 +577,10 @@ function main()
     pgfplotsx()
     unicodeplots()
     gaston()
-    inspectdr()
+    # inspectdr()
 
     # NOTE: for a faster representative test build use `PLOTDOCS_BACKENDS='GR' PLOTDOCS_EXAMPLES='1'`
-    default_backends = "GR PythonPlot PlotlyJS PGFPlotsX UnicodePlots Gaston InspectDR"
+    default_backends = "GR PythonPlot PlotlyJS PGFPlotsX UnicodePlots Gaston"
     backends = get(ENV, "PLOTDOCS_BACKENDS", default_backends)
     backends = backends == "ALL" ? default_backends : backends
     @info "selected backends: $backends"
@@ -679,7 +679,7 @@ function main()
             ],
             "Overview" => "ecosystem.md",
         ],
-        "Advanced Topics" => ["Internals" => "pipeline.md"],
+        "Advanced Topics" => ["Plot objects" => "plot_objects.md","Plotting pipeline" => "pipeline.md"],
         "Gallery" => gallery,
         "User Gallery" => user_gallery,
         "API" => "api.md",
