@@ -76,7 +76,7 @@ plot([plot(y, ylab="mass", title=repr(s), unitformat=s) for s in URsymbols]..., 
 # length of the tuple:
 
 URtuples = [", in ", (", in (", ")"), ("[", "] = (", ")"), ':', ('$', '$'), (':', ':', ':')]
-plot([plot(y, ylab="mass", title=repr(s), unitformat=s) for s in URtuples]..., size=(1000, 800))
+plot([plot(y, ylab="mass", title=repr(s), unitformat=s) for s in URtuples]..., size=(600, 600))
 
 # For *extreme* customizability, you can also supply a function that turns two
 # arguments (label, unit) into a string:
