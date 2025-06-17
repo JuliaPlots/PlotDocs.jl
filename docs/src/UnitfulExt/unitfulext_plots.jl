@@ -199,4 +199,4 @@ x = range(0.0u"s", 10.0u"s", length=21)
 y = x * 5u"m/s" .+ 1u"m"
 pl = plot(x, y)
 pl2 = twinx()
-plot!(pl2, x, 1./y, ylabel="inverse distance")
+plot!(pl2, x, 1 ./y, ylabel="inverse distance")
