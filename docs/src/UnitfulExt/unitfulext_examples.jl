@@ -44,9 +44,10 @@ plot!(rand(10)*u"m", inset=bbox(0.5, 0.5, 0.3, 0.3), subplot=2)
 
 plot(y, ylabel="mass")
 
-# If you want it untouched, set the `yunitformat` to `:none`.
+# If you want it untouched, set the `yunitformat` to `:nounit`.
+# In Plots v2, `:none` and `false` will also have this behavior. 
 
-plot(y, ylabel="mass in kilograms", yunitformat=:none)
+plot(y, ylabel="mass in kilograms", yunitformat=:nounit)
 
 # Just like with the `label` keyword for legends, no axis label is added if you specify the axis label to be an empty string.
 
