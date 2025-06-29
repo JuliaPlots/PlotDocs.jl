@@ -9,7 +9,7 @@ nothing  #hide
 legs = (:topleft, :top, :topright, :left, nothing, :right, :bottomleft, :bottom, :bottomright)
 leg_plots(; kw...) = begin
         map((leg->begin
-                    plot([0:1, reverse(0:1)]; marker = :circle, ticks = :none, leg_title = leg, leg = if leg isa Symbol
+                    plot([0:1, reverse(0:1)]; marker = :circle, ticks = :none, leg_title = leg, label = :auto, leg = if leg isa Symbol
                                 Symbol(:outer, leg)
                             else
                                 :none

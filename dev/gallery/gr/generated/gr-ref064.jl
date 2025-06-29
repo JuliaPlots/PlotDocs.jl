@@ -9,7 +9,7 @@ nothing  #hide
 legs = (:topleft, :top, :topright, :left, :inside, :right, :bottomleft, :bottom, :bottomright)
 leg_plots(; kw...) = begin
         map((leg->begin
-                    plot([0:1, reverse(0:1)]; marker = :circle, ticks = :none, leg_title = leg, leg, kw...)
+                    plot([0:1, reverse(0:1)]; marker = :circle, ticks = :none, leg_title = leg, label = :auto, leg, kw...)
                 end), legs)
     end
 (w, h) = PlotsBase._plot_defaults[:size]
