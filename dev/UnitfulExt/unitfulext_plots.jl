@@ -2,6 +2,9 @@
 # # [Plots.jl examples](@id 2_Plots)
 #---------------------------------------------------------
 
+#md # [![](https://mybinder.org/badge_logo.svg)](@__BINDER_ROOT_URL__/notebooks/examples/2_Plots.ipynb)
+#md # [![](https://img.shields.io/badge/show-nbviewer-579ACA.svg)](@__NBVIEWER_ROOT_URL__/notebooks/examples/2_Plots.ipynb)
+
 #md # !!! note
 #md #     These examples are available as Jupyter notebooks.
 #md #     You can execute them online with [binder](https://mybinder.org/) or just view them with [nbviewer](https://nbviewer.jupyter.org/) by clicking on the badges above!
@@ -15,7 +18,7 @@ using Unitful, Plots
 
 # ## Lines
 
-plot(PlotsBase.fakedata(50, 5) * u"m", w=3)
+plot(Plots.fakedata(50, 5) * u"m", w=3)
 
 # ## Parametric plots
 
@@ -66,7 +69,7 @@ histogram2d(randn(10000) * u"cm", randn(10000) * u"cm", nbins=20)
 
 # ## Line styles
 
-styles = intersect([:solid, :dash, :dot, :dashdot, :dashdotdot], PlotsBase.supported_styles())
+styles = intersect([:solid, :dash, :dot, :dashdot, :dashdotdot], Plots.supported_styles())
 styles = reshape(styles, 1, length(styles))
 n = length(styles)
 y = cumsum(randn(20, n), dims=1) * u"km"
@@ -105,7 +108,7 @@ plot(
 
 # ## Marker types
 
-markers = intersect(PlotsBase.Commons._shape_keys, PlotsBase.supported_markers())
+markers = intersect(Plots._shape_keys, Plots.supported_markers())
 markers = reshape(markers, 1, length(markers))
 n = length(markers)
 x = (range(0, stop=10, length=n + 2))[2:end - 1] * u"km"
@@ -127,7 +130,7 @@ plot(randn(100, 5) * u"km", layout=l, t=[:line :histogram :scatter :steppre :bar
 
 # ## Adding to subplots
 
-plot(PlotsBase.fakedata(100, 10) * u"km", layout=4, palette=[:grays :blues :heat :lightrainbow], bg_inside=[:orange :pink :darkblue :black])
+plot(Plots.fakedata(100, 10) * u"km", layout=4, palette=[:grays :blues :heat :lightrainbow], bg_inside=[:orange :pink :darkblue :black])
 
 # ## Contour plots
 
@@ -160,7 +163,7 @@ plot(rand(100)*u"km", layout=@layout([a b;c]), group=group, linetype=[:bar :scat
 xs = [string("x", i) for i = 1:10]
 ys = [string("y", i) for i = 1:4]
 z = float((1:4) * reshape(1:10, 1, :)) * u"km"
-heatmap(xs, ys, z, aspect_ratio=1)
+heatmap(xs, ys, z, aspect_ratio=1, colorbar_title="dist", zunitformat=:square)
 
 # ## Magic grid argument
 
@@ -190,4 +193,10 @@ p1 = plot(x, y, line_z=t, linewidth=3, legend=false)
 p2 = scatter(x, y, marker_z=z, color=:bluesreds, legend=false)
 plot(p1, p2)
 
+# ## Shared axes
 
+x = range(0.0u"s", 10.0u"s", length=21)
+y = x * 5u"m/s" .+ 1u"m"
+pl = plot(x, y)
+pl2 = twinx()
+plot!(pl2, x, 1 ./y, ylabel="inverse distance")
