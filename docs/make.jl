@@ -737,6 +737,7 @@ function main()
                 size_threshold = nothing,
                 prettyurls = get(ENV, "CI", nothing) == "true",
                 assets = ["assets/favicon.ico", gallery_assets...],
+                inventory_version = pkgversion(Plots),
                 collapselevel = 2,
                 ansicolor,
             ),
