@@ -1,5 +1,5 @@
 # WARNING
 
-https://github.com/JuliaPlots/PlotDocs.jl is now integrated into https://github.com/JuliaPlots/Plots.jl for Plots v1 or v2, please make corresponding PRs there.
+https://github.com/JuliaPlots/PlotDocs.jl is now integrated into https://github.com/JuliaPlots/Plots.jl for Plots v1 or v2, please make corresponding PRs or open issues there.
 
 We only use the `gh-pages` of this repository to host the documentation (`stable`, `dev` and `preview`s) for Plots.
