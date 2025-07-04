@@ -1,7 +1,9 @@
 using Plots
+const PlotsBase = Plots.PlotsBase  #hide
 plotlyjs()
 
-Plots.reset_defaults()  #hide
+
+PlotsBase.reset_defaults()  #hide
 using StableRNGs  #hide
 rng = StableRNG(1234)  #hide
 nothing  #hide
@@ -12,8 +14,6 @@ for x = range(0, stop = 2π, length = 20)
     push!(p, x, Float64[sin(x), cos(x)])
     frame(anim)
 end
-gif(anim, "assets/anim_plotlyjs_ref002.gif")
-
-nothing  #hide
+PlotsBase.gif(anim, "plotlyjs_ref002.gif")
 
 # This file was generated using Literate.jl, https://github.com/fredrikekre/Literate.jl

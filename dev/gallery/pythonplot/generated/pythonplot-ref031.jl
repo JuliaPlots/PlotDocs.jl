@@ -1,7 +1,9 @@
 using Plots
+const PlotsBase = Plots.PlotsBase  #hide
 pythonplot()
 
-Plots.reset_defaults()  #hide
+
+PlotsBase.reset_defaults()  #hide
 using StableRNGs  #hide
 rng = StableRNG(1234)  #hide
 nothing  #hide
@@ -13,6 +15,6 @@ for x = range(1, stop = 2π, length = 20)
     plot(push!(p, x, Float64[sin(x), cos(x), atan(x), cos(x), log(x)]))
     frame(anim)
 end
-gif(anim, "assets/anim_pythonplot_ref031.gif")
+PlotsBase.gif(anim, "pythonplot_ref031.gif")
 
 # This file was generated using Literate.jl, https://github.com/fredrikekre/Literate.jl

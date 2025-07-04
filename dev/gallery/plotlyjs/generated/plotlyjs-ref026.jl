@@ -1,7 +1,9 @@
 using Plots
+const PlotsBase = Plots.PlotsBase  #hide
 plotlyjs()
 
-Plots.reset_defaults()  #hide
+
+PlotsBase.reset_defaults()  #hide
 using StableRNGs  #hide
 rng = StableRNG(1234)  #hide
 nothing  #hide
@@ -10,7 +12,6 @@ group = rand(rng, map((i->begin
                     "group $(i)"
                 end), 1:4), 100)
 plot(rand(rng, 100), layout = @layout([a b; c]), group = group, linetype = [:bar :scatter :steppre], linecolor = :match)
-
 nothing  #hide
 
 # This file was generated using Literate.jl, https://github.com/fredrikekre/Literate.jl

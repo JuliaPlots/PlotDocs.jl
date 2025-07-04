@@ -1,7 +1,9 @@
 using Plots
+const PlotsBase = Plots.PlotsBase  #hide
 plotlyjs()
 
-Plots.reset_defaults()  #hide
+
+PlotsBase.reset_defaults()  #hide
 using StableRNGs  #hide
 rng = StableRNG(1234)  #hide
 nothing  #hide
@@ -13,7 +15,6 @@ y = t .* sin.(θ)
 p1 = plot(x, y, line_z = t, linewidth = 3, legend = false)
 p2 = scatter(x, y, marker_z = (+), color = :bluesreds, legend = false)
 plot(p1, p2)
-
 nothing  #hide
 
 # This file was generated using Literate.jl, https://github.com/fredrikekre/Literate.jl

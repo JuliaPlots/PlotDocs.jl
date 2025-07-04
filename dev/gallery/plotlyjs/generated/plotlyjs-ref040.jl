@@ -1,7 +1,9 @@
 using Plots
+const PlotsBase = Plots.PlotsBase  #hide
 plotlyjs()
 
-Plots.reset_defaults()  #hide
+
+PlotsBase.reset_defaults()  #hide
 using StableRNGs  #hide
 rng = StableRNG(1234)  #hide
 nothing  #hide
@@ -11,7 +13,6 @@ plot!([(0, 0), (0, 0.9), (2, 0.9), (3, 1), (4, 0.9), (80, 0)])
 plot!([(0, 0), (0, 0.9), (3, 0.9), (4, 1), (5, 0.9), (80, 0)])
 plot!([(0, 0), (0, 0.9), (4, 0.9), (5, 1), (6, 0.9), (80, 0)])
 lens!([1, 6], [0.9, 1.1], inset = (1, bbox(0.5, 0.0, 0.4, 0.4)))
-
 nothing  #hide
 
 # This file was generated using Literate.jl, https://github.com/fredrikekre/Literate.jl

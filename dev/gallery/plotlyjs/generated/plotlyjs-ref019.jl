@@ -1,7 +1,9 @@
 using Plots
+const PlotsBase = Plots.PlotsBase  #hide
 plotlyjs()
 
-Plots.reset_defaults()  #hide
+
+PlotsBase.reset_defaults()  #hide
 using StableRNGs  #hide
 rng = StableRNG(1234)  #hide
 nothing  #hide
@@ -13,7 +15,6 @@ openpct = rand(rng, n)
 closepct = rand(rng, n)
 y = OHLC[(openpct[i] * hgt[i] + bot[i], bot[i] + hgt[i], bot[i], closepct[i] * hgt[i] + bot[i]) for i = 1:n]
 ohlc(y)
-
 nothing  #hide
 
 # This file was generated using Literate.jl, https://github.com/fredrikekre/Literate.jl
