@@ -1,5 +1,553 @@
 <!DOCTYPE html>
-<html lang="en"><head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><title>Bézier curve · Plots</title><meta name="title" content="Bézier curve · Plots"/><meta property="og:title" content="Bézier curve · Plots"/><meta property="twitter:title" content="Bézier curve · Plots"/><meta name="description" content="Documentation for Plots."/><meta property="og:description" content="Documentation for Plots."/><meta property="twitter:description" content="Documentation for Plots."/><script data-outdated-warner src="../../../../assets/warner.js"></script><link href="https://cdnjs.cloudflare.com/ajax/libs/lato-font/3.0.0/css/lato-font.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/juliamono/0.050/juliamono.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/fontawesome.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/solid.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/brands.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.8/katex.min.css" rel="stylesheet" type="text/css"/><script>documenterBaseURL="../../../.."</script><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" data-main="../../../../assets/documenter.js"></script><script src="../../../../search_index.js"></script><script src="../../../../siteinfo.js"></script><script src="../../../../../versions.js"></script><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../../../../assets/themes/catppuccin-mocha.css" data-theme-name="catppuccin-mocha"/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../../../../assets/themes/catppuccin-macchiato.css" data-theme-name="catppuccin-macchiato"/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../../../../assets/themes/catppuccin-frappe.css" data-theme-name="catppuccin-frappe"/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../../../../assets/themes/catppuccin-latte.css" data-theme-name="catppuccin-latte"/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../../../../assets/themes/documenter-dark.css" data-theme-name="documenter-dark" data-theme-primary-dark/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../../../../assets/themes/documenter-light.css" data-theme-name="documenter-light" data-theme-primary/><script src="../../../../assets/themeswap.js"></script><link href="../../../../assets/favicon.ico" rel="icon" type="image/x-icon"/><link href="../../../../democards/bulmagridtheme.css" rel="stylesheet" type="text/css"/></head><body><div id="documenter"><nav class="docs-sidebar"><a class="docs-logo" href="../../../../"><img src="../../../../assets/logo.png" alt="Plots logo"/></a><div class="docs-package-name"><span class="docs-autofit"><a href="../../../../">Plots</a></span></div><button class="docs-search-query input is-rounded is-small is-clickable my-2 mx-auto py-1 px-2" id="documenter-search-query">Search docs (Ctrl + /)</button><ul class="docs-menu"><li><a class="tocitem" href="../../../../">Home</a></li><li><span class="tocitem">Getting Started</span><ul><li><a class="tocitem" href="../../../../install/">Installation</a></li><li><a class="tocitem" href="../../../../basics/">Basics</a></li><li><a class="tocitem" href="../../../../tutorial/">Tutorial</a></li><li><input class="collapse-toggle" id="menuitem-2-4" type="checkbox"/><label class="tocitem" for="menuitem-2-4"><span class="docs-label">Series Types</span><i class="docs-chevron"></i></label><ul class="collapsed"><li><a class="tocitem" href="../../../../series_types/contour/">Contour Plots</a></li><li><a class="tocitem" href="../../../../series_types/histogram/">Histograms</a></li></ul></li></ul></li><li><span class="tocitem">Manual</span><ul><li><a class="tocitem" href="../../../../input_data/">Input Data</a></li><li><a class="tocitem" href="../../../../output/">Output</a></li><li><a class="tocitem" href="../../../../attributes/">Attributes</a></li><li><a class="tocitem" href="../../../../generated/attributes_series/">Series Attributes</a></li><li><a class="tocitem" href="../../../../generated/attributes_plot/">Plot Attributes</a></li><li><a class="tocitem" href="../../../../generated/attributes_subplot/">Subplot Attributes</a></li><li><a class="tocitem" href="../../../../generated/attributes_axis/">Axis Attributes</a></li><li><a class="tocitem" href="../../../../layouts/">Layouts</a></li><li><input class="collapse-toggle" id="menuitem-3-9" type="checkbox"/><label class="tocitem" for="menuitem-3-9"><span class="docs-label">Recipes</span><i class="docs-chevron"></i></label><ul class="collapsed"><li><a class="tocitem" href="../../../../recipes/">Overview</a></li><li><input class="collapse-toggle" id="menuitem-3-9-2" type="checkbox"/><label class="tocitem" for="menuitem-3-9-2"><span class="docs-label">RecipesBase</span><i class="docs-chevron"></i></label><ul class="collapsed"><li><a class="tocitem" href="../../../../RecipesBase/">Home</a></li><li><a class="tocitem" href="../../../../RecipesBase/syntax/">Recipes Syntax</a></li><li><a class="tocitem" href="../../../../RecipesBase/types/">Recipes Types</a></li><li><a class="tocitem" href="../../../../RecipesBase/internals/">Internals</a></li><li><a class="tocitem" href="../../../../RecipesBase/api/">Public API</a></li></ul></li><li><input class="collapse-toggle" id="menuitem-3-9-3" type="checkbox"/><label class="tocitem" for="menuitem-3-9-3"><span class="docs-label">RecipesPipeline</span><i class="docs-chevron"></i></label><ul class="collapsed"><li><a class="tocitem" href="../../../../RecipesPipeline/">Home</a></li><li><a class="tocitem" href="../../../../RecipesPipeline/api/">Public API</a></li></ul></li></ul></li><li><a class="tocitem" href="../../../../colors/">Colors</a></li><li><a class="tocitem" href="../../../../generated/colorschemes/">ColorSchemes</a></li><li><a class="tocitem" href="../../../../animations/">Animations</a></li><li><a class="tocitem" href="../../../../generated/plotthemes/">Themes</a></li><li><a class="tocitem" href="../../../../backends/">Backends</a></li><li><a class="tocitem" href="../../../../generated/supported/">Supported Attributes</a></li></ul></li><li><a class="tocitem" href="../../../../learning/">Learning</a></li><li><a class="tocitem" href="../../../../contributing/">Contributing</a></li><li><span class="tocitem">Ecosystem</span><ul><li><a class="tocitem" href="../../../../generated/statsplots/">StatsPlots</a></li><li><input class="collapse-toggle" id="menuitem-6-2" type="checkbox"/><label class="tocitem" for="menuitem-6-2"><span class="docs-label">GraphRecipes</span><i class="docs-chevron"></i></label><ul class="collapsed"><li><a class="tocitem" href="../../../../GraphRecipes/introduction/">Introduction</a></li><li><a class="tocitem" href="../../../../GraphRecipes/examples/">Examples</a></li><li><a class="tocitem" href="../../../../generated/graph_attributes/">Attributes</a></li></ul></li><li><input class="collapse-toggle" id="menuitem-6-3" type="checkbox"/><label class="tocitem" for="menuitem-6-3"><span class="docs-label">UnitfulExt</span><i class="docs-chevron"></i></label><ul class="collapsed"><li><a class="tocitem" href="../../../../UnitfulExt/unitfulext/">Introduction</a></li><li><input class="collapse-toggle" id="menuitem-6-3-2" type="checkbox"/><label class="tocitem" for="menuitem-6-3-2"><span class="docs-label">Examples</span><i class="docs-chevron"></i></label><ul class="collapsed"><li><a class="tocitem" href="../../../../generated/unitfulext_examples/">Simple</a></li><li><a class="tocitem" href="../../../../generated/unitfulext_plots/">Plots</a></li></ul></li></ul></li><li><a class="tocitem" href="../../../../ecosystem/">Overview</a></li></ul></li><li><span class="tocitem">Advanced Topics</span><ul><li><a class="tocitem" href="../../../../plot_objects/">Plot objects</a></li><li><a class="tocitem" href="../../../../pipeline/">Plotting pipeline</a></li></ul></li><li><span class="tocitem">Gallery</span><ul><li><a class="tocitem" href="../../../gr/">GR</a></li><li><a class="tocitem" href="../../">PythonPlot</a></li><li><a class="tocitem" href="../../../plotlyjs/">PlotlyJS</a></li><li><a class="tocitem" href="../../../pgfplotsx/">PGFPlotsX</a></li><li><a class="tocitem" href="../../../unicodeplots/">UnicodePlots</a></li><li><a class="tocitem" href="../../../gaston/">Gaston</a></li></ul></li><li><a class="tocitem" href="../../../../user_gallery/">User Gallery</a></li><li><a class="tocitem" href="../../../../api/">API</a></li></ul><div class="docs-version-selector field has-addons"><div class="control"><span class="docs-label button is-static is-size-7">Version</span></div><div class="docs-selector control is-expanded"><div class="select is-fullwidth is-size-7"><select id="documenter-version-selector"></select></div></div></div></nav><div class="docs-main"><header class="docs-navbar"><a class="docs-sidebar-button docs-navbar-link fa-solid fa-bars is-hidden-desktop" id="documenter-sidebar-button" href="#"></a><nav class="breadcrumb"><ul class="is-hidden-mobile"><li class="is-active"><a href>Bézier curve</a></li></ul><ul class="is-hidden-tablet"><li class="is-active"><a href>Bézier curve</a></li></ul></nav><div class="docs-right"><a class="docs-navbar-link" href="https://github.com/JuliaPlots/Plots.jl" title="View the repository on GitHub"><span class="docs-icon fa-brands"></span><span class="docs-label is-hidden-touch">GitHub</span></a><a class="docs-navbar-link" href="https://github.com/JuliaPlots/Plots.jl/blob/v2/docs/gallery/pythonplot/generated/pythonplot-ref061.jl" title="Edit source on GitHub"><span class="docs-icon fa-solid"></span></a><a class="docs-settings-button docs-navbar-link fa-solid fa-gear" id="documenter-settings-button" href="#" title="Settings"></a><a class="docs-article-toggle-button fa-solid fa-chevron-up" id="documenter-article-toggle-button" href="javascript:;" title="Collapse all docstrings"></a></div></header><article class="content" id="documenter-page"><h1 id="pythonplot_ref061"><a class="docs-heading-anchor" href="#pythonplot_ref061">Bézier curve</a><a id="pythonplot_ref061-1"></a><a class="docs-heading-anchor-permalink" href="#pythonplot_ref061" title="Permalink"></a></h1><p><a href="../pythonplot-ref061.jl"><img src="https://img.shields.io/badge/download-julia-brightgreen.svg" alt="Source code"/></a> <a href="https://github.com/JuliaPlots/Plots.jl"><img src="https://img.shields.io/badge/Author-Plots.jl-blue" alt="Author"/></a> <img src="https://img.shields.io/date/1751636586" alt="Update time"/></p><pre><code class="language-julia hljs">using Plots
+<html lang="en"><head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><title>Bézier curve · Plots</title><meta name="title" content="Bézier curve · Plots"/><meta property="og:title" content="Bézier curve · Plots"/><meta property="twitter:title" content="Bézier curve · Plots"/><meta name="description" content="Documentation for Plots."/><meta property="og:description" content="Documentation for Plots."/><meta property="twitter:description" content="Documentation for Plots."/><script data-outdated-warner src="../../../../assets/warner.js"></script><link href="https://cdnjs.cloudflare.com/ajax/libs/lato-font/3.0.0/css/lato-font.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/juliamono/0.050/juliamono.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/fontawesome.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/solid.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/brands.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.8/katex.min.css" rel="stylesheet" type="text/css"/><script>documenterBaseURL="../../../.."</script><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" data-main="../../../../assets/documenter.js"></script><script src="../../../../search_index.js"></script><script src="../../../../siteinfo.js"></script><script src="../../../../../versions.js"></script><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../../../../assets/themes/catppuccin-mocha.css" data-theme-name="catppuccin-mocha"/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../../../../assets/themes/catppuccin-macchiato.css" data-theme-name="catppuccin-macchiato"/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../../../../assets/themes/catppuccin-frappe.css" data-theme-name="catppuccin-frappe"/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../../../../assets/themes/catppuccin-latte.css" data-theme-name="catppuccin-latte"/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../../../../assets/themes/documenter-dark.css" data-theme-name="documenter-dark" data-theme-primary-dark/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../../../../assets/themes/documenter-light.css" data-theme-name="documenter-light" data-theme-primary/><script src="../../../../assets/themeswap.js"></script><link href="../../../../assets/favicon.ico" rel="icon" type="image/x-icon"/><link href="../../../../democards/bulmagridtheme.css" rel="stylesheet" type="text/css"/></head><body><div id="documenter"><nav class="docs-sidebar"><a class="docs-logo" href="../../../../"><img src="../../../../assets/logo.png" alt="Plots logo"/></a><div class="docs-package-name"><span class="docs-autofit"><a href="../../../../">Plots</a></span></div><button class="docs-search-query input is-rounded is-small is-clickable my-2 mx-auto py-1 px-2" id="documenter-search-query">Search docs (Ctrl + /)</button><ul class="docs-menu"><li><a class="tocitem" href="../../../../">Home</a></li><li><span class="tocitem">Getting Started</span><ul><li><a class="tocitem" href="../../../../install/">Installation</a></li><li><a class="tocitem" href="../../../../basics/">Basics</a></li><li><a class="tocitem" href="../../../../tutorial/">Tutorial</a></li><li><input class="collapse-toggle" id="menuitem-2-4" type="checkbox"/><label class="tocitem" for="menuitem-2-4"><span class="docs-label">Series Types</span><i class="docs-chevron"></i></label><ul class="collapsed"><li><a class="tocitem" href="../../../../series_types/contour/">Contour Plots</a></li><li><a class="tocitem" href="../../../../series_types/histogram/">Histograms</a></li></ul></li></ul></li><li><span class="tocitem">Manual</span><ul><li><a class="tocitem" href="../../../../input_data/">Input Data</a></li><li><a class="tocitem" href="../../../../output/">Output</a></li><li><a class="tocitem" href="../../../../attributes/">Attributes</a></li><li><a class="tocitem" href="../../../../generated/attributes_series/">Series Attributes</a></li><li><a class="tocitem" href="../../../../generated/attributes_plot/">Plot Attributes</a></li><li><a class="tocitem" href="../../../../generated/attributes_subplot/">Subplot Attributes</a></li><li><a class="tocitem" href="../../../../generated/attributes_axis/">Axis Attributes</a></li><li><a class="tocitem" href="../../../../layouts/">Layouts</a></li><li><input class="collapse-toggle" id="menuitem-3-9" type="checkbox"/><label class="tocitem" for="menuitem-3-9"><span class="docs-label">Recipes</span><i class="docs-chevron"></i></label><ul class="collapsed"><li><a class="tocitem" href="../../../../recipes/">Overview</a></li><li><input class="collapse-toggle" id="menuitem-3-9-2" type="checkbox"/><label class="tocitem" for="menuitem-3-9-2"><span class="docs-label">RecipesBase</span><i class="docs-chevron"></i></label><ul class="collapsed"><li><a class="tocitem" href="../../../../RecipesBase/">Home</a></li><li><a class="tocitem" href="../../../../RecipesBase/syntax/">Recipes Syntax</a></li><li><a class="tocitem" href="../../../../RecipesBase/types/">Recipes Types</a></li><li><a class="tocitem" href="../../../../RecipesBase/internals/">Internals</a></li><li><a class="tocitem" href="../../../../RecipesBase/api/">Public API</a></li></ul></li><li><input class="collapse-toggle" id="menuitem-3-9-3" type="checkbox"/><label class="tocitem" for="menuitem-3-9-3"><span class="docs-label">RecipesPipeline</span><i class="docs-chevron"></i></label><ul class="collapsed"><li><a class="tocitem" href="../../../../RecipesPipeline/">Home</a></li><li><a class="tocitem" href="../../../../RecipesPipeline/api/">Public API</a></li></ul></li></ul></li><li><a class="tocitem" href="../../../../colors/">Colors</a></li><li><a class="tocitem" href="../../../../generated/colorschemes/">ColorSchemes</a></li><li><a class="tocitem" href="../../../../animations/">Animations</a></li><li><a class="tocitem" href="../../../../generated/plotthemes/">Themes</a></li><li><a class="tocitem" href="../../../../backends/">Backends</a></li><li><a class="tocitem" href="../../../../generated/supported/">Supported Attributes</a></li></ul></li><li><a class="tocitem" href="../../../../learning/">Learning</a></li><li><a class="tocitem" href="../../../../contributing/">Contributing</a></li><li><span class="tocitem">Ecosystem</span><ul><li><a class="tocitem" href="../../../../generated/statsplots/">StatsPlots</a></li><li><input class="collapse-toggle" id="menuitem-6-2" type="checkbox"/><label class="tocitem" for="menuitem-6-2"><span class="docs-label">GraphRecipes</span><i class="docs-chevron"></i></label><ul class="collapsed"><li><a class="tocitem" href="../../../../GraphRecipes/introduction/">Introduction</a></li><li><a class="tocitem" href="../../../../GraphRecipes/examples/">Examples</a></li><li><a class="tocitem" href="../../../../generated/graph_attributes/">Attributes</a></li></ul></li><li><input class="collapse-toggle" id="menuitem-6-3" type="checkbox"/><label class="tocitem" for="menuitem-6-3"><span class="docs-label">UnitfulExt</span><i class="docs-chevron"></i></label><ul class="collapsed"><li><a class="tocitem" href="../../../../UnitfulExt/unitfulext/">Introduction</a></li><li><input class="collapse-toggle" id="menuitem-6-3-2" type="checkbox"/><label class="tocitem" for="menuitem-6-3-2"><span class="docs-label">Examples</span><i class="docs-chevron"></i></label><ul class="collapsed"><li><a class="tocitem" href="../../../../generated/unitfulext_examples/">Simple</a></li><li><a class="tocitem" href="../../../../generated/unitfulext_plots/">Plots</a></li></ul></li></ul></li><li><a class="tocitem" href="../../../../ecosystem/">Overview</a></li></ul></li><li><span class="tocitem">Advanced Topics</span><ul><li><a class="tocitem" href="../../../../plot_objects/">Plot objects</a></li><li><a class="tocitem" href="../../../../pipeline/">Plotting pipeline</a></li></ul></li><li><span class="tocitem">Gallery</span><ul><li><a class="tocitem" href="../../../gr/">GR</a></li><li><a class="tocitem" href="../../">PythonPlot</a></li><li><a class="tocitem" href="../../../plotlyjs/">PlotlyJS</a></li><li><a class="tocitem" href="../../../pgfplotsx/">PGFPlotsX</a></li><li><a class="tocitem" href="../../../unicodeplots/">UnicodePlots</a></li><li><a class="tocitem" href="../../../gaston/">Gaston</a></li></ul></li><li><a class="tocitem" href="../../../../user_gallery/">User Gallery</a></li><li><a class="tocitem" href="../../../../api/">API</a></li></ul><div class="docs-version-selector field has-addons"><div class="control"><span class="docs-label button is-static is-size-7">Version</span></div><div class="docs-selector control is-expanded"><div class="select is-fullwidth is-size-7"><select id="documenter-version-selector"></select></div></div></div></nav><div class="docs-main"><header class="docs-navbar"><a class="docs-sidebar-button docs-navbar-link fa-solid fa-bars is-hidden-desktop" id="documenter-sidebar-button" href="#"></a><nav class="breadcrumb"><ul class="is-hidden-mobile"><li class="is-active"><a href>Bézier curve</a></li></ul><ul class="is-hidden-tablet"><li class="is-active"><a href>Bézier curve</a></li></ul></nav><div class="docs-right"><a class="docs-navbar-link" href="https://github.com/JuliaPlots/Plots.jl" title="View the repository on GitHub"><span class="docs-icon fa-brands"></span><span class="docs-label is-hidden-touch">GitHub</span></a><a class="docs-navbar-link" href="https://github.com/JuliaPlots/Plots.jl/blob/v2/docs/gallery/pythonplot/generated/pythonplot-ref061.jl" title="Edit source on GitHub"><span class="docs-icon fa-solid"></span></a><a class="docs-settings-button docs-navbar-link fa-solid fa-gear" id="documenter-settings-button" href="#" title="Settings"></a><a class="docs-article-toggle-button fa-solid fa-chevron-up" id="documenter-article-toggle-button" href="javascript:;" title="Collapse all docstrings"></a></div></header><article class="content" id="documenter-page"><h1 id="pythonplot_ref061"><a class="docs-heading-anchor" href="#pythonplot_ref061">Bézier curve</a><a id="pythonplot_ref061-1"></a><a class="docs-heading-anchor-permalink" href="#pythonplot_ref061" title="Permalink"></a></h1><p><a href="../pythonplot-ref061.jl"><img src="https://img.shields.io/badge/download-julia-brightgreen.svg" alt="Source code"/></a> <a href="https://github.com/JuliaPlots/Plots.jl"><img src="https://img.shields.io/badge/Author-Plots.jl-blue" alt="Author"/></a> <img src="https://img.shields.io/date/1751824840" alt="Update time"/></p><pre><code class="language-julia hljs">using Plots
 pythonplot()
-
-</code></pre><pre><code class="language-julia hljs">curves([1, 2, 3, 4], [1, 1, 2, 4], title = &quot;Bézier curve&quot;)</code></pre><img src="data:image/png;base64,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iMnkAADgjAQlsO677z7VqVNHkjRkyBANHTq03D+7YLu0IN+vONsoztZ/v6wffm+UYElxvrLuC9wfZ0nxjpQUZ1SnmlGdOKPacYE/68RJdaoZVbPP8BdzpcPfS4fP8McAScrPzw/1EICgY7tGtKrotp2cnHzc90EJrFdffVVdunQ5q5998ZJ9Sk6OD8YwgLDz4w8cEA3YrhGtgrltn+k+HQAAAJxGmYF17733KiUlRbm5uerTp4/atGlT1eMCAACIWGUG1l//+lfl5ubK7/dr586d2rhxY1WPCwAAIGJxiBAAACDIQh5Y48aNC/UQgErBto1oxHaNaBXsbTvkgfXJJ5+EeghApWDbRjRiu0a0Cva2HfLAAgAAiDYVWgfr0KFDkqQ1a9ac9XMUFBRo+fLlFRkGEJbYthGN2K4RrYKxbbdv314JCQmSJMsYc5ILy5ze2LFjNXz48AoNBgAAIBosW7asdOH1CgXW3r17NW3aNKWmpqpGjRpBGyAAAECkCdoeLAAAAJyISe4AAABBRmABAAAEWcgCa9SoUUpNTZVlWVq1alWohgEEVXFxsQYPHqx27dqpU6dOSktLU05OTqiHBVRY3759deGFF6pTp0668sorlZ2dHeohAUH15JNPBrVJQhZY119/vRYsWKAWLVqEaghApbjzzju1bt06ZWdna+DAgbrzzjtDPSSgwj788EN9/fXXys7O1kMPPaTbb7891EMCgmb58uVasmSJmjdvHrTnDFlgXXXVVUpJSQnVywOVonr16urfv78sy5IkXXrppfruu+9CPCqg4pKSkkr/XlBQINtmhgmiw+HDh3XvvffqtddeK/13dzBUaKFRAKf28ssvKyMjI9TDAILilltu0ezZsyVJU6dODfFogOB47LHHNHz4cLVs2TKoz8v/ggCVZPTo0dqwYYOeeeaZUA8FCIp33nlHW7du1dNPP62HH3441MMBKmzx4sVaunSp7rnnnqA/N4EFVILnn39en3zyiTIzM0sXnQOixa233qrZs2crLy8v1EMBKmTu3Llau3atWrZsqdTUVOXm5qpfv37KzMys8HMTWECQvfDCC/rPf/6jGTNmHDdvBYhUhYWF2r59e+n348ePV7169ZScnBzCUQEV98gjj2j79u3KyclRTk6OUlJSNG3aNKWnp1f4uUM2B+vee+/VhAkTtHPnTvXp00e1atXSxo0bQzUcIChyc3P10EMPqVWrVurVq5ckKT4+XllZWSEeGXD2CgoKNHToUB06dEi2batBgwaaNGlSUCcEA9GGS+UAAAAEGYcIAQAAgozAAgAACDICCwAAIMgILAAAgCAjsAAAAILs/wPxXnRWUnE7KwAAAABJRU5ErkJggg==" /><hr/><p><em>This page was generated using <a href="https://github.com/JuliaDocs/DemoCards.jl">DemoCards.jl</a> and <a href="https://github.com/fredrikekre/Literate.jl">Literate.jl</a>.</em></p></article><nav class="docs-footer"><p class="footer-message">Powered by <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> and the <a href="https://julialang.org/">Julia Programming Language</a>.</p></nav></div><div class="modal" id="documenter-settings"><div class="modal-background"></div><div class="modal-card"><header class="modal-card-head"><p class="modal-card-title">Settings</p><button class="delete"></button></header><section class="modal-card-body"><p><label class="label">Theme</label><div class="select"><select id="documenter-themepicker"><option value="auto">Automatic (OS)</option><option value="documenter-light">documenter-light</option><option value="documenter-dark">documenter-dark</option><option value="catppuccin-latte">catppuccin-latte</option><option value="catppuccin-frappe">catppuccin-frappe</option><option value="catppuccin-macchiato">catppuccin-macchiato</option><option value="catppuccin-mocha">catppuccin-mocha</option></select></div></p><hr/><p>This document was generated with <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> version 1.13.0 on <span class="colophon-date" title="Friday 4 July 2025 13:56">Friday 4 July 2025</span>. Using Julia version 1.11.5.</p></section><footer class="modal-card-foot"></footer></div></div></div></body></html>
+</code></pre><pre><code class="nohighlight hljs">StableRNGs.LehmerRNG(state=0x000000000000000000000000000009a5)</code></pre><pre><code class="language-julia hljs">curves([1, 2, 3, 4], [1, 1, 2, 4], title = &quot;Bézier curve&quot;)</code></pre><?xml version="1.0" encoding="utf-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+  "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg xmlns:xlink="http://www.w3.org/1999/xlink" width="432pt" height="288pt" viewBox="0 0 432 288" xmlns="http://www.w3.org/2000/svg" version="1.1">
+ <metadata>
+  <rdf:RDF xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+   <cc:Work>
+    <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+    <dc:date>2025-07-06T18:02:11.006855</dc:date>
+    <dc:format>image/svg+xml</dc:format>
+    <dc:creator>
+     <cc:Agent>
+      <dc:title>Matplotlib v3.10.3, https://matplotlib.org/</dc:title>
+     </cc:Agent>
+    </dc:creator>
+   </cc:Work>
+  </rdf:RDF>
+ </metadata>
+ <defs>
+  <style type="text/css">*{stroke-linejoin: round; stroke-linecap: butt}</style>
+ </defs>
+ <g id="figure_1">
+  <g id="patch_1">
+   <path d="M 0 288 
+L 432 288 
+L 432 0 
+L 0 0 
+z
+" style="fill: #ffffff"/>
+  </g>
+  <g id="axes_1">
+   <g id="patch_2">
+    <path d="M 11.464646 274.465354 
+L 429.165354 274.465354 
+L 429.165354 19.634646 
+L 11.464646 19.634646 
+z
+" style="fill: #ffffff"/>
+   </g>
+   <g id="matplotlib.axis_1">
+    <g id="xtick_1">
+     <g id="line2d_1">
+      <path d="M 23.286364 274.465354 
+L 23.286364 19.634646 
+" clip-path="url(#p78bc2072d4)" style="fill: none; stroke: #000000; stroke-opacity: 0.1; stroke-width: 0.5; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_2">
+      <defs>
+       <path id="m59b73bef48" d="M 0 0 
+L 0 -3 
+" style="stroke: #000000; stroke-width: 0.5"/>
+      </defs>
+      <g>
+       <use xlink:href="#m59b73bef48" x="23.286364" y="274.465354" style="stroke: #000000; stroke-width: 0.5"/>
+      </g>
+     </g>
+     <g id="text_1">
+      <!-- 1 -->
+      <g transform="translate(20.741364 284.044104) scale(0.08 -0.08)">
+       <defs>
+        <path id="DejaVuSans-31" d="M 794 531 
+L 1825 531 
+L 1825 4091 
+L 703 3866 
+L 703 4441 
+L 1819 4666 
+L 2450 4666 
+L 2450 531 
+L 3481 531 
+L 3481 0 
+L 794 0 
+L 794 531 
+z
+" transform="scale(0.015625)"/>
+       </defs>
+       <use xlink:href="#DejaVuSans-31"/>
+      </g>
+     </g>
+    </g>
+    <g id="xtick_2">
+     <g id="line2d_3">
+      <path d="M 154.638788 274.465354 
+L 154.638788 19.634646 
+" clip-path="url(#p78bc2072d4)" style="fill: none; stroke: #000000; stroke-opacity: 0.1; stroke-width: 0.5; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_4">
+      <g>
+       <use xlink:href="#m59b73bef48" x="154.638788" y="274.465354" style="stroke: #000000; stroke-width: 0.5"/>
+      </g>
+     </g>
+     <g id="text_2">
+      <!-- 2 -->
+      <g transform="translate(152.093788 284.044104) scale(0.08 -0.08)">
+       <defs>
+        <path id="DejaVuSans-32" d="M 1228 531 
+L 3431 531 
+L 3431 0 
+L 469 0 
+L 469 531 
+Q 828 903 1448 1529 
+Q 2069 2156 2228 2338 
+Q 2531 2678 2651 2914 
+Q 2772 3150 2772 3378 
+Q 2772 3750 2511 3984 
+Q 2250 4219 1831 4219 
+Q 1534 4219 1204 4116 
+Q 875 4013 500 3803 
+L 500 4441 
+Q 881 4594 1212 4672 
+Q 1544 4750 1819 4750 
+Q 2544 4750 2975 4387 
+Q 3406 4025 3406 3419 
+Q 3406 3131 3298 2873 
+Q 3191 2616 2906 2266 
+Q 2828 2175 2409 1742 
+Q 1991 1309 1228 531 
+z
+" transform="scale(0.015625)"/>
+       </defs>
+       <use xlink:href="#DejaVuSans-32"/>
+      </g>
+     </g>
+    </g>
+    <g id="xtick_3">
+     <g id="line2d_5">
+      <path d="M 285.991212 274.465354 
+L 285.991212 19.634646 
+" clip-path="url(#p78bc2072d4)" style="fill: none; stroke: #000000; stroke-opacity: 0.1; stroke-width: 0.5; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_6">
+      <g>
+       <use xlink:href="#m59b73bef48" x="285.991212" y="274.465354" style="stroke: #000000; stroke-width: 0.5"/>
+      </g>
+     </g>
+     <g id="text_3">
+      <!-- 3 -->
+      <g transform="translate(283.446212 284.044104) scale(0.08 -0.08)">
+       <defs>
+        <path id="DejaVuSans-33" d="M 2597 2516 
+Q 3050 2419 3304 2112 
+Q 3559 1806 3559 1356 
+Q 3559 666 3084 287 
+Q 2609 -91 1734 -91 
+Q 1441 -91 1130 -33 
+Q 819 25 488 141 
+L 488 750 
+Q 750 597 1062 519 
+Q 1375 441 1716 441 
+Q 2309 441 2620 675 
+Q 2931 909 2931 1356 
+Q 2931 1769 2642 2001 
+Q 2353 2234 1838 2234 
+L 1294 2234 
+L 1294 2753 
+L 1863 2753 
+Q 2328 2753 2575 2939 
+Q 2822 3125 2822 3475 
+Q 2822 3834 2567 4026 
+Q 2313 4219 1838 4219 
+Q 1578 4219 1281 4162 
+Q 984 4106 628 3988 
+L 628 4550 
+Q 988 4650 1302 4700 
+Q 1616 4750 1894 4750 
+Q 2613 4750 3031 4423 
+Q 3450 4097 3450 3541 
+Q 3450 3153 3228 2886 
+Q 3006 2619 2597 2516 
+z
+" transform="scale(0.015625)"/>
+       </defs>
+       <use xlink:href="#DejaVuSans-33"/>
+      </g>
+     </g>
+    </g>
+    <g id="xtick_4">
+     <g id="line2d_7">
+      <path d="M 417.343636 274.465354 
+L 417.343636 19.634646 
+" clip-path="url(#p78bc2072d4)" style="fill: none; stroke: #000000; stroke-opacity: 0.1; stroke-width: 0.5; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_8">
+      <g>
+       <use xlink:href="#m59b73bef48" x="417.343636" y="274.465354" style="stroke: #000000; stroke-width: 0.5"/>
+      </g>
+     </g>
+     <g id="text_4">
+      <!-- 4 -->
+      <g transform="translate(414.798636 284.044104) scale(0.08 -0.08)">
+       <defs>
+        <path id="DejaVuSans-34" d="M 2419 4116 
+L 825 1625 
+L 2419 1625 
+L 2419 4116 
+z
+M 2253 4666 
+L 3047 4666 
+L 3047 1625 
+L 3713 1625 
+L 3713 1100 
+L 3047 1100 
+L 3047 0 
+L 2419 0 
+L 2419 1100 
+L 313 1100 
+L 313 1709 
+L 2253 4666 
+z
+" transform="scale(0.015625)"/>
+       </defs>
+       <use xlink:href="#DejaVuSans-34"/>
+      </g>
+     </g>
+    </g>
+   </g>
+   <g id="matplotlib.axis_2">
+    <g id="ytick_1">
+     <g id="line2d_9">
+      <path d="M 11.464646 267.253164 
+L 429.165354 267.253164 
+" clip-path="url(#p78bc2072d4)" style="fill: none; stroke: #000000; stroke-opacity: 0.1; stroke-width: 0.5; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_10">
+      <defs>
+       <path id="m393274f090" d="M 0 0 
+L 3 0 
+" style="stroke: #000000; stroke-width: 0.5"/>
+      </defs>
+      <g>
+       <use xlink:href="#m393274f090" x="11.464646" y="267.253164" style="stroke: #000000; stroke-width: 0.5"/>
+      </g>
+     </g>
+     <g id="text_5">
+      <!-- 1 -->
+      <g transform="translate(2.874646 270.292539) scale(0.08 -0.08)">
+       <use xlink:href="#DejaVuSans-31"/>
+      </g>
+     </g>
+    </g>
+    <g id="ytick_2">
+     <g id="line2d_11">
+      <path d="M 11.464646 187.117721 
+L 429.165354 187.117721 
+" clip-path="url(#p78bc2072d4)" style="fill: none; stroke: #000000; stroke-opacity: 0.1; stroke-width: 0.5; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_12">
+      <g>
+       <use xlink:href="#m393274f090" x="11.464646" y="187.117721" style="stroke: #000000; stroke-width: 0.5"/>
+      </g>
+     </g>
+     <g id="text_6">
+      <!-- 2 -->
+      <g transform="translate(2.874646 190.157096) scale(0.08 -0.08)">
+       <use xlink:href="#DejaVuSans-32"/>
+      </g>
+     </g>
+    </g>
+    <g id="ytick_3">
+     <g id="line2d_13">
+      <path d="M 11.464646 106.982279 
+L 429.165354 106.982279 
+" clip-path="url(#p78bc2072d4)" style="fill: none; stroke: #000000; stroke-opacity: 0.1; stroke-width: 0.5; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_14">
+      <g>
+       <use xlink:href="#m393274f090" x="11.464646" y="106.982279" style="stroke: #000000; stroke-width: 0.5"/>
+      </g>
+     </g>
+     <g id="text_7">
+      <!-- 3 -->
+      <g transform="translate(2.874646 110.021654) scale(0.08 -0.08)">
+       <use xlink:href="#DejaVuSans-33"/>
+      </g>
+     </g>
+    </g>
+    <g id="ytick_4">
+     <g id="line2d_15">
+      <path d="M 11.464646 26.846836 
+L 429.165354 26.846836 
+" clip-path="url(#p78bc2072d4)" style="fill: none; stroke: #000000; stroke-opacity: 0.1; stroke-width: 0.5; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_16">
+      <g>
+       <use xlink:href="#m393274f090" x="11.464646" y="26.846836" style="stroke: #000000; stroke-width: 0.5"/>
+      </g>
+     </g>
+     <g id="text_8">
+      <!-- 4 -->
+      <g transform="translate(2.874646 29.886211) scale(0.08 -0.08)">
+       <use xlink:href="#DejaVuSans-34"/>
+      </g>
+     </g>
+    </g>
+   </g>
+   <g id="line2d_17">
+    <path d="M 23.286364 267.253164 
+L 36.874546 266.967307 
+L 50.462727 266.109734 
+L 64.050909 264.680445 
+L 77.639091 262.679441 
+L 91.227273 260.106722 
+L 104.815455 256.962287 
+L 118.403636 253.246137 
+L 131.991818 248.958271 
+L 145.58 244.09869 
+L 159.168182 238.667394 
+L 172.756364 232.664382 
+L 186.344545 226.089655 
+L 199.932727 218.943213 
+L 213.520909 211.225055 
+L 227.109091 202.935181 
+L 240.697273 194.073592 
+L 254.285455 184.640288 
+L 267.873636 174.635268 
+L 281.461818 164.058533 
+L 295.05 152.910083 
+L 308.638182 141.189917 
+L 322.226364 128.898036 
+L 335.814545 116.034439 
+L 349.402727 102.599127 
+L 362.990909 88.5921 
+L 376.579091 74.013357 
+L 390.167273 58.862898 
+L 403.755454 43.140725 
+L 417.343636 26.846836 
+" clip-path="url(#p78bc2072d4)" style="fill: none; stroke: #009afa"/>
+   </g>
+   <g id="patch_3">
+    <path d="M 11.464646 274.465354 
+L 11.464646 19.634646 
+" style="fill: none; stroke: #000000; stroke-linejoin: miter; stroke-linecap: square"/>
+   </g>
+   <g id="patch_4">
+    <path d="M 11.464646 274.465354 
+L 429.165354 274.465354 
+" style="fill: none; stroke: #000000; stroke-linejoin: miter; stroke-linecap: square"/>
+   </g>
+   <g id="text_9">
+    <!-- Bézier curve -->
+    <g transform="translate(176.563906 13.634646) scale(0.14 -0.14)">
+     <defs>
+      <path id="DejaVuSans-42" d="M 1259 2228 
+L 1259 519 
+L 2272 519 
+Q 2781 519 3026 730 
+Q 3272 941 3272 1375 
+Q 3272 1813 3026 2020 
+Q 2781 2228 2272 2228 
+L 1259 2228 
+z
+M 1259 4147 
+L 1259 2741 
+L 2194 2741 
+Q 2656 2741 2882 2914 
+Q 3109 3088 3109 3444 
+Q 3109 3797 2882 3972 
+Q 2656 4147 2194 4147 
+L 1259 4147 
+z
+M 628 4666 
+L 2241 4666 
+Q 2963 4666 3353 4366 
+Q 3744 4066 3744 3513 
+Q 3744 3084 3544 2831 
+Q 3344 2578 2956 2516 
+Q 3422 2416 3680 2098 
+Q 3938 1781 3938 1306 
+Q 3938 681 3513 340 
+Q 3088 0 2303 0 
+L 628 0 
+L 628 4666 
+z
+" transform="scale(0.015625)"/>
+      <path id="DejaVuSans-e9" d="M 3597 1894 
+L 3597 1613 
+L 953 1613 
+Q 991 1019 1311 708 
+Q 1631 397 2203 397 
+Q 2534 397 2845 478 
+Q 3156 559 3463 722 
+L 3463 178 
+Q 3153 47 2828 -22 
+Q 2503 -91 2169 -91 
+Q 1331 -91 842 396 
+Q 353 884 353 1716 
+Q 353 2575 817 3079 
+Q 1281 3584 2069 3584 
+Q 2775 3584 3186 3129 
+Q 3597 2675 3597 1894 
+z
+M 3022 2063 
+Q 3016 2534 2758 2815 
+Q 2500 3097 2075 3097 
+Q 1594 3097 1305 2825 
+Q 1016 2553 972 2059 
+L 3022 2063 
+z
+M 2469 5119 
+L 3091 5119 
+L 2072 3944 
+L 1594 3944 
+L 2469 5119 
+z
+" transform="scale(0.015625)"/>
+      <path id="DejaVuSans-7a" d="M 353 3500 
+L 3084 3500 
+L 3084 2975 
+L 922 459 
+L 3084 459 
+L 3084 0 
+L 275 0 
+L 275 525 
+L 2438 3041 
+L 353 3041 
+L 353 3500 
+z
+" transform="scale(0.015625)"/>
+      <path id="DejaVuSans-69" d="M 603 3500 
+L 1178 3500 
+L 1178 0 
+L 603 0 
+L 603 3500 
+z
+M 603 4863 
+L 1178 4863 
+L 1178 4134 
+L 603 4134 
+L 603 4863 
+z
+" transform="scale(0.015625)"/>
+      <path id="DejaVuSans-65" d="M 3597 1894 
+L 3597 1613 
+L 953 1613 
+Q 991 1019 1311 708 
+Q 1631 397 2203 397 
+Q 2534 397 2845 478 
+Q 3156 559 3463 722 
+L 3463 178 
+Q 3153 47 2828 -22 
+Q 2503 -91 2169 -91 
+Q 1331 -91 842 396 
+Q 353 884 353 1716 
+Q 353 2575 817 3079 
+Q 1281 3584 2069 3584 
+Q 2775 3584 3186 3129 
+Q 3597 2675 3597 1894 
+z
+M 3022 2063 
+Q 3016 2534 2758 2815 
+Q 2500 3097 2075 3097 
+Q 1594 3097 1305 2825 
+Q 1016 2553 972 2059 
+L 3022 2063 
+z
+" transform="scale(0.015625)"/>
+      <path id="DejaVuSans-72" d="M 2631 2963 
+Q 2534 3019 2420 3045 
+Q 2306 3072 2169 3072 
+Q 1681 3072 1420 2755 
+Q 1159 2438 1159 1844 
+L 1159 0 
+L 581 0 
+L 581 3500 
+L 1159 3500 
+L 1159 2956 
+Q 1341 3275 1631 3429 
+Q 1922 3584 2338 3584 
+Q 2397 3584 2469 3576 
+Q 2541 3569 2628 3553 
+L 2631 2963 
+z
+" transform="scale(0.015625)"/>
+      <path id="DejaVuSans-20" transform="scale(0.015625)"/>
+      <path id="DejaVuSans-63" d="M 3122 3366 
+L 3122 2828 
+Q 2878 2963 2633 3030 
+Q 2388 3097 2138 3097 
+Q 1578 3097 1268 2742 
+Q 959 2388 959 1747 
+Q 959 1106 1268 751 
+Q 1578 397 2138 397 
+Q 2388 397 2633 464 
+Q 2878 531 3122 666 
+L 3122 134 
+Q 2881 22 2623 -34 
+Q 2366 -91 2075 -91 
+Q 1284 -91 818 406 
+Q 353 903 353 1747 
+Q 353 2603 823 3093 
+Q 1294 3584 2113 3584 
+Q 2378 3584 2631 3529 
+Q 2884 3475 3122 3366 
+z
+" transform="scale(0.015625)"/>
+      <path id="DejaVuSans-75" d="M 544 1381 
+L 544 3500 
+L 1119 3500 
+L 1119 1403 
+Q 1119 906 1312 657 
+Q 1506 409 1894 409 
+Q 2359 409 2629 706 
+Q 2900 1003 2900 1516 
+L 2900 3500 
+L 3475 3500 
+L 3475 0 
+L 2900 0 
+L 2900 538 
+Q 2691 219 2414 64 
+Q 2138 -91 1772 -91 
+Q 1169 -91 856 284 
+Q 544 659 544 1381 
+z
+M 1991 3584 
+L 1991 3584 
+z
+" transform="scale(0.015625)"/>
+      <path id="DejaVuSans-76" d="M 191 3500 
+L 800 3500 
+L 1894 563 
+L 2988 3500 
+L 3597 3500 
+L 2284 0 
+L 1503 0 
+L 191 3500 
+z
+" transform="scale(0.015625)"/>
+     </defs>
+     <use xlink:href="#DejaVuSans-42"/>
+     <use xlink:href="#DejaVuSans-e9" transform="translate(68.603516 0)"/>
+     <use xlink:href="#DejaVuSans-7a" transform="translate(130.126953 0)"/>
+     <use xlink:href="#DejaVuSans-69" transform="translate(182.617188 0)"/>
+     <use xlink:href="#DejaVuSans-65" transform="translate(210.400391 0)"/>
+     <use xlink:href="#DejaVuSans-72" transform="translate(271.923828 0)"/>
+     <use xlink:href="#DejaVuSans-20" transform="translate(313.037109 0)"/>
+     <use xlink:href="#DejaVuSans-63" transform="translate(344.824219 0)"/>
+     <use xlink:href="#DejaVuSans-75" transform="translate(399.804688 0)"/>
+     <use xlink:href="#DejaVuSans-72" transform="translate(463.183594 0)"/>
+     <use xlink:href="#DejaVuSans-76" transform="translate(504.296875 0)"/>
+     <use xlink:href="#DejaVuSans-65" transform="translate(563.476562 0)"/>
+    </g>
+   </g>
+  </g>
+ </g>
+ <defs>
+  <clipPath id="p78bc2072d4">
+   <rect x="11.464646" y="19.634646" width="417.700709" height="254.830709"/>
+  </clipPath>
+ </defs>
+</svg>
+<hr/><p><em>This page was generated using <a href="https://github.com/JuliaDocs/DemoCards.jl">DemoCards.jl</a> and <a href="https://github.com/fredrikekre/Literate.jl">Literate.jl</a>.</em></p></article><nav class="docs-footer"><p class="footer-message">Powered by <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> and the <a href="https://julialang.org/">Julia Programming Language</a>.</p></nav></div><div class="modal" id="documenter-settings"><div class="modal-background"></div><div class="modal-card"><header class="modal-card-head"><p class="modal-card-title">Settings</p><button class="delete"></button></header><section class="modal-card-body"><p><label class="label">Theme</label><div class="select"><select id="documenter-themepicker"><option value="auto">Automatic (OS)</option><option value="documenter-light">documenter-light</option><option value="documenter-dark">documenter-dark</option><option value="catppuccin-latte">catppuccin-latte</option><option value="catppuccin-frappe">catppuccin-frappe</option><option value="catppuccin-macchiato">catppuccin-macchiato</option><option value="catppuccin-mocha">catppuccin-mocha</option></select></div></p><hr/><p>This document was generated with <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> version 1.13.0 on <span class="colophon-date" title="Sunday 6 July 2025 18:14">Sunday 6 July 2025</span>. Using Julia version 1.11.5.</p></section><footer class="modal-card-foot"></footer></div></div></div></body></html>

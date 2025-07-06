@@ -1,5 +1,852 @@
 <!DOCTYPE html>
-<html lang="en"><head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><title>Specifying edges and missing values for barplots · Plots</title><meta name="title" content="Specifying edges and missing values for barplots · Plots"/><meta property="og:title" content="Specifying edges and missing values for barplots · Plots"/><meta property="twitter:title" content="Specifying edges and missing values for barplots · Plots"/><meta name="description" content="Documentation for Plots."/><meta property="og:description" content="Documentation for Plots."/><meta property="twitter:description" content="Documentation for Plots."/><script data-outdated-warner src="../../../../assets/warner.js"></script><link href="https://cdnjs.cloudflare.com/ajax/libs/lato-font/3.0.0/css/lato-font.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/juliamono/0.050/juliamono.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/fontawesome.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/solid.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/brands.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.8/katex.min.css" rel="stylesheet" type="text/css"/><script>documenterBaseURL="../../../.."</script><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" data-main="../../../../assets/documenter.js"></script><script src="../../../../search_index.js"></script><script src="../../../../siteinfo.js"></script><script src="../../../../../versions.js"></script><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../../../../assets/themes/catppuccin-mocha.css" data-theme-name="catppuccin-mocha"/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../../../../assets/themes/catppuccin-macchiato.css" data-theme-name="catppuccin-macchiato"/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../../../../assets/themes/catppuccin-frappe.css" data-theme-name="catppuccin-frappe"/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../../../../assets/themes/catppuccin-latte.css" data-theme-name="catppuccin-latte"/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../../../../assets/themes/documenter-dark.css" data-theme-name="documenter-dark" data-theme-primary-dark/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../../../../assets/themes/documenter-light.css" data-theme-name="documenter-light" data-theme-primary/><script src="../../../../assets/themeswap.js"></script><link href="../../../../assets/favicon.ico" rel="icon" type="image/x-icon"/><link href="../../../../democards/bulmagridtheme.css" rel="stylesheet" type="text/css"/></head><body><div id="documenter"><nav class="docs-sidebar"><a class="docs-logo" href="../../../../"><img src="../../../../assets/logo.png" alt="Plots logo"/></a><div class="docs-package-name"><span class="docs-autofit"><a href="../../../../">Plots</a></span></div><button class="docs-search-query input is-rounded is-small is-clickable my-2 mx-auto py-1 px-2" id="documenter-search-query">Search docs (Ctrl + /)</button><ul class="docs-menu"><li><a class="tocitem" href="../../../../">Home</a></li><li><span class="tocitem">Getting Started</span><ul><li><a class="tocitem" href="../../../../install/">Installation</a></li><li><a class="tocitem" href="../../../../basics/">Basics</a></li><li><a class="tocitem" href="../../../../tutorial/">Tutorial</a></li><li><input class="collapse-toggle" id="menuitem-2-4" type="checkbox"/><label class="tocitem" for="menuitem-2-4"><span class="docs-label">Series Types</span><i class="docs-chevron"></i></label><ul class="collapsed"><li><a class="tocitem" href="../../../../series_types/contour/">Contour Plots</a></li><li><a class="tocitem" href="../../../../series_types/histogram/">Histograms</a></li></ul></li></ul></li><li><span class="tocitem">Manual</span><ul><li><a class="tocitem" href="../../../../input_data/">Input Data</a></li><li><a class="tocitem" href="../../../../output/">Output</a></li><li><a class="tocitem" href="../../../../attributes/">Attributes</a></li><li><a class="tocitem" href="../../../../generated/attributes_series/">Series Attributes</a></li><li><a class="tocitem" href="../../../../generated/attributes_plot/">Plot Attributes</a></li><li><a class="tocitem" href="../../../../generated/attributes_subplot/">Subplot Attributes</a></li><li><a class="tocitem" href="../../../../generated/attributes_axis/">Axis Attributes</a></li><li><a class="tocitem" href="../../../../layouts/">Layouts</a></li><li><input class="collapse-toggle" id="menuitem-3-9" type="checkbox"/><label class="tocitem" for="menuitem-3-9"><span class="docs-label">Recipes</span><i class="docs-chevron"></i></label><ul class="collapsed"><li><a class="tocitem" href="../../../../recipes/">Overview</a></li><li><input class="collapse-toggle" id="menuitem-3-9-2" type="checkbox"/><label class="tocitem" for="menuitem-3-9-2"><span class="docs-label">RecipesBase</span><i class="docs-chevron"></i></label><ul class="collapsed"><li><a class="tocitem" href="../../../../RecipesBase/">Home</a></li><li><a class="tocitem" href="../../../../RecipesBase/syntax/">Recipes Syntax</a></li><li><a class="tocitem" href="../../../../RecipesBase/types/">Recipes Types</a></li><li><a class="tocitem" href="../../../../RecipesBase/internals/">Internals</a></li><li><a class="tocitem" href="../../../../RecipesBase/api/">Public API</a></li></ul></li><li><input class="collapse-toggle" id="menuitem-3-9-3" type="checkbox"/><label class="tocitem" for="menuitem-3-9-3"><span class="docs-label">RecipesPipeline</span><i class="docs-chevron"></i></label><ul class="collapsed"><li><a class="tocitem" href="../../../../RecipesPipeline/">Home</a></li><li><a class="tocitem" href="../../../../RecipesPipeline/api/">Public API</a></li></ul></li></ul></li><li><a class="tocitem" href="../../../../colors/">Colors</a></li><li><a class="tocitem" href="../../../../generated/colorschemes/">ColorSchemes</a></li><li><a class="tocitem" href="../../../../animations/">Animations</a></li><li><a class="tocitem" href="../../../../generated/plotthemes/">Themes</a></li><li><a class="tocitem" href="../../../../backends/">Backends</a></li><li><a class="tocitem" href="../../../../generated/supported/">Supported Attributes</a></li></ul></li><li><a class="tocitem" href="../../../../learning/">Learning</a></li><li><a class="tocitem" href="../../../../contributing/">Contributing</a></li><li><span class="tocitem">Ecosystem</span><ul><li><a class="tocitem" href="../../../../generated/statsplots/">StatsPlots</a></li><li><input class="collapse-toggle" id="menuitem-6-2" type="checkbox"/><label class="tocitem" for="menuitem-6-2"><span class="docs-label">GraphRecipes</span><i class="docs-chevron"></i></label><ul class="collapsed"><li><a class="tocitem" href="../../../../GraphRecipes/introduction/">Introduction</a></li><li><a class="tocitem" href="../../../../GraphRecipes/examples/">Examples</a></li><li><a class="tocitem" href="../../../../generated/graph_attributes/">Attributes</a></li></ul></li><li><input class="collapse-toggle" id="menuitem-6-3" type="checkbox"/><label class="tocitem" for="menuitem-6-3"><span class="docs-label">UnitfulExt</span><i class="docs-chevron"></i></label><ul class="collapsed"><li><a class="tocitem" href="../../../../UnitfulExt/unitfulext/">Introduction</a></li><li><input class="collapse-toggle" id="menuitem-6-3-2" type="checkbox"/><label class="tocitem" for="menuitem-6-3-2"><span class="docs-label">Examples</span><i class="docs-chevron"></i></label><ul class="collapsed"><li><a class="tocitem" href="../../../../generated/unitfulext_examples/">Simple</a></li><li><a class="tocitem" href="../../../../generated/unitfulext_plots/">Plots</a></li></ul></li></ul></li><li><a class="tocitem" href="../../../../ecosystem/">Overview</a></li></ul></li><li><span class="tocitem">Advanced Topics</span><ul><li><a class="tocitem" href="../../../../plot_objects/">Plot objects</a></li><li><a class="tocitem" href="../../../../pipeline/">Plotting pipeline</a></li></ul></li><li><span class="tocitem">Gallery</span><ul><li><a class="tocitem" href="../../../gr/">GR</a></li><li><a class="tocitem" href="../../">PythonPlot</a></li><li><a class="tocitem" href="../../../plotlyjs/">PlotlyJS</a></li><li><a class="tocitem" href="../../../pgfplotsx/">PGFPlotsX</a></li><li><a class="tocitem" href="../../../unicodeplots/">UnicodePlots</a></li><li><a class="tocitem" href="../../../gaston/">Gaston</a></li></ul></li><li><a class="tocitem" href="../../../../user_gallery/">User Gallery</a></li><li><a class="tocitem" href="../../../../api/">API</a></li></ul><div class="docs-version-selector field has-addons"><div class="control"><span class="docs-label button is-static is-size-7">Version</span></div><div class="docs-selector control is-expanded"><div class="select is-fullwidth is-size-7"><select id="documenter-version-selector"></select></div></div></div></nav><div class="docs-main"><header class="docs-navbar"><a class="docs-sidebar-button docs-navbar-link fa-solid fa-bars is-hidden-desktop" id="documenter-sidebar-button" href="#"></a><nav class="breadcrumb"><ul class="is-hidden-mobile"><li class="is-active"><a href>Specifying edges and missing values for barplots</a></li></ul><ul class="is-hidden-tablet"><li class="is-active"><a href>Specifying edges and missing values for barplots</a></li></ul></nav><div class="docs-right"><a class="docs-navbar-link" href="https://github.com/JuliaPlots/Plots.jl" title="View the repository on GitHub"><span class="docs-icon fa-brands"></span><span class="docs-label is-hidden-touch">GitHub</span></a><a class="docs-navbar-link" href="https://github.com/JuliaPlots/Plots.jl/blob/v2/docs/gallery/pythonplot/generated/pythonplot-ref066.jl" title="Edit source on GitHub"><span class="docs-icon fa-solid"></span></a><a class="docs-settings-button docs-navbar-link fa-solid fa-gear" id="documenter-settings-button" href="#" title="Settings"></a><a class="docs-article-toggle-button fa-solid fa-chevron-up" id="documenter-article-toggle-button" href="javascript:;" title="Collapse all docstrings"></a></div></header><article class="content" id="documenter-page"><h1 id="pythonplot_ref066"><a class="docs-heading-anchor" href="#pythonplot_ref066">Specifying edges and missing values for barplots</a><a id="pythonplot_ref066-1"></a><a class="docs-heading-anchor-permalink" href="#pythonplot_ref066" title="Permalink"></a></h1><p><a href="../pythonplot-ref066.jl"><img src="https://img.shields.io/badge/download-julia-brightgreen.svg" alt="Source code"/></a> <a href="https://github.com/JuliaPlots/Plots.jl"><img src="https://img.shields.io/badge/Author-Plots.jl-blue" alt="Author"/></a> <img src="https://img.shields.io/date/1751636586" alt="Update time"/></p><pre><code class="language-julia hljs">using Plots
+<html lang="en"><head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><title>Specifying edges and missing values for barplots · Plots</title><meta name="title" content="Specifying edges and missing values for barplots · Plots"/><meta property="og:title" content="Specifying edges and missing values for barplots · Plots"/><meta property="twitter:title" content="Specifying edges and missing values for barplots · Plots"/><meta name="description" content="Documentation for Plots."/><meta property="og:description" content="Documentation for Plots."/><meta property="twitter:description" content="Documentation for Plots."/><script data-outdated-warner src="../../../../assets/warner.js"></script><link href="https://cdnjs.cloudflare.com/ajax/libs/lato-font/3.0.0/css/lato-font.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/juliamono/0.050/juliamono.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/fontawesome.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/solid.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/brands.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.8/katex.min.css" rel="stylesheet" type="text/css"/><script>documenterBaseURL="../../../.."</script><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" data-main="../../../../assets/documenter.js"></script><script src="../../../../search_index.js"></script><script src="../../../../siteinfo.js"></script><script src="../../../../../versions.js"></script><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../../../../assets/themes/catppuccin-mocha.css" data-theme-name="catppuccin-mocha"/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../../../../assets/themes/catppuccin-macchiato.css" data-theme-name="catppuccin-macchiato"/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../../../../assets/themes/catppuccin-frappe.css" data-theme-name="catppuccin-frappe"/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../../../../assets/themes/catppuccin-latte.css" data-theme-name="catppuccin-latte"/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../../../../assets/themes/documenter-dark.css" data-theme-name="documenter-dark" data-theme-primary-dark/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../../../../assets/themes/documenter-light.css" data-theme-name="documenter-light" data-theme-primary/><script src="../../../../assets/themeswap.js"></script><link href="../../../../assets/favicon.ico" rel="icon" type="image/x-icon"/><link href="../../../../democards/bulmagridtheme.css" rel="stylesheet" type="text/css"/></head><body><div id="documenter"><nav class="docs-sidebar"><a class="docs-logo" href="../../../../"><img src="../../../../assets/logo.png" alt="Plots logo"/></a><div class="docs-package-name"><span class="docs-autofit"><a href="../../../../">Plots</a></span></div><button class="docs-search-query input is-rounded is-small is-clickable my-2 mx-auto py-1 px-2" id="documenter-search-query">Search docs (Ctrl + /)</button><ul class="docs-menu"><li><a class="tocitem" href="../../../../">Home</a></li><li><span class="tocitem">Getting Started</span><ul><li><a class="tocitem" href="../../../../install/">Installation</a></li><li><a class="tocitem" href="../../../../basics/">Basics</a></li><li><a class="tocitem" href="../../../../tutorial/">Tutorial</a></li><li><input class="collapse-toggle" id="menuitem-2-4" type="checkbox"/><label class="tocitem" for="menuitem-2-4"><span class="docs-label">Series Types</span><i class="docs-chevron"></i></label><ul class="collapsed"><li><a class="tocitem" href="../../../../series_types/contour/">Contour Plots</a></li><li><a class="tocitem" href="../../../../series_types/histogram/">Histograms</a></li></ul></li></ul></li><li><span class="tocitem">Manual</span><ul><li><a class="tocitem" href="../../../../input_data/">Input Data</a></li><li><a class="tocitem" href="../../../../output/">Output</a></li><li><a class="tocitem" href="../../../../attributes/">Attributes</a></li><li><a class="tocitem" href="../../../../generated/attributes_series/">Series Attributes</a></li><li><a class="tocitem" href="../../../../generated/attributes_plot/">Plot Attributes</a></li><li><a class="tocitem" href="../../../../generated/attributes_subplot/">Subplot Attributes</a></li><li><a class="tocitem" href="../../../../generated/attributes_axis/">Axis Attributes</a></li><li><a class="tocitem" href="../../../../layouts/">Layouts</a></li><li><input class="collapse-toggle" id="menuitem-3-9" type="checkbox"/><label class="tocitem" for="menuitem-3-9"><span class="docs-label">Recipes</span><i class="docs-chevron"></i></label><ul class="collapsed"><li><a class="tocitem" href="../../../../recipes/">Overview</a></li><li><input class="collapse-toggle" id="menuitem-3-9-2" type="checkbox"/><label class="tocitem" for="menuitem-3-9-2"><span class="docs-label">RecipesBase</span><i class="docs-chevron"></i></label><ul class="collapsed"><li><a class="tocitem" href="../../../../RecipesBase/">Home</a></li><li><a class="tocitem" href="../../../../RecipesBase/syntax/">Recipes Syntax</a></li><li><a class="tocitem" href="../../../../RecipesBase/types/">Recipes Types</a></li><li><a class="tocitem" href="../../../../RecipesBase/internals/">Internals</a></li><li><a class="tocitem" href="../../../../RecipesBase/api/">Public API</a></li></ul></li><li><input class="collapse-toggle" id="menuitem-3-9-3" type="checkbox"/><label class="tocitem" for="menuitem-3-9-3"><span class="docs-label">RecipesPipeline</span><i class="docs-chevron"></i></label><ul class="collapsed"><li><a class="tocitem" href="../../../../RecipesPipeline/">Home</a></li><li><a class="tocitem" href="../../../../RecipesPipeline/api/">Public API</a></li></ul></li></ul></li><li><a class="tocitem" href="../../../../colors/">Colors</a></li><li><a class="tocitem" href="../../../../generated/colorschemes/">ColorSchemes</a></li><li><a class="tocitem" href="../../../../animations/">Animations</a></li><li><a class="tocitem" href="../../../../generated/plotthemes/">Themes</a></li><li><a class="tocitem" href="../../../../backends/">Backends</a></li><li><a class="tocitem" href="../../../../generated/supported/">Supported Attributes</a></li></ul></li><li><a class="tocitem" href="../../../../learning/">Learning</a></li><li><a class="tocitem" href="../../../../contributing/">Contributing</a></li><li><span class="tocitem">Ecosystem</span><ul><li><a class="tocitem" href="../../../../generated/statsplots/">StatsPlots</a></li><li><input class="collapse-toggle" id="menuitem-6-2" type="checkbox"/><label class="tocitem" for="menuitem-6-2"><span class="docs-label">GraphRecipes</span><i class="docs-chevron"></i></label><ul class="collapsed"><li><a class="tocitem" href="../../../../GraphRecipes/introduction/">Introduction</a></li><li><a class="tocitem" href="../../../../GraphRecipes/examples/">Examples</a></li><li><a class="tocitem" href="../../../../generated/graph_attributes/">Attributes</a></li></ul></li><li><input class="collapse-toggle" id="menuitem-6-3" type="checkbox"/><label class="tocitem" for="menuitem-6-3"><span class="docs-label">UnitfulExt</span><i class="docs-chevron"></i></label><ul class="collapsed"><li><a class="tocitem" href="../../../../UnitfulExt/unitfulext/">Introduction</a></li><li><input class="collapse-toggle" id="menuitem-6-3-2" type="checkbox"/><label class="tocitem" for="menuitem-6-3-2"><span class="docs-label">Examples</span><i class="docs-chevron"></i></label><ul class="collapsed"><li><a class="tocitem" href="../../../../generated/unitfulext_examples/">Simple</a></li><li><a class="tocitem" href="../../../../generated/unitfulext_plots/">Plots</a></li></ul></li></ul></li><li><a class="tocitem" href="../../../../ecosystem/">Overview</a></li></ul></li><li><span class="tocitem">Advanced Topics</span><ul><li><a class="tocitem" href="../../../../plot_objects/">Plot objects</a></li><li><a class="tocitem" href="../../../../pipeline/">Plotting pipeline</a></li></ul></li><li><span class="tocitem">Gallery</span><ul><li><a class="tocitem" href="../../../gr/">GR</a></li><li><a class="tocitem" href="../../">PythonPlot</a></li><li><a class="tocitem" href="../../../plotlyjs/">PlotlyJS</a></li><li><a class="tocitem" href="../../../pgfplotsx/">PGFPlotsX</a></li><li><a class="tocitem" href="../../../unicodeplots/">UnicodePlots</a></li><li><a class="tocitem" href="../../../gaston/">Gaston</a></li></ul></li><li><a class="tocitem" href="../../../../user_gallery/">User Gallery</a></li><li><a class="tocitem" href="../../../../api/">API</a></li></ul><div class="docs-version-selector field has-addons"><div class="control"><span class="docs-label button is-static is-size-7">Version</span></div><div class="docs-selector control is-expanded"><div class="select is-fullwidth is-size-7"><select id="documenter-version-selector"></select></div></div></div></nav><div class="docs-main"><header class="docs-navbar"><a class="docs-sidebar-button docs-navbar-link fa-solid fa-bars is-hidden-desktop" id="documenter-sidebar-button" href="#"></a><nav class="breadcrumb"><ul class="is-hidden-mobile"><li class="is-active"><a href>Specifying edges and missing values for barplots</a></li></ul><ul class="is-hidden-tablet"><li class="is-active"><a href>Specifying edges and missing values for barplots</a></li></ul></nav><div class="docs-right"><a class="docs-navbar-link" href="https://github.com/JuliaPlots/Plots.jl" title="View the repository on GitHub"><span class="docs-icon fa-brands"></span><span class="docs-label is-hidden-touch">GitHub</span></a><a class="docs-navbar-link" href="https://github.com/JuliaPlots/Plots.jl/blob/v2/docs/gallery/pythonplot/generated/pythonplot-ref066.jl" title="Edit source on GitHub"><span class="docs-icon fa-solid"></span></a><a class="docs-settings-button docs-navbar-link fa-solid fa-gear" id="documenter-settings-button" href="#" title="Settings"></a><a class="docs-article-toggle-button fa-solid fa-chevron-up" id="documenter-article-toggle-button" href="javascript:;" title="Collapse all docstrings"></a></div></header><article class="content" id="documenter-page"><h1 id="pythonplot_ref066"><a class="docs-heading-anchor" href="#pythonplot_ref066">Specifying edges and missing values for barplots</a><a id="pythonplot_ref066-1"></a><a class="docs-heading-anchor-permalink" href="#pythonplot_ref066" title="Permalink"></a></h1><p><a href="../pythonplot-ref066.jl"><img src="https://img.shields.io/badge/download-julia-brightgreen.svg" alt="Source code"/></a> <a href="https://github.com/JuliaPlots/Plots.jl"><img src="https://img.shields.io/badge/Author-Plots.jl-blue" alt="Author"/></a> <img src="https://img.shields.io/date/1751824840" alt="Update time"/></p><pre><code class="language-julia hljs">using Plots
 pythonplot()
-
-</code></pre><p>In <code>bar(x, y)</code>, <code>x</code> may be the same length as <code>y</code> to specify bar centers, or one longer to specify bar edges.</p><pre><code class="language-julia hljs">plot(bar(-5:5, randn(10)), bar(-2:2, [2, -2, NaN, -1, 1], color = 1:5), legend = false)</code></pre><img src="data:image/png;base64,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" /><hr/><p><em>This page was generated using <a href="https://github.com/JuliaDocs/DemoCards.jl">DemoCards.jl</a> and <a href="https://github.com/fredrikekre/Literate.jl">Literate.jl</a>.</em></p></article><nav class="docs-footer"><p class="footer-message">Powered by <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> and the <a href="https://julialang.org/">Julia Programming Language</a>.</p></nav></div><div class="modal" id="documenter-settings"><div class="modal-background"></div><div class="modal-card"><header class="modal-card-head"><p class="modal-card-title">Settings</p><button class="delete"></button></header><section class="modal-card-body"><p><label class="label">Theme</label><div class="select"><select id="documenter-themepicker"><option value="auto">Automatic (OS)</option><option value="documenter-light">documenter-light</option><option value="documenter-dark">documenter-dark</option><option value="catppuccin-latte">catppuccin-latte</option><option value="catppuccin-frappe">catppuccin-frappe</option><option value="catppuccin-macchiato">catppuccin-macchiato</option><option value="catppuccin-mocha">catppuccin-mocha</option></select></div></p><hr/><p>This document was generated with <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> version 1.13.0 on <span class="colophon-date" title="Friday 4 July 2025 13:56">Friday 4 July 2025</span>. Using Julia version 1.11.5.</p></section><footer class="modal-card-foot"></footer></div></div></div></body></html>
+</code></pre><pre><code class="nohighlight hljs">StableRNGs.LehmerRNG(state=0x000000000000000000000000000009a5)</code></pre><p>In <code>bar(x, y)</code>, <code>x</code> may be the same length as <code>y</code> to specify bar centers, or one longer to specify bar edges.</p><pre><code class="language-julia hljs">plot(bar(-5:5, randn(10)), bar(-2:2, [2, -2, NaN, -1, 1], color = 1:5), legend = false)</code></pre><?xml version="1.0" encoding="utf-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+  "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg xmlns:xlink="http://www.w3.org/1999/xlink" width="432pt" height="288pt" viewBox="0 0 432 288" xmlns="http://www.w3.org/2000/svg" version="1.1">
+ <metadata>
+  <rdf:RDF xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+   <cc:Work>
+    <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+    <dc:date>2025-07-06T18:02:18.559663</dc:date>
+    <dc:format>image/svg+xml</dc:format>
+    <dc:creator>
+     <cc:Agent>
+      <dc:title>Matplotlib v3.10.3, https://matplotlib.org/</dc:title>
+     </cc:Agent>
+    </dc:creator>
+   </cc:Work>
+  </rdf:RDF>
+ </metadata>
+ <defs>
+  <style type="text/css">*{stroke-linejoin: round; stroke-linecap: butt}</style>
+ </defs>
+ <g id="figure_1">
+  <g id="patch_1">
+   <path d="M 0 288 
+L 432 288 
+L 432 0 
+L 0 0 
+z
+" style="fill: #ffffff"/>
+  </g>
+  <g id="axes_1">
+   <g id="patch_2">
+    <path d="M 21.994646 274.465354 
+L 216.990354 274.465354 
+L 216.990354 5.714646 
+L 21.994646 5.714646 
+z
+" style="fill: #ffffff"/>
+   </g>
+   <g id="matplotlib.axis_1">
+    <g id="xtick_1">
+     <g id="line2d_1">
+      <path d="M 48.657608 274.465354 
+L 48.657608 5.714646 
+" clip-path="url(#pb8d05ac35f)" style="fill: none; stroke: #000000; stroke-opacity: 0.1; stroke-width: 0.5; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_2">
+      <defs>
+       <path id="mebd18ad743" d="M 0 0 
+L 0 -3 
+" style="stroke: #000000; stroke-width: 0.5"/>
+      </defs>
+      <g>
+       <use xlink:href="#mebd18ad743" x="48.657608" y="274.465354" style="stroke: #000000; stroke-width: 0.5"/>
+      </g>
+     </g>
+     <g id="text_1">
+      <!-- -4 -->
+      <g transform="translate(44.669483 284.044104) scale(0.08 -0.08)">
+       <defs>
+        <path id="DejaVuSans-2d" d="M 313 2009 
+L 1997 2009 
+L 1997 1497 
+L 313 1497 
+L 313 2009 
+z
+" transform="scale(0.015625)"/>
+        <path id="DejaVuSans-34" d="M 2419 4116 
+L 825 1625 
+L 2419 1625 
+L 2419 4116 
+z
+M 2253 4666 
+L 3047 4666 
+L 3047 1625 
+L 3713 1625 
+L 3713 1100 
+L 3047 1100 
+L 3047 0 
+L 2419 0 
+L 2419 1100 
+L 313 1100 
+L 313 1709 
+L 2253 4666 
+z
+" transform="scale(0.015625)"/>
+       </defs>
+       <use xlink:href="#DejaVuSans-2d"/>
+       <use xlink:href="#DejaVuSans-34" transform="translate(36.083984 0)"/>
+      </g>
+     </g>
+    </g>
+    <g id="xtick_2">
+     <g id="line2d_3">
+      <path d="M 84.075054 274.465354 
+L 84.075054 5.714646 
+" clip-path="url(#pb8d05ac35f)" style="fill: none; stroke: #000000; stroke-opacity: 0.1; stroke-width: 0.5; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_4">
+      <g>
+       <use xlink:href="#mebd18ad743" x="84.075054" y="274.465354" style="stroke: #000000; stroke-width: 0.5"/>
+      </g>
+     </g>
+     <g id="text_2">
+      <!-- -2 -->
+      <g transform="translate(80.086929 284.044104) scale(0.08 -0.08)">
+       <defs>
+        <path id="DejaVuSans-32" d="M 1228 531 
+L 3431 531 
+L 3431 0 
+L 469 0 
+L 469 531 
+Q 828 903 1448 1529 
+Q 2069 2156 2228 2338 
+Q 2531 2678 2651 2914 
+Q 2772 3150 2772 3378 
+Q 2772 3750 2511 3984 
+Q 2250 4219 1831 4219 
+Q 1534 4219 1204 4116 
+Q 875 4013 500 3803 
+L 500 4441 
+Q 881 4594 1212 4672 
+Q 1544 4750 1819 4750 
+Q 2544 4750 2975 4387 
+Q 3406 4025 3406 3419 
+Q 3406 3131 3298 2873 
+Q 3191 2616 2906 2266 
+Q 2828 2175 2409 1742 
+Q 1991 1309 1228 531 
+z
+" transform="scale(0.015625)"/>
+       </defs>
+       <use xlink:href="#DejaVuSans-2d"/>
+       <use xlink:href="#DejaVuSans-32" transform="translate(36.083984 0)"/>
+      </g>
+     </g>
+    </g>
+    <g id="xtick_3">
+     <g id="line2d_5">
+      <path d="M 119.4925 274.465354 
+L 119.4925 5.714646 
+" clip-path="url(#pb8d05ac35f)" style="fill: none; stroke: #000000; stroke-opacity: 0.1; stroke-width: 0.5; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_6">
+      <g>
+       <use xlink:href="#mebd18ad743" x="119.4925" y="274.465354" style="stroke: #000000; stroke-width: 0.5"/>
+      </g>
+     </g>
+     <g id="text_3">
+      <!-- 0 -->
+      <g transform="translate(116.9475 284.044104) scale(0.08 -0.08)">
+       <defs>
+        <path id="DejaVuSans-30" d="M 2034 4250 
+Q 1547 4250 1301 3770 
+Q 1056 3291 1056 2328 
+Q 1056 1369 1301 889 
+Q 1547 409 2034 409 
+Q 2525 409 2770 889 
+Q 3016 1369 3016 2328 
+Q 3016 3291 2770 3770 
+Q 2525 4250 2034 4250 
+z
+M 2034 4750 
+Q 2819 4750 3233 4129 
+Q 3647 3509 3647 2328 
+Q 3647 1150 3233 529 
+Q 2819 -91 2034 -91 
+Q 1250 -91 836 529 
+Q 422 1150 422 2328 
+Q 422 3509 836 4129 
+Q 1250 4750 2034 4750 
+z
+" transform="scale(0.015625)"/>
+       </defs>
+       <use xlink:href="#DejaVuSans-30"/>
+      </g>
+     </g>
+    </g>
+    <g id="xtick_4">
+     <g id="line2d_7">
+      <path d="M 154.909946 274.465354 
+L 154.909946 5.714646 
+" clip-path="url(#pb8d05ac35f)" style="fill: none; stroke: #000000; stroke-opacity: 0.1; stroke-width: 0.5; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_8">
+      <g>
+       <use xlink:href="#mebd18ad743" x="154.909946" y="274.465354" style="stroke: #000000; stroke-width: 0.5"/>
+      </g>
+     </g>
+     <g id="text_4">
+      <!-- 2 -->
+      <g transform="translate(152.364946 284.044104) scale(0.08 -0.08)">
+       <use xlink:href="#DejaVuSans-32"/>
+      </g>
+     </g>
+    </g>
+    <g id="xtick_5">
+     <g id="line2d_9">
+      <path d="M 190.327392 274.465354 
+L 190.327392 5.714646 
+" clip-path="url(#pb8d05ac35f)" style="fill: none; stroke: #000000; stroke-opacity: 0.1; stroke-width: 0.5; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_10">
+      <g>
+       <use xlink:href="#mebd18ad743" x="190.327392" y="274.465354" style="stroke: #000000; stroke-width: 0.5"/>
+      </g>
+     </g>
+     <g id="text_5">
+      <!-- 4 -->
+      <g transform="translate(187.782392 284.044104) scale(0.08 -0.08)">
+       <use xlink:href="#DejaVuSans-34"/>
+      </g>
+     </g>
+    </g>
+   </g>
+   <g id="matplotlib.axis_2">
+    <g id="ytick_1">
+     <g id="line2d_11">
+      <path d="M 21.994646 235.519586 
+L 216.990354 235.519586 
+" clip-path="url(#pb8d05ac35f)" style="fill: none; stroke: #000000; stroke-opacity: 0.1; stroke-width: 0.5; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_12">
+      <defs>
+       <path id="mf567956c02" d="M 0 0 
+L 3 0 
+" style="stroke: #000000; stroke-width: 0.5"/>
+      </defs>
+      <g>
+       <use xlink:href="#mf567956c02" x="21.994646" y="235.519586" style="stroke: #000000; stroke-width: 0.5"/>
+      </g>
+     </g>
+     <g id="text_6">
+      <!-- -1.5 -->
+      <g transform="translate(2.885896 238.558961) scale(0.08 -0.08)">
+       <defs>
+        <path id="DejaVuSans-31" d="M 794 531 
+L 1825 531 
+L 1825 4091 
+L 703 3866 
+L 703 4441 
+L 1819 4666 
+L 2450 4666 
+L 2450 531 
+L 3481 531 
+L 3481 0 
+L 794 0 
+L 794 531 
+z
+" transform="scale(0.015625)"/>
+        <path id="DejaVuSans-2e" d="M 684 794 
+L 1344 794 
+L 1344 0 
+L 684 0 
+L 684 794 
+z
+" transform="scale(0.015625)"/>
+        <path id="DejaVuSans-35" d="M 691 4666 
+L 3169 4666 
+L 3169 4134 
+L 1269 4134 
+L 1269 2991 
+Q 1406 3038 1543 3061 
+Q 1681 3084 1819 3084 
+Q 2600 3084 3056 2656 
+Q 3513 2228 3513 1497 
+Q 3513 744 3044 326 
+Q 2575 -91 1722 -91 
+Q 1428 -91 1123 -41 
+Q 819 9 494 109 
+L 494 744 
+Q 775 591 1075 516 
+Q 1375 441 1709 441 
+Q 2250 441 2565 725 
+Q 2881 1009 2881 1497 
+Q 2881 1984 2565 2268 
+Q 2250 2553 1709 2553 
+Q 1456 2553 1204 2497 
+Q 953 2441 691 2322 
+L 691 4666 
+z
+" transform="scale(0.015625)"/>
+       </defs>
+       <use xlink:href="#DejaVuSans-2d"/>
+       <use xlink:href="#DejaVuSans-31" transform="translate(36.083984 0)"/>
+       <use xlink:href="#DejaVuSans-2e" transform="translate(99.707031 0)"/>
+       <use xlink:href="#DejaVuSans-35" transform="translate(131.494141 0)"/>
+      </g>
+     </g>
+    </g>
+    <g id="ytick_2">
+     <g id="line2d_13">
+      <path d="M 21.994646 187.745867 
+L 216.990354 187.745867 
+" clip-path="url(#pb8d05ac35f)" style="fill: none; stroke: #000000; stroke-opacity: 0.1; stroke-width: 0.5; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_14">
+      <g>
+       <use xlink:href="#mf567956c02" x="21.994646" y="187.745867" style="stroke: #000000; stroke-width: 0.5"/>
+      </g>
+     </g>
+     <g id="text_7">
+      <!-- -1.0 -->
+      <g transform="translate(2.885896 190.785242) scale(0.08 -0.08)">
+       <use xlink:href="#DejaVuSans-2d"/>
+       <use xlink:href="#DejaVuSans-31" transform="translate(36.083984 0)"/>
+       <use xlink:href="#DejaVuSans-2e" transform="translate(99.707031 0)"/>
+       <use xlink:href="#DejaVuSans-30" transform="translate(131.494141 0)"/>
+      </g>
+     </g>
+    </g>
+    <g id="ytick_3">
+     <g id="line2d_15">
+      <path d="M 21.994646 139.972148 
+L 216.990354 139.972148 
+" clip-path="url(#pb8d05ac35f)" style="fill: none; stroke: #000000; stroke-opacity: 0.1; stroke-width: 0.5; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_16">
+      <g>
+       <use xlink:href="#mf567956c02" x="21.994646" y="139.972148" style="stroke: #000000; stroke-width: 0.5"/>
+      </g>
+     </g>
+     <g id="text_8">
+      <!-- -0.5 -->
+      <g transform="translate(2.885896 143.011523) scale(0.08 -0.08)">
+       <use xlink:href="#DejaVuSans-2d"/>
+       <use xlink:href="#DejaVuSans-30" transform="translate(36.083984 0)"/>
+       <use xlink:href="#DejaVuSans-2e" transform="translate(99.707031 0)"/>
+       <use xlink:href="#DejaVuSans-35" transform="translate(131.494141 0)"/>
+      </g>
+     </g>
+    </g>
+    <g id="ytick_4">
+     <g id="line2d_17">
+      <path d="M 21.994646 92.198428 
+L 216.990354 92.198428 
+" clip-path="url(#pb8d05ac35f)" style="fill: none; stroke: #000000; stroke-opacity: 0.1; stroke-width: 0.5; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_18">
+      <g>
+       <use xlink:href="#mf567956c02" x="21.994646" y="92.198428" style="stroke: #000000; stroke-width: 0.5"/>
+      </g>
+     </g>
+     <g id="text_9">
+      <!-- 0.0 -->
+      <g transform="translate(5.772146 95.237803) scale(0.08 -0.08)">
+       <use xlink:href="#DejaVuSans-30"/>
+       <use xlink:href="#DejaVuSans-2e" transform="translate(63.623047 0)"/>
+       <use xlink:href="#DejaVuSans-30" transform="translate(95.410156 0)"/>
+      </g>
+     </g>
+    </g>
+    <g id="ytick_5">
+     <g id="line2d_19">
+      <path d="M 21.994646 44.424709 
+L 216.990354 44.424709 
+" clip-path="url(#pb8d05ac35f)" style="fill: none; stroke: #000000; stroke-opacity: 0.1; stroke-width: 0.5; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_20">
+      <g>
+       <use xlink:href="#mf567956c02" x="21.994646" y="44.424709" style="stroke: #000000; stroke-width: 0.5"/>
+      </g>
+     </g>
+     <g id="text_10">
+      <!-- 0.5 -->
+      <g transform="translate(5.772146 47.464084) scale(0.08 -0.08)">
+       <use xlink:href="#DejaVuSans-30"/>
+       <use xlink:href="#DejaVuSans-2e" transform="translate(63.623047 0)"/>
+       <use xlink:href="#DejaVuSans-35" transform="translate(95.410156 0)"/>
+      </g>
+     </g>
+    </g>
+   </g>
+   <g id="patch_3">
+    <path d="M 32.719757 42.562055 
+L 32.719757 92.198428 
+L 46.886735 92.198428 
+L 46.886735 42.562055 
+L 32.719757 42.562055 
+" clip-path="url(#pb8d05ac35f)" style="fill: #009afa; stroke: #000000; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_4">
+    <path d="M 50.42848 5.714646 
+L 50.42848 92.198428 
+L 64.595458 92.198428 
+L 64.595458 5.714646 
+L 50.42848 5.714646 
+" clip-path="url(#pb8d05ac35f)" style="fill: #009afa; stroke: #000000; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_5">
+    <path d="M 68.137203 252.30356 
+L 68.137203 92.198428 
+L 82.304181 92.198428 
+L 82.304181 252.30356 
+L 68.137203 252.30356 
+" clip-path="url(#pb8d05ac35f)" style="fill: #009afa; stroke: #000000; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_6">
+    <path d="M 85.845926 215.906893 
+L 85.845926 92.198428 
+L 100.012905 92.198428 
+L 100.012905 215.906893 
+L 85.845926 215.906893 
+" clip-path="url(#pb8d05ac35f)" style="fill: #009afa; stroke: #000000; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_7">
+    <path d="M 103.554649 157.587796 
+L 103.554649 92.198428 
+L 117.721628 92.198428 
+L 117.721628 157.587796 
+L 103.554649 157.587796 
+" clip-path="url(#pb8d05ac35f)" style="fill: #009afa; stroke: #000000; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_8">
+    <path d="M 121.263372 157.758356 
+L 121.263372 92.198428 
+L 135.430351 92.198428 
+L 135.430351 157.758356 
+L 121.263372 157.758356 
+" clip-path="url(#pb8d05ac35f)" style="fill: #009afa; stroke: #000000; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_9">
+    <path d="M 138.972095 83.385478 
+L 138.972095 92.198428 
+L 153.139074 92.198428 
+L 153.139074 83.385478 
+L 138.972095 83.385478 
+" clip-path="url(#pb8d05ac35f)" style="fill: #009afa; stroke: #000000; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_10">
+    <path d="M 156.680819 100.763019 
+L 156.680819 92.198428 
+L 170.847797 92.198428 
+L 170.847797 100.763019 
+L 156.680819 100.763019 
+" clip-path="url(#pb8d05ac35f)" style="fill: #009afa; stroke: #000000; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_11">
+    <path d="M 174.389542 230.943197 
+L 174.389542 92.198428 
+L 188.55652 92.198428 
+L 188.55652 230.943197 
+L 174.389542 230.943197 
+" clip-path="url(#pb8d05ac35f)" style="fill: #009afa; stroke: #000000; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_12">
+    <path d="M 192.098265 274.465354 
+L 192.098265 92.198428 
+L 206.265243 92.198428 
+L 206.265243 274.465354 
+L 192.098265 274.465354 
+" clip-path="url(#pb8d05ac35f)" style="fill: #009afa; stroke: #000000; stroke-linejoin: miter"/>
+   </g>
+   <g id="PathCollection_1">
+    <defs>
+     <path id="m683ce62550" d="M 0 0 
+C 0 0 0 0 0 0 
+C 0 0 0 0 0 0 
+C 0 0 0 0 0 0 
+C 0 0 0 0 0 0 
+C 0 0 0 0 0 0 
+C 0 0 0 0 0 0 
+C 0 0 0 0 0 0 
+C 0 0 0 0 0 0 
+z
+" style="stroke: #000000; stroke-opacity: 0"/>
+    </defs>
+    <g clip-path="url(#pb8d05ac35f)">
+     <use xlink:href="#m683ce62550" x="39.803246" y="42.562055" style="fill: #009afa; fill-opacity: 0; stroke: #000000; stroke-opacity: 0"/>
+     <use xlink:href="#m683ce62550" x="57.511969" y="5.714646" style="fill: #009afa; fill-opacity: 0; stroke: #000000; stroke-opacity: 0"/>
+     <use xlink:href="#m683ce62550" x="75.220692" y="252.30356" style="fill: #009afa; fill-opacity: 0; stroke: #000000; stroke-opacity: 0"/>
+     <use xlink:href="#m683ce62550" x="92.929415" y="215.906893" style="fill: #009afa; fill-opacity: 0; stroke: #000000; stroke-opacity: 0"/>
+     <use xlink:href="#m683ce62550" x="110.638138" y="157.587796" style="fill: #009afa; fill-opacity: 0; stroke: #000000; stroke-opacity: 0"/>
+     <use xlink:href="#m683ce62550" x="128.346862" y="157.758356" style="fill: #009afa; fill-opacity: 0; stroke: #000000; stroke-opacity: 0"/>
+     <use xlink:href="#m683ce62550" x="146.055585" y="83.385478" style="fill: #009afa; fill-opacity: 0; stroke: #000000; stroke-opacity: 0"/>
+     <use xlink:href="#m683ce62550" x="163.764308" y="100.763019" style="fill: #009afa; fill-opacity: 0; stroke: #000000; stroke-opacity: 0"/>
+     <use xlink:href="#m683ce62550" x="181.473031" y="230.943197" style="fill: #009afa; fill-opacity: 0; stroke: #000000; stroke-opacity: 0"/>
+     <use xlink:href="#m683ce62550" x="199.181754" y="274.465354" style="fill: #009afa; fill-opacity: 0; stroke: #000000; stroke-opacity: 0"/>
+    </g>
+   </g>
+   <g id="patch_13">
+    <path d="M 21.994646 274.465354 
+L 21.994646 5.714646 
+" style="fill: none; stroke: #000000; stroke-linejoin: miter; stroke-linecap: square"/>
+   </g>
+   <g id="patch_14">
+    <path d="M 21.994646 274.465354 
+L 216.990354 274.465354 
+" style="fill: none; stroke: #000000; stroke-linejoin: miter; stroke-linecap: square"/>
+   </g>
+  </g>
+  <g id="axes_2">
+   <g id="patch_15">
+    <path d="M 234.169646 274.465354 
+L 429.165354 274.465354 
+L 429.165354 5.714646 
+L 234.169646 5.714646 
+z
+" style="fill: #ffffff"/>
+   </g>
+   <g id="matplotlib.axis_3">
+    <g id="xtick_6">
+     <g id="line2d_21">
+      <path d="M 259.356881 274.465354 
+L 259.356881 5.714646 
+" clip-path="url(#p71b63cf62c)" style="fill: none; stroke: #000000; stroke-opacity: 0.1; stroke-width: 0.5; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_22">
+      <g>
+       <use xlink:href="#mebd18ad743" x="259.356881" y="274.465354" style="stroke: #000000; stroke-width: 0.5"/>
+      </g>
+     </g>
+     <g id="text_11">
+      <!-- -2 -->
+      <g transform="translate(255.368756 284.044104) scale(0.08 -0.08)">
+       <use xlink:href="#DejaVuSans-2d"/>
+       <use xlink:href="#DejaVuSans-32" transform="translate(36.083984 0)"/>
+      </g>
+     </g>
+    </g>
+    <g id="xtick_7">
+     <g id="line2d_23">
+      <path d="M 295.51219 274.465354 
+L 295.51219 5.714646 
+" clip-path="url(#p71b63cf62c)" style="fill: none; stroke: #000000; stroke-opacity: 0.1; stroke-width: 0.5; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_24">
+      <g>
+       <use xlink:href="#mebd18ad743" x="295.51219" y="274.465354" style="stroke: #000000; stroke-width: 0.5"/>
+      </g>
+     </g>
+     <g id="text_12">
+      <!-- -1 -->
+      <g transform="translate(291.524065 284.044104) scale(0.08 -0.08)">
+       <use xlink:href="#DejaVuSans-2d"/>
+       <use xlink:href="#DejaVuSans-31" transform="translate(36.083984 0)"/>
+      </g>
+     </g>
+    </g>
+    <g id="xtick_8">
+     <g id="line2d_25">
+      <path d="M 331.6675 274.465354 
+L 331.6675 5.714646 
+" clip-path="url(#p71b63cf62c)" style="fill: none; stroke: #000000; stroke-opacity: 0.1; stroke-width: 0.5; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_26">
+      <g>
+       <use xlink:href="#mebd18ad743" x="331.6675" y="274.465354" style="stroke: #000000; stroke-width: 0.5"/>
+      </g>
+     </g>
+     <g id="text_13">
+      <!-- 0 -->
+      <g transform="translate(329.1225 284.044104) scale(0.08 -0.08)">
+       <use xlink:href="#DejaVuSans-30"/>
+      </g>
+     </g>
+    </g>
+    <g id="xtick_9">
+     <g id="line2d_27">
+      <path d="M 367.82281 274.465354 
+L 367.82281 5.714646 
+" clip-path="url(#p71b63cf62c)" style="fill: none; stroke: #000000; stroke-opacity: 0.1; stroke-width: 0.5; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_28">
+      <g>
+       <use xlink:href="#mebd18ad743" x="367.82281" y="274.465354" style="stroke: #000000; stroke-width: 0.5"/>
+      </g>
+     </g>
+     <g id="text_14">
+      <!-- 1 -->
+      <g transform="translate(365.27781 284.044104) scale(0.08 -0.08)">
+       <use xlink:href="#DejaVuSans-31"/>
+      </g>
+     </g>
+    </g>
+    <g id="xtick_10">
+     <g id="line2d_29">
+      <path d="M 403.978119 274.465354 
+L 403.978119 5.714646 
+" clip-path="url(#p71b63cf62c)" style="fill: none; stroke: #000000; stroke-opacity: 0.1; stroke-width: 0.5; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_30">
+      <g>
+       <use xlink:href="#mebd18ad743" x="403.978119" y="274.465354" style="stroke: #000000; stroke-width: 0.5"/>
+      </g>
+     </g>
+     <g id="text_15">
+      <!-- 2 -->
+      <g transform="translate(401.433119 284.044104) scale(0.08 -0.08)">
+       <use xlink:href="#DejaVuSans-32"/>
+      </g>
+     </g>
+    </g>
+   </g>
+   <g id="matplotlib.axis_4">
+    <g id="ytick_6">
+     <g id="line2d_31">
+      <path d="M 234.169646 274.465354 
+L 429.165354 274.465354 
+" clip-path="url(#p71b63cf62c)" style="fill: none; stroke: #000000; stroke-opacity: 0.1; stroke-width: 0.5; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_32">
+      <g>
+       <use xlink:href="#mf567956c02" x="234.169646" y="274.465354" style="stroke: #000000; stroke-width: 0.5"/>
+      </g>
+     </g>
+     <g id="text_16">
+      <!-- -2 -->
+      <g transform="translate(222.693396 277.504729) scale(0.08 -0.08)">
+       <use xlink:href="#DejaVuSans-2d"/>
+       <use xlink:href="#DejaVuSans-32" transform="translate(36.083984 0)"/>
+      </g>
+     </g>
+    </g>
+    <g id="ytick_7">
+     <g id="line2d_33">
+      <path d="M 234.169646 207.277677 
+L 429.165354 207.277677 
+" clip-path="url(#p71b63cf62c)" style="fill: none; stroke: #000000; stroke-opacity: 0.1; stroke-width: 0.5; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_34">
+      <g>
+       <use xlink:href="#mf567956c02" x="234.169646" y="207.277677" style="stroke: #000000; stroke-width: 0.5"/>
+      </g>
+     </g>
+     <g id="text_17">
+      <!-- -1 -->
+      <g transform="translate(222.693396 210.317052) scale(0.08 -0.08)">
+       <use xlink:href="#DejaVuSans-2d"/>
+       <use xlink:href="#DejaVuSans-31" transform="translate(36.083984 0)"/>
+      </g>
+     </g>
+    </g>
+    <g id="ytick_8">
+     <g id="line2d_35">
+      <path d="M 234.169646 140.09 
+L 429.165354 140.09 
+" clip-path="url(#p71b63cf62c)" style="fill: none; stroke: #000000; stroke-opacity: 0.1; stroke-width: 0.5; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_36">
+      <g>
+       <use xlink:href="#mf567956c02" x="234.169646" y="140.09" style="stroke: #000000; stroke-width: 0.5"/>
+      </g>
+     </g>
+     <g id="text_18">
+      <!-- 0 -->
+      <g transform="translate(225.579646 143.129375) scale(0.08 -0.08)">
+       <use xlink:href="#DejaVuSans-30"/>
+      </g>
+     </g>
+    </g>
+    <g id="ytick_9">
+     <g id="line2d_37">
+      <path d="M 234.169646 72.902323 
+L 429.165354 72.902323 
+" clip-path="url(#p71b63cf62c)" style="fill: none; stroke: #000000; stroke-opacity: 0.1; stroke-width: 0.5; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_38">
+      <g>
+       <use xlink:href="#mf567956c02" x="234.169646" y="72.902323" style="stroke: #000000; stroke-width: 0.5"/>
+      </g>
+     </g>
+     <g id="text_19">
+      <!-- 1 -->
+      <g transform="translate(225.579646 75.941698) scale(0.08 -0.08)">
+       <use xlink:href="#DejaVuSans-31"/>
+      </g>
+     </g>
+    </g>
+    <g id="ytick_10">
+     <g id="line2d_39">
+      <path d="M 234.169646 5.714646 
+L 429.165354 5.714646 
+" clip-path="url(#p71b63cf62c)" style="fill: none; stroke: #000000; stroke-opacity: 0.1; stroke-width: 0.5; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_40">
+      <g>
+       <use xlink:href="#mf567956c02" x="234.169646" y="5.714646" style="stroke: #000000; stroke-width: 0.5"/>
+      </g>
+     </g>
+     <g id="text_20">
+      <!-- 2 -->
+      <g transform="translate(225.579646 8.754021) scale(0.08 -0.08)">
+       <use xlink:href="#DejaVuSans-32"/>
+      </g>
+     </g>
+    </g>
+   </g>
+   <g id="patch_16">
+    <path d="M 244.894757 5.714646 
+L 244.894757 140.09 
+" clip-path="url(#p71b63cf62c)" style="fill: #009afa; stroke: #000000; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_17">
+    <path d="M 244.894757 140.09 
+L 273.819004 140.09 
+" clip-path="url(#p71b63cf62c)" style="fill: #009afa; stroke: #000000; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_18">
+    <path d="M 273.819004 140.09 
+L 273.819004 5.714646 
+" clip-path="url(#p71b63cf62c)" style="fill: #009afa; stroke: #000000; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_19">
+    <path d="M 273.819004 5.714646 
+L 244.894757 5.714646 
+" clip-path="url(#p71b63cf62c)" style="fill: #009afa; stroke: #000000; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_20">
+    <path d="M 281.050066 274.465354 
+L 281.050066 140.09 
+" clip-path="url(#p71b63cf62c)" style="fill: #e36f47; stroke: #000000; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_21">
+    <path d="M 281.050066 140.09 
+L 309.974314 140.09 
+" clip-path="url(#p71b63cf62c)" style="fill: #e36f47; stroke: #000000; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_22">
+    <path d="M 309.974314 140.09 
+L 309.974314 274.465354 
+" clip-path="url(#p71b63cf62c)" style="fill: #e36f47; stroke: #000000; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_23">
+    <path d="M 309.974314 274.465354 
+L 281.050066 274.465354 
+" clip-path="url(#p71b63cf62c)" style="fill: #e36f47; stroke: #000000; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_24">
+    <path d="M 353.360686 207.277677 
+L 353.360686 140.09 
+" clip-path="url(#p71b63cf62c)" style="fill: #c371d2; stroke: #000000; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_25">
+    <path d="M 353.360686 140.09 
+L 382.284934 140.09 
+" clip-path="url(#p71b63cf62c)" style="fill: #c371d2; stroke: #000000; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_26">
+    <path d="M 382.284934 140.09 
+L 382.284934 207.277677 
+" clip-path="url(#p71b63cf62c)" style="fill: #c371d2; stroke: #000000; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_27">
+    <path d="M 382.284934 207.277677 
+L 353.360686 207.277677 
+" clip-path="url(#p71b63cf62c)" style="fill: #c371d2; stroke: #000000; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_28">
+    <path d="M 389.515996 72.902323 
+L 389.515996 140.09 
+" clip-path="url(#p71b63cf62c)" style="fill: #ac8e18; stroke: #000000; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_29">
+    <path d="M 389.515996 140.09 
+L 418.440243 140.09 
+" clip-path="url(#p71b63cf62c)" style="fill: #ac8e18; stroke: #000000; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_30">
+    <path d="M 418.440243 140.09 
+L 418.440243 72.902323 
+" clip-path="url(#p71b63cf62c)" style="fill: #ac8e18; stroke: #000000; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_31">
+    <path d="M 418.440243 72.902323 
+L 389.515996 72.902323 
+" clip-path="url(#p71b63cf62c)" style="fill: #ac8e18; stroke: #000000; stroke-linejoin: miter"/>
+   </g>
+   <g id="PathCollection_2">
+    <g clip-path="url(#p71b63cf62c)">
+     <use xlink:href="#m683ce62550" x="259.356881" y="5.714646" style="fill: #009afa; fill-opacity: 0; stroke: #000000; stroke-opacity: 0"/>
+    </g>
+   </g>
+   <g id="PathCollection_3">
+    <defs>
+     <path id="m8c9b3cf76a" d="M 0 0 
+C 0 0 0 0 0 0 
+C 0 0 0 0 0 0 
+C 0 0 0 0 0 0 
+C 0 0 0 0 0 0 
+C 0 0 0 0 0 0 
+C 0 0 0 0 0 0 
+C 0 0 0 0 0 0 
+C 0 0 0 0 0 0 
+z
+" style="stroke: #000000; stroke-opacity: 0"/>
+    </defs>
+    <g clip-path="url(#p71b63cf62c)">
+     <use xlink:href="#m8c9b3cf76a" x="295.51219" y="274.465354" style="fill: #e36f47; fill-opacity: 0; stroke: #000000; stroke-opacity: 0"/>
+    </g>
+   </g>
+   <g id="PathCollection_4">
+    <defs>
+     <path id="m809896693a" d="M 0 0 
+C 0 0 0 0 0 0 
+C 0 0 0 0 0 0 
+C 0 0 0 0 0 0 
+C 0 0 0 0 0 0 
+C 0 0 0 0 0 0 
+C 0 0 0 0 0 0 
+C 0 0 0 0 0 0 
+C 0 0 0 0 0 0 
+z
+" style="stroke: #000000; stroke-opacity: 0"/>
+    </defs>
+    <g clip-path="url(#p71b63cf62c)">
+     <use xlink:href="#m809896693a" x="367.82281" y="207.277677" style="fill: #c371d2; fill-opacity: 0; stroke: #000000; stroke-opacity: 0"/>
+    </g>
+   </g>
+   <g id="PathCollection_5">
+    <defs>
+     <path id="mf3058efa96" d="M 0 0 
+C 0 0 0 0 0 0 
+C 0 0 0 0 0 0 
+C 0 0 0 0 0 0 
+C 0 0 0 0 0 0 
+C 0 0 0 0 0 0 
+C 0 0 0 0 0 0 
+C 0 0 0 0 0 0 
+C 0 0 0 0 0 0 
+z
+" style="stroke: #000000; stroke-opacity: 0"/>
+    </defs>
+    <g clip-path="url(#p71b63cf62c)">
+     <use xlink:href="#mf3058efa96" x="403.978119" y="72.902323" style="fill: #ac8e18; fill-opacity: 0; stroke: #000000; stroke-opacity: 0"/>
+    </g>
+   </g>
+   <g id="patch_32">
+    <path d="M 234.169646 274.465354 
+L 234.169646 5.714646 
+" style="fill: none; stroke: #000000; stroke-linejoin: miter; stroke-linecap: square"/>
+   </g>
+   <g id="patch_33">
+    <path d="M 234.169646 274.465354 
+L 429.165354 274.465354 
+" style="fill: none; stroke: #000000; stroke-linejoin: miter; stroke-linecap: square"/>
+   </g>
+  </g>
+ </g>
+ <defs>
+  <clipPath id="pb8d05ac35f">
+   <rect x="21.994646" y="5.714646" width="194.995709" height="268.750709"/>
+  </clipPath>
+  <clipPath id="p71b63cf62c">
+   <rect x="234.169646" y="5.714646" width="194.995709" height="268.750709"/>
+  </clipPath>
+ </defs>
+</svg>
+<hr/><p><em>This page was generated using <a href="https://github.com/JuliaDocs/DemoCards.jl">DemoCards.jl</a> and <a href="https://github.com/fredrikekre/Literate.jl">Literate.jl</a>.</em></p></article><nav class="docs-footer"><p class="footer-message">Powered by <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> and the <a href="https://julialang.org/">Julia Programming Language</a>.</p></nav></div><div class="modal" id="documenter-settings"><div class="modal-background"></div><div class="modal-card"><header class="modal-card-head"><p class="modal-card-title">Settings</p><button class="delete"></button></header><section class="modal-card-body"><p><label class="label">Theme</label><div class="select"><select id="documenter-themepicker"><option value="auto">Automatic (OS)</option><option value="documenter-light">documenter-light</option><option value="documenter-dark">documenter-dark</option><option value="catppuccin-latte">catppuccin-latte</option><option value="catppuccin-frappe">catppuccin-frappe</option><option value="catppuccin-macchiato">catppuccin-macchiato</option><option value="catppuccin-mocha">catppuccin-mocha</option></select></div></p><hr/><p>This document was generated with <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> version 1.13.0 on <span class="colophon-date" title="Sunday 6 July 2025 18:14">Sunday 6 July 2025</span>. Using Julia version 1.11.5.</p></section><footer class="modal-card-foot"></footer></div></div></div></body></html>

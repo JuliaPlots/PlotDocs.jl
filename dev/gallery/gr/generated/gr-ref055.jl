@@ -2,11 +2,9 @@ using Plots
 const PlotsBase = Plots.PlotsBase  #hide
 gr()
 
-
 PlotsBase.reset_defaults()  #hide
 using StableRNGs  #hide
 rng = StableRNG(1234)  #hide
-nothing  #hide
 
 using LinearAlgebra
 with(scalefonts = 0.5) do
@@ -24,5 +22,6 @@ with(scalefonts = 0.5) do
     end
     plot(plots..., layout = @layout([_ ° _; ° ° °; ° ° °]), margin = 0 * PlotsBase.px)
 end
+current()  #hide
 
 # This file was generated using Literate.jl, https://github.com/fredrikekre/Literate.jl

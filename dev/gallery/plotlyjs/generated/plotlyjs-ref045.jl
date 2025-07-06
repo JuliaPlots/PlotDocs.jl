@@ -2,11 +2,9 @@ using Plots
 const PlotsBase = Plots.PlotsBase  #hide
 plotlyjs()
 
-
 PlotsBase.reset_defaults()  #hide
 using StableRNGs  #hide
 rng = StableRNG(1234)  #hide
-nothing  #hide
 
 struct Measurement <: Number
     val::Float64
@@ -30,6 +28,6 @@ y = Measurement.(10 * sort(rand(rng, 10)), rand(rng, 10))
 z = Measurement.(10 * sort(rand(rng, 10)), rand(rng, 10))
 surf = Measurement.((1:10) .* (1:10)', rand(rng, 10, 10))
 plot(scatter(x, [x y]), scatter(x, y, z), heatmap(x, y, surf), wireframe(x, y, surf), legend = :topleft)
-nothing  #hide
+current()  #hide
 
 # This file was generated using Literate.jl, https://github.com/fredrikekre/Literate.jl

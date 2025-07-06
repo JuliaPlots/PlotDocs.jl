@@ -2,11 +2,9 @@ using Plots
 const PlotsBase = Plots.PlotsBase  #hide
 gr()
 
-
 PlotsBase.reset_defaults()  #hide
 using StableRNGs  #hide
 rng = StableRNG(1234)  #hide
-nothing  #hide
 
 x = 1:0.5:20
 y = 1:0.5:10
@@ -19,5 +17,6 @@ Z = map(f, X, Y)
 p1 = contour(x, y, f, fill = true)
 p2 = contour(x, y, Z)
 plot(p1, p2)
+current()  #hide
 
 # This file was generated using Literate.jl, https://github.com/fredrikekre/Literate.jl

@@ -2,11 +2,9 @@ using Plots
 const PlotsBase = Plots.PlotsBase  #hide
 plotlyjs()
 
-
 PlotsBase.reset_defaults()  #hide
 using StableRNGs  #hide
 rng = StableRNG(1234)  #hide
-nothing  #hide
 
 using Statistics
 y = rand(rng, 20, 3)
@@ -15,6 +13,6 @@ hline!(mean(y, dims = 1) + rand(rng, 1, 3), line = (4, :dash, 0.6, [:lightgreen 
 vline!([5, 10])
 title!("TITLE")
 yaxis!("YLABEL", :log10, minorgrid = true)
-nothing  #hide
+current()  #hide
 
 # This file was generated using Literate.jl, https://github.com/fredrikekre/Literate.jl
