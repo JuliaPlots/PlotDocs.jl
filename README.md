@@ -5,7 +5,7 @@
 # Documentation deployment notes
 We only use the `gh-pages` branch of this repository to host the documentation (`stable`, `dev` and `preview`s) for Plots.
 
-The old version of the docs are kept in the branch `old-gh-pages`:
+The old versions of the docs are kept in the branch `old-gh-pages`:
 
 **DO NOT** delete these !
 
