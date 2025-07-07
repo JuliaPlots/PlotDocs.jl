@@ -7,3 +7,5 @@ We only use the `gh-pages` branch of this repository to host the documentation (
 The old version of the docs are kept in the branch `old-gh-pages`.
 
 Do *NOT* delete these !
+
+Trigger the [docs workflow](https://github.com/JuliaPlots/Plots.jl/actions/workflows/docs.yml) event on a specific tag in order to build the docs for a new release.
