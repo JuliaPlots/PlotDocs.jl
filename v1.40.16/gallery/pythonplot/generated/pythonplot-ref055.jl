@@ -23,5 +23,6 @@ Plots.with(scalefonts = 0.5) do
     end
     plot(plots..., layout = @layout([_ ° _; ° ° °; ° ° °]), margin = 0 * Plots.px)
 end
+current()  #hide
 
 # This file was generated using Literate.jl, https://github.com/fredrikekre/Literate.jl

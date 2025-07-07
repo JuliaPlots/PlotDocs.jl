@@ -13,6 +13,6 @@ for x = range(0, stop = 2π, length = 20)
     push!(p, x, Float64[sin(x), cos(x)])
     frame(anim)
 end
-Plots.gif(anim, "pgfplotsx_ref002.gif")
+Plots.gif(anim)  #hide
 
 # This file was generated using Literate.jl, https://github.com/fredrikekre/Literate.jl

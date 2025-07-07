@@ -9,5 +9,6 @@ nothing  #hide
 
 y = rand(rng, 10)
 plot(y .+ 1, fillrange = y, fillstyle = :/)
+current()  #hide
 
 # This file was generated using Literate.jl, https://github.com/fredrikekre/Literate.jl

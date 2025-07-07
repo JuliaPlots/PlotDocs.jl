@@ -18,7 +18,6 @@ Z = map(f, X, Y)
 p1 = contour(x, y, f, fill = true)
 p2 = contour(x, y, Z)
 plot(p1, p2)
-
-nothing  #hide
+current()  #hide
 
 # This file was generated using Literate.jl, https://github.com/fredrikekre/Literate.jl

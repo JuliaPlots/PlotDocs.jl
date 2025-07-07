@@ -5,6 +5,7 @@ gr()
 PlotsBase.reset_defaults()  #hide
 using StableRNGs  #hide
 rng = StableRNG(1234)  #hide
+nothing  #hide
 
 legs = (:topleft, :top, :topright, :left, :inside, :right, :bottomleft, :bottom, :bottomright)
 leg_plots(; kw...) = begin

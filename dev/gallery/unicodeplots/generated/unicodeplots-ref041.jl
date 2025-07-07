@@ -5,6 +5,7 @@ import FileIO, FreeType  #hide
 PlotsBase.reset_defaults()  #hide
 using StableRNGs  #hide
 rng = StableRNG(1234)  #hide
+nothing  #hide
 
 using StaticArrays, OffsetArrays
 sv = SVector{10}(rand(rng, 10))

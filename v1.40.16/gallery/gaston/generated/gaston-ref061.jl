@@ -8,5 +8,6 @@ rng = StableRNG(1234)  #hide
 nothing  #hide
 
 curves([1, 2, 3, 4], [1, 1, 2, 4], title = "Bézier curve")
+current()  #hide
 
 # This file was generated using Literate.jl, https://github.com/fredrikekre/Literate.jl

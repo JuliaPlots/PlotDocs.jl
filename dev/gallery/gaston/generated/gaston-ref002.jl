@@ -5,6 +5,7 @@ gaston()
 PlotsBase.reset_defaults()  #hide
 using StableRNGs  #hide
 rng = StableRNG(1234)  #hide
+nothing  #hide
 
 p = plot([sin, cos], zeros(0), leg = false, xlims = (0, 2π), ylims = (-1, 1))
 anim = Animation()

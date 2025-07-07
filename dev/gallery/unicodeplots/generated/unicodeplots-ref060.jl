@@ -5,6 +5,7 @@ import FileIO, FreeType  #hide
 PlotsBase.reset_defaults()  #hide
 using StableRNGs  #hide
 rng = StableRNG(1234)  #hide
+nothing  #hide
 
 x = [[-1, 1], [-1, -1], [-1, 1], [1, 1], [1, 1], [-1, -1], [-1, -1], [1, 1], [-1, 1], [-1, -1], [-1, 1], [1, 1]]
 y = [[1, 1], [-1, 1], [-1, -1], [-1, 1], [1, 1], [1, 1], [-1, -1], [-1, -1], [1, 1], [-1, 1], [-1, -1], [-1, 1]]

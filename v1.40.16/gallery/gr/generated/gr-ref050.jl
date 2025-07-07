@@ -15,5 +15,6 @@ Z = ((x, y)->begin
             1 / x + y * x ^ 2
         end)
 surface(X, Y, Z.(X, Y), xlabel = "longer xlabel", ylabel = "longer ylabel", zlabel = "longer zlabel")
+current()  #hide
 
 # This file was generated using Literate.jl, https://github.com/fredrikekre/Literate.jl

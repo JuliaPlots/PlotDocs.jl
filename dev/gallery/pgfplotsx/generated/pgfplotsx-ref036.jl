@@ -5,6 +5,7 @@ pgfplotsx()
 PlotsBase.reset_defaults()  #hide
 using StableRNGs  #hide
 rng = StableRNG(1234)  #hide
+nothing  #hide
 
 using Random
 Random.seed!(111)

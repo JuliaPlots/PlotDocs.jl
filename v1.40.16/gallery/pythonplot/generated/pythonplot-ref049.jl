@@ -11,5 +11,6 @@ nothing  #hide
 ρ = range(0, 120; length = 50)
 z = sin.(ρ ./ 10) .* (cos.(θ))'
 heatmap(θ, ρ, z; projection = :polar, color = :cividis, right_margin = 2 * Plots.mm)
+current()  #hide
 
 # This file was generated using Literate.jl, https://github.com/fredrikekre/Literate.jl

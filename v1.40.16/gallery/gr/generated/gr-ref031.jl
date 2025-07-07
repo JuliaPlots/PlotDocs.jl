@@ -14,6 +14,6 @@ for x = range(1, stop = 2π, length = 20)
     plot(push!(p, x, Float64[sin(x), cos(x), atan(x), cos(x), log(x)]))
     frame(anim)
 end
-Plots.gif(anim, "gr_ref031.gif")
+Plots.gif(anim)  #hide
 
 # This file was generated using Literate.jl, https://github.com/fredrikekre/Literate.jl

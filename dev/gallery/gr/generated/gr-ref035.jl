@@ -5,6 +5,7 @@ gr()
 PlotsBase.reset_defaults()  #hide
 using StableRNGs  #hide
 rng = StableRNG(1234)  #hide
+nothing  #hide
 
 t = range(0, stop = 1, length = 100)
 θ = (6π) .* t

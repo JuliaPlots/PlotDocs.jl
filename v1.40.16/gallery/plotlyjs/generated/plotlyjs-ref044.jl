@@ -13,7 +13,6 @@ plot(plot(x, (x->begin
             end)), plot(x, (x->begin
                 sin(x)
             end)), layout = 2, link = :y)
-
-nothing  #hide
+current()  #hide
 
 # This file was generated using Literate.jl, https://github.com/fredrikekre/Literate.jl

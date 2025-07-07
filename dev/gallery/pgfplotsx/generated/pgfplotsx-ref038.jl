@@ -5,6 +5,7 @@ pgfplotsx()
 PlotsBase.reset_defaults()  #hide
 using StableRNGs  #hide
 rng = StableRNG(1234)  #hide
+nothing  #hide
 
 n = 10000
 x = exp.(0.1 * randn(rng, n) .+ randn(rng, n) .* im)

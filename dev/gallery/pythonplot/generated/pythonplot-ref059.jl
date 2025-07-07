@@ -5,6 +5,7 @@ pythonplot()
 PlotsBase.reset_defaults()  #hide
 using StableRNGs  #hide
 rng = StableRNG(1234)  #hide
+nothing  #hide
 
 (x, y) = (["a", "b", "c"], [1, 5, 15])
 p = scatter(["a", "b"], ["q", "r"], ms = 8, legend = false, tickfontsize = 20)

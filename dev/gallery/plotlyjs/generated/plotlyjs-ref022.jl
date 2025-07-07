@@ -5,6 +5,7 @@ plotlyjs()
 PlotsBase.reset_defaults()  #hide
 using StableRNGs  #hide
 rng = StableRNG(1234)  #hide
+nothing  #hide
 
 x = 1:0.5:20
 y = 1:0.5:10

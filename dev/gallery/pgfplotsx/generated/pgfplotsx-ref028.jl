@@ -5,6 +5,7 @@ pgfplotsx()
 PlotsBase.reset_defaults()  #hide
 using StableRNGs  #hide
 rng = StableRNG(1234)  #hide
+nothing  #hide
 
 xs = [string("x", i) for i = 1:10]
 ys = [string("y", i) for i = 1:4]

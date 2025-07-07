@@ -5,6 +5,7 @@ pgfplotsx()
 PlotsBase.reset_defaults()  #hide
 using StableRNGs  #hide
 rng = StableRNG(1234)  #hide
+nothing  #hide
 
 ϕs = range(-π, π, length = 50)
 θs = range(0, π, length = 25)

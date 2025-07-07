@@ -15,7 +15,6 @@ weights = rand(rng, N, D)
 weights ./= sum(weights, dims = 2)
 returns = sort!((1:N) + D * randn(rng, N))
 portfoliocomposition(weights, returns, labels = permutedims(tickers))
-
-nothing  #hide
+current()  #hide
 
 # This file was generated using Literate.jl, https://github.com/fredrikekre/Literate.jl

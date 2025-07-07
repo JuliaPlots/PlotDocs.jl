@@ -5,6 +5,7 @@ gaston()
 PlotsBase.reset_defaults()  #hide
 using StableRNGs  #hide
 rng = StableRNG(1234)  #hide
+nothing  #hide
 
 n = 100
 ts = range(0, stop = 8π, length = n)

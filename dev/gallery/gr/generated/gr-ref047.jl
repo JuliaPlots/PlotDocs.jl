@@ -5,6 +5,7 @@ gr()
 PlotsBase.reset_defaults()  #hide
 using StableRNGs  #hide
 rng = StableRNG(1234)  #hide
+nothing  #hide
 
 x = [0, 1, 2, 0]
 y = [0, 0, 1, 2]

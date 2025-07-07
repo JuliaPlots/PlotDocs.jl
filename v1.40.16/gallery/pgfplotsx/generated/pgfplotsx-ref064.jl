@@ -17,5 +17,6 @@ leg_plots(; kw...) = begin
 Plots.with(scalefonts = 0.5, size = (2w, 2h)) do
     plot(leg_plots()..., leg_plots(legend_column = -1)...; layout = (6, 3))
 end
+current()  #hide
 
 # This file was generated using Literate.jl, https://github.com/fredrikekre/Literate.jl

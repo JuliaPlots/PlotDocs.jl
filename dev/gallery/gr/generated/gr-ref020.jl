@@ -5,6 +5,7 @@ gr()
 PlotsBase.reset_defaults()  #hide
 using StableRNGs  #hide
 rng = StableRNG(1234)  #hide
+nothing  #hide
 
 y = rand(rng, 10)
 plot(y, annotations = (3, y[3], PlotsBase.text("this is #3", :left)), leg = false)

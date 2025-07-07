@@ -14,5 +14,6 @@ hline!(mean(y, dims = 1) + rand(rng, 1, 3), line = (4, :dash, 0.6, [:lightgreen 
 vline!([5, 10])
 title!("TITLE")
 yaxis!("YLABEL", :log10, minorgrid = true)
+current()  #hide
 
 # This file was generated using Literate.jl, https://github.com/fredrikekre/Literate.jl
