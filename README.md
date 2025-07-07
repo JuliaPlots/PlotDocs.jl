@@ -1,7 +1,8 @@
 # WARNING
 
-https://github.com/JuliaPlots/PlotDocs.jl is now integrated into https://github.com/JuliaPlots/Plots.jl for Plots v1 or v2, please make corresponding PRs or open issues there.
+[PlotDocs](https://github.com/JuliaPlots/PlotDocs.jl) is now integrated into [Plots.jl](https://github.com/JuliaPlots/Plots.jl ) [v1](https://github.com/JuliaPlots/Plots.jl/tree/master/docs) or [v2](https://github.com/JuliaPlots/Plots.jl/tree/v2/docs), please make corresponding PRs or open issues there.
 
+# Documentation deployment notes
 We only use the `gh-pages` branch of this repository to host the documentation (`stable`, `dev` and `preview`s) for Plots.
 
 The old version of the docs are kept in the branch `old-gh-pages`.
