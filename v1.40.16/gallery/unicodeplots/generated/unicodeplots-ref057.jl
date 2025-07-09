@@ -1,7 +1,6 @@
 using Plots
 unicodeplots()
 import FileIO, FreeType  #hide
-
 Plots.reset_defaults()  #hide
 using StableRNGs  #hide
 rng = StableRNG(1234)  #hide

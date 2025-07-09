@@ -1,7 +1,6 @@
 using Plots
 plotlyjs()
 
-
 Plots.reset_defaults()  #hide
 using StableRNGs  #hide
 rng = StableRNG(1234)  #hide
@@ -29,6 +28,8 @@ y = Measurement.(10 * sort(rand(rng, 10)), rand(rng, 10))
 z = Measurement.(10 * sort(rand(rng, 10)), rand(rng, 10))
 surf = Measurement.((1:10) .* (1:10)', rand(rng, 10, 10))
 plot(scatter(x, [x y]), scatter(x, y, z), heatmap(x, y, surf), wireframe(x, y, surf), legend = :topleft)
-current()  #hide
+nothing  #hide
+
+  #hide
 
 # This file was generated using Literate.jl, https://github.com/fredrikekre/Literate.jl

@@ -17,6 +17,8 @@ u = 0.1 * vec([sin(θ) * cos(ϕ) for (ϕ, θ) = Iterators.product(ϕs, θqs)])
 v = 0.1 * vec([sin(θ) * sin(ϕ) for (ϕ, θ) = Iterators.product(ϕs, θqs)])
 w = 0.1 * vec([cos(θ) for (ϕ, θ) = Iterators.product(ϕs, θqs)])
 quiver(x, y, z, quiver = (u, v, w))
-current()  #hide
+nothing  #hide
+
+  #hide
 
 # This file was generated using Literate.jl, https://github.com/fredrikekre/Literate.jl
